@@ -60,7 +60,12 @@
     */
     ?>
     <a class="logo" href="<?= $site->url() ?>">
-      <?= $site->title()->esc() ?>
+
+
+      <?php if($image = $site->file()): ?>
+        <img src="<?= $image->url() ?>" alt="" id="logo_img" style="object-position: <?= $image->focus() ?> ">
+        
+      <?php endif ?>
     </a>
 
     <nav class="menu">

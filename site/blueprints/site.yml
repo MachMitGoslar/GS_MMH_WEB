@@ -4,10 +4,24 @@
 # In this example blueprint, we also show subpages of the `photography` and `notes` pages.
 # More about the site blueprint: https://getkirby.com/docs/reference/panel/blueprints/site
 
+
+
 # The layout of this form has two columns:
 columns:
   # The first column has one section for the subpages of the `photography` page in card layout
   # It reuses the pages section defined in `/site/blueprints/sections/albums.yml`
+  - width: 1/1
+    sections:
+      logo:
+        type: files
+        label: Site Logo
+        min: 1
+        max: 1
+        multiple: false
+        ratio: 1/1
+        uploads:
+          template: image
+
   - width: 1/2
     sections:
       albums: sections/albums

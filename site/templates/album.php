@@ -21,6 +21,8 @@
 <?php snippet('header') ?>
 <article>
   <?php snippet('intro') ?>
+  <?php snippet('project_status') ?>
+  
   <div class="grid">
 
     <div class="column" style="--columns: 4">

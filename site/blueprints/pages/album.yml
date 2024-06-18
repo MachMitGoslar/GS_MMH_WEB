@@ -33,9 +33,19 @@ columns:
         help: Leave empty to use the title as headline
       subheadline:
         type: text
+      project_status:
+        type: select
+        label: Projektzustand
+        options:
+          - in Planung
+          - in Vorbereitung
+          - aktiv
+          - in Auswertung
+          - abgeschlossen
       text:
         type: writer
       tags: true
+
 
   - width: 2/3
     sections:

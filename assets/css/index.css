@@ -68,6 +68,16 @@ small {
   color: var(--color-text-grey);
 }
 
+.badge-green {
+  background-color: var(--color-code-green);
+  border: 1px solid var(--color-code-green);
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+}
+
+
+
 .header {
   position: relative;
   display: flex;
@@ -85,7 +95,12 @@ small {
   font-weight: 600;
   cursor: pointer;
 }
+#logo_img {
 
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
+}
 .menu {
   display: flex;
 }
