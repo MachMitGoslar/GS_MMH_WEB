@@ -1,9 +1,0 @@
-Sort: 1
-
-----
-
-Uuid: fue7z21gkn0kBwlh
-
-----
-
-Focus: 53.4% 53.6%

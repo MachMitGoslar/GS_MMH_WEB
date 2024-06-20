@@ -29,10 +29,10 @@
   */
   ?>
   <?php if ($photographyPage = page('photography')): ?>
-  <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
+  <ul class="grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense">
     <?php foreach ($photographyPage->children()->listed() as $album): ?>
     <li>
-        <figure class="relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
+        <figure class="relative max-w-sm hover:border-gold hover:border-solid hover:border-2 rounded-lg hover:rounded-lg col-span-2 row-span-2">
         <a href="<?= $album->url() ?>">
 
           <?php
@@ -46,15 +46,18 @@
           */
           ?>
           <?php if ($cover = $album->cover()): ?>
-          <img class="h-auto max-w-full rounded-lg" src="<?= $cover->resize(1024, 1024)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
+            <p><?= $album->cover_focus() ?></p>
+              <img class="filter hover:blur aspect-square	border-2 border-transparent object-cover h-auto max-w-full rounded-lg hover:rounded-lg transition-all duration-300 cursor-pointer" style="focus: <?= $cover->focus() ?>" src="<?= $cover->resize(1024, 1024)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
+
           <?php endif ?>
           </a>
 
-          <figcaption class="absolute px-4 text-lg text-white bottom-6">
-              <p class="text-white"><?= $album->title()->esc() ?></p>
+          <figcaption class=" rounded-lg absolute text-lg  text-white text-center bottom-0 py-5 w-full bg-gradient-to-t from-gold">
+              <p class="text-white font-black" ><?= $album->title()->esc() ?></p>
           </figcaption>
         </figure>
     </li>
+    
     <?php endforeach ?>
   </ul>
   <?php endif ?>

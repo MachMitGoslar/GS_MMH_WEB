@@ -20,4 +20,6 @@ class AlbumPage extends Page
     {
         return $this->content()->get('cover')->toFile() ?? $this->image();
     }
+
+
 }

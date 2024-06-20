@@ -2,8 +2,28 @@ Caption:
 
 ----
 
+Alt: 
+
+----
+
+Photographer: 
+
+----
+
+License: 
+
+----
+
+Link: 
+
+----
+
 Uuid: HIPff7AIySF1tKqt
 
 ----
 
 Template: image
+
+----
+
+Focus: 0.0% 50.2%

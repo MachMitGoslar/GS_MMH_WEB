@@ -23,16 +23,16 @@
   <?php snippet('intro') ?>
   <?php snippet('project_status') ?>
   
-  <div class="grid">
+  <div class="grid grid-cols-12">
 
-    <div class="column" style="--columns: 4">
+    <div class="col-span-12 lg:col-span-4 gap-4">
       <div class="text">
         <?= $page->text() ?>
       </div>
     </div>
 
-    <div class="column" style="--columns: 8">
-      <ul class="album-gallery">
+    <div class="col-span-12 lg:col-span-8">
+      <ul class="grid grid-cols-2 gap-4">
         <?php foreach ($gallery as $image): ?>
         <li>
           <a href="<?= $image->url() ?>" data-lightbox>

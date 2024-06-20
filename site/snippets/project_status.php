@@ -12,14 +12,22 @@ Snippet for setting the project status Field. Reusable
         $status = $page->project_status()->toString();
         switch ($status) {
             case("in Vorbereitung"):
-                echo('<p class="badge-green">In Vorbereitung</p>');
+                $color = "green";
+                /*$test = "border-green-400";*/
+                /*$test = "bg-green";*/
+                break;
+            case("aktiv"):
+                $color = "gold";
+                $test = "border-gold-400";
+
                 break;
             default:
-                 echo('<p class="color-grey">Kein Status</p>');
+                $color = "blue";
         }
-
+    
     }
 
     ?>
+    <span class="badge bg-<?=$color?> border-solid border-2 border-<?=$color?>-400"> <?=$status?> </span>
     </div>
 </header>
