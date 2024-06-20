@@ -11,17 +11,17 @@
   https://getkirby.com/docs/guide/templates/snippets
 */
 ?>
-<span class="social">
-  <a href="https://mastodon.social/@getkirby" aria-label="Follow us on Mastodon">
+<span class="social block inline-flex px-5">
+  <a href="https://mastodon.social/@getkirby" aria-label="Follow us on Mastodon" class="px-2 py-1 hover:text-gold">
     <?= svg('assets/icons/mastodon.svg') ?>
   </a>
-  <a href="https://instagram.com/getkirby" aria-label="Follow us on Instagram">
+  <a href="https://instagram.com/getkirby" aria-label="Follow us on Instagram" class="px-2 py-1 hover:text-gold">
     <?= svg('assets/icons/instagram.svg') ?>
   </a>
-  <a href="https://youtube.com/kirbycasts" aria-label="Watch our videos on YouTube">
+  <a href="https://youtube.com/kirbycasts" aria-label="Watch our videos on YouTube" class="px-2 py-1 hover:text-gold">
     <?= svg('assets/icons/youtube.svg') ?>
   </a>
-  <a href="https://chat.getkirby.com" aria-label="Chat with us on Discord">
+  <a href="https://chat.getkirby.com" aria-label="Chat with us on Discord" class="px-2 py-1 hover:text-gold">
     <?= svg('assets/icons/discord.svg') ?>
   </a>
 </span>

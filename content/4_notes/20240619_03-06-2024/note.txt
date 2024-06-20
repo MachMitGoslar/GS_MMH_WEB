@@ -1,0 +1,25 @@
+Title: 03.06.2024
+
+----
+
+Text: [{"content":{"location":"kirby","image":["file://DWarsnyRCcqE9Du7"],"src":"","alt":"","caption":"","link":"","ratio":"","crop":"false"},"id":"2db83e7c-f45a-46d0-84df-a1c372e21f6c","isHidden":false,"type":"image"},{"content":{"text":"<p>Liebes MachMit!Tagebuch...</p><p>lirumlarum löffelstiel, kleine Kinder essen viel, große müssen fasten...</p>"},"id":"a3bb55ac-c228-44cc-952a-178013bbed4c","isHidden":false,"type":"text"}]
+
+----
+
+Cover: 
+
+----
+
+Date: 2024-06-19 19:15:00
+
+----
+
+Author: 
+
+----
+
+Tags: 
+
+----
+
+Uuid: oRdkNZXdNycEUJxA

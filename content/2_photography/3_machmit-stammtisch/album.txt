@@ -1,0 +1,29 @@
+Title: MachMit!Stammtisch
+
+----
+
+Cover: - file://VP9jg24SB6exOutd
+
+----
+
+Headline: 
+
+----
+
+Subheadline: Für das Leben in unserer Stadt
+
+----
+
+Project-status: aktiv
+
+----
+
+Text: <p>In regelmäßigen Abständen laden wir die Community wir zu konkreten aktuellen Themen an den "Stammtisch" im MachMit!Haus. Stammtisch steht dabei für einen offenen und fairen Austausch. Konkret, sachlich und mit dem Herzen emotional für das Leben in unserer Stadt</p>
+
+----
+
+Tags: 
+
+----
+
+Uuid: kJ4y0D7zvTMIlQcz

@@ -1,0 +1,25 @@
+Title: Tagebucheintrag
+
+----
+
+Text: [{"content":{"location":"kirby","image":["file://X70RewxTEJgwzVAZ"],"src":"","alt":"","caption":"","link":"","ratio":"","crop":"false"},"id":"6c36be25-6812-4a7f-ae2e-c321ec00a87d","isHidden":false,"type":"image"},{"content":{"text":"<p>Liebes MachMit!Tagebuch...</p><p>heute war ein Interessent für das Hochwasser-Lotsen Projekt im Haus. Wir haben uns kurz über das Projekt ausgetauscht.</p><p></p><p>Außerdem laufen die Vorbereitungen für den Digitaltag am 07.06.2024 auf Hochtouren. Wir haben als Besonderheit den Digitaltag day and night im Angebot. Ab 19:00 Uhr können am Freitag Programmierinteressierte bis in die Nacht gemeinsam Python coden.</p>"},"id":"e99dfde3-8467-4681-9bee-7cb481b469fc","isHidden":false,"type":"text"}]
+
+----
+
+Cover: 
+
+----
+
+Date: 2024-06-19 19:15:00
+
+----
+
+Author: 
+
+----
+
+Tags: verwaltung, digitalisierung
+
+----
+
+Uuid: Q3qpHCb4pSKHy3yu

@@ -2,11 +2,11 @@ Title: Home
 
 ----
 
-Headline: Welcome to Kirby's Starterkit
+Headline: MachMit!Community - Bürgerbeteiligung Goslar
 
 ----
 
-Subheadline: A fully documented example project
+Subheadline: Willkommen in der Welt die Goslar verändert - jeden Tag und mit Dir!
 
 ----
 

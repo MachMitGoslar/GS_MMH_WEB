@@ -1,3 +1,5 @@
+
+
 // Lightbox
 Array.from(document.querySelectorAll("[data-lightbox]")).forEach(element => {
   element.onclick = (e) => {
@@ -5,3 +7,4 @@ Array.from(document.querySelectorAll("[data-lightbox]")).forEach(element => {
     basicLightbox.create(`<img src="${element.href}">`).show();
   };
 });
+

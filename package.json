@@ -1,0 +1,30 @@
+{
+  "name": "gs_mmh_web",
+  "version": "0.0.1",
+  "description": "The new Web-Site and App for the MachMit!Haus in Goslar",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tailwindcss -i ./site/stylesheets/tailwind.css -o ./assets/css/index.css --watch --content './site/**/*.php'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rangarius/GS_MMH_WEB.git"
+  },
+  "keywords": [
+    "website",
+    "kirby"
+  ],
+  "author": "stuffdev.de",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rangarius/GS_MMH_WEB/issues"
+  },
+  "homepage": "https://github.com/rangarius/GS_MMH_WEB#readme",
+  "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "flowbite-typography": "^1.0.3",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.4"
+  }
+}

@@ -49,3 +49,8 @@ Icon
 
 /site/config/.license
 /site/config/config.starterkit.test.php
+
+# NPM
+# ------------
+/node_modules
+composer.phar

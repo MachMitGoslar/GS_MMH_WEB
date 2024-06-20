@@ -29,11 +29,12 @@
   */
   ?>
   <?php if ($photographyPage = page('photography')): ?>
-  <ul class="home-grid">
+  <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
     <?php foreach ($photographyPage->children()->listed() as $album): ?>
     <li>
-      <a href="<?= $album->url() ?>">
-        <figure>
+        <figure class="relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
+        <a href="<?= $album->url() ?>">
+
           <?php
           /*
             The `cover()` method defined in the `album.php`
@@ -45,15 +46,14 @@
           */
           ?>
           <?php if ($cover = $album->cover()): ?>
-          <img src="<?= $cover->resize(1024, 1024)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
+          <img class="h-auto max-w-full rounded-lg" src="<?= $cover->resize(1024, 1024)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
           <?php endif ?>
-          <figcaption>
-            <span>
-              <span class="example-name"><?= $album->title()->esc() ?></span>
-            </span>
+          </a>
+
+          <figcaption class="absolute px-4 text-lg text-white bottom-6">
+              <p class="text-white"><?= $album->title()->esc() ?></p>
           </figcaption>
         </figure>
-      </a>
     </li>
     <?php endforeach ?>
   </ul>
