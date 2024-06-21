@@ -3,13 +3,13 @@
 # Sections can have different layouts and display additional information or a preview image
 # More about pages sections: https://getkirby.com/docs/reference/panel/sections/pages
 type: pages
-label: Photography
-parent: kirby.page("photography")
+label: Projekte
+parent: kirby.page("projects")
 size: small
 info: "{{ page.images.count }} image(s)"
 layout: cards
-template: album
-empty: No albums yet
+template: project
+empty: Bisher keine Projekte
 image:
   query: page.cover
   cover: true

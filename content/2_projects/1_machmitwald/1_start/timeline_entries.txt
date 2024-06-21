@@ -1,0 +1,33 @@
+Title: Start
+
+----
+
+Cover: 
+
+----
+
+Project-start-date: 2024-06-06
+
+----
+
+Project-start-time: 05:00:00
+
+----
+
+Project-status-from: in Planung
+
+----
+
+Project-status-to: in Vorbereitung
+
+----
+
+Description: 
+
+----
+
+Tags: 
+
+----
+
+Uuid: BrhnZbAgjndUlJ2L

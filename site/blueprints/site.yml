@@ -24,7 +24,7 @@ columns:
 
   - width: 1/2
     sections:
-      albums: sections/albums
+      project: sections/projects
 
   # The second column has two sections, `notes` and `pages`
   - width: 1/2

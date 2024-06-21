@@ -11,11 +11,9 @@
 return function ($page) {
 
     $gallery = $page->images()->sortBy('sort', 'filename');
-    $timeline = $page->entries();
 
     return [
         'gallery' => $gallery,
-        'timeline' => $timeline
     ];
 
     

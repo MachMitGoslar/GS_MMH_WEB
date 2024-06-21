@@ -21,7 +21,11 @@
 <?php snippet('header') ?>
 <article>
   <?php snippet('intro') ?>
-  <?php snippet('project_status') ?>
+  <?php 
+    if ($page->project_status()->isNotEmpty()) {
+      snippet('project_status', ['project_status' => $page->project_status(), 'showTitle' => true]);
+    }
+  ?>
   
   <div class="grid grid-cols-12">
 
@@ -44,6 +48,18 @@
         <?php endforeach ?>
       </ul>
     </div>
+        </div>
+    <?php if($page->children()->isNotEmpty()): ?>
+      <div class="project_steps">
+    <h1 class=" font-black text-2xl"> Projektschritte </h1>
+
+    <ol class="relative border-s border-gray-200 dark:border-gray-700">
+        <?php foreach($page->children() as $entry): ?>
+          <?php snippet('timeline_entry', ['entry' => $entry]) ?>
+        <?php endforeach ?>
+    </ol>
+        </div>
+    <?php endif ?>
 
 </article>
 <?php snippet('footer') ?>
