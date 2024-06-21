@@ -11,9 +11,9 @@
 */
 ?>
 <?php foreach ($field->toLayouts() as $layout): ?>
-<section class="grid margin-xl" id="<?= esc($layout->id(), 'attr') ?>" style="--gutter: 1.5rem">
+<section class="grid gap-4 grid-cols-<?=count($layout->columns())?>" id="<?= esc($layout->id(), 'attr') ?>">
   <?php foreach ($layout->columns() as $column): ?>
-  <div class="column" style="--columns:<?= esc($column->span(), 'css') ?>">
+  <div class="col-span-1" style="--columns:<?= esc($column->span(), 'css') ?>">
     <div class="text">
       <?= $column->blocks() ?>
     </div>

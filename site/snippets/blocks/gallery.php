@@ -1,7 +1,7 @@
 <?php
 /** @var \Kirby\Cms\Block $block */
 ?>
-<figure class="gallery">
+<figure class="gallery grid grid-cols-3">
   <ul>
     <?php foreach ($block->images()->toFiles() as $image): ?>
     <li>

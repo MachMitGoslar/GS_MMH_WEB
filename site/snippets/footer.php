@@ -14,10 +14,10 @@
   <footer class="footer static bottom-0 w-full  bg-gray-500 dark:bg-gray-900">
     <div class="grid md:grid-cols-12 grid-cols-4 gap-4 p-3 max-w-screen-xl mx-auto ">
       <div class="col-span-8">
-        <h2><a href="https://getkirby.com">Made with Kirby</a></h2>
-        <p class="text-sm dark:text-gray-300 text-gray-700">
-          Kirby: the file-based CMS that adapts to any project, loved by developers and editors alike
-        </p>
+        <h2>MachMit!Goslar</h2>
+        <p class="text-sm dark:text-gray-300 text-gray-300">
+        Deine Seite zur Bürgerbeteilung in der Stadt Goslar
+      </p>
       </div>
       <div class="col-span-2">
         <h2 class=" ">Pages</h2>

@@ -14,5 +14,6 @@ $attrs = attr([
       aspect-ratio: <?= $ratio ?? 'auto' ?>;
       object-fit: <?= ($contain ?? false) ? 'contain' : 'cover' ?>
     "
+    class="h-auto max-w-full"
   >
 </a>

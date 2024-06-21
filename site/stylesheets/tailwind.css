@@ -10,10 +10,10 @@
     }
 
     .footer h2 {
-        @apply text-base font-black dark:text-white text-gray-950;
+        @apply text-base font-black dark:text-white text-gold-500;
     }
     .footer li {
-        @apply text-sm font-light dark:text-white text-gray-950 hover:text-gold;
+        @apply text-sm font-light dark:text-white text-gray-100 hover:text-gold;
     }
     .badge {
         @apply text-sm font-medium me-2 px-2.5 py-0.5 rounded;

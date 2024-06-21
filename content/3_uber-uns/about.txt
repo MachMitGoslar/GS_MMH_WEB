@@ -6,15 +6,15 @@ Layout: [{"attrs":[],"columns":[{"blocks":[{"content":{"location":"kirby","image
 
 ----
 
-Address: 
+Address: Markt 7, 38640 Goslar
 
 ----
 
-Email: 
+Email: machmit@goslar.de
 
 ----
 
-Phone: 
+Phone: 05321 704 504
 
 ----
 
