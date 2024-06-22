@@ -44,7 +44,12 @@ columns:
           - abgeschlossen
       text:
         type: writer
-      tags: true
+      team:
+        type: multiselect
+        label: Team
+        options:
+          type: query
+          query: site.children.template("team").children
 
 
   - width: 2/3
@@ -69,6 +74,7 @@ columns:
           title: true
           project_start_date: true
             label: Startdatum
+            default: today
           project_start_time: true
             label: Startzeit
         templates:

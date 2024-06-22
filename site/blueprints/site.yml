@@ -46,3 +46,4 @@ columns:
           - about
           - home
           - default
+      users: sections/team

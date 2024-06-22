@@ -54,3 +54,4 @@ Icon
 # ------------
 /node_modules
 composer.phar
+vendor/

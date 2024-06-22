@@ -22,7 +22,11 @@ Text: <p>Curabitur blandit tempus porttitor. Sed posuere consectetur est at lobo
 
 ----
 
-Tags: desert, sand, landscape
+Team: team/du, team/ich
+
+----
+
+Tags: 
 
 ----
 

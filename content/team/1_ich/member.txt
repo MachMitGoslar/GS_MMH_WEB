@@ -1,0 +1,33 @@
+Title: ich
+
+----
+
+Cover: - file://JDTxNRfuw72KOTiK
+
+----
+
+Name: Martin Sänger
+
+----
+
+Description: 
+
+----
+
+Email: stuff@stuffdev.de
+
+----
+
+Phone: 
+
+----
+
+Teams: team, volos
+
+----
+
+Tags: 
+
+----
+
+Uuid: Cw3N87jTU3LFBVvj

@@ -28,9 +28,9 @@
     we call a method like `children()` in this case
   */
   ?>
-  <?php if ($photographyPage = page('photography')): ?>
+  <?php if ($projectsPage = page('projects')): ?>
   <ul class="grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense">
-    <?php foreach ($photographyPage->children()->listed() as $album): ?>
+    <?php foreach ($projectsPage->children()->listed() as $album): ?>
     <li>
         <figure class="relative max-w-sm hover:border-gold hover:border-solid hover:border-2 rounded-lg hover:rounded-lg col-span-2 row-span-2">
         <a href="<?= $album->url() ?>">

@@ -25,6 +25,12 @@
     if ($page->project_status()->isNotEmpty()) {
       snippet('project_status', ['project_status' => $page->project_status(), 'showTitle' => true]);
     }
+
+    if($page->team()->inNotEmpty()) {
+      $ids = $page->team()->split();
+      $members = $site->find("team")->children()->find($ids);
+      snippet('team_images', ['team' => $members]);
+    }
   ?>
   
   <div class="grid grid-cols-12">
