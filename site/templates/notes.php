@@ -34,10 +34,11 @@
   <?php snippet('intro') ?>
 <?php endif ?>
 
-<ul class="grid">
+<ul class="container max-w-lg divide-y divide-gray-200 dark:divide-gray-700">
   <?php foreach ($notes as $note): ?>
-  <li class="column" style="--columns: 4">
+  <li class="pb-3 sm:pb-4" style="">
       <?php snippet('note', ['note' => $note]) ?>
+
   </li>
   <?php endforeach ?>
 </ul>

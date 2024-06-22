@@ -21,45 +21,53 @@
 <?php snippet('header') ?>
 <article>
   <?php snippet('intro') ?>
-  <?php 
-    if ($page->project_status()->isNotEmpty()) {
-      snippet('project_status', ['project_status' => $page->project_status(), 'showTitle' => true]);
-    }
+  <?php
+  if ($page->project_status()->isNotEmpty()) {
+    snippet('project_status', ['project_status' => $page->project_status(), 'showTitle' => true]);
+  }
+
+  if ($page->team()->inNotEmpty()) {
+    $members = $page->team()->toPages();
+    snippet('team_images', ['team' => $members]);
+  }
   ?>
-  
+
   <div class="grid grid-cols-12">
 
     <div class="col-span-12 lg:col-span-4 gap-4">
       <div class="text">
         <?= $page->text() ?>
       </div>
+      <?php if ($page->children()->isNotEmpty()): ?>
+        <div class="project_steps mt-3">
+          <h1 class=" font-black text-2xl"> Was bisher geschah</h1>
+          <div class="steps p-3">
+            <ol class="relative border-s border-gray-200 dark:border-gray-700">
+              <?php foreach ($page->children() as $entry): ?>
+                <?php snippet('timeline_entry', ['entry' => $entry]) ?>
+              <?php endforeach ?>
+            </ol>
+          </div>
+
+        </div>
+      <?php endif ?>
     </div>
 
     <div class="col-span-12 lg:col-span-8">
       <ul class="grid grid-cols-2 gap-4">
         <?php foreach ($gallery as $image): ?>
-        <li>
-          <a href="<?= $image->url() ?>" data-lightbox>
-            <figure class="img" style="--w:<?= $image->width() ?>;--h:<?= $image->height() ?>">
-              <img src="<?= $image->resize(800)->url() ?>" alt="<?= $image->alt()->esc() ?>">
-            </figure>
-          </a>
-        </li>
+          <li>
+            <a href="<?= $image->url() ?>" data-lightbox>
+              <figure class="img" style="--w:<?= $image->width() ?>;--h:<?= $image->height() ?>">
+                <img src="<?= $image->resize(800)->url() ?>" alt="<?= $image->alt()->esc() ?>">
+              </figure>
+            </a>
+          </li>
         <?php endforeach ?>
       </ul>
     </div>
-        </div>
-    <?php if($page->children()->isNotEmpty()): ?>
-      <div class="project_steps">
-    <h1 class=" font-black text-2xl"> Projektschritte </h1>
+  </div>
 
-    <ol class="relative border-s border-gray-200 dark:border-gray-700">
-        <?php foreach($page->children() as $entry): ?>
-          <?php snippet('timeline_entry', ['entry' => $entry]) ?>
-        <?php endforeach ?>
-    </ol>
-        </div>
-    <?php endif ?>
 
 </article>
 <?php snippet('footer') ?>
