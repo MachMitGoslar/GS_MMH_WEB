@@ -12,7 +12,7 @@
 */
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 
   <meta charset="utf-8">
@@ -76,14 +76,12 @@
           https://getkirby.com/docs/reference/panel/blueprints/page#statuses
         */
         ?>
-        <?php if($image = $site->file()): ?>
           <a class="flex items-center space-x-3 rtl:space-x-reverse" href="<?= $site->url() ?>">
 
             <img src="assets/images/logo.svg" class="h-28 hidden md:flex" />
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white md:hidden">MachMit!Goslar</span>
             </a>
 
-        <?php endif ?>
 
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">

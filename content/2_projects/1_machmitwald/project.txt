@@ -14,7 +14,7 @@ Subheadline: Kaufe der Welt einen Baum gegen das Baumsterben
 
 ----
 
-Project-status: in Vorbereitung
+Project-status: aktiv
 
 ----
 
@@ -22,7 +22,10 @@ Text: <p>Curabitur blandit tempus porttitor. Sed posuere consectetur est at lobo
 
 ----
 
-Team: team/du, team/ich
+Team:
+
+- page://Cw3N87jTU3LFBVvj
+- page://KCqFP3i3xe1WcgIM
 
 ----
 

@@ -45,11 +45,11 @@ columns:
       text:
         type: writer
       team:
-        type: multiselect
+        type: pages
         label: Team
-        options:
-          type: query
-          query: site.children.template("team").children
+        template: member
+        templates: member
+        query: site.find("team")
 
 
   - width: 2/3

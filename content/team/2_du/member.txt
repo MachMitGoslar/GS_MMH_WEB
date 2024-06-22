@@ -2,7 +2,27 @@ Title: du
 
 ----
 
-Cover: 
+Cover: - file://xD6ZVTElXyBCwuLr
+
+----
+
+Name: 
+
+----
+
+Description: 
+
+----
+
+Email: 
+
+----
+
+Phone: 
+
+----
+
+Teams: 
 
 ----
 

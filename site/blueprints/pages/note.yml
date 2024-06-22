@@ -46,7 +46,10 @@ columns:
             time: true
             default: now
           author:
-            type: users
+            type: pages
+            template: member
+            templates: member
+            query: site.find("team")
           # Fields types can be added using the shortcut `fieldname: true`
           # (however, you can only use a fieldname once per page and this only makes sense for simple fields without configuration)
           tags: true
