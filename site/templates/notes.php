@@ -34,7 +34,7 @@
   <?php snippet('intro') ?>
 <?php endif ?>
 
-<ul class="container max-w-lg divide-y divide-gray-200 dark:divide-gray-700">
+<ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
   <?php foreach ($notes as $note): ?>
   <li class="pb-3 sm:pb-4" style="">
       <?php snippet('note', ['note' => $note]) ?>

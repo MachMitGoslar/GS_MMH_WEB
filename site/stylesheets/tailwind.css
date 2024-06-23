@@ -20,15 +20,15 @@
     }
 
     main h1 {
-        @apply text-4xl tracking-tight font-bold text-gray-900 dark:text-white
+        @apply text-4xl tracking-tight font-bold text-black dark:text-white
     }
 
     main h2 {
-        @apply text-3xl tracking-tight font-bold text-gray-900 dark:text-white
+        @apply text-3xl tracking-tight font-bold text-black dark:text-white
     }
 
     main h3 {
-        @apply text-2xl tracking-tight font-bold text-gray-900 dark:text-white
+        @apply text-2xl tracking-tight font-bold text-black dark:text-white
     }
 
     main h1 small {
@@ -44,5 +44,11 @@
 
     .text ul {
         @apply max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400
+    }
+    header {
+        @apply mb-4
+    }
+    main {
+        min-height: 70vh;
     }
   }
