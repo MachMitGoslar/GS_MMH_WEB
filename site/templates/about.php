@@ -21,6 +21,9 @@
 */
 ?>
 <?php snippet('header') ?>
+
+
+
 <?php snippet('intro') ?>
 <?php snippet('layouts', ['field' => $page->layout()])  ?>
 

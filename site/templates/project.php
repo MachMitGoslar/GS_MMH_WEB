@@ -21,20 +21,25 @@
 <?php snippet('header') ?>
 <article>
   <?php snippet('intro') ?>
-  <?php
-  if ($page->project_status()->isNotEmpty()) {
-    snippet('project_status', ['project_status' => $page->project_status(), 'showTitle' => true]);
-  }
 
-  if ($page->team()->inNotEmpty()) {
-    $members = $page->team()->toPages();
-    snippet('team_images', ['team' => $members]);
-  }
-  ?>
+  <?php snippet('project_status_bar', slots: true) ?>
+    <?php slot('project_status') ?>
+      <?php
+        if ($project_status = $page->project_status()) {
+          snippet('project_status', ['project_status' => $project_status, "size" => '2xl']);
+        }
+      ?>
+    <?php endslot() ?>
+
+    <?php if ($team = $page->team()->toPages()): ?>
+      <?php slot('team') ?>
+        <?= snippet('team_images', ['team' => $team, 'showTitle' => true]) ?>
+      <?php endslot() ?>
+    <?php endif ?>
+  <?php endsnippet() ?> 
 
   <div class="grid grid-cols-12">
-
-    <div class="col-span-12 lg:col-span-4 gap-4">
+    <div class="col-span-12 lg:col-span-8 gap-4">
       <div class="text">
         <?= $page->text() ?>
       </div>
@@ -53,13 +58,13 @@
       <?php endif ?>
     </div>
 
-    <div class="col-span-12 lg:col-span-8">
+    <div class="col-span-12 lg:col-span-4">
       <ul class="grid grid-cols-2 gap-4">
         <?php foreach ($gallery as $image): ?>
           <li>
             <a href="<?= $image->url() ?>" data-lightbox>
               <figure class="img" style="--w:<?= $image->width() ?>;--h:<?= $image->height() ?>">
-                <img src="<?= $image->resize(800)->url() ?>" alt="<?= $image->alt()->esc() ?>">
+                <img src="<?= $image->crop(400,400)->url() ?>" alt="<?= $image->alt()->esc() ?>">
               </figure>
             </a>
           </li>

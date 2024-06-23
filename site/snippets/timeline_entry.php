@@ -1,4 +1,4 @@
-<li class="mb-10 ms-8 flex items-center">
+<li class="mb-4 ms-8 flex items-center">
 <span
         class="-ml-1 absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-3 ring-4 ring-gold dark:ring-gray-900 dark:bg-blue-900">
         <svg class="w-3.5 h-3.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -8,20 +8,21 @@
         </svg>
     </span>
     <div>
-
+    <time
+        class="block text-sm font-normal leading-none text-gray-400 dark:text-gray-500"><?= $entry->project_start_date() ?>
+        - <?= $entry->project_start_time() ?> </time>
     <div class="flex items-center">
-    <?php if ($entry->num() == 1): ?>
-    <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-4 dark:bg-blue-900 dark:text-blue-300">Aktuell</span>
-    <?php endif; ?>
     <h3 class="flex items-center text-lg font-semibold text-gray-900 dark:text-white"><?= $entry->title() ?>
+
+    <?php if ($entry->num() == 1): ?>
+    <span class="bg-blue-100 text-blue-800 text-sm font-medium ml-4 dark:bg-blue-900 dark:text-blue-300">Aktuell</span>
+    <?php endif; ?>
 
     </h3>
     </div>
 
 
-    <time
-        class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"><?= $entry->project_start_date() ?>
-        - <?= $entry->project_start_time() ?> </time>
+
     <?php if ($entry->project_status_from()->isNotEmpty() && $entry->project_status_to()->isNotEmpty()): ?>
         <div class="project_change flex justify-start">
 
@@ -30,6 +31,8 @@
             <?= snippet('project_status', ['project_status' => $entry->project_status_to()]) ?>
         </div>
     <?php endif ?>
+    <?php if($entry->description()->isNotEmpty()): ?>
     <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400"><?= $entry->description() ?></p>
+    <?php endif ?>
     </div>
 </li>

@@ -13,9 +13,9 @@
 */
 ?>
 <nav class="blog-prevnext">
-  <h2 class="h2">Keep on reading</h2>
+  <h2 class="h2"><small>Mehr lesen</small></h2>
 
-  <div class="autogrid" style="--gutter: 1.5rem">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10" style="--gutter: 1.5rem">
     <?php if ($prev = $page->prevListed()): ?>
     <?php snippet('note', ['note' => $prev, 'excerpt' => false])  ?>
     <?php endif ?>

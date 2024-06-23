@@ -20,9 +20,9 @@
 ?>
 <?php snippet('header') ?>
 
-<article>
+<article class="container">
   <h1 class="h1"><?= $page->title()->esc() ?></h1>
-  <div class="text">
+  <div class="text format">
     <?= $page->text()->kt() ?>
   </div>
 </article>

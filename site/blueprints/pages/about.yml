@@ -26,6 +26,15 @@ tabs:
     icon: text
     label: Content
     fields:
+      cover: fields/cover
+
+      headline:
+        type: text
+        placeholder: '{{page.title}}'
+        label: Titel
+      subheadline:
+        type: text
+        label: Subtitel
       layout:
         label: Layout
         type: layout

@@ -18,6 +18,7 @@
         <p class="text-sm dark:text-gray-300 text-gray-300">
         Deine Seite zur Bürgerbeteilung in der Stadt Goslar
       </p>
+      <?php snippet('social') ?>
       </div>
       <div class="col-span-2">
         <h2 class=" ">Pages</h2>
@@ -36,6 +37,7 @@
           <li><a href="https://chat.getkirby.com">Chat</a></li>
           <li><a href="https://github.com/getkirby">GitHub</a></li>
         </ul>
+       
       </div>
     </div>
   </footer>
