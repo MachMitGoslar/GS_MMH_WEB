@@ -11,7 +11,7 @@
   https://getkirby.com/docs/guide/templates/snippets
 */
 ?>
-<span class="social block inline-flex px-5">
+<span class="social block inline-flex">
   <a href="https://mastodon.social/@getkirby" aria-label="Follow us on Mastodon" class="px-2 py-1 hover:text-gold">
     <?= svg('assets/icons/mastodon.svg') ?>
   </a>

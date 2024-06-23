@@ -18,4 +18,31 @@
     .badge {
         @apply text-sm font-medium me-2 px-2.5 py-0.5 rounded;
     }
+
+    main h1 {
+        @apply text-4xl tracking-tight font-bold text-gray-900 dark:text-white
+    }
+
+    main h2 {
+        @apply text-3xl tracking-tight font-bold text-gray-900 dark:text-white
+    }
+
+    main h3 {
+        @apply text-2xl tracking-tight font-bold text-gray-900 dark:text-white
+    }
+
+    main h1 small {
+        @apply mb-4 text-4xl tracking-tight font-light text-gray-300 dark:text-white
+    }
+    main h2 small{
+        @apply mb-4 text-3xl tracking-tight font-light text-gray-300 dark:text-white
+    }
+
+    main h3 small {
+        @apply mb-4 text-2xl tracking-tight font-light text-gray-300 dark:text-white
+    }
+
+    .text ul {
+        @apply max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400
+    }
   }

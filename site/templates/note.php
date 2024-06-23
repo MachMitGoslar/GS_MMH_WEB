@@ -23,14 +23,29 @@
 ?>
 <?php snippet('header') ?>
 
+<div class="cover_image relative">
 <?php if ($cover = $page->cover()): ?>
-<a href="<?= $cover->url() ?>" data-lightbox class="img" style="--w:2; --h:1">
+<a href="<?= $cover->url() ?>" data-lightbox class="img">
   <img src="<?= $cover->crop(1200, 600)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
 </a>
-<?php endif ?>
+<div class="team_images h-10 absolute bottom-0 right-10 z-10">
 
-<article class="note">
+<?php
+
+  if ($page->author()->inNotEmpty()) {
+      $members = $page->author()->toPages();
+      snippet('team_images', ['team' => $members]);
+    }
+?>
+</div>
+<?php endif ?>
+</div>
+
+<article class="note flex justify-center mt-10">
+  <div class=" max-w-4xl">
   <header class="note-header h1">
+    <time class="note-date float-end text-xs font-thin" datetime="<?= $page->date()->toDate('c') ?>">Veröffentlicht: <?= $page->date()->esc() ?></time>
+
     <h1 class="note-title"><?= $page->title()->esc() ?></h1>
     <?php if ($page->subheading()->isNotEmpty()): ?>
     <p class="note-subheading"><small><?= $page->subheading()->esc() ?></small></p>
@@ -50,10 +65,12 @@
     </ul>
     <?php endif ?>
 
-    <time class="note-date" datetime="<?= $page->date()->toDate('c') ?>">Published on <?= $page->date()->esc() ?></time>
   </footer>
-
+  
+  <hr class="mt-4 mb-4"/>
   <?php snippet('prevnext') ?>
+  </div>
+  
 </article>
 
 <?php snippet('footer') ?>

@@ -62,7 +62,7 @@
 
 
     <nav class="bg-white border-gray-200 dark:bg-gray-800">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div class="max-w-screen-xl flex flex-wrap items-center sm:justify-between md:justify-center lg:justify-between justify-between mx-auto p-4">
         <?php
         /*
           In the menu, we only fetch listed pages,
@@ -91,7 +91,7 @@
             </svg>
           </button>
         </div>
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+        <div class="items-center  hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
           <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
 
           <?php foreach ($site->children()->listed() as $item): ?>
@@ -99,7 +99,7 @@
               <a class="block py-2 px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gold-700 dark:text-white md:dark:hover:text-gold-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent hover:underline decoration-gold <?php e($item->isOpen(), "bg-gold") ?> " <?php e($item->isOpen(), 'aria-current="page"') ?> href="<?= $item->url() ?>"><?= $item->title()->esc() ?></a>
           </li>
           <?php endforeach ?>
-          <?php snippet('social') ?>
+
     </nav>
   </header>
 

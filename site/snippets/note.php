@@ -6,7 +6,6 @@
         <img class="" src="<?= $cover->resize(220, 220)->url() ?>" alt="<?= $cover->alt()->esc() ?>" />
       <?php endif ?>
     </figure>
-
   </a>
   <div class="team_images h-10 absolute bottom-0 right-10 z-10">
       <?php

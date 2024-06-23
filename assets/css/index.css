@@ -499,6 +499,129 @@ html {
   font-weight: 500;
 }
 
+main h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  main h1 {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+}
+
+main h2 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  main h2 {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+}
+
+main h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  main h3 {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+}
+
+main h1 small {
+  margin-bottom: 1rem;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  main h1 small {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+}
+
+main h2 small {
+  margin-bottom: 1rem;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  main h2 small {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+}
+
+main h3 small {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  main h3 small {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+}
+
+.text ul {
+  max-width: 28rem;
+  list-style-position: inside;
+  list-style-type: disc;
+}
+
+.text ul > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
+.text ul {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  .text ul {
+    --tw-text-opacity: 1;
+    color: rgb(156 163 175 / var(--tw-text-opacity));
+  }
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -685,12 +808,12 @@ html {
   margin-bottom: 1rem;
 }
 
-.-mr-4 {
-  margin-right: -1rem;
+.-ml-1 {
+  margin-left: -0.25rem;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
+.-mr-4 {
+  margin-right: -1rem;
 }
 
 .mb-10 {
@@ -705,16 +828,20 @@ html {
   margin-bottom: 1rem;
 }
 
-.me-2 {
-  margin-inline-end: 0.5rem;
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
 
-.ms-3 {
-  margin-inline-start: 0.75rem;
+.mr-4 {
+  margin-right: 1rem;
 }
 
-.ms-6 {
-  margin-inline-start: 1.5rem;
+.ms-8 {
+  margin-inline-start: 2rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
 }
 
 .mt-2 {
@@ -727,34 +854,6 @@ html {
 
 .mt-4 {
   margin-top: 1rem;
-}
-
-.ms-8 {
-  margin-inline-start: 2rem;
-}
-
-.ms-2 {
-  margin-inline-start: 0.5rem;
-}
-
-.mr-8 {
-  margin-right: 2rem;
-}
-
-.-ml-2 {
-  margin-left: -0.5rem;
-}
-
-.-ml-1 {
-  margin-left: -0.25rem;
-}
-
-.mr-4 {
-  margin-right: 1rem;
-}
-
-.mb-5 {
-  margin-bottom: 1.25rem;
 }
 
 .block {
@@ -789,32 +888,8 @@ html {
   height: 4rem;
 }
 
-.h-2 {
-  height: 0.5rem;
-}
-
-.h-2\.5 {
-  height: 0.625rem;
-}
-
 .h-28 {
   height: 7rem;
-}
-
-.h-5 {
-  height: 1.25rem;
-}
-
-.h-6 {
-  height: 1.5rem;
-}
-
-.h-auto {
-  height: auto;
-}
-
-.h-8 {
-  height: 2rem;
 }
 
 .h-3 {
@@ -825,8 +900,16 @@ html {
   height: 0.875rem;
 }
 
-.h-1 {
-  height: 0.25rem;
+.h-5 {
+  height: 1.25rem;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-auto {
+  height: auto;
 }
 
 .w-10 {
@@ -837,20 +920,20 @@ html {
   width: 4rem;
 }
 
-.w-2 {
-  width: 0.5rem;
+.w-3 {
+  width: 0.75rem;
 }
 
-.w-2\.5 {
-  width: 0.625rem;
+.w-3\.5 {
+  width: 0.875rem;
 }
 
 .w-5 {
   width: 1.25rem;
 }
 
-.w-6 {
-  width: 1.5rem;
+.w-8 {
+  width: 2rem;
 }
 
 .w-full {
@@ -862,16 +945,8 @@ html {
   width: max-content;
 }
 
-.w-8 {
-  width: 2rem;
-}
-
-.w-3 {
-  width: 0.75rem;
-}
-
-.w-3\.5 {
-  width: 0.875rem;
+.max-w-4xl {
+  max-width: 56rem;
 }
 
 .max-w-full {
@@ -1099,33 +1174,9 @@ html {
   padding: 1rem;
 }
 
-.p-1 {
-  padding: 0.25rem;
-}
-
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-}
-
-.px-2\.5 {
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
-}
-
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-.py-0 {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
-.py-0\.5 {
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem;
 }
 
 .py-1 {
@@ -1147,18 +1198,6 @@ html {
   padding-bottom: 0.75rem;
 }
 
-.pl-1 {
-  padding-left: 0.25rem;
-}
-
-.pl-3 {
-  padding-left: 0.75rem;
-}
-
-.pl-2 {
-  padding-left: 0.5rem;
-}
-
 .text-center {
   text-align: center;
 }
@@ -1166,11 +1205,6 @@ html {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 
 .text-base {
@@ -1193,16 +1227,17 @@ html {
   line-height: 1.75rem;
 }
 
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .font-black {
   font-weight: 900;
 }
 
 .font-bold {
   font-weight: 700;
-}
-
-.font-light {
-  font-weight: 300;
 }
 
 .font-medium {
@@ -1231,10 +1266,6 @@ html {
 
 .leading-relaxed {
   line-height: 1.625;
-}
-
-.tracking-tight {
-  letter-spacing: -0.025em;
 }
 
 .text-gray-300 {
@@ -1944,6 +1975,10 @@ html {
 }
 
 @media (min-width: 640px) {
+  .sm\:justify-between {
+    justify-content: space-between;
+  }
+
   .sm\:pb-4 {
     padding-bottom: 1rem;
   }
@@ -1986,6 +2021,10 @@ html {
     flex-direction: row;
   }
 
+  .md\:justify-center {
+    justify-content: center;
+  }
+
   .md\:space-x-0 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(0px * var(--tw-space-x-reverse));
@@ -2023,6 +2062,10 @@ html {
 
   .lg\:col-span-8 {
     grid-column: span 8 / span 8;
+  }
+
+  .lg\:justify-between {
+    justify-content: space-between;
   }
 }
 
