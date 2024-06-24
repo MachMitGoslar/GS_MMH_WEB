@@ -23,7 +23,7 @@ status:
 options:
   delete: false
   url: false
-  status: false
+  status: true
 
 # We use tabs here to focus on the layout in one tab
 # and have the additional contact fields in a secondary
@@ -43,8 +43,10 @@ columns:
       name:
         type: text
         placeholder: "{{ page.title }}"
+        required: true
       description:
         type: textarea
+        required: true
       role:
         type: text
         label: Beschäftigung
@@ -52,17 +54,34 @@ columns:
         type: text
       phone:
         type: text
+      address:
+        type: text
   - width: 1/3
     fields:
       teams:
-        type: multiselect
+        type: tags
         label: Teams
         options:
-          team: Hauptamt
-          volos: Ehrenamt
-          misc: Andere
-          patreons: Sponsoren
-          colabos: Kooperationspartner
+          type: query
+          query: site.index.pluck("teams", ",", true)
+      facebook:
+        type: text
+        help: z.B. goslar.de
+      instagram:
+        type: text
+        help: z.B. martin_saenger
+      x:
+        type: text
+        help: oliver.kasties
+      linkedin:
+        type: text
+        help: z.B. krauschristina
+      github:
+        type: text
+        help: z.B. rangarius 
+      youtube:
+        type: text
+        help: z.B. @Stadt.Goslar
       tags: true
 
     

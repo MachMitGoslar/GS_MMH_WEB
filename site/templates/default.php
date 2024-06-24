@@ -20,11 +20,7 @@
 ?>
 <?php snippet('header') ?>
 
-<article class="container">
-  <h1 class="h1"><?= $page->title()->esc() ?></h1>
-  <div class="text format">
-    <?= $page->text()->kt() ?>
-  </div>
-</article>
+<?php snippet('intro') ?>
+<?php snippet('layouts', ['field' => $page->layout()])  ?>
 
 <?php snippet('footer') ?>

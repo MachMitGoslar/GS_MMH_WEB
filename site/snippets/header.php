@@ -49,7 +49,7 @@
   ?>
   <link rel="shortcut icon" type="image/x-icon" href="<?= url('favicon.ico') ?>">
 </head>
-<body class="dark:bg-gray-800 dark:text-gray-300">
+<body class="dark:bg-gray-700 dark:text-gray-300 bg-white">
 
   <header class="header">
     <?php
