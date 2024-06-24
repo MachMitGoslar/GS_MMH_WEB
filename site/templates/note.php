@@ -8,13 +8,13 @@
     </div>
   <?php endif ?>
   <div class="max-w-3xl mx-auto">
-    <div class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
-      <div class="bg-white relative top-0 -mt-32 p-5 sm:p-10">
-        <h1 href="#" class="text-gray-900 font-bold text-3xl mb-2"><?= $page->title()->esc() ?></h1>
+    <div class="mt-3 bg-white dark:bg-gray-800 rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
+      <div class="bg-white dark:bg-gray-800 relative top-0 -mt-32 p-5 sm:p-10">
+        <h1 href="#" class="text-gray-900 dark:text-gray-50 font-bold text-3xl mb-2"><?= $page->title()->esc() ?></h1>
         <?php if ($page->subheading()->isNotEmpty()): ?>
           <p class="note-subheading"><small><?= $page->subheading()->esc() ?></small></p>
         <?php endif ?>
-        <p class="text-gray-700 text-xs mt-2">vom:
+        <p class="text-gray-700 dark:text-gray-200 text-xs mt-2">vom:
           <time class="note-date text-xs font-thin"
             datetime="<?= $page->date()->toDate('c') ?>"> <?= $page->date()->esc() ?></time>
 

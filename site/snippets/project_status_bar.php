@@ -3,7 +3,7 @@
         <?php if ($project_status = $slots->project_status()): ?>
             <div class="text-center <?=$slots->team() !== null ? 'md:border-r' : '' ?>">
                 <div class="h-12"><?= $project_status ?></div>
-                <p class="text-sm font-medium tracking-widest text-gray-800 uppercase lg:text-base">
+                <p class="text-sm font-medium tracking-widest text-gray-800 dark:text-gray-100 uppercase lg:text-base">
                     Projektstatus
                 </p>
             </div>
@@ -11,7 +11,7 @@
         <?php if($team = $slots->team()): ?>
         <div class="text-center">
             <div class="h-12"><?= $team ?></div>
-            <p class="text-sm font-medium tracking-widest text-gray-800 uppercase lg:text-base">
+            <p class="text-sm font-medium tracking-widest text-gray-800  dark:text-gray-100 uppercase lg:text-base">
                 Beteiligte
             </p>
         </div>

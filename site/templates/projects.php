@@ -21,11 +21,12 @@
 <?php snippet('header') ?>
 <?php snippet('intro') ?>
 
-<ul class="grid grid-cols-12 gap-4">
+<ul class="grid lg:grid-cols-4 gap-4 md:grid-cols-2 xs:grid-col-1">
   <?php foreach ($page->children()->listed() as $project): ?>
-  <li class=" col-span-3 ">
+  <li class="">
+  <a href="<?= $project->url() ?>">
+
     <figure class="relative max-w-sm hover:border-gold hover:border-solid hover:border-2 rounded-lg hover:rounded-lg col-span-2 row-span-2">
-        <a href="<?= $project->url() ?>">
 
           <?php
           /*
@@ -42,13 +43,14 @@
               <img class="filter hover:blur aspect-square	border-2 border-transparent object-cover h-auto max-w-full rounded-lg hover:rounded-lg transition-all duration-300 cursor-pointer" style="focus: <?= $cover->focus() ?>" src="<?= $cover->resize(1024, 1024)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
 
           <?php endif ?>
-          </a>
 
           <figcaption class=" rounded-lg absolute text-lg  text-white text-center bottom-0 py-5 w-full bg-gradient-to-t from-gold">
               <p class="text-white font-black" ><?= $project->title()->esc() ?></p>
           </figcaption>
         </figure>
   </li>
+  </a>
+
   <?php endforeach ?>
 </ul>
 

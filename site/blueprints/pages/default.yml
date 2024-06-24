@@ -30,8 +30,8 @@ columns:
       fields:
         type: fields
         fields:
-          text:
-            type: textarea
+          layout:
+            type: layout
             size: huge
   sidebar:
     width: 1/3
