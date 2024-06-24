@@ -9,7 +9,8 @@
  * More about controllers:
  * https://getkirby.com/docs/guide/templates/controllers
  */
-return function ($page) {
+
+return function ($page, $site, $kirby) {
 
     /**
      * We use the collection helper to fetch the notes collection defined in `/site/collections/notes.php`
@@ -17,6 +18,8 @@ return function ($page) {
      * More about collections:
      * https://getkirby.com/docs/guide/templates/collections
      */
+    $shared = $kirby->controller('site' , compact('site'));
+
     $notes = collection('notes');
 
     $tag = param('tag');
@@ -24,9 +27,7 @@ return function ($page) {
         $notes = $notes->filterBy('tags', $tag, ',');
     }
 
-    return [
-        'tag'   => $tag,
-        'notes' => $notes->paginate(6)
-    ];
+
+    return A::merge($shared, ['tag' => $tag, 'notes' => $notes->paginate(6)]);
 
 };

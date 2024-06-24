@@ -39,5 +39,6 @@
 
   <hr class="mt-4 mb-4" />
   <?php snippet('prevnext') ?>
-  <?php snippet('footer') ?>
+
 </article>
+<?php snippet('footer') ?>

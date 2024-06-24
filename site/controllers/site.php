@@ -9,12 +9,8 @@
  * https://getkirby.com/docs/guide/templates/controllers
  */
 
-
-
-return function ($page, $site, $kirby) {
-    $shared = $kirby->controller('site' , compact('site'));
-
-    $tags = $page->tags()->split(',');
-    
-    return A::merge($shared, ['tags' => $tags]);
+return function ($site) {
+    return [
+        'footer' => $site->find('footer')
+    ];
 };
