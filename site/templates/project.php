@@ -31,7 +31,7 @@
       ?>
     <?php endslot() ?>
 
-    <?php if ($team = $page->team()->toPages()): ?>
+    <?php if ($page->team()->exists() && ($team = $page->team()->toPages())): ?>
       <?php slot('team') ?>
         <?= snippet('team_images', ['team' => $team, 'showTitle' => true]) ?>
       <?php endslot() ?>

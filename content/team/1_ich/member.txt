@@ -1,4 +1,4 @@
-Title: ich
+Title: Martin
 
 ----
 
@@ -10,7 +10,7 @@ Name: Martin Sänger
 
 ----
 
-Description: 
+Description: Er überlebt hauptsächlich durch List und Verhandlungsgeschick und flieht oft aus gefährlichen Situationen. Sein Ziel ist es, sein Schiff, die Black Pearl, zurückzugewinnen, während er gleichzeitig gegen die East India Trading Company kämpft. Später sucht er nach dem Jungbrunnen und wird von Blackbeards Queen Anne’s Revenge entführt, um ihn zum Jungbrunnen zu führen, während die Black Pearl in einer Flasche gefangen ist
 
 ----
 
@@ -26,7 +26,7 @@ Phone:
 
 ----
 
-Teams: team, volos
+Teams: Hauptamt, Ehrenamt
 
 ----
 

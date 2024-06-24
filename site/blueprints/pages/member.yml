@@ -55,14 +55,11 @@ columns:
   - width: 1/3
     fields:
       teams:
-        type: multiselect
+        type: tags
         label: Teams
         options:
-          team: Hauptamt
-          volos: Ehrenamt
-          misc: Andere
-          patreons: Sponsoren
-          colabos: Kooperationspartner
+          type: query
+          query: site.index.pluck("teams", ",", true)
       tags: true
 
     
