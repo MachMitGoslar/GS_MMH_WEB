@@ -42,8 +42,10 @@ columns:
         create: 
           - about
           - default
+          - footer
         templates:
           - about
           - home
           - default
+          - footer
       users: sections/team

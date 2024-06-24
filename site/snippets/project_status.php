@@ -3,8 +3,6 @@
 Snippet for setting the project status Field. Reusable
 */
 ?>
-<header class="grid grid-cols-2">
-    <div class=" col-span-2">
 
   <?php 
         $status = $project_status->toString();
@@ -25,5 +23,3 @@ Snippet for setting the project status Field. Reusable
 
     ?>
     <span class="badge text-<?=isset($size) ? $size : 'sm'?> bg-<?=$color ?> border-solid border-2 border-<?=$color?>-400"> <?=$status?> </span>
-    </div>
-</header>

@@ -9,6 +9,7 @@ icon: ☎️
 status:
   draft: true
   listed: true
+  unlisted: true
 
 # Page options allow you to control how users can interact with the page.
 # Here we prevent changing the page slug and page deletion

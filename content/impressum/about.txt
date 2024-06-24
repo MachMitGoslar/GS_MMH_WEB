@@ -1,0 +1,37 @@
+Title: Impressum
+
+----
+
+Cover: 
+
+----
+
+Headline: Impressum
+
+----
+
+Subheadline: Das sind wir
+
+----
+
+Layout: [{"attrs":[],"columns":[{"blocks":[{"content":{"text":"<p><strong>Verantwortlich im Sinne des Presserechts und des § 5 TMG:</strong></p><p>Oberbürgermeisterin Urte Schwerdtner<br>Charley-Jacob-Straße 3<br>38640 Goslar<br>Tel. +49 (0) 5321 704-0<br>Fax +49 (0) 5321 704-567<br>E-Mail: <a href=\"https://www.goslar.de/impressum#\" title=\"Stadtverwaltung@Goslar.de\">Stadtverwaltung(at)Goslar.de</a><br>Umsatzsteuer-Identifikationsnummer Stadt Goslar: DE 115 380 932</p><p><strong>ViSdP nach § 55 Abs. 2 RStV:</strong> <br><br>Oberbürgermeisterin Urte Schwerdtner (Stadt Goslar)<br>Charley-Jacob-Str. 3, 38640 Goslar</p><p><strong>Redaktionell verantwortlich für den Inhalt:</strong></p><p>Stadt Goslar<br>Wallstraße 1B<br>38640 Goslar<br>Tel. +49 (0) 5321 704-0<br>E-Mail: <a href=\"https://www.goslar.de/impressum#\" title=\"digitalisierung@goslar.de\">digitalisierung(at)goslar.de</a></p><p>Die redaktionelle Verantwortung für die Dienstleistungen einzelner Untermenüs der Stadt Goslar liegt bei den jeweiligen Fachdiensten.</p><p><strong>Konzeptionierung &amp; technische Realisierung:</strong></p><p><strong>takuma OHG</strong><br>Friedrich-Ebert-Straße 65<br>26725 Emden</p><p>Telefon +49 4921 - 8 01 19 80<br>Fax +49 4921 - 8 01 19 85<br>post(at)takuma.de</p><p><strong>Haftung für Inhalte:</strong></p><p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremdeInformationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p><p><strong>Haftung für Links:</strong></p><p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieteroder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle derverlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p><p><strong>Urheberrecht:</strong></p><p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen derschriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p><p><em>Quellenangabe:</em></p><p><a href=\"http://www.e-recht24.de/muster-disclaimer.html\" target=\"_blank\"><em>eRecht24</em></a></p><p><strong>Social Media Präsenzen:</strong></p><p>Dieses Impressum gilt auch für die Präsenzen in folgenden sozialen Medien:</p><p>Facebook: <a href=\"https://www.facebook.com/goslar.de/\">https://www.facebook.com/goslar.de/</a></p><p>Instagram: <a href=\"https://www.instagram.com/goslar.de/\">https://www.instagram.com/goslar.de/</a></p><p><strong>Verantwortlich für die Social Media Präsenzen:</strong></p><p>Oberbürgermeisterin Urte Schwerdtner (Stadt Goslar)<br>Charley-Jacob-Str. 3, 38640 Goslar</p><p>Hinweise zur elektronischen Kommunikation und zum Datenschutz mit der Stadt Goslar. Die Stadt Goslar hat Informationen zur elektronischen Kommunikation nach § 3a Verwaltungsverfahrensgesetz (VwVfG). zusammengestellt. <br><br><a href=\"https://www.goslar.de/datenschutz\">Die ausführlichen Details zum Datenschutz erhalten Sie hier.</a></p>"},"id":"887eb71e-8e93-4e22-8142-3f164d8224b3","isHidden":false,"type":"text"}],"id":"d74c856a-3dd7-4a80-a63d-f35bc1079c10","width":"1/1"}],"id":"c09437c3-8079-4e3b-b18c-abb77335c856"}]
+
+----
+
+Address: 
+
+----
+
+Email: 
+
+----
+
+Phone: 
+
+----
+
+Social: 
+
+----
+
+Uuid: XScm21USw7BA3wj1

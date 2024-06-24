@@ -44,7 +44,10 @@ columns:
         type: text
         placeholder: "{{ page.title }}"
       description:
+        type: textarea
+      role:
         type: text
+        label: Beschäftigung
       email:
         type: text
       phone:

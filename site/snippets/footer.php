@@ -11,36 +11,36 @@
 ?>
   </main>
 
+  <?php if($footer->isNotEmpty()): ?>
   <footer class="footer static bottom-0 w-full  bg-gray-500 dark:bg-gray-900">
     <div class="grid md:grid-cols-12 grid-cols-4 gap-4 p-3 max-w-screen-xl mx-auto ">
       <div class="col-span-8">
-        <h2>MachMit!Goslar</h2>
+        <h2><?= $footer->headline_main()->esc() ?></h2>
         <p class="text-sm dark:text-gray-300 text-gray-300">
-        Deine Seite zur Bürgerbeteilung in der Stadt Goslar
+        <?= $footer->text()->esc() ?>
       </p>
       <?php snippet('social') ?>
       </div>
       <div class="col-span-2">
-        <h2 class=" ">Pages</h2>
+        <h2 class=" "><?=$footer->headline_pages()->esc()?></h2>
         <ul>
-          <?php foreach ($site->children()->listed() as $example): ?>
-          <li><a href="<?= $example->url() ?>"><?= $example->title()->esc() ?></a></li>
+          <?php foreach ($footer->pages()->toPages() as $page): ?>
+            <li><a href="<?= $page->url() ?>"><?= $page->title()->esc() ?></a></li>
           <?php endforeach ?>
         </ul>
       </div>
       <div class="col-span-2">
-        <h2>Kirby</h2>
+        <h2><?= $footer->headline_links()->esc()?></h2>
         <ul>
-          <li><a class="text-sm" href="https://getkirby.com">Website</a></li>
-          <li><a href="https://getkirby.com/docs">Docs</a></li>
-          <li><a href="https://forum.getkirby.com">Forum</a></li>
-          <li><a href="https://chat.getkirby.com">Chat</a></li>
-          <li><a href="https://github.com/getkirby">GitHub</a></li>
+          <?php foreach($footer->links()->toStructure() as $link): ?>
+            <li><a href="<?=$link->link()->url()->esc('html')?>"> <?=$link->linkText()->esc()?></a></li>
+          <?php endforeach ?>
         </ul>
        
       </div>
     </div>
   </footer>
+  <?php endif ?>
 
   <?= js([
     'assets/js/prism.js',

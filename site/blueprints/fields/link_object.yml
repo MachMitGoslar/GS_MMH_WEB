@@ -1,0 +1,12 @@
+type: structure
+min: 1
+fields:
+  link:
+    type: link
+  linkText:
+      type: text
+  target:
+    type: toggle
+    text: Open in new window?
+  classnames:
+      type: text
