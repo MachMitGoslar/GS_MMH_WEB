@@ -1,4 +1,5 @@
 <?php
+
 /*
   Templates render the content of your pages.
 
@@ -9,18 +10,30 @@
   To fetch the content from each field we call the field name as a
   method on the `$page` object, e.g. `$page->title()`.
 
-  This default template must not be removed. It is used whenever Kirby
-  cannot find a template with the name of the content file.
+  This home template renders content from others pages, the children of
+  the `photography` page to display a nice gallery grid.
 
   Snippets like the header and footer contain markup used in
   multiple templates. They also help to keep templates clean.
 
   More about templates: https://getkirby.com/docs/guide/templates/basics
 */
+
 ?>
-<?php snippet('header') ?>
+<?php snippet('main_layout', slots:true) ?>
 
-<?php snippet('intro') ?>
-<?php snippet('layouts', ['field' => $page->layout()])  ?>
+  <?php slot('hero') ?>
+    <?php snippet('hero', [
+      'title' => $page->headline(),
+      'subheading' => $page->subheadline(),
+      'cover' => $page->cover()
+      ]) 
+    ?>
+  <?php endslot() ?>
 
-<?php snippet('footer') ?>
+  <?php slot() ?>
+    <?php snippet('layouts', ['field' => $page->layout()])  ?>
+
+  <?php endslot() ?> 
+
+<?php endsnippet() ?>

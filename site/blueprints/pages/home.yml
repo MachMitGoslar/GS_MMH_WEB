@@ -15,6 +15,7 @@ sections:
   content:
     type: fields
     fields:
+      cover: fields/cover
       headline:
         type: text
         width: 1/2

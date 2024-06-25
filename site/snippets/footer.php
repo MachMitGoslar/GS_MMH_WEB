@@ -12,7 +12,7 @@
   </main>
 
   <?php if($footer->isNotEmpty()): ?>
-  <footer class="footer static bottom-0 w-full  bg-gray-500 dark:bg-gray-900">
+  <footer class="footer static bottom-0 w-full">
     <div class="grid md:grid-cols-12 grid-cols-4 gap-4 p-3 max-w-screen-xl mx-auto ">
       <div class="col-span-8">
         <h2><?= $footer->headline_main()->esc() ?></h2>

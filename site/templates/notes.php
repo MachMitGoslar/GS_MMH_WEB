@@ -9,32 +9,30 @@
   To fetch the content from each field we call the field name as a
   method on the `$page` object, e.g. `$page->title()`.
 
-  This template lists all the subpages of the `notes` page with
-  their title date sorted by date and links to each subpage.
-
-  This template receives additional variables like $tag and $notes
-  from the `notes.php` controller in `/site/controllers/notes.php`
+  This home template renders content from others pages, the children of
+  the `photography` page to display a nice gallery grid.
 
   Snippets like the header and footer contain markup used in
   multiple templates. They also help to keep templates clean.
 
   More about templates: https://getkirby.com/docs/guide/templates/basics
 */
+
 ?>
-<?php snippet('header') ?>
+<?php snippet('main_layout', slots:true) ?>
 
-<?php if (empty($tag) === false): ?>
-<header class="h1">
-  <h1>
-    <small>Tag:</small> <?= esc($tag) ?>
-    <a href="<?= $page->url() ?>" aria-label="All Notes">&times;</a>
-  </h1>
-</header>
-<?php else: ?>
-  <?php snippet('intro') ?>
-<?php endif ?>
+  <?php slot('hero') ?>
+    <?php snippet('hero', [
+      'title' => $page->title(),
+      'subheading' => $page->subheadline(),
+      'cover' => $page->cover()
+      ]) 
+    ?>
+  <?php endslot() ?>
 
-<ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+  <?php slot() ?>
+
+  <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
   <?php foreach ($notes as $note): ?>
   <li class="pb-3 sm:pb-4" style="">
       <?php snippet('note', ['note' => $note]) ?>
@@ -43,5 +41,6 @@
   <?php endforeach ?>
 </ul>
 
-<?php snippet('pagination', ['pagination' => $notes->pagination()]) ?>
-<?php snippet('footer') ?>
+  <?php endslot() ?> 
+
+<?php endsnippet() ?>
