@@ -1,0 +1,25 @@
+Title: Beteiligung lernen
+
+----
+
+Text: [{"content":{"location":"web","url":"https://www.youtube.com/embed/hv4OgKRW400?si=lfCbsstiyQUnderA","video":[],"poster":[],"caption":"","autoplay":"false","muted":"true","loop":"false","controls":"true","preload":"auto"},"id":"2b6171bb-ab41-471f-871c-373feb64d656","isHidden":false,"type":"video"},{"content":{"text":"<p>Natürlich lernen wir auch in unserem MachMit!Haus. Wir waren auf der re:publica 2024 und haben uns angehört, wie die Initiative Offene Gesellschaft neue Zielgruppen für kommunale Beteiligung erreichen will. Spannend.</p>"},"id":"b215ede7-09b8-4bb1-a2b1-d3a8e87e9488","isHidden":false,"type":"text"}]
+
+----
+
+Cover: - file://T05l0ZnX0Ey6NK0O
+
+----
+
+Date: 2024-06-25 17:10:00
+
+----
+
+Author: 
+
+----
+
+Tags: 
+
+----
+
+Uuid: AU88Vp4Bic96mFGZ

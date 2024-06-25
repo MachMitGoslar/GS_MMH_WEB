@@ -1,0 +1,25 @@
+Title: Zeichen und Wunder
+
+----
+
+Text: [{"content":{"text":"<p>Liebes MachMit!Tagebuch...</p><p>nachdem der Tag gestern so gruselig beendet wurde, gab es heute einen kleinen Lichtblick. Du erinnerst Dich sicherlich, dass der Versuch ein EC-Kartenlesegerät in unser Haus zu bekommen, zu scheitern drohte. Doch wie durch ein Wunder, sieht es heute so aus, als wenn Freitag nicht nur der Digitaltag wird, sondern auch der erste Tag im MachMit!Haus, an dem ein EC-Kartenlesegerät zur Zahlung zur Verfügung steht!</p>"},"id":"cb832435-1882-40c4-b1fd-132cd5fd7c0a","isHidden":false,"type":"text"}]
+
+----
+
+Cover: - file://92fPIRW1JzNUBeVN
+
+----
+
+Date: 2024-06-25 17:05:00
+
+----
+
+Author: 
+
+----
+
+Tags: 
+
+----
+
+Uuid: 2f46SHbsur8ojdt6
