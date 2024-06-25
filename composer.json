@@ -1,25 +1,25 @@
 {
-  "name": "getkirby/starterkit",
-  "description": "Kirby Starterkit",
-  "type": "project",
+  "name": "MMH-GS-WEB",
+  "description": "MMH Goslar Website",
+  "type": "webapp",
   "keywords": [
     "kirby",
     "cms",
-    "starterkit"
+    "website"
   ],
+  "license": "MIT",
   "authors": [
     {
-      "name": "Bastian Allgeier",
-      "email": "bastian@getkirby.com",
-      "homepage": "https://getkirby.com"
+      "name": "Martin Sänger",
+      "email": "stufƒ@stuffdev.de",
+      "homepage": "https://mmh.goslar.de"
     }
   ],
-  "homepage": "https://getkirby.com",
+  "homepage": "https://mmh.goslar.de",
   "support": {
-    "email": "support@getkirby.com",
-    "issues": "https://github.com/getkirby/starterkit/issues",
-    "forum": "https://forum.getkirby.com",
-    "source": "https://github.com/getkirby/starterkit"
+    "email": "support@stuffdev.de",
+    "issues": "https://github.com/MMH-Goslar/GS_MMH_WEB/issues",
+    "source": "https://github.com/MMH-Goslar/GS_MMH_WEB"
   },
   "require": {
     "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
