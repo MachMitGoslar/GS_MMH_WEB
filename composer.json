@@ -1,5 +1,5 @@
 {
-  "name": "MMH-GS-WEB",
+  "name": "mmh_goslar/gs_mmh_web",
   "description": "MMH Goslar Website",
   "type": "webapp",
   "keywords": [
@@ -11,7 +11,7 @@
   "authors": [
     {
       "name": "Martin Sänger",
-      "email": "stufƒ@stuffdev.de",
+      "email": "stuff@stuffdev.de",
       "homepage": "https://mmh.goslar.de"
     }
   ],
