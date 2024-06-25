@@ -12,6 +12,11 @@ sections:
   content:
     type: fields
     fields:
+      cover: fields/cover
+      headline:
+        type: text
+        placeholder: page.title
+        required: true
       subheadline:
         label: Untertitel
         type: text

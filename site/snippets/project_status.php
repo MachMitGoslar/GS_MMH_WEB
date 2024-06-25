@@ -1,6 +1,13 @@
 <?php
 /*
 Snippet for setting the project status Field. Reusable
+
+Colors:
+    bg-gold
+    bg-green
+    bg-blue
+    bg-gray
+
 */
 ?>
 
@@ -22,4 +29,4 @@ Snippet for setting the project status Field. Reusable
         }
 
     ?>
-    <span class="badge text-<?=isset($size) ? $size : 'sm'?> bg-<?=$color ?> border-solid border-2 border-<?=$color?>-400"> <?=$status?> </span>
+    <div class="badge text-<?=isset($size) ? $size : 'sm'?> bg-<?=$color ?> text-gold-800 border-solid border-2 border-<?=$color?>-400"> <?=$status?> </div>

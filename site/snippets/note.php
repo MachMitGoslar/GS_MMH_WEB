@@ -13,7 +13,7 @@
 
   <div class="px-6 py-4 mb-auto dark:bg-gray-300 dark:text-gray-900">
     <a href="<?= $note->url() ?>"
-      class="font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2">
+      class="font-medium text-lg text-gray-900 inline-block hover:text-gold-600 transition duration-500 ease-in-out inline-block mb-2">
       <?= $note->title()->esc() ?></a>
     <?php if (isset($excerpt) && $excerpt): ?>
       <p class="text-gray-500 text-sm">

@@ -30,6 +30,13 @@ columns:
       fields:
         type: fields
         fields:
+          cover: fields/cover
+          headline:
+            type: text
+            placeholder: {{page.title}}
+            required: true
+          subheadline:
+            type: text
           layout:
             type: layout
             size: huge

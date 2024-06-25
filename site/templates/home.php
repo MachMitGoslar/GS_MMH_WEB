@@ -19,47 +19,58 @@
 */
 
 ?>
-<?php snippet('header') ?>
-  <?php snippet('intro') ?>
-  
-  <?php
-  /*
-    We always use an if-statement to check if a page exists to
-    prevent errors in case the page was deleted or renamed before
-    we call a method like `children()` in this case
-  */
-  ?>
-  <?php if ($projectsPage = page('projects')): ?>
-  <ul class="grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense">
-    <?php foreach ($projectsPage->children()->listed() as $album): ?>
-    <li>
-        <figure class="relative max-w-sm hover:border-gold hover:border-solid hover:border-2 rounded-lg hover:rounded-lg col-span-2 row-span-2">
-        <a href="<?= $album->url() ?>">
+<?php snippet('main_layout', slots:true) ?>
 
-          <?php
-          /*
-            The `cover()` method defined in the `album.php`
-            page model can be used everywhere across the site
-            for this type of page
+  <?php slot('hero') ?>
+    <?php snippet('hero', [
+      'title' => $page->headline(),
+      'subheading' => $page->subheadline(),
+      'cover' => $page->cover()
+      ]) 
+    ?>
+  <?php endslot() ?>
 
-            We can automatically resize images to a useful
-            size with Kirby's built-in image manipulation API
-          */
-          ?>
-          <?php if ($cover = $album->cover()): ?>
-            <p><?= $album->cover_focus() ?></p>
-              <img class="filter hover:blur aspect-square	border-2 border-transparent object-cover h-auto max-w-full rounded-lg hover:rounded-lg transition-all duration-300 cursor-pointer" style="focus: <?= $cover->focus() ?>" src="<?= $cover->resize(1024, 1024)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
+  <?php slot() ?>
+    <?php if ($projectsPage = page('projects')): ?>
+      <h1> Unsere Projekte </h1>
+      
+      <ul class="pt-10 grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense">
+        <?php foreach ($projectsPage->children()->listed() as $album): ?>
+          <li>
+            <figure
+              class="relative max-w-sm hover:border-gold hover:border-solid hover:border-2 rounded-lg hover:rounded-lg col-span-2 row-span-2">
+              <a href="<?= $album->url() ?>">
 
-          <?php endif ?>
-          </a>
+                <?php
+                /*
+                  The `cover()` method defined in the `album.php`
+                  page model can be used everywhere across the site
+                  for this type of page
 
-          <figcaption class=" rounded-lg absolute text-lg  text-white text-center bottom-0 py-5 w-full bg-gradient-to-t from-gold">
-              <p class="text-white font-black" ><?= $album->title()->esc() ?></p>
-          </figcaption>
-        </figure>
-    </li>
-    
-    <?php endforeach ?>
-  </ul>
-  <?php endif ?>
-<?php snippet('footer') ?>
+                  We can automatically resize images to a useful
+                  size with Kirby's built-in image manipulation API
+                */
+                ?>
+                <?php if ($cover = $album->cover()): ?>
+                  <p><?= $album->cover_focus() ?></p>
+                  <img
+                    class="filter hover:blur aspect-square	border-2 border-transparent object-cover h-auto max-w-full rounded-lg hover:rounded-lg transition-all duration-300 cursor-pointer"
+                    style="focus: <?= $cover->focus() ?>" src="<?= $cover->resize(1024, 1024)->url() ?>"
+                    alt="<?= $cover->alt()->esc() ?>">
+
+                <?php endif ?>
+              </a>
+
+              <figcaption
+                class=" rounded-lg absolute text-lg  text-white text-center bottom-0 py-5 w-full bg-gradient-to-t from-gold">
+                <p class="text-white font-black"><?= $album->title()->esc() ?></p>
+              </figcaption>
+            </figure>
+          </li>
+
+        <?php endforeach ?>
+      </ul>
+    <?php endif ?>
+  <?php endslot() ?> 
+
+<?php endsnippet() ?>

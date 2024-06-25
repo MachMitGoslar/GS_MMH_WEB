@@ -2,6 +2,18 @@ Title: Wie funktioniert MachMit!?
 
 ----
 
+Cover: - file://4muUiw2RPsyZOrGb
+
+----
+
+Headline: Wie funktioniert MachMit!?
+
+----
+
+Subheadline: Das Rezept für Bürgerbeteiligung
+
+----
+
 Layout: [{"attrs":[],"columns":[{"blocks":[{"content":{"text":"<p>Wie entsteht eigentlich ein MachMit!Projekt? In erster Linie durch Kommunikation:</p><p></p><p></p>"},"id":"bd687f99-6ac3-4cab-9b58-a32ec21df8f4","isHidden":false,"type":"text"}],"id":"ba74a3bf-7c5e-4bd6-8d5e-102d5e1a9739","width":"1/1"}],"id":"f127c5de-777b-44b9-a295-223123356572"},{"attrs":[],"columns":[{"blocks":[{"content":{"text":"<ul><li>Du kommst mit Deinen Gedanken ins MachMit!Haus und sprichst darüber</li><li>Die Stadtverwaltung hat ein Projekt, in dem sie Deine Meinung in das Ergebnis mit einfließen lassen möchte</li><li>Die Goslarer Politik (der Rat der Stadt Goslar) hat eine Idee, zu der sie Deine Meinung haben möchte</li></ul>"},"id":"7cd569bc-7262-4c6a-8f25-b0155d53c96b","isHidden":false,"type":"list"}],"id":"8f8b3efd-4c90-4e5f-bfb7-7ef377737bdf","width":"1/1"}],"id":"bc1e8e2c-3ef3-46d9-91d0-e07e9d56a2d0"},{"attrs":[],"columns":[{"blocks":[{"content":{"text":"<p>Du willst Teil anderer Projekte in Goslar werden? Dann schau hier unter \"Engagieren in Goslar\".</p>"},"id":"8d16e3cc-0ae6-4621-a55a-ab7ca0b3c4ce","isHidden":false,"type":"text"}],"id":"a89faaa6-fb00-488e-bb6d-3aef6cd170f4","width":"1/1"}],"id":"79794c16-0649-4bde-98e2-22e841975217"}]
 
 ----
@@ -11,10 +23,6 @@ Text:
 ----
 
 Uuid: 6tHQiS64P6WyQOWm
-
-----
-
-Cover: 
 
 ----
 

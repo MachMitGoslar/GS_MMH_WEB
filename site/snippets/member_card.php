@@ -4,7 +4,7 @@
         $short = false;
     }
 ?>
-<div class="max-w-4xl flex items-center h-auto flex-wrap mx-auto my-32 <?= $short ? '' : 'lg:my-0 lg:h-screen '?>">
+<div class="max-w-4xl flex items-stretch h-auto flex-wrap mx-auto my-32 <?= $short ? '' : 'lg:my-0 lg:h-max '?>">
 
 	<!--Main Col-->
 	<div id="profile"
@@ -19,7 +19,7 @@
 			<h1 class="text-3xl font-bold pt-8 <?= $short ? '' : 'lg:pt-0'?>"><?= $member->name() ?></h1>
 			<div class="mx-auto <?= $short ? '' : 'lg:mx-0'?> w-4/5 pt-3 border-b-2 border-gold-500 opacity-25"></div>
 			<?php if ($member->role()->isNotEmpty()): ?>
-				<p class="pt-4 text-base font-bold flex items-center justify-center <?= $short ? '' : 'lg:justify-start'?>">
+				<p class="pt-4 format text-base font-bold flex items-center justify-center <?= $short ? '' : 'lg:justify-start'?>">
 					<svg class="h-4 fill-current text-gold-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 						<path d="M9 12H1v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6h-8v2H9v-2zm0-1H0V5c0-1.1.9-2 2-2h4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v6h-9V9H9v2zm3-8V2H8v1h4z" />
 					</svg> 
@@ -51,11 +51,11 @@
 					c0-0.2,0-0.3,0-0.4c0-0.2,0-0.3,0-0.4C34.2,53.6,34.1,53.5,34.1,53.3z"/>
 			</g>
 			</svg>
-				<?= $member->phone()->esc() ?>
+				<?= HTML::tel($member->phone()->esc()) ?>
 		</p>
 		<?php endif ?>
 
-			<p class="pt-8 text-sm"><?= $short ? $member->description()->excerpt(100) : $member->description() ?></p>
+			<p class="pt-8 text-sm format"><?= $short ? $member->description()->excerpt(100) : $member->description() ?></p>
 
             <?php if($short): ?>
  			<div class="pt-12 pb-8">
@@ -65,7 +65,7 @@
 			</div>           
             <?php else: ?>
 			<div class="pt-12 pb-8">
-				<a href="mailto://<?=$member->email()?>" class="bg-gold-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
+				<a href="mailto:<?=$member->email()?>" class="bg-gold-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
 					Schreib mir
 			</a>
 			</div>

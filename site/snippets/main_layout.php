@@ -17,13 +17,6 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <?php
-  /*
-    Don't allow indexing by search machines while developing
-  */
-  ?>
-  <meta name="robots" content="noindex">
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   <?php
   /*
@@ -31,7 +24,11 @@
     site and the title of the current page
   */
   ?>
-  <title><?= $site->title()->esc() ?> | <?= $page->title()->esc() ?></title>
+  <?php if($header_title = $slots->header_title): ?>
+    <title><?= $site->title()->esc() ?> | <?= $header_title?></title>
+  <?php else: ?>
+    <title><?= $site->title()->esc() ?> | <?= $page->title()?></title>
+  <?php endif;  ?>
 
   <?php
   /*
@@ -76,13 +73,13 @@
 
 
               <svg class="absolute top-0 fill-white" id="black_layer">
-                <use xlink:href="<?=$site->url()?>/assets/images/logo.svg#black_layer" />
+                <use xlink:href="/assets/images/logo.svg#black_layer" />
               </svg>
               <svg class="absolute top-0 fill-black" id="white_layer">
-                <use xlink:href="<?=$site->url()?>/assets/images/logo.svg#white_layer" />
+                <use xlink:href="/assets/images/logo.svg#white_layer" />
               </svg>
               <svg class="absolute top-0 fill-gold">
-                <use xlink:href="<?=$site->url()?>/assets/images/logo.svg#gold_layer" />
+                <use xlink:href="/assets/images/logo.svg#gold_layer" />
               </svg>
             </div>
           </a>
@@ -115,6 +112,7 @@
       </div>
       <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
     </nav>
+
     <script>
       var scrollpos = window.scrollY;
       var header = document.getElementById("header");
@@ -174,4 +172,22 @@
   </header>
 
   <main class="pt-24">
+    <?php if($hero = $slots->hero()): ?>
+      <?= $hero ?>
+    <?php endif;  ?>
+
+    <?php snippet('divider_top')  ?>
+
+    <section class=" bg-white py-3">
+      <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <?= $slot ?>
+      </div>
+    </section>
+    <?php snippet('divider_bottom') ?>
+
+  </main>
+
+  <?php snippet('footer') ?>
+
+
       
