@@ -21,6 +21,10 @@ class ComposerStaticInit257fc1e9d96ec6c33f24765a3089cc7c
         array (
             'Whoops\\' => 7,
         ),
+        'T' => 
+        array (
+            'Thathoff\\GitContent\\' => 20,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -57,6 +61,10 @@ class ComposerStaticInit257fc1e9d96ec6c33f24765a3089cc7c
         'Whoops\\' => 
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
+        'Thathoff\\GitContent\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/site/plugins/git-content/src',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -142,6 +150,22 @@ class ComposerStaticInit257fc1e9d96ec6c33f24765a3089cc7c
         'Composer\\Semver\\Intervals' => __DIR__ . '/..' . '/composer/semver/src/Intervals.php',
         'Composer\\Semver\\Semver' => __DIR__ . '/..' . '/composer/semver/src/Semver.php',
         'Composer\\Semver\\VersionParser' => __DIR__ . '/..' . '/composer/semver/src/VersionParser.php',
+        'CzProject\\GitPhp\\CommandProcessor' => __DIR__ . '/..' . '/czproject/git-php/src/CommandProcessor.php',
+        'CzProject\\GitPhp\\Commit' => __DIR__ . '/..' . '/czproject/git-php/src/Commit.php',
+        'CzProject\\GitPhp\\CommitId' => __DIR__ . '/..' . '/czproject/git-php/src/CommitId.php',
+        'CzProject\\GitPhp\\Exception' => __DIR__ . '/..' . '/czproject/git-php/src/exceptions.php',
+        'CzProject\\GitPhp\\Git' => __DIR__ . '/..' . '/czproject/git-php/src/Git.php',
+        'CzProject\\GitPhp\\GitException' => __DIR__ . '/..' . '/czproject/git-php/src/exceptions.php',
+        'CzProject\\GitPhp\\GitRepository' => __DIR__ . '/..' . '/czproject/git-php/src/GitRepository.php',
+        'CzProject\\GitPhp\\Helpers' => __DIR__ . '/..' . '/czproject/git-php/src/Helpers.php',
+        'CzProject\\GitPhp\\IRunner' => __DIR__ . '/..' . '/czproject/git-php/src/IRunner.php',
+        'CzProject\\GitPhp\\InvalidArgumentException' => __DIR__ . '/..' . '/czproject/git-php/src/exceptions.php',
+        'CzProject\\GitPhp\\InvalidStateException' => __DIR__ . '/..' . '/czproject/git-php/src/exceptions.php',
+        'CzProject\\GitPhp\\RunnerResult' => __DIR__ . '/..' . '/czproject/git-php/src/RunnerResult.php',
+        'CzProject\\GitPhp\\Runners\\CliRunner' => __DIR__ . '/..' . '/czproject/git-php/src/Runners/CliRunner.php',
+        'CzProject\\GitPhp\\Runners\\MemoryRunner' => __DIR__ . '/..' . '/czproject/git-php/src/Runners/MemoryRunner.php',
+        'CzProject\\GitPhp\\Runners\\OldGitRunner' => __DIR__ . '/..' . '/czproject/git-php/src/Runners/OldGitRunner.php',
+        'CzProject\\GitPhp\\StaticClassException' => __DIR__ . '/..' . '/czproject/git-php/src/exceptions.php',
         'Kirby\\Api\\Api' => __DIR__ . '/../..' . '/kirby/src/Api/Api.php',
         'Kirby\\Api\\Collection' => __DIR__ . '/../..' . '/kirby/src/Api/Collection.php',
         'Kirby\\Api\\Model' => __DIR__ . '/../..' . '/kirby/src/Api/Model.php',
@@ -510,6 +534,8 @@ class ComposerStaticInit257fc1e9d96ec6c33f24765a3089cc7c
         'Symfony\\Polyfill\\Intl\\Idn\\Resources\\unidata\\Regex' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/Resources/unidata/Regex.php',
         'Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
+        'Thathoff\\GitContent\\KirbyGit' => __DIR__ . '/../..' . '/site/plugins/git-content/src/KirbyGit.php',
+        'Thathoff\\GitContent\\KirbyGitHelper' => __DIR__ . '/../..' . '/site/plugins/git-content/src/KirbyGitHelper.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',
         'Whoops\\Exception\\Frame' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Frame.php',

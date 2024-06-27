@@ -23,7 +23,9 @@
   },
   "require": {
     "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-    "getkirby/cms": "^4.0"
+    "getkirby/cms": "^4.0",
+    "thathoff/kirby-git-content": "^5.2",
+    "sylvainjule/locator": "^2.0"
   },
   "config": {
     "allow-plugins": {

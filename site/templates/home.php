@@ -70,6 +70,7 @@
 
         <?php endforeach ?>
       </ul>
+      <?php snippet("oveda", ["oveda_search" => $page->oveda()]) ?>
     <?php endif ?>
   <?php endslot() ?> 
 

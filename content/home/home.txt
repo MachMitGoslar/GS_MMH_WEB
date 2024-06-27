@@ -14,4 +14,21 @@ Subheadline: Willkommen in der Welt die Goslar verändert - jeden Tag und mit Di
 
 ----
 
+Oveda:
+
+organizer: ""
+start: 2024-06-27
+end: ""
+location:
+  latitude: ""
+  longiture: ""
+  distance: ""
+organizers: "19"
+
+----
+
 Uuid: wljMYhm0m3e9QOwC
+
+----
+
+Organizers: "tes222t"
