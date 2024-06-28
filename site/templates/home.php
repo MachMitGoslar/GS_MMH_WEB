@@ -32,6 +32,7 @@
 
   <?php slot() ?>
     <?php if ($projectsPage = page('projects')): ?>
+      <div class="projects">
       <h1> Unsere Projekte </h1>
       
       <ul class="pt-10 grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense">
@@ -70,6 +71,7 @@
 
         <?php endforeach ?>
       </ul>
+      </div>
       <?php snippet("oveda", ["oveda_search" => $page->oveda()]) ?>
     <?php endif ?>
   <?php endslot() ?> 
