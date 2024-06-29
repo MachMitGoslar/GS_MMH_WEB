@@ -3,7 +3,7 @@
         'name' => 'mmh_goslar/gs_mmh_web',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ff9af817dadd49249bfd2b37e1540d18fd768c3e',
+        'reference' => '4fe6460a41ddba834fbabc30c3f27e96a5109199',
         'type' => 'webapp',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -109,7 +109,7 @@
         'mmh_goslar/gs_mmh_web' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ff9af817dadd49249bfd2b37e1540d18fd768c3e',
+            'reference' => '4fe6460a41ddba834fbabc30c3f27e96a5109199',
             'type' => 'webapp',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
