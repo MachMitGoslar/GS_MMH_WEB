@@ -203,61 +203,6 @@
             "install-path": "./semver"
         },
         {
-            "name": "czproject/git-php",
-            "version": "v4.2.0",
-            "version_normalized": "4.2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/czproject/git-php.git",
-                "reference": "e257f2c3b43fe8fef19ddb5727b604416b423107"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/czproject/git-php/zipball/e257f2c3b43fe8fef19ddb5727b604416b423107",
-                "reference": "e257f2c3b43fe8fef19ddb5727b604416b423107",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "nette/tester": "^2.0"
-            },
-            "time": "2023-07-12T09:14:30+00:00",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Jan Pecha",
-                    "email": "janpecha@email.cz"
-                }
-            ],
-            "description": "Library for work with Git repository in PHP.",
-            "keywords": [
-                "git"
-            ],
-            "support": {
-                "issues": "https://github.com/czproject/git-php/issues",
-                "source": "https://github.com/czproject/git-php/tree/v4.2.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.janpecha.cz/donate/git-php/",
-                    "type": "other"
-                }
-            ],
-            "install-path": "../czproject/git-php"
-        },
-        {
             "name": "filp/whoops",
             "version": "2.15.4",
             "version_normalized": "2.15.4.0",
@@ -672,6 +617,67 @@
                 "source": "https://github.com/michelf/php-smartypants/tree/1.8.1"
             },
             "install-path": "../michelf/php-smartypants"
+        },
+        {
+            "name": "oblik/kirby-git",
+            "version": "2.0.0",
+            "version_normalized": "2.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OblikStudio/kirby-git.git",
+                "reference": "19514a8b521495e0cc7b9941c811dd5364219be3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OblikStudio/kirby-git/zipball/19514a8b521495e0cc7b9941c811dd5364219be3",
+                "reference": "19514a8b521495e0cc7b9941c811dd5364219be3",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/cms": "^4",
+                "getkirby/composer-installer": "^1.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.2"
+            },
+            "time": "2024-02-04T07:30:59+00:00",
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "git"
+            },
+            "installation-source": "source",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oblik Studio",
+                    "email": "hello@oblik.studio",
+                    "homepage": "https://oblik.studio/"
+                },
+                {
+                    "name": "Hristiyan Dodov",
+                    "email": "h.dodov@gmail.com",
+                    "homepage": "https://dodov.dev/"
+                }
+            ],
+            "description": "Shows you Git changes in the Kirby panel and allows you to add/commit/push them, manually or automatically.",
+            "keywords": [
+                "kirby",
+                "kirby-plugin"
+            ],
+            "support": {
+                "issues": "https://github.com/OblikStudio/kirby-git/issues",
+                "source": "https://github.com/OblikStudio/kirby-git"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/OblikStudio",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../../site/plugins/git"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -1341,61 +1347,6 @@
                 }
             ],
             "install-path": "../symfony/yaml"
-        },
-        {
-            "name": "thathoff/kirby-git-content",
-            "version": "5.2.0",
-            "version_normalized": "5.2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thathoff/kirby-git-content.git",
-                "reference": "fca7bc56308a7112e845b62dcf55f003334ff360"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thathoff/kirby-git-content/zipball/fca7bc56308a7112e845b62dcf55f003334ff360",
-                "reference": "fca7bc56308a7112e845b62dcf55f003334ff360",
-                "shasum": ""
-            },
-            "require": {
-                "czproject/git-php": "^4.0.1",
-                "getkirby/composer-installer": "^1.1"
-            },
-            "require-dev": {
-                "getkirby/cms": "^3.6.0|^4.0.0"
-            },
-            "time": "2023-12-09T15:53:09+00:00",
-            "type": "kirby-plugin",
-            "extra": {
-                "installer-name": "git-content",
-                "kirby-cms-path": false
-            },
-            "installation-source": "source",
-            "autoload": {
-                "psr-4": {
-                    "Thathoff\\GitContent\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Markus Denhoff",
-                    "email": "markus@denhoff.com"
-                },
-                {
-                    "name": "reinorange GmbH",
-                    "email": "info@reinorange.com"
-                }
-            ],
-            "description": "Plugin to track changes to content in a git repository.",
-            "support": {
-                "issues": "https://github.com/thathoff/kirby-git-content/issues",
-                "source": "https://github.com/thathoff/kirby-git-content"
-            },
-            "install-path": "../../site/plugins/git-content"
         }
     ],
     "dev": true,

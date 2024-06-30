@@ -23,12 +23,14 @@
 <?php snippet('main_layout', slots:true) ?>
 
   <?php slot('hero') ?>
+  <?php if($page->cover() && $page->cover()->exists()): ?>
     <?php snippet('hero', [
       'title' => $page->headline(),
       'subheading' => $page->subheadline(),
       'cover' => $page->cover()
       ]) 
     ?>
+  <?php endif; ?>
   <?php endslot() ?>
 
   <?php slot() ?>

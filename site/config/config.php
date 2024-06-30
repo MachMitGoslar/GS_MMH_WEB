@@ -11,5 +11,8 @@ return [
     'debug' => true,
     'panel' => [
         'install' => true
-    ]
+    ],
+    //Git Content ThatOff
+    'oblik.git.repo' => 'content',
+    'oblik.git.merge' => 'master',
 ];

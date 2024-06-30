@@ -35,7 +35,7 @@
       <div class="projects">
       <h1> Unsere Projekte </h1>
       
-      <ul class="pt-10 grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense" data-page="<?=$events_manager->page+1?>">
+      <ul class="pt-10 grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense">
         <?php foreach ($projectsPage->children()->listed() as $album): ?>
           <li>
             <figure
