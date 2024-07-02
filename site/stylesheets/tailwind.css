@@ -52,3 +52,7 @@
         min-height: 70vh;
     }
   }
+
+  body {
+    overflow-x: hidden;
+  }

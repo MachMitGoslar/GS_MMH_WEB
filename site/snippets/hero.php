@@ -12,7 +12,7 @@
     <!--Left Col-->
     <div class="flex flex-col w-full z-10 md:w-1/2 justify-center items-start text-center md:text-left">
         <p class="uppercase tracking-loose w-full">Was wir so machen?</p>
-        <h1 class="my-4 text-5xl font-bold leading-tight">
+        <h1 class="my-4 text-3xl md:text-5xl font-bold leading-tight">
             <?= $title ?>
         </h1>
         <?php if(isset($subheading) && $subheading->isNotEmpty()): ?>

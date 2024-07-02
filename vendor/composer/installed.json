@@ -645,7 +645,7 @@
             "extra": {
                 "installer-name": "git"
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -839,7 +839,7 @@
             "extra": {
                 "installer-name": "locator"
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
