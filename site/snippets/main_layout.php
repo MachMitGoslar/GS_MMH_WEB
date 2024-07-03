@@ -67,7 +67,7 @@
 
     <nav id="header" class="fixed w-full z-30 top-0 text-white">
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-      <a class="" href="<?=$site->url()?>">
+      <a style="width:250px"class="" href="<?=$site->url()?>">
         <div class="pl-4 flex items-center toggleColourInv text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
           
           <div class="relative h-32 -ml-10 -mt-14 ">
