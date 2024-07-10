@@ -55,3 +55,7 @@ Icon
 /node_modules
 composer.phar
 vendor/
+
+# Plugins
+#----------
+/site/plugins

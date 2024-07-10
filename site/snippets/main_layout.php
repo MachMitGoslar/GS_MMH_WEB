@@ -67,8 +67,9 @@
 
     <nav id="header" class="fixed w-full z-30 top-0 text-white">
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-        <div class="pl-4 flex items-center">
-          <a class="toggleColourInv text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="<?=$site->url()?>">
+      <a style="width:250px"class="" href="<?=$site->url()?>">
+        <div class="pl-4 flex items-center toggleColourInv text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl">
+          
           <div class="relative h-32 -ml-10 -mt-14 ">
 
 
@@ -82,8 +83,9 @@
                 <use xlink:href="/assets/images/logo.svg#gold_layer" />
               </svg>
             </div>
-          </a>
+
         </div>
+        </a>
         <div class="block lg:hidden pr-4">
           <button id="nav-toggle" data-collapse-toggle="nav-content" class="toggleColourInv flex items-center p-1 text-white hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
             <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

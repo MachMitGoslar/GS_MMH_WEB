@@ -8,8 +8,11 @@
  * All config options: https://getkirby.com/docs/reference/system/options
  */
 return [
-    'debug' => true,
+    'debug' => false,
     'panel' => [
-        'install' => true
-    ]
+        'install' => false
+    ],
+    //Git Content ThatOff
+    'oblik.git.repo' => 'content',
+    'oblik.git.merge' => 'master',
 ];

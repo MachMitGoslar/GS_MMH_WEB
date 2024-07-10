@@ -11,7 +11,7 @@
 */
 ?>
 <?php foreach ($field->toLayouts() as $layout): ?>
-<section class="grid gap-4 grid-cols-<?=count($layout->columns())?>" id="<?= esc($layout->id(), 'attr') ?>">
+<section class="grid gap-4 grid-cols-1 md:grid-cols-<?=count($layout->columns())?>" id="<?= esc($layout->id(), 'attr') ?>">
   <?php foreach ($layout->columns() as $column): ?>
   <div class="col-span-<?= esc($column->span(), 'css') ?>">
     <div class="text">

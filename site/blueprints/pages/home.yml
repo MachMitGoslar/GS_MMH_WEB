@@ -24,6 +24,28 @@ sections:
       subheadline:
         type: text
         width: 1/2
+      oveda:
+        type: object
+        fields:
+          organizer:
+            extends: fields/orgaselect
+            label: Veranstalter
+          start:
+            type: date
+          end:
+            type: date
+          location:
+            label: Ort
+            type: locator
+            tiles: positron
+          distance:
+            label: Umkreis
+            type: range
+            min: 100
+            max: 10000
+            tooltip:
+              after: m
+
 
   # The photography section extends a pages section defined in the `/site/blueprints/section/album.yml` blueprint
   # More about reusing and extending sections: https://getkirby.com/docs/guide/blueprints/extending-blueprints#reusing-and-extending-sectionss

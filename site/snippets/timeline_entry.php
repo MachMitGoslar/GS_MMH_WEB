@@ -10,12 +10,12 @@
     <div>
     <time
         class="block text-sm font-normal leading-none text-gray-400 dark:text-gray-500"><?= $entry->project_start_date() ?>
-        - <?= $entry->project_start_time() ?> </time>
+        <?= $entry->project_start_time()->isNotEmpty() ? " - ".$entry->project_start_time() : "" ?> </time>
     <div class="flex items-center">
     <h3 class="flex items-center text-lg font-semibold text-gray-900 dark:text-white"><?= $entry->title() ?>
 
     <?php if ($entry->num() == 1): ?>
-    <span class="bg-blue-100 text-blue-800 text-sm font-medium ml-4 dark:bg-blue-900 dark:text-blue-300">Aktuell</span>
+    <span class="bg-gray-100 text-gray-800 text-sm font-medium ml-4 dark:bg-gray-900 dark:text-gray-300">Aktuell</span>
     <?php endif; ?>
 
     </h3>
@@ -32,7 +32,7 @@
         </div>
     <?php endif ?>
     <?php if($entry->description()->isNotEmpty()): ?>
-    <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400"><?= $entry->description() ?></p>
+        <p class="mb-4 text-base font-normal text-gray-800 dark:text-gray-400"><?= $entry->description() ?></p>
     <?php endif ?>
     </div>
 </li>

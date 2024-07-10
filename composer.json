@@ -23,7 +23,9 @@
   },
   "require": {
     "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-    "getkirby/cms": "^4.0"
+    "getkirby/cms": "^4.0",
+    "sylvainjule/locator": "^2.0",
+    "oblik/kirby-git": "^2.0"
   },
   "config": {
     "allow-plugins": {
