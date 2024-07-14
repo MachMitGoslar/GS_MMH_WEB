@@ -1,0 +1,18 @@
+type: fields
+label: Newsletter
+parent: kirby.page("home")
+
+fields: 
+  newsletter_headline: 
+    type: text
+    label: Überschrift
+    required: true
+  newsletter_lead:
+    type: textarea
+    label: Leadtext
+    required: true
+  newsletter_text:
+    type: textarea
+  newsletter_button_text: 
+    type: text
+    label: Buttontext

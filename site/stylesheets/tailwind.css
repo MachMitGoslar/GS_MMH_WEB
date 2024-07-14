@@ -6,52 +6,20 @@
     @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
     html {
-        font-family: "Lato", system-ui, sans-serif;
+        font-family: "Inter", system-ui, sans-serif;
     }
 
-    .footer h2 {
-        @apply text-base font-black text-gray-800 dark:text-gold-500;
-    }
-    .footer li {
-        @apply text-sm font-light dark:text-white text-gray-200 hover:text-gold-900;
-    }
-    .badge {
-        @apply text-sm font-medium me-2 px-2.5 py-0.5 rounded;
-    }
-
-    main h1 {
-        @apply text-4xl tracking-tight font-bold text-black dark:text-white
-    }
-
-    main h2 {
-        @apply text-3xl tracking-tight font-bold text-black dark:text-white
-    }
-
-    main h3 {
-        @apply text-2xl tracking-tight font-bold text-black dark:text-white
-    }
-
-    main h1 small {
-        @apply mb-4 text-4xl tracking-tight font-light text-gray-300 dark:text-white
-    }
-    main h2 small{
-        @apply mb-4 text-3xl tracking-tight font-light text-gray-300 dark:text-white
-    }
-
-    main h3 small {
-        @apply mb-4 text-2xl tracking-tight font-light text-gray-300 dark:text-white
-    }
-
-    .text ul {
-        @apply max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400
-    }
-    header {
-        @apply mb-4
-    }
     main {
         min-height: 70vh;
     }
+
+
   }
+@layer components {
+    .hero img {
+        @apply aspect-[16/9] md:aspect-[24/9] lg:aspect-[28/9] xl:aspect-[28/9] 2xl:aspect-[28/9] object-cover;
+    }
+}
 
   body {
     overflow-x: hidden;

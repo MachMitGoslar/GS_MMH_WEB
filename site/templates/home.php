@@ -23,9 +23,7 @@
 
   <?php slot('hero') ?>
     <?php snippet('hero', [
-      'title' => $page->headline(),
-      'subheading' => $page->subheadline(),
-      'cover' => $page->cover()
+      'cover' => $site->cover()
       ]) 
     ?>
   <?php endslot() ?>

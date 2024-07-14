@@ -6,8 +6,8 @@ type: pages
 label: Beteiligte
 parent: kirby.page("team")
 size: small
-info: "{{ page.images.count }} image(s)"
-layout: list
+info: "{{ page.tags.count }}"
+layout: cardlets
 template: member
 templates: member
 create:

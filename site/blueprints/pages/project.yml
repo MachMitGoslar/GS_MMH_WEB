@@ -78,7 +78,7 @@ columns:
           project_start_time: true
             label: Startzeit
         templates:
-          - timeline_entries
+          - project_update
         empty: Noch keine Projektschritte angelegt
-        sortBy: project_start_date asc
+        sortBy: change_date asc
 

@@ -1,0 +1,15 @@
+type: pages
+query: site.page("projects").children.children.listed.sortBy("change_date", "desc")
+template: project_update
+status: listed
+size: small
+max: 6
+info: "<p> {{page.change_date}} </p> <p> <strong> {{ page.parent.title }} </strong> </p>"
+layout: cardlets
+label: Projektupdates
+
+empty: Bisher keine Projektupdates
+image:
+  query: 'page.cover.isNotEmpty ? page.cover : parent.cover'
+  cover: true
+  ratio: 5/4

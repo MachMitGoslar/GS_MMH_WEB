@@ -1,5 +1,5 @@
 # Each page blueprint must have a title, the title may be different from the file name
-title: Timeline Entry
+title: Projektupdate
 create:
   title:
     label: Projektschritt
@@ -10,7 +10,11 @@ create:
   status: draft
 
 # Each page can have an icon that is shown in page listings when no preview image is available.
-icon: 🖼
+image:
+  query: 'page.cover ?: page.parent.cover'
+  cover: true
+  ratio: 5/4
+
 
 # Page status can be limited, here to `draft` and `listed`.
 # More about page status: https://getkirby.com/docs/reference/panel/blueprints/page#statuses
@@ -23,6 +27,7 @@ status:
 # The first column defines an files section, the second a set of fields
 # More about different types of sections: https://getkirby.com/docs/reference/panel/sections
 # More about columns: https://getkirby.com/docs/guide/blueprints/layout#defining-columns
+
 
 columns:
   - width: 2/3
@@ -39,12 +44,14 @@ columns:
         label: Projektschritt
         type: text
 
-      project_start_date:
-          label: Projektstart
+      change_date:
+          label: Datum des Updates
+          default: now
+          required: true
           type: date
           width: 1/2
-      project_start_time:
-        label: Startzeit
+      change_time:
+        label: Zeitpunkt des Updates
         type: time
         width: 1/2
       project_status_from:
@@ -69,7 +76,7 @@ columns:
         width: 1/2
       description:
         label: Beschreibung
-        type: writer
+        type: textarea
 
       tags: true
 

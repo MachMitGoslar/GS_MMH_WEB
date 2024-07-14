@@ -1,0 +1,20 @@
+label: Home
+icon: home
+
+columns:
+  - width: 1
+    fields:
+      cover: fields/cover
+  - width: 1/2
+    sections:
+      general: sections/home_general
+  - width: 1/2
+    sections:
+      newsletter: sections/home_newsletter
+  - width: 1
+    sections:
+      updates: sections/project_updates
+  - width: 1
+    type: fields
+    fields:
+      oveda: fields/oveda

@@ -53,7 +53,7 @@
   ?>
   <link rel="shortcut icon" type="image/x-icon" href="<?= url('favicon.ico') ?>">
 </head>
-<body class="leading-normal tracking-normal text-white linear-gradient bg-gradient-to-r from-gold-700 to-gold-400"  >
+<body class="leading-normal tracking-normal text-white linear-gradient bg-gradient-to-r from-ripe-mango-1200 to-ripe-mango-400"  >
 
   <header class="header ">
     <?php
@@ -79,7 +79,7 @@
               <svg class="absolute top-0 fill-black" id="white_layer">
                 <use xlink:href="/assets/images/logo.svg#white_layer" />
               </svg>
-              <svg class="absolute top-0 fill-gold">
+              <svg class="absolute top-0 fill-ripe-mango-1200">
                 <use xlink:href="/assets/images/logo.svg#gold_layer" />
               </svg>
             </div>
@@ -178,14 +178,13 @@
       <?= $hero ?>
     <?php endif;  ?>
 
-    <?php snippet('divider_top')  ?>
 
     <section class=" bg-white py-3">
       <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <?= $slot ?>
       </div>
     </section>
-    <?php snippet('divider_bottom') ?>
+
 
   </main>
 

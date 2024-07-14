@@ -1,0 +1,19 @@
+type: fields
+title: General
+parent: kirby.page("home")
+
+
+fields: 
+  greeter_headline:
+    type: text
+    label: Bergüßung Überschrift
+    required: true
+  greeter_text:
+    required: true
+    type: textarea
+    label: Begrüßungstext
+
+image:
+  query: page.cover
+  cover: true
+  ratio: 1/1
