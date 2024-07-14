@@ -32,7 +32,7 @@
         </div>
     <?php endif ?>
     <?php if($entry->description()->isNotEmpty()): ?>
-    <p class="mb-4 text-base font-normal text-gray-800 dark:text-gray-400"><?= $entry->description() ?></p>
+        <p class="mb-4 text-base font-normal text-gray-800 dark:text-gray-400"><?= $entry->description() ?></p>
     <?php endif ?>
     </div>
 </li>
