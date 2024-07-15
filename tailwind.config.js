@@ -8,7 +8,7 @@ module.exports = {
   theme: {
 
     fontFamily: {
-      'sans': ['Inter', 'Lato'],
+      'sans': ["'Inter'", 'Lato'],
     },
     extend: {
       aspectRatio: {
@@ -150,6 +150,69 @@ module.exports = {
       fontFamily: {
         'sans': ['Inter', 'Lato'],
       },
+      fontSize: {
+        'title3XXL': ['4rem', {
+          lineHeight: '120%',
+          letterSpacing: '-0.01em',
+          fontWeight: '700',
+        }],
+        'title2XXL': ['3.5rem', {
+          lineHeight: '120%',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'titleXXL': ['3rem', {
+          lineHeight: '120%',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'titleXL': ['2.5rem', {
+          lineHeight: '120%',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'title': ['2rem', {
+          lineHeight: '120%',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'title2': ['1.75rem', {
+          lineHeight: '120%',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'title3': ['1.5rem', {
+          lineHeight: '120%',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'headline': ['1.25rem', {
+          lineHeight: '140%',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'subheadline': ['1.125rem', {
+          lineHeight: '140%',
+          letterSpacing: '-0.02em',
+          fontWeight: '500',
+        }],
+        'body': ['1rem', {
+          lineHeight: '140%',
+          letterSpacing: '-0.02em',
+          fontWeight: '400',
+        }],
+        'footnote': ['0.875rem', {
+          lineHeight: '140%',
+          letterSpacing: '-0.02em',
+          fontWeight: '400',
+        }],
+        'caption': ['0.75rem', {
+          lineHeight: '140%',
+          letterSpacing: '-0.02em',
+          fontWeight: '400',
+        }],
+      }
+  
     },
   },
   plugins: [

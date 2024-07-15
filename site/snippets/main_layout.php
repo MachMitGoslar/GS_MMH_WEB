@@ -53,9 +53,9 @@
   ?>
   <link rel="shortcut icon" type="image/x-icon" href="<?= url('favicon.ico') ?>">
 </head>
-<body class="leading-normal tracking-normal text-white linear-gradient bg-gradient-to-r from-ripe-mango-1200 to-ripe-mango-400"  >
+<body class="leading-normal tracking-normal "  >
 
-  <header class="header ">
+  <header class="header linear-gradient bg-gradient-to-r from-ripe-mango-1200 to-ripe-mango-400">
     <?php
     /*
       We use `$site->url()` to create a link back to the homepage
@@ -173,16 +173,16 @@
     
   </header>
 
-  <main class="pt-24">
+  <main class="pt-24 bg-dead-pixel-10">
     <?php if($hero = $slots->hero()): ?>
       <?= $hero ?>
     <?php endif;  ?>
 
+    <div class="mb-2"></div>
 
-    <section class=" bg-white py-3">
-      <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+    <section class="container mx-auto mb-7 px-3 content_grid ">
         <?= $slot ?>
-      </div>
+
     </section>
 
 

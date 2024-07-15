@@ -29,6 +29,24 @@
   <?php endslot() ?>
 
   <?php slot() ?>
+
+    <!---- Greeter ---->
+    <div class="content_element_half py-6">
+      <h1 class="text-titleXXL mb-2"> <?=$site->greeter_headline() ?> </h1>
+      <p class="text-body"> <?=$site->greeter_text()?></p>
+    </div>
+    <!---- Newsletter CTA ---->
+    <div class="content_element_half bg-dead-pixel-1300 flex flex-col justify-between p-6">
+    <div class="mb-6">
+    <h2 class="text-title2 text-dead-pixel-10 mb-2"> <?=$site->newsletter_headline() ?> </h2>
+      <p class="text-subheadline text-dead-pixel-10 mb-2"> <?=$site->newsletter_lead()?></p>
+      <p class="text-body text-dead-pixel-10 mb-2"> <?=$site->newsletter_text()?></p>
+    </div>  
+    <div>
+      <button class="primary" data-style="square"><?=$site->newsletter_button_text()?></button>
+      </div>
+    </div>
+
     <?php if ($projectsPage = page('projects')): ?>
       <div class="projects">
       <h1> Unsere Projekte </h1>

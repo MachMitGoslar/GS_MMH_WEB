@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
 
 @layer base {
-    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+    
     html {
         font-family: "Inter", system-ui, sans-serif;
     }
@@ -19,6 +21,42 @@
     .hero img {
         @apply aspect-[16/9] md:aspect-[24/9] lg:aspect-[28/9] xl:aspect-[28/9] 2xl:aspect-[28/9] object-cover;
     }
+
+    .content_grid {
+      @apply grid grid-cols-1 gap-4 md:grid-cols-8 lg:grid-cols-12 xl:grid-cols-12 2xl:grid-cols-12
+    }
+
+    .content_element_half {
+      @apply col-span-1 md:col-span-4 lg:col-span-6 xl:col-span-6 2xl:col-span-6
+    }
+
+    button {
+       @apply rounded-full bg-ripe-mango-700 text-ripe-mango-1400 border-black border-2 hover:bg-ripe-mango-300 hover:text-ripe-mango-1200 focus:bg-ripe-mango-200 focus:text-ripe-mango-700 disabled:bg-dead-pixel-25 disabled:text-dead-pixel-400 disabled:pointer-events-none text-center inline-flex gap-2 font-semibold; 
+       height: 2.25rem;
+       padding: 1rem 0.5rem;
+       text-decoration: none;
+       justify-content: center;
+       align-items: center;
+    }
+    
+    button {
+      &[data-style="pill"] {
+        @apply rounded-full;
+      }
+
+      &[data-style="rounded-corners"] {
+        @apply rounded;
+      }
+
+      &[data-style="square"] {
+        @apply rounded-none;
+      }
+    }
+
+    
+
+  
+
 }
 
   body {
