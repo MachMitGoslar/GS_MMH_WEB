@@ -54,17 +54,7 @@ columns:
         label: Zeitpunkt des Updates
         type: time
         width: 1/2
-      project_status_from:
-        type: select
-        label: Projektzustand von
-        options:
-          - in Planung
-          - in Vorbereitung
-          - aktiv
-          - in Auswertung
-          - abgeschlossen
-        width: 1/2
-      project_status_to:
+      project_status:
         type: select
         label: Projektzustand zu
         options:

@@ -43,52 +43,31 @@
       <p class="text-body text-dead-pixel-10 mb-2"> <?=$site->newsletter_text()?></p>
     </div>  
     <div>
-      <button class="primary" data-style="square"><?=$site->newsletter_button_text()?></button>
+      <button class="primary" data-style="pill"><?=$site->newsletter_button_text()?></button>
       </div>
     </div>
 
+    <div class="divider content_element_full"></div>
+
+    <div class="content_element_full">
+      <?php snippet("oveda", ["oveda_search" => $page->oveda(), "date_search" => false, "recurrent" => false]) ?>
+    </div>
+
+    <div class="divider content_element_full"></div>
+
+    <!--- Projektupdates -->
     <?php if ($projectsPage = page('projects')): ?>
-      <div class="projects">
-      <h1> Unsere Projekte </h1>
+      <div class="projects content_element_full">
+        <h2 class="text-title mb-3"> Projektupdates</h2>
       
-      <ul class="pt-10 grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense">
-        <?php foreach ($projectsPage->children()->listed() as $album): ?>
-          <li>
-            <figure
-              class="relative max-w-sm hover:border-gold hover:border-solid hover:border-2 rounded-lg hover:rounded-lg col-span-2 row-span-2">
-              <a href="<?= $album->url() ?>">
+        <ul class="content_grid">
+          <?php foreach ($projectsPage->children()->children()->listed() as $project_update): ?>
+            
+            <?php snippet("components/project/projectUpdateCard", compact('project_update')) ?>
 
-                <?php
-                /*
-                  The `cover()` method defined in the `album.php`
-                  page model can be used everywhere across the site
-                  for this type of page
-
-                  We can automatically resize images to a useful
-                  size with Kirby's built-in image manipulation API
-                */
-                ?>
-                <?php if ($cover = $album->cover()): ?>
-                  <p><?= $album->cover_focus() ?></p>
-                  <img
-                    class="filter hover:blur aspect-square	border-2 border-transparent object-cover h-auto max-w-full rounded-lg hover:rounded-lg transition-all duration-300 cursor-pointer"
-                    style="focus: <?= $cover->focus() ?>" src="<?= $cover->resize(1024, 1024)->url() ?>"
-                    alt="<?= $cover->alt()->esc() ?>">
-
-                <?php endif ?>
-              </a>
-
-              <figcaption
-                class=" rounded-lg absolute text-lg  text-white text-center bottom-0 py-5 w-full bg-gradient-to-t from-gold">
-                <p class="text-white font-black"><?= $album->title()->esc() ?></p>
-              </figcaption>
-            </figure>
-          </li>
-
-        <?php endforeach ?>
-      </ul>
+          <?php endforeach ?>
+        </ul>
       </div>
-      <?php snippet("oveda", ["oveda_search" => $page->oveda()]) ?>
     <?php endif ?>
   <?php endslot() ?> 
 
