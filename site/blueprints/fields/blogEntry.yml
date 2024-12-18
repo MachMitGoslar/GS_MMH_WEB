@@ -1,0 +1,20 @@
+type: group
+fields:
+  headline:
+    lable: Titel
+    type: text
+  blog:
+    label: Content
+    type: blocks
+    fieldsets:
+      - type: heading
+        extends: blocks/heading
+        fields:
+          level:
+            options:
+              - h2
+              - h3
+      - text
+      - list
+      - image
+      - video

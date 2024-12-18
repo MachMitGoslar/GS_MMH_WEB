@@ -4,10 +4,10 @@
 # More about pages sections: https://getkirby.com/docs/reference/panel/sections/pages
 type: pages
 label: Projekte
-parent: kirby.page("projects")
+#parent: kirby.page("projects")
 size: small
 info: "{{ page.images.count }} image(s)"
-layout: cards
+#layout: cards
 template: project
 empty: Bisher keine Projekte
 image:

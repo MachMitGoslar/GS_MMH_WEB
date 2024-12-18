@@ -1,16 +1,7 @@
 <?php
-/**
- * Controllers allow you to separate the logic of your templates from your markup.
- * This is especially useful for complex logic, but also in general to keep your templates clean.
- *
- * In this example, we split the tags from the tags field to create a nice tag list
- *
- * More about controllers:
- * https://getkirby.com/docs/guide/templates/controllers
- */
-
-return function ($site) {
-    return [
-        'footer' => $site->find('footer')
-    ];
+return function () {
+  //Fetches events from oveda for organization and from current date
+  $json = Remote::get('https://oveda.de/api/v1/event-dates/search?per_page=6&date_from='. date('Y-m-d') .'&organization_id=19')->json();
+  $events = $json['items'];
+  return compact('events');
 };

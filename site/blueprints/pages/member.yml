@@ -6,11 +6,11 @@ icon: 👤
 
 
 create:
-  title:
-    label: Name
+  title: '{{page.name}}'
+  slug: '{{page.name.slug}}'
   fields:
+    - name
     - teams
-
 status:
   listed: true
   draft: true
@@ -21,7 +21,7 @@ status:
 # Here we prevent changing the page slug and page deletion
 # More about page options: https://getkirby.com/docs/reference/panel/blueprints/page#options
 options:
-  delete: false
+  #delete: false
   url: false
   status: true
 

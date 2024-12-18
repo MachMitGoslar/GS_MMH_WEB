@@ -4,13 +4,12 @@ title: Projekte
 icon: 🖼
 
 
-- width: 1/2
+#- width: 1/2
 
 # Here we extend two sections which are defined in `/site/blueprints/sections/albums.yml`
 # They differ in their page status and the headline.
-sections:
-  content:
-    type: fields
+columns:
+  - width: 2/3
     fields:
       cover: fields/cover
       headline:
@@ -20,12 +19,8 @@ sections:
       subheadline:
         label: Untertitel
         type: text
-  drafts:
-    extends: sections/projects
-    label: Entwürfe
-    status: draft
-
-  listed:
-    extends: sections/projects
-    label: Veröffentlichte Projekte
-    status: listed
+  - width: 1/3
+    sections:
+      projects:
+        extends: sections/projects
+        label: Projekte

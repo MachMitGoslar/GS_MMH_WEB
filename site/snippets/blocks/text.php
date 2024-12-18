@@ -1,1 +1,2 @@
-<div class="format"> <?= $block->text(); ?> </div>
+<?php /** @var \Kirby\Cms\Block $block */ ?>
+<?= $block->text()->kt();?>

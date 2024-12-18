@@ -1,0 +1,25 @@
+title: Newsletters
+
+tabs:
+  content:
+    columns:
+      - width: 1/2
+        fields:
+      - width: 1/2
+        sections:
+          drafts:
+            label: Entwürfe
+            type: pages
+            status: draft
+            template: newsletter
+          unlisted:
+            label: Nicht veröffentlicht
+            type: pages
+            status: unlisted
+            template: newsletter
+          listed:
+            label: Veröffentlicht
+            type: pages
+            status: listed
+            template: newsletter
+

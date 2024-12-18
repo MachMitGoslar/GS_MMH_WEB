@@ -1,79 +1,62 @@
 <?php
-/*
-  Templates render the content of your pages.
-
-  They contain the markup together with some control structures
-  like loops or if-statements. The `$page` variable always
-  refers to the currently active page.
-
-  To fetch the content from each field we call the field name as a
-  method on the `$page` object, e.g. `$page->title()`.
-
-  This home template renders content from others pages, the children of
-  the `photography` page to display a nice gallery grid.
-
-  Snippets like the header and footer contain markup used in
-  multiple templates. They also help to keep templates clean.
-
-  More about templates: https://getkirby.com/docs/guide/templates/basics
-*/
-
+/**
+ * @var Kirby\Cms\Site $site
+ * @var Kirby\Cms\Page $page
+ */
 ?>
-<?php snippet('main_layout', slots:true) ?>
 
-  <?php slot('hero') ?>
-    <?php snippet('hero', [
-      'title' => $page->headline(),
-      'subheading' => $page->subheadline(),
-      'cover' => $page->cover()
-      ]) 
-    ?>
-  <?php endslot() ?>
+<?php snippet('general/head'); ?>
+<?php snippet('general/header'); ?>
 
-  <?php slot() ?>
-    <?php if ($projectsPage = page('projects')): ?>
-      <div class="projects">
-      <h1> Unsere Projekte </h1>
-      
-      <ul class="pt-10 grid md:grid-cols-3 grid-cols-2 gap-4 grid-flow-row-dense">
-        <?php foreach ($projectsPage->children()->listed() as $album): ?>
-          <li>
-            <figure
-              class="relative max-w-sm hover:border-gold hover:border-solid hover:border-2 rounded-lg hover:rounded-lg col-span-2 row-span-2">
-              <a href="<?= $album->url() ?>">
+<main class="main">
 
-                <?php
-                /*
-                  The `cover()` method defined in the `album.php`
-                  page model can be used everywhere across the site
-                  for this type of page
+    <div class="mb-4">
+        <?=snippet('components/hero')?>
+    </div>
 
-                  We can automatically resize images to a useful
-                  size with Kirby's built-in image manipulation API
-                */
-                ?>
-                <?php if ($cover = $album->cover()): ?>
-                  <p><?= $album->cover_focus() ?></p>
-                  <img
-                    class="filter hover:blur aspect-square	border-2 border-transparent object-cover h-auto max-w-full rounded-lg hover:rounded-lg transition-all duration-300 cursor-pointer"
-                    style="focus: <?= $cover->focus() ?>" src="<?= $cover->resize(1024, 1024)->url() ?>"
-                    alt="<?= $cover->alt()->esc() ?>">
+    <section class="grid content mb-7">
+        <?php //Welcome Text ?>
+        <div class="grid-item-half-span p-tb-4">
+            <h1 class="font-titleXXL mb-3"><?=$page->wellcomeHeadline()?></h1>
+            <p class="font-body"><?=$page->wellcomeText()?></p>
+        </div>
+        <?php //Newsletter Teaser Box ?>
+        <?=snippet('components/newsletter/newsletterTeaser')?>
+        <?php //Divider ?>
+        <div class="divider grid-item-full-span"></div>
+        <?php //Events List ?>
+        <section class="grid-item-full-span">
+            <h2 class="font-title mb-3">Termine</h2>
+            <ul class="grid mb-4">
+                <?php foreach($events as $event): ?>
+                    <?php snippet('components/events/eventsListItem', compact('event')) ?>
+                <?php endforeach ?>
+            </ul>
+            <a class="gs-c-btn" data-type="secondary" data-size="regualr" data-style="pill" href="<?=$site->page('Terminkalender')?>" >Zu den Terminen</a>
+        </section>
+        <?php //Divider ?>
+        <div class="divider grid-item-full-span"></div>
+        <?php //Project Updates List ?>
+        <section class="grid-item-full-span">
+            <h2 class="font-title mb-3">Projektupdates</h2>
+            <ul class="grid mb-4">
+                <?php foreach(range(0,5) as $id): ?>
+                    <?php snippet('components/project/projectUpdateTeaserCard', compact('id')) ?>
+                <?php endforeach ?>
+            </ul>
+            <a class="gs-c-btn" data-type="secondary" data-size="regualr" data-style="pill" href=<?=$site->page('projekte')?> >Zu den Projekten</a>
+        </section>
 
-                <?php endif ?>
-              </a>
+    </section>
 
-              <figcaption
-                class=" rounded-lg absolute text-lg  text-white text-center bottom-0 py-5 w-full bg-gradient-to-t from-gold">
-                <p class="text-white font-black"><?= $album->title()->esc() ?></p>
-              </figcaption>
-            </figure>
-          </li>
+    <?php if ($blocks = $page->blocks()?->toBlocks()): ?>
+        <section class="grid content mb-7">
+            <?php foreach ($blocks as $block): ?>
+                <div class="grid-item-full-span block"><?php snippet('blocks/' . $block->type(), compact('block')) ?></div>
+            <?php endforeach ?>
+        </section>
+    <?php endif; ?>
+</main>
 
-        <?php endforeach ?>
-      </ul>
-      </div>
-      <?php snippet("oveda", ["oveda_search" => $page->oveda()]) ?>
-    <?php endif ?>
-  <?php endslot() ?> 
-
-<?php endsnippet() ?>
+<?php snippet('general/footer'); ?>
+<?php snippet('general/foot'); ?>
