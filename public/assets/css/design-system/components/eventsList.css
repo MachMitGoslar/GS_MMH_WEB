@@ -1,0 +1,5 @@
+:root {}.eventsListItem {
+    grid-column: span 4;
+    border-left: 2px solid var(--color-ripe-mango-1000);
+    padding-left: 1rem;
+  }

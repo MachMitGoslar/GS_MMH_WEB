@@ -12,7 +12,5 @@ return [
     'panel' => [
         'install' => false
     ],
-    //Git Content ThatOff
-    'oblik.git.repo' => 'content',
-    'oblik.git.merge' => 'master',
+
 ];

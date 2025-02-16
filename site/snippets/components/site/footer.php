@@ -4,7 +4,7 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<footer class="footer">
+<footer class="footer mt-6">
   <section class="grid content">
     <section class="flex flex-column grid-item-span2">
       <h3 class="font-subheadline mb-2">Hauptseiten</h3>
@@ -21,7 +21,7 @@
       <ul>
         <?php foreach($site->socialmedia()->toStructure() as $child): ?>
           <li class="font-footnote">
-            <a href="<?=$child->url()?>" target="_blank"><?=$child->name()?></a>
+            <a href="<?=$child->url() ? $child->url(): "test" ?>" target="_blank"><?=$child->name()?></a>
           </li>
         <?php endforeach ?>
       </ul>
@@ -30,7 +30,7 @@
       <h3 class="font-subheadline mb-2">Newsletter</h3>
       <ul>
         <li class="font-footnote">
-          <a href="<?=$site->page('Newsletter')->url()?>">Alle Newsletter</a>
+
         </li>
       </ul>
     </section>

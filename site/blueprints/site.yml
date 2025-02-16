@@ -46,5 +46,13 @@ tabs:
       navigation:
         type: pages
         label: Navigation
+  team:
+    label: Team & Partners
+    icon: User
+    fields:
+      staff:
+        type: pages
+        parent: site.find("team")
+        template: member
         
     

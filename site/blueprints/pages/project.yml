@@ -66,68 +66,20 @@ columns:
           cover: true
         min: 1
         size: small
-#      entries:
-#        type: pages
-#        label: Projektschritte
-#        layout: table
-#        columns:
-#          title: true
-#          project_start_date:
-#            label: Startdatum
-#            default: today
-#          project_start_time:
-#            label: Startzeit
-#        templates:
-#          - timeline_entries
-#        empty: Noch keine Projektschritte angelegt
-#        sortBy: project_start_date asc
-      project_fields:
-        type: fields
-        fields:
-          project_steps:
-            type: structure
-            label: Projektschritte
-            layout: table
-            columns:
-              project_start_date:
-                label: Startdatum
-                default: today
-              project_start_time:
-                label: Startzeit
-            fields:
-              project_start_date:
-               label: Projektstart
-               type: date
-               width: 1/2
-              project_start_time:
-                label: Startzeit
-                type: time
-                width: 1/2
-              project_status_from:
-                type: select
-                label: Projektzustand von
-                options:
-                  - in Planung
-                  - in Vorbereitung
-                  - aktiv
-                  - in Auswertung
-                  - abgeschlossen
-                width: 1/2
-              project_status_to:
-                type: select
-                label: Projektzustand zu
-                options:
-                  - in Planung
-                  - in Vorbereitung
-                  - aktiv
-                  - in Auswertung
-                  - abgeschlossen
-                width: 1/2
-              description:
-                label: Beschreibung
-                type: writer
-              tags:
-                type: tags
-                label: Tags
-            empty: Noch keine Projektschritte angelegt
-            sortBy: project_start_date asc
+     entries:
+       type: pages
+       label: Projektschritte
+       layout: table
+       columns:
+         title: true
+         project_start_date:
+           label: Startdatum
+           default: today
+         project_start_time:
+           label: Startzeit
+       templates:
+         - project_step
+       empty: Noch keine Projektschritte angelegt
+       sortBy: project_start_date asc
+ 
+          

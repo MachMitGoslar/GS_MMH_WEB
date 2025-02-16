@@ -1,0 +1,60 @@
+.c-blog-text {
+    margin-top: 1.5rem;
+    & * + p {
+      margin-top: 1rem;
+    }
+  }.c-blog-list {
+    margin-top: 1rem;
+    & ul {
+       margin-left:1em
+    }
+  
+    & ol {
+        margin-left:1.5em
+    }
+  
+    & ol > li {
+      list-style: decimal-leading-zero;
+      padding-left:.25em
+    }
+    & ul > li {
+      list-style: disc;
+    }
+    & ul ul > li {
+        list-style: disc;
+    }
+  }.c-blog-heading {
+    & h1 {
+      margin-bottom: 1.5rem;
+    }
+    & h2 {
+      font-size: var(--typo-size-300);
+      margin-top: 1.5rem;
+    }
+  
+    & h3 {
+      font-size: var(--typo-size-100);
+      margin-top: 1.5rem;
+    }
+  }.c-blog-image {
+    margin-top: 1rem;
+    & figure figcaption {
+      margin-top: 0.5rem;
+      font-size: var(--typo-size-80);
+    }
+  }.c-blog-video {
+    margin-top: 1rem;
+    & figure {
+      aspect-ratio: 16/9;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+  }.c-blog-video iframe{
+  
+    width: 100%;
+    height: 100%;
+    background: blue;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }

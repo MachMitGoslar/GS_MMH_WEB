@@ -39,12 +39,14 @@
         <?php //Project Updates List ?>
         <section class="grid-item-full-span">
             <h2 class="font-title mb-3">Projektupdates</h2>
+
             <ul class="grid mb-4">
-                <?php foreach(range(0,5) as $id): ?>
-                    <?php snippet('components/project/projectUpdateTeaserCard', compact('id')) ?>
+                <?php foreach($kirby->collection("project-updates")->paginate(6) as $project_step): ?>
+                    <?php $project = $project_step->parent() ?>
+                    <?php snippet('components/project/projectUpdateTeaserCard', compact(['project', 'project_step'])) ?>
                 <?php endforeach ?>
             </ul>
-            <a class="gs-c-btn" data-type="secondary" data-size="regualr" data-style="pill" href=<?=$site->page('projekte')?> >Zu den Projekten</a>
+            <a class="gs-c-btn" data-type="secondary" data-size="regualr" data-style="pill" href=<?=$site->page('projects')?> >Zu den Projekten</a>
         </section>
 
     </section>

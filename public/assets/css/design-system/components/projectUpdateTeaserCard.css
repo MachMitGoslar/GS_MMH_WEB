@@ -1,0 +1,53 @@
+:root {}
+.c-projectUpdateTeaserCard {
+    grid-column: span 4;
+    display: flex;
+    padding-bottom: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-shrink: 0;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: #FFF;
+    overflow: hidden;
+  }
+.c-projectUpdateTeaserCard-badge {
+    display: inline-flex;
+    padding: 0.125rem 0.5rem;
+    font-size: var(--typo-size-80);
+    font-weight: var(--font-weight-semiBold);
+    border-radius: 4px;
+    background: var(--color-fg-brand-primary);
+    color: var(--color-white);
+  }
+.c-projectUpdateTeaserCard-statusheader {
+    display: flex;
+    justify-content: space-between;
+  }
+.c-projectUpdateTeaserCard-content {
+    padding: 0 1rem;
+    width: 100%
+  }
+.c-projectUpdateTeaserCard-hero {
+    --aspected-ration: 24/9;
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--aspected-ration);
+    -o-object-fit: cover;
+    object-fit: cover;
+    background: red;
+  
+    @media  (width > 489px) {
+     --aspected-ration: 21/9;
+    }
+    @media  (width > 767px) {
+  
+    }
+    @media  (width > 1039px) {
+  
+    }
+    @media  (width > 1439px) {
+  
+    }
+}
