@@ -10,7 +10,7 @@
   </div>
   <div class="c-projectTeaserCard-content">
     <div class="c-projectTeaserCard-statusheader">
-      <div class="c-projectTeaserCard-badge mb-2" data-color="<?=$project->dataColor()?>"><?= $project->project_status()?></div>
+      <div class="c-projectTeaserCard-badge mb-2" data-color="<?=getColor($project->status())?>"><?= $project->project_status()?></div>
       <time><?=date("d.m.Y")?></time>
     </div>
 

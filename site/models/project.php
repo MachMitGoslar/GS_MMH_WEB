@@ -21,23 +21,8 @@ class ProjectPage extends Page
         return $this->content()->get('cover')->toFile() ?? $this->image();
     }
 
-    public function dataColor()
-    {
-        switch ($this->project_status()) {
-            case "in Planung":
-                return "planning";
-            case "in Vorbereitung":
-                return "preparing";
-            case "aktiv":
-                return "active";
-            case "in Auswertung":
-                return "review";
-            case "abgeschlossen":
-                return "done";
-            default: 
-                return "false";
-
-        }
+    public function project_steps(): Kirby\Cms\Pages {
+        return $this->children()->sortBy("project_start_date", "desc");
     }
 
 

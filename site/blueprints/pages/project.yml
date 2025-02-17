@@ -17,7 +17,7 @@ status:
 # More about columns: https://getkirby.com/docs/guide/blueprints/layout#defining-columns
 
 columns:
-  - width: 1/3
+  - width: 2/3
     # The first column contains a set of fields to store
     # information about the album.
     #
@@ -43,7 +43,7 @@ columns:
           - in Auswertung
           - abgeschlossen
       text:
-        type: writer
+        type: layout
       team:
         type: pages
         label: Team
@@ -52,7 +52,7 @@ columns:
         query: site.find("team")
 
 
-  - width: 2/3
+  - width: 1/3
     sections:
       # The `images` files section shows all images of
       # the current page that use the `image` template

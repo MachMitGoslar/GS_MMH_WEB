@@ -1,5 +1,5 @@
 # Each page blueprint must have a title, the title may be different from the file name
-title: Projekt
+title: Projektschritt
 
 # Each page can have an icon that is shown in page listings when no preview image is available.
 icon: 🖼
@@ -52,6 +52,8 @@ columns:
         width: 1/2
       headline:
         label: Anriss
+        placeholder: "{{ page.title }}"
+        help: Leave empty to use the title as headline
         type: writer
       description:
         label: Beschreibung

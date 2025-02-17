@@ -814,6 +814,10 @@ main {
   align-items: center;
 }
 
+.font-thin {
+  font-weight: 100;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
