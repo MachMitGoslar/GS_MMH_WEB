@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'email' => 'nantke.jannsen@goslar.de',
+    'email' => 'nantke.janssen@goslar.de',
     'language' => 'de',
     'name' => '',
     'role' => 'admin'
