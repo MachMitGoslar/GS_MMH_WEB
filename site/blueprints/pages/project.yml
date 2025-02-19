@@ -44,6 +44,13 @@ columns:
           - abgeschlossen
       text:
         type: layout
+        fieldsets:
+          - accordion
+          - box
+          - faq
+          - faq2
+          - card
+          - cardGroup
       team:
         type: pages
         label: Team

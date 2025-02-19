@@ -786,6 +786,10 @@ main {
   display: block;
 }
 
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -812,10 +816,6 @@ main {
 
 .items-center {
   align-items: center;
-}
-
-.font-thin {
-  font-weight: 100;
 }
 
 .uppercase {

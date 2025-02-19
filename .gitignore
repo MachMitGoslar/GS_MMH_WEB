@@ -62,4 +62,4 @@ vendor/
 
 # Plugins
 #----------
-/site/plugins
+/site/plugins/*

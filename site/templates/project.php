@@ -10,12 +10,16 @@
     <?=snippet('components/hero')?>
   </div>
   <section class="grid content">
-    <h1 class="font-titleXXL grid-item-full-span"><?=$page->headline()?></h1>
-    <h2 class="font-titleXL font-weight-light grid-item-full-span"><?=$page->subheadline()?></h2>
+    <div class="grid-item-full-span">
+    <h1 class="font-titleXXL "><?=$page->headline()?></h1>
+    <h2 class="font-titleXL font-weight-light"><?=$page->subheadline()?></h2>
+    </div>
 
     <div id="project_description" class="grid-item-two-third-span">
         <h3 class="font-headline"> Projektbeschreibung</h3>
+        <div class="designer">
         <?=$page->text()->toBlocks()?>
+        </div>
     </div>
     <?php if($page->project_steps()->isNotEmpty()): ?>
     <div id="timeline" class="grid-item-one-third-span">
