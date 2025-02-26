@@ -8,5 +8,5 @@
 	path = site/plugins/kirby_oveda
 	url = https://github.com/MachMitGoslar/kirby_oveda
 [submodule "site/plugins/GS_MMH_WEB_PLUGIN"]
-	path = site/plugins/GS_MMH_WEB_PLUGIN
+	path = site/plugins/gs-mmh-web-plugin
 	url = https://github.com/MachMitGoslar/GS_MMH_WEB_PLUGIN
