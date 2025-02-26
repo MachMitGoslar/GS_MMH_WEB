@@ -10,9 +10,9 @@
     <?=snippet('components/hero')?>
   </div>
   <section class="grid content mb-7">
-    <h1 class="font-titleXXL grid-item-full-span"><?=$page->title()?></h1>
+    <h1 class="font-titleXXL grid-item" data-span="1/1"><?=$page->title()?></h1>
     <?php //Project Updates List ?>
-        <section class="grid-item-full-span">
+        <section class="grid-item" data-span="1/1">
             <ul class="grid mb-4">
                 <?php foreach($page->children() as $project): ?>
                     <?php snippet('components/project/projectTeaserCard', compact('project')) ?>

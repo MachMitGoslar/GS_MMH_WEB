@@ -29,7 +29,7 @@
       </div>
       <time class="font-caption"><?=$project_step->project_start_date()->date("d.m.Y") ?: "test"?></time>
     </div>
-    <a href="<?= $project_step ?>">
+    <a href="<?= $project_step->parent() ?>">
      <h3 class="font-headline font-line-height-narrow mb-2"><?= $project->title()?></h3>
      <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $project_step->headline()?></h4>
     </a>

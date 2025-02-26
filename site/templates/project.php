@@ -10,19 +10,19 @@
     <?=snippet('components/hero')?>
   </div>
   <section class="grid content">
-    <div class="grid-item-full-span">
+    <div class="grid-item" data-span="1/1">
     <h1 class="font-titleXXL "><?=$page->headline()?></h1>
     <h2 class="font-titleXL font-weight-light"><?=$page->subheadline()?></h2>
     </div>
 
-    <div id="project_description" class="grid-item-two-third-span">
+    <div id="project_description" class="grid-item" data-span="2/3">
         <h3 class="font-headline"> Projektbeschreibung</h3>
         <div class="designer">
         <?=$page->text()->toBlocks()?>
         </div>
     </div>
     <?php if($page->project_steps()->isNotEmpty()): ?>
-    <div id="timeline" class="grid-item-one-third-span">
+    <div id="timeline" class="grid-item" data-span="1/3">
         <?php snippet(name: "components/project/projectTimeline", data: ['project_steps' => $page->project_steps()]) ?>
     </div>
     <?php endif ?>
