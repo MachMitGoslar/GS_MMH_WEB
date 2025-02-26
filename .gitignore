@@ -60,6 +60,8 @@ composer.phar
 vendor/
 /vendor/
 
-# Plugins
+# Plugins / Submodules
 #----------
 /site/plugins/*
+/kirby/*
+/content/*
