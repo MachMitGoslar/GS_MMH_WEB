@@ -20,7 +20,7 @@ RewriteEngine on
 # In some environments it's necessary to
 # set the RewriteBase to:
 #
-# RewriteBase /
+ RewriteBase /
 
 # block files and folders beginning with a dot, such as .git
 # except for the .well-known folder, which is used for Let's Encrypt and security.txt
@@ -64,4 +64,10 @@ AddOutputFilterByType DEFLATE application/x-javascript
 Header set Content-Type "text/plain" "expr=-z %{CONTENT_TYPE}"
 Header set X-Content-Type-Options "nosniff"
 
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
 </IfModule>

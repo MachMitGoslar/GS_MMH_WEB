@@ -19,15 +19,23 @@
     <section class="flex flex-column grid-item-span2">
       <h3 class="font-subheadline mb-2">Social Media</h3>
       <ul>
-        <?php foreach($site->socialmedia()->toStructure() as $child): ?>
+        <?php foreach($site->social()->toStructure() as $child): ?>
           <li class="font-footnote">
-            <a href="<?=$child->url() ? $child->url(): "test" ?>" target="_blank"><?=$child->name()?></a>
+            <a href="<?=$child->link() ? $child->link(): "test" ?>" target="_blank"><?=$child->title()?></a>
           </li>
         <?php endforeach ?>
       </ul>
     </section>
     <section class="flex flex-column grid-item-span2">
       <h3 class="font-subheadline mb-2">Newsletter</h3>
+      <ul>
+        <li class="font-footnote">
+
+        </li>
+      </ul>
+    </section>
+    <section class="flex flex-column grid-item-span2">
+      <h3 class="font-subheadline mb-2">General</h3>
       <ul>
         <li class="font-footnote">
 

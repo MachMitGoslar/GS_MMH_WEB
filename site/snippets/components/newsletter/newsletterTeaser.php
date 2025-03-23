@@ -11,6 +11,6 @@
     <p class="font-body color-fg-light"><?=$site->newsletterTeaserText()?></p>
   </div>
   <div>
-    <a class="gs-c-btn" data-type="primary" data-size="regualr" data-style="pill" href="" ><?=$site->newsletterTeaserButtonText()?></a>
+    <a class="gs-c-btn" data-type="primary" data-size="regualr" data-style="pill" href="<?= $site->page("newsletters") ?>" ><?=$site->newsletterTeaserButtonText()?></a>
   </div>
 </div>

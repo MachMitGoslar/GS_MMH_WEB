@@ -19,9 +19,9 @@
         <section class="flex flex-column grid-item-span2">
             <h3 class="font-subheadline mb-2">Social Media</h3>
             <ul>
-                <?php foreach($site->socialmedia()->toStructure() as $child): ?>
+                <?php foreach($site->social()->toStructure() as $child): ?>
                     <li class="font-footnote">
-                        <a href="<?=$child->url()?>" target="_blank"><?=$child->name()?></a>
+                        <a href="<?=$child->link()?>" target="_blank"><?=$child->title()?></a>
                     </li>
                 <?php endforeach ?>
             </ul>
@@ -29,8 +29,20 @@
         <section class="flex flex-column grid-item-span2">
             <h3 class="font-subheadline mb-2">Newsletter</h3>
             <ul>
-
+            <?php foreach($site->page("newsletter")->children() as $child): ?>
+                    <li class="font-footnote"> <a href="<?=$child->url()?>"> <?=$child->title()?> </a> </li>
+                <?php endforeach ?>
             </ul>
         </section>
+        <?php if($site->general()->isNotEmpty()): ?>
+        <section class="flex flex-column grid-item-span2">
+            <h3 class="font-subheadline mb-2">General</h3>
+            <ul>
+                <?php foreach($site->general()->toPages() as $child): ?>
+                    <li class="font-footnote"> <a href="<?=$child->url()?>"> <?=$child->title()?> </a> </li>
+                <?php endforeach ?>
+            </ul>
+        </section>
+        <?php endif ?>
     </section>
 </footer>

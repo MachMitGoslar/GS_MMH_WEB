@@ -4,8 +4,9 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<?php snippet('mainLayout', slots: true) ?>
-  <?php slot()?>
+<?php snippet('general/head'); ?>
+<?php snippet('general/header'); ?>
+  <main>
   <div class="mb-4">
     <?=snippet('components/hero')?>
   </div>
@@ -30,5 +31,5 @@
   </section>
   <section>
   </section>
-  <?php endslot() ?>
-<?php endsnippet() ?>
+<?php snippet('general/footer'); ?>
+<?php snippet('general/foot'); ?>

@@ -1,2 +1,2 @@
 <?php /** @var \Kirby\Cms\Block $block */ ?>
-<?= $block->text()->kt();?>
+<div class="c-blog-text"> <?= $block->text()->kt();?> </div>

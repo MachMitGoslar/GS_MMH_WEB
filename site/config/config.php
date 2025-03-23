@@ -11,18 +11,6 @@ return [
     'debug' => false,
     'panel' => [
         'install' => false
-    ],
-    'hooks' => [
-        'page.update:after' => function (Kirby\Cms\Page $newPage, Kirby\Cms\Page $oldPage) {
-            if($oldPage->intendedTemplate()->name() == 'project_step') {
-                print($oldPage->template());
-                if($newPage->project_status_to()->isNotEmpty() && ($newPage->project_status_to() != $newPage->parent()->project_status())) {
-                    $newPage->parent()->update([
-                        "project_status" => $newPage->project_status_to()
-                    ]);
-                }
-            }
-        }
     ]
 
 ];

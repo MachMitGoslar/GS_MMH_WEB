@@ -1,2 +1,4 @@
 <?php /** @var \Kirby\Cms\Block $block */ ?>
-<?= $block->text();
+<div class="c-blog-list"> <?= $block->text();?>
+ 
+ </div>

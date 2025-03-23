@@ -125,12 +125,6 @@
     --color-violaceous-greti-1400: #3E0B3FFF;
     --color-violaceous-greti-1500: #270728FF;
 
-    --color-project-planning: var(--color-cornflower-1000);
-    --color-project-preparing: var(--color-cornflower-1300);
-    --color-project-active: var(--color-ripe-mango-1200);
-    --color-project-review: var(--color-violaceous-greti-1200);
-    --color-project-done: var(--color-ripe-mango-1400);
-
 }:root {
   --color-fg-brand-primary: var(--color-ripe-mango-1200);
   --color-bg-brand-primary: var(--color-ripe-mango-1200);

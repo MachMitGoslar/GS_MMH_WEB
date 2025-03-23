@@ -1,4 +1,6 @@
-:root{}.c-newsletter-teaser {
+:root{}
+
+.c-newsletter-teaser {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

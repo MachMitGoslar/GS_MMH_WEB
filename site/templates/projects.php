@@ -4,8 +4,9 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<?php snippet('mainLayout', slots: true) ?>
-  <?php slot()?>
+<?php snippet('general/head'); ?>
+<?php snippet('general/header'); ?>
+  <main>
   <div class="mb-4">
     <?=snippet('components/hero')?>
   </div>
@@ -33,5 +34,5 @@
             <a class="gs-c-btn" data-type="primary" data-size="large" data-style="pill" href=<?=$site->page('projekte')?> >Eigenes Projekt starten?</a>
         </section>
   </section>
-  <?php endslot() ?>
-<?php endsnippet() ?>
+  <?php snippet('general/footer'); ?>
+<?php snippet('general/foot'); ?>

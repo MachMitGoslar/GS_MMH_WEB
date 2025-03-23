@@ -6,8 +6,8 @@
   "scripts": {
     "test": "tailwindcss -i ./site/stylesheets/tailwind.css -o ./assets/css/index.css",
     "serve": "concurrently \"npm run serve-php\" \"npm run sync\" \"npm run watch\"",
-		"serve-php": "composer start",
-		"sync": "node browsersync.js",
+    "serve-php": "composer start",
+    "sync": "node browsersync.js",
     "watch": "tailwindcss -i ./site/stylesheets/tailwind.css -o ./assets/css/index.css --watch"
   },
   "repository": {
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "browser-sync": "^3.0.2",
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "kirbyup": "^3.2.1"
   }
 }

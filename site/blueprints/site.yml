@@ -54,5 +54,21 @@ tabs:
         type: pages
         parent: site.find("team")
         template: member
+  footer:
+    label: Footer
+    icon: angle-down
+    fields:
+      social:
+        type: structure
+        label: Links
+        fields:
+          link: 
+            type: url
+            required: true
+          title: 
+            type: text
+      general:
+        type: pages
+        label: Generelle Seiten
         
     
