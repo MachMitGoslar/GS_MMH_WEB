@@ -8,9 +8,9 @@
  * All config options: https://getkirby.com/docs/reference/system/options
  */
 return [
-    'debug' => false,
+    'debug' => true,
     'panel' => [
-        'install' => false
-    ]
+        'install' => true
+    ],
 
 ];

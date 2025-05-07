@@ -45,12 +45,15 @@ columns:
       text:
         type: layout
         fieldsets:
+          - heading
+          - text
+          - list
+          - video
+          - image
           - accordion
           - box
           - faq
-          - faq2
           - card
-          - cardGroup
       team:
         type: pages
         label: Team

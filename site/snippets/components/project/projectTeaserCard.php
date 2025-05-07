@@ -6,12 +6,12 @@
 ?>
 <li class="c-projectTeaserCard">
   <div>
-    <img class="c-projectTeaserCard-hero" src=" <?=$project->cover()->url() ?: print("https://picsum.photos/1600/800?random=2") ?> " />
+    <img class="hero" src=" <?=$project->cover()->url() ?: print("https://picsum.photos/1600/800?random=2") ?> " />
   </div>
-  <div class="c-projectTeaserCard-content">
-    <div class="c-projectTeaserCard-statusheader">
-      <div class="c-projectTeaserCard-badge mb-2" data-color="<?=getColor($project->status())?>"><?= $project->project_status()?></div>
-      <time><?=date("d.m.Y")?></time>
+  <div class="content">
+    <div class="statusheader">
+    <?= snippet("components/project/statusBadge", ["status" => $project->project_status()]) ?>
+    <time><?=date("d.m.Y")?></time>
     </div>
 
     <h3 class="font-headline"><?=$project->title()?></h3>

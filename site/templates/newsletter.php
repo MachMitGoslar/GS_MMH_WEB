@@ -8,7 +8,7 @@
   <?php slot()?>
   <div class="grid content mt-3 mb-6">
 
-  <article class="grid-item-half-span-center">
+  <article class="grid-item" data-span="1/2" data-position="center">
     <div class="c-blog-heading">
       <h1  class="font-titleXXL"><?=$page->headline()?></h1>
     </div>

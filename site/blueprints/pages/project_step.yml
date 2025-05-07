@@ -57,7 +57,7 @@ columns:
         type: writer
       description:
         label: Beschreibung
-        type: writer
+        type: textarea
       tags:
         type: tags
         label: Tags

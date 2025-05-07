@@ -15,7 +15,9 @@
     </div>
 
     <section class="grid content mb-7">
+
         <?php //Welcome Text ?>
+
         <div class="grid-item p-tb-4" data-span="1/2">
             <h1 class="font-titleXXL mb-3"><?=$page->wellcomeHeadline()?></h1>
             <p class="font-body"><?=$page->wellcomeText()?></p>

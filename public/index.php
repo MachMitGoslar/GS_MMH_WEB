@@ -1,9 +1,7 @@
 
 
 <?php
-
 include __DIR__  . '/../vendor/autoload.php';
-
 $kirby = new Kirby([
     'roots' => [
         'index'    => __DIR__,
@@ -18,3 +16,4 @@ $kirby = new Kirby([
 ]);
 
 echo $kirby->render();
+

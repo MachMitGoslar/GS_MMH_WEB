@@ -20,9 +20,9 @@
                 <?php endforeach ?>
                 <li class="c-projectTeaserCard">
                   <div >
-                    <img class="c-projectTeaserCard-hero" src="https://picsum.photos/1600/800?random=2">
+                    <img class="hero" src="https://picsum.photos/1600/800?random=2">
                   </div>
-                  <div class="c-projectTeaserCard-content">
+                  <div class="content">
                     <h3 class="font-headline">Projektarchiv</h3>
                     <p></p>
                     <p class="font-footnote mb-3">Ein Blick in die Vergangenheit. Finde alle vergangenen und abgeschlossenen Projekte</p>
