@@ -21,10 +21,13 @@ if (
     $url = $block->url();
 }
 ?>
-<?php if ($video = Html::video($url, [], $attrs ?? [])): ?>
-<figure>
+<?php if ($video = Html::video($url, [], $attrs ?? ['class' => "c-external_video"])): ?>
+<figure >
+    <a data-lightbox="gallery" >
   <?= $video ?>
+  </a>
   <?php if ($caption->isNotEmpty()): ?>
+    
   <figcaption><?= $caption ?></figcaption>
   <?php endif ?>
 </figure>

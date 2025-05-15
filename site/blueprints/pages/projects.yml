@@ -24,3 +24,4 @@ columns:
       projects:
         extends: sections/projects
         label: Projekte
+        sortBy: 

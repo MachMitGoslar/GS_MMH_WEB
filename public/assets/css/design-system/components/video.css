@@ -1,0 +1,17 @@
+.c-external_video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    @media  (width > 767px) {
+        --grid-gap: 1rem;
+        --grid-colums-count: 8;
+      }
+      @media  (width > 1039px) {
+        --grid-colums-count: 12;
+      }
+      @media  (width > 1439px) {
+        --grid-colums-count: 12;
+        --grid-gap: 2rem;
+      }
+}
+
