@@ -44,17 +44,20 @@ columns:
           - abgeschlossen
       text:
         type: layout
+        layouts:
+          - "1/1"
+          - "1/2, 1/2"
+          - "1/3, 1/3, 1/3"
         fieldsets:
-          - heading
-          - text
-          - list
-          - video
-          - image
           - gallery
-          - accordion
+          - heading
+          - image
+          - video
+          - text
           - box
           - faq
           - card
+          - testimonial
       team:
         type: pages
         label: Team

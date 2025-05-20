@@ -23,9 +23,7 @@ if (
 ?>
 <?php if ($video = Html::video($url, [], $attrs ?? ['class' => "c-external_video"])): ?>
 <figure >
-    <a data-lightbox="gallery" >
-  <?= $video ?>
-  </a>
+        <?= $video ?>
   <?php if ($caption->isNotEmpty()): ?>
     
   <figcaption><?= $caption ?></figcaption>

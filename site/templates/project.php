@@ -19,7 +19,23 @@
     <div id="project_description" class="grid-item" data-span="<?= $page->project_steps()->isNotEmpty() ? '2/3' : '1/1' ?>">
         <h3 class="font-headline"> Projektbeschreibung</h3>
         <div class="designer">
-        <?=$page->text()->toBlocks()?>
+        <?php foreach ($page->text()->toLayouts() as $layout): ?>
+          <div class="grid content">
+
+          <?php foreach($layout->columns() as $column): ?>
+            <div class="grid-item" data-span="<?=$column->width()?>">
+
+            <?php foreach ($column->blocks() as $block): ?>
+                <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                  <?= $block ?>
+                </div>
+            <?php endforeach ?>
+            </div>
+
+          <?php endforeach ?>
+          </div>
+
+        <?php endforeach ?>
         </div>
     </div>
     <?php if($page->project_steps()->isNotEmpty()): ?>

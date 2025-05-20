@@ -1,0 +1,4 @@
+.c-gallery-image {
+    border-radius: var(--border-radius-5);
+    border: var(--color-dead-pixel-800);
+}

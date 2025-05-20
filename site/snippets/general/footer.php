@@ -45,4 +45,5 @@
         </section>
         <?php endif ?>
     </section>
+    <?= js('assets/js/lightbox/fslightbox.js') ?>
 </footer>

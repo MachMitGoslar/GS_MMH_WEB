@@ -20,10 +20,12 @@ if ($block->location() == 'web') {
 <figure<?= Html::attr(['data-ratio' => $ratio, 'data-crop' => $crop], null, ' ') ?>>
   <?php if ($link->isNotEmpty()): ?>
   <a href="<?= Str::esc($link->toUrl()) ?>">
-    <img src="<?= $src ?>" alt="<?= $alt->esc() ?>">
+    <img src="<?= $src ?>" alt="<?= $alt->esc() ?>" class="c-gallery-image" />
   </a>
   <?php else: ?>
-  <img src="<?= $src ?>" alt="<?= $alt->esc() ?>">
+    <a href="<?=$src?>" data-fslightbox="gallery">
+    <img src="<?= $src ?>" alt="<?= $alt->esc() ?>" class="c-gallery-image" />
+  </a>
   <?php endif ?>
 
   <?php if ($caption->isNotEmpty()): ?>

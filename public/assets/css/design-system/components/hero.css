@@ -1,11 +1,15 @@
 .c-hero {
     background: var(--color-bg-brand-primary);
+    border-bottom: 1px solid var(--color-bg-brand-primary);
+
+
   }.c-hero img {
     --aspected-ration: 16/9;
     aspect-ratio: var(--aspected-ration);
     -o-object-fit: cover;
     object-fit: cover;
-  
+
+
     @media  (width > 489px) {
       --grid-colums-count: 1;
     }
