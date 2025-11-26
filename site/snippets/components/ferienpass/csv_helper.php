@@ -1,14 +1,16 @@
 
 <?php
-use Kirby\Http\Remote
 /**
-* @var Kirby\Cms\Site $site
-* @var Kirby\Cms\Page $page
-* @var Kirby\Http\Remote 
+* CSV Helper for Ferienpass Events
+* Fetches events from API and exports to CSV
 */
 ?>
 <?php 
-$json = Remote::get('https://goslar.feripro.de/api/programs/68/events/')->json();
+// Fetch JSON data using native PHP
+$url = 'https://goslar.feripro.de/api/programs/69/events/';
+$jsonData = file_get_contents($url);
+$json = json_decode($jsonData, true);
+
 $events = $json;
 
 $file = fopen("contacts.csv","w");
@@ -54,11 +56,13 @@ function calculate_age($event) {
             return "frei";
         }
     }
-
+ 
     function download_image($event) {
-        $url = $event['cover_photo'] ? $event['cover_photo']['medium'] : "https://jugend.goslar.de/fileadmin/_processed_/6/e/csm_Post_e4848fd3c5.png";
+        $url = $event['cover_photo'] ? $event['cover_photo']['medium'] : "https://jugend.goslar.de/fileadmin/_processed_/9/2/csm_jugendarbeit_3d_3051faadc4.png";
         $img = 'pics/'.$event["relative_id"].".png";
-        $file = imagecreatefromstring(file_get_contents($url));
+        $data = file_get_contents($url);
+        //print($data);
+        $file = imagecreatefromstring($data);
         $imageSize_w = imagesx($file);
         $imageSize_h = imagesy($file);
         //$file = imagecrop($file, ['x' => 0, 'y' => ($imageSize_h-$imageSize_w*(9/16))/2, 'width' => $imageSize_w, 'height' =>  $imageSize_w*(9/16)]);
