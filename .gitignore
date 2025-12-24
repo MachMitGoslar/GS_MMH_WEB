@@ -64,4 +64,4 @@ vendor/
 #----------
 /site/plugins/*
 /kirby/*
-/content/*
+/content/
