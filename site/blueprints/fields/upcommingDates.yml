@@ -1,0 +1,17 @@
+label: Kommende Termine
+type: structure
+fields:
+  event_name:
+    label: Veranstaltungsname
+    type: text
+    required: true
+  event_date:
+    label: Veranstaltungsdatum
+    type: date
+  event_date_end:
+    label: Enddatum der Veranstaltung
+    type: date
+  show_event_date:
+    label: Datum anzeigen
+    type: toggle
+    default: false

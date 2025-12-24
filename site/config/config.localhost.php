@@ -18,7 +18,8 @@ return [
 		'database' => 'admin_test_mmh',
 		'user'     => 'admin_test_mmh',
 		'password' => '147bwl4_Q',
-	]
+	],
+	'url' => 'http://localhost:8001',
 	
 
 

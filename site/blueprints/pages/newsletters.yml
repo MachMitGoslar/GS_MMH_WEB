@@ -4,7 +4,12 @@ tabs:
   content:
     columns:
       - width: 1/2
-        fields:
+        sections:
+          drafts:
+            label: Entwürfe
+            type: pages
+            status: draft
+            template: newsletter
       - width: 1/2
         sections:
           drafts:

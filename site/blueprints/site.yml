@@ -39,6 +39,10 @@ tabs:
       newsletterTeaserButtonText:
         type: text
         label: Teaser Button Text
+      sections:
+        type: pages
+        label: Newsletter Seiten
+        template: newsletter
   navigation:
     label: Navigation
     icon: bars

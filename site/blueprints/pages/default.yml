@@ -27,6 +27,14 @@ columns:
             type: text
           subheadline:
             type: text
+          text:
+            type: writer
+            toolbar:
+              inline: true
+              marks:
+                - bold
+                - button
+
           layout:
             type: layout
             size: huge
@@ -45,6 +53,9 @@ columns:
               - faq
               - card
               - cta
+              - button
+              - timeline
+
   sidebar:
     width: 1/3
     sections:

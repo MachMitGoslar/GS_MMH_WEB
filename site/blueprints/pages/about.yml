@@ -45,6 +45,23 @@ tabs:
           - "1/1"
           - "1/2, 1/2"
           - "1/3, 1/3, 1/3"
+        fieldsets:
+          text:
+            type: text
+            marks:
+              - bold
+              - italic
+              - underline
+              - strike
+              - code
+              - link
+              - button
+            tags:
+              - button
+            nodes:
+              - title
+              - titleXL
+              - titleXXL
   # The contact tab pre-defines a set of address
   # fields for the contact box at the bottom of the about
   # page. Combining modular content from layouts with

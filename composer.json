@@ -22,8 +22,8 @@
     "source": "https://github.com/MMH-Goslar/GS_MMH_WEB"
   },
   "require": {
-    "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-    "getkirby/cms": "^4.0",
+    "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+    "getkirby/cms": "^5.0",
     "sylvainjule/locator": "^2.0"
   },
   "config": {
@@ -35,7 +35,7 @@
   "scripts": {
     "start": [
       "Composer\\Config::disableProcessTimeout",
-      "@php -S localhost:8000 index.php"
+      "@php -S localhost:8000 public/index.php"
     ]
   }
 }

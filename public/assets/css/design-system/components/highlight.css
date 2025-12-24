@@ -1,0 +1,7 @@
+mark, .highlight {
+  background-color: var(--color-ripe-mango-300);
+  color: var(--color-ripe-mango-1400);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: var(--font-weight-medium);
+}
