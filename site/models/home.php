@@ -18,7 +18,6 @@
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
 use Kirby\Cms\Site;
-use Kirby\Cms\Pages;
 
 class HomePage extends Page
 {
@@ -26,19 +25,20 @@ class HomePage extends Page
     {
         return $this->content()->cover()->toFile() ?? $this->image();
     }
-    public function projects(): Kirby\Cms\Pages {
+    public function projects(): Kirby\Cms\Pages
+    {
         return $this->site()->page("projects")->children();
     }
 
-    public function project_steps(): array {
+    public function project_steps(): array
+    {
         $projects = $this->site()->page("projects")->children() ;
         $steps_array = [];
-        foreach($projects as $project) {
+        foreach ($projects as $project) {
             $steps = $project->project_steps()->toStructure();
-           # $steps['project'] = $project;
-            foreach($steps as $step) {
+            # $steps['project'] = $project;
+            foreach ($steps as $step) {
                 array_push($steps_array, $step);
-
             }
         }
         // usort($steps_array, function($a, $b) {
@@ -47,5 +47,4 @@ class HomePage extends Page
 
         return $steps_array;
     }
-
 }

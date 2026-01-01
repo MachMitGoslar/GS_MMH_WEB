@@ -21,11 +21,8 @@ class ProjectPage extends Page
         return $this->content()->get('cover')->toFile() ?? $this->image();
     }
 
-    public function project_steps(): Kirby\Cms\Pages {
+    public function project_steps(): Kirby\Cms\Pages
+    {
         return $this->children()->sortBy("project_start_date", "desc");
     }
-
-
-
-
 }

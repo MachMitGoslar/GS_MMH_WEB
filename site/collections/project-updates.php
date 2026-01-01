@@ -6,7 +6,6 @@ return function ($site) {
         ->find('projects')
         ->grandChildren()
         ->sortBy("project_start_date", "desc");
+
     return $element;
 };
-
-?>

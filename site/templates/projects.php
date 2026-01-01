@@ -12,10 +12,10 @@
   </div>
   <section class="grid content mb-7">
     <h1 class="font-titleXXL grid-item" data-span="1/1"><?=$page->title()?></h1>
-    <?php //Project Updates List ?>
+    <?php //Project Updates List?>
         <section class="grid-item" data-span="1/1">
             <ul class="grid mb-4">
-                <?php foreach($page->children() as $project): ?>
+                <?php foreach ($page->children() as $project) : ?>
                     <?php snippet('components/project/projectTeaserCard', compact('project')) ?>
                 <?php endforeach ?>
                 <li class="c-projectTeaserCard">

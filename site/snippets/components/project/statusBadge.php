@@ -1,10 +1,10 @@
-<?php 
+<?php
 
-    /*** Render Status Badge ****
-     * var $status: string
-     * 
-    */
-    $color = getColor($status);
+/*** Render Status Badge ****
+ * var $status: string
+ *
+*/
+$color = getColor($status);
 
 ?>
 

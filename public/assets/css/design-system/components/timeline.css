@@ -1,125 +1,130 @@
 /* Timeline Container */
 .c-project-timeline {
-    background: var(--primary-color);
-    margin: 20px auto;
-    padding: 20px;
-  }
-  
-  /* Card container */
- .c-project-timeline-card {
-    position: relative;
-    max-width: 400px;
-  }
-  
-  /* setting padding based on even or odd */
-   .c-project-timeline-card:nth-child(odd) {
-    padding: 30px 0 30px 30px;
-  }
-   .c-project-timeline-card:nth-child(even) {
-    padding: 30px 30px 30px 0;
-  }
-  /* Global ::before */
-   .c-project-timeline-card::before {
-    content: "";
-    position: absolute;
-    width: 50%;
-    border: solid var(--color-fg-brand-primary);
-  }
-  
-  /* Setting the border of top, bottom, left */
-   .c-project-timeline-card:nth-child(odd)::before {
-    left: 0px;
-    top: -4.5px;
-    bottom: -4.5px;
-    border-width: 5px 0 5px 5px;
-    border-radius: 50px 0 0 50px;
-  }
-  
-  /* Setting the top and bottom to "-5px" because earlier it was out of a pixel in mobile devices */
-  @media only screen and (max-width: 400px) {
-     .c-project-timeline-card:nth-child(odd)::before {
-      top: -5px;
-      bottom: -5px;
-    }
-  }
-  
-  /* Setting the border of top, bottom, right */
-   .c-project-timeline-card:nth-child(even)::before {
-    right: 0;
-    top: 0;
-    bottom: 0;
-    border-width: 5px 5px 5px 0;
-    border-radius: 0 50px 50px 0;
-  }
-  
-  /* Removing the border if it is the first card */
-   .c-project-timeline-card:first-child::before {
-    border-top: 0;
-    border-top-left-radius: 0;
-  }
-  
-  /* Removing the border if it is the last card  and it's odd */
-   .c-project-timeline-card:last-child:nth-child(odd)::before {
-    border-bottom: 0;
-    border-bottom-left-radius: 0;
-  }
-  
-  /* Removing the border if it is the last card  and it's even */
-   .c-project-timeline-card:last-child:nth-child(even)::before {
-    border-bottom: 0;
-    border-bottom-right-radius: 0;
-  }
-  
-  /* Information about the timeline */
-  .info {
-    display: flex;
-    flex-direction: column;
-    background: var(--color-dead-pixel-1300);
-    color: var(--color-dead-pixel-10);
-    border-radius: 10px;
-    padding: 10px;
-  }
-  /* Headline area */
+  background: var(--primary-color);
+  margin: 20px auto;
+  padding: 20px;
+}
 
-  .c-project-timeline-card .headline {
-    display: flex;
-    justify-content: space-between;
+/* Card container */
+.c-project-timeline-card {
+  position: relative;
+  max-width: 400px;
+}
+
+/* setting padding based on even or odd */
+.c-project-timeline-card:nth-child(odd) {
+  padding: 30px 0 30px 30px;
+}
+
+.c-project-timeline-card:nth-child(even) {
+  padding: 30px 30px 30px 0;
+}
+
+/* Global ::before */
+.c-project-timeline-card::before {
+  content: '';
+  position: absolute;
+  width: 50%;
+  border: solid var(--color-fg-brand-primary);
+}
+
+/* Setting the border of top, bottom, left */
+.c-project-timeline-card:nth-child(odd)::before {
+  left: 0;
+  top: -4.5px;
+  bottom: -4.5px;
+  border-width: 5px 0 5px 5px;
+  border-radius: 50px 0 0 50px;
+}
+
+/* Setting the top and bottom to "-5px" because earlier it was out of a pixel in mobile devices */
+@media only screen and (max-width: 400px) {
+  .c-project-timeline-card:nth-child(odd)::before {
+    top: -5px;
+    bottom: -5px;
   }
-  /* Title of the card */
-  .c-project-timeline-card .title {
-    color: var(--color-fg-brand-primary);
-    position: relative;
-  }
-  
-  /* Timeline dot  */
-  .c-project-timeline-card .headline::before {
-    content: "";
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: white;
-    border-radius: 999px;
-    z-index: 500;
-    margin-top: 3px;
-    border: 3px solid var(--color-fg-brand-primary);
-  }
-  
-  /* text right if the card is even  */
-   .c-project-timeline-card:nth-child(even) > .info > .headline {
-    flex-direction: row-reverse;
-  }
-  
-  /* setting dot to the left if the card is odd */
-   .c-project-timeline-card:nth-child(odd) > .info > .headline:before {
-    left: -5px;
-  }
-  
-  /* setting dot to the right if the card is odd */
-   .c-project-timeline-card:nth-child(even) > .info > .headline::before {
-    right: -5px;
-  }
+}
+
+/* Setting the border of top, bottom, right */
+.c-project-timeline-card:nth-child(even)::before {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-width: 5px 5px 5px 0;
+  border-radius: 0 50px 50px 0;
+}
+
+/* Removing the border if it is the first card */
+.c-project-timeline-card:first-child::before {
+  border-top: 0;
+  border-top-left-radius: 0;
+}
+
+/* Removing the border if it is the last card  and it's odd */
+.c-project-timeline-card:last-child:nth-child(odd)::before {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Removing the border if it is the last card  and it's even */
+.c-project-timeline-card:last-child:nth-child(even)::before {
+  border-bottom: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Information about the timeline */
+.info {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-dead-pixel-1300);
+  color: var(--color-dead-pixel-10);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Headline area */
+
+.c-project-timeline-card .headline {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Title of the card */
+.c-project-timeline-card .title {
+  color: var(--color-fg-brand-primary);
+  position: relative;
+}
+
+/* Timeline dot  */
+.c-project-timeline-card .headline::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 999px;
+  z-index: 500;
+  margin-top: 3px;
+  border: 3px solid var(--color-fg-brand-primary);
+}
+
+/* text right if the card is even  */
+.c-project-timeline-card:nth-child(even) > .info > .headline {
+  flex-direction: row-reverse;
+}
+
+/* setting dot to the left if the card is odd */
+.c-project-timeline-card:nth-child(odd) > .info > .headline::before {
+  left: -5px;
+}
+
+/* setting dot to the right if the card is odd */
+.c-project-timeline-card:nth-child(even) > .info > .headline::before {
+  right: -5px;
+}
 
 /* Constrained Timeline Styles */
+
 /* When timeline is in a constrained width (like 1/3 grid), adapt the layout */
 .timeline-container--constrained {
   position: relative;
@@ -133,7 +138,11 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, var(--color-ripe-mango-800) 0%, var(--color-ripe-mango-600) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-ripe-mango-800) 0%,
+    var(--color-ripe-mango-600) 100%
+  );
   z-index: 1;
 }
 
@@ -203,20 +212,24 @@
   color: var(--color-white);
   white-space: nowrap;
   flex-shrink: 0;
-  
-  &[data-color="preparing"] {
+
+  &[data-color='preparing'] {
     background-color: var(--color-project-preparing);
   }
-  &[data-color="planning"] {
+
+  &[data-color='planning'] {
     background-color: var(--color-project-planning);
   }
-  &[data-color="active"] {
+
+  &[data-color='active'] {
     background-color: var(--color-project-active);
   }
-  &[data-color="review"] {
+
+  &[data-color='review'] {
     background-color: var(--color-project-review);
   }
-  &[data-color="done"] {
+
+  &[data-color='done'] {
     background-color: var(--color-project-done);
   }
 }
@@ -273,13 +286,13 @@
     padding-left: 50px;
     margin: var(--size-5) 0;
   }
-  
+
   .timeline-container--constrained .timeline-item__container {
     padding: var(--size-3);
     margin-left: 0;
     width: calc(100% - 50px);
   }
-  
+
   .timeline-container--constrained .timeline-connector {
     left: 32px;
   }
@@ -289,28 +302,28 @@
   .timeline-container--constrained {
     padding: var(--size-3) 0;
   }
-  
+
   .timeline-container--constrained::before {
     left: var(--size-4);
   }
-  
+
   .timeline-container--constrained .timeline-item {
     padding-left: 40px;
     margin: var(--size-4) 0;
   }
-  
+
   .timeline-container--constrained .timeline-item__container {
     padding: var(--size-3);
     margin-left: 0;
     width: calc(100% - 40px);
   }
-  
+
   .timeline-container--constrained .timeline-connector {
     left: 16px;
   }
-  
+
   .timeline-container--constrained .timeline-image {
     max-width: 150px;
     margin: var(--size-2) 0;
   }
-}  
+}

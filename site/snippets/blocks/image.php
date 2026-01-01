@@ -1,12 +1,12 @@
 <?php
 
 /** @var \Kirby\Cms\Block $block */
-$alt     = $block->alt();
+$alt = $block->alt();
 $caption = $block->caption();
-$crop    = $block->crop()->isTrue();
-$link    = $block->link();
-$ratio   = $block->ratio()->or('auto');
-$src     = null;
+$crop = $block->crop()->isTrue();
+$link = $block->link();
+$ratio = $block->ratio()->or('auto');
+$src = null;
 
 if ($block->location() == 'web') {
     $src = $block->src()->esc();
@@ -16,22 +16,22 @@ if ($block->location() == 'web') {
 }
 
 ?>
-<?php if ($src): ?>
+<?php if ($src) : ?>
 <figure<?= Html::attr(['data-ratio' => $ratio, 'data-crop' => $crop], null, ' ') ?>>
-  <?php if ($link->isNotEmpty()): ?>
+    <?php if ($link->isNotEmpty()) : ?>
   <a href="<?= Str::esc($link->toUrl()) ?>">
     <img src="<?= $src ?>" alt="<?= $alt->esc() ?>" class="c-gallery-image" />
   </a>
-  <?php else: ?>
+    <?php else : ?>
     <a href="<?=$src?>" data-fslightbox="gallery">
     <img src="<?= $src ?>" alt="<?= $alt->esc() ?>" class="c-gallery-image" />
   </a>
-  <?php endif ?>
+    <?php endif ?>
 
-  <?php if ($caption->isNotEmpty()): ?>
+    <?php if ($caption->isNotEmpty()) : ?>
   <figcaption>
-    <?= $caption ?>
+        <?= $caption ?>
   </figcaption>
-  <?php endif ?>
+    <?php endif ?>
 </figure>
 <?php endif ?>

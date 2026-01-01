@@ -4,29 +4,27 @@ use Kirby\Cms\Html;
 /** @var \Kirby\Cms\Block $block */
 $caption = $block->caption();
 
-if (
-    $block->location() == 'kirby' &&
+if ($block->location() == 'kirby' &&
     $video = $block->video()->toFile()
 ) {
-    $url   = $video->url();
+    $url = $video->url();
     $attrs = array_filter([
         'autoplay' => $block->autoplay()->toBool(),
         'controls' => $block->controls()->toBool(),
-        'loop'     => $block->loop()->toBool(),
-        'muted'    => $block->muted()->toBool(),
-        'poster'   => $block->poster()->toFile()?->url(),
-        'preload'  => $block->preload()->value(),
+        'loop' => $block->loop()->toBool(),
+        'muted' => $block->muted()->toBool(),
+        'poster' => $block->poster()->toFile()?->url(),
+        'preload' => $block->preload()->value(),
     ]);
 } else {
     $url = $block->url();
 }
 ?>
-<?php if ($video = Html::video($url, [], $attrs ?? ['class' => "c-external_video"])): ?>
+<?php if ($video = Html::video($url, [], $attrs ?? ['class' => "c-external_video"])) : ?>
 <figure >
         <?= $video ?>
-  <?php if ($caption->isNotEmpty()): ?>
-    
+    <?php if ($caption->isNotEmpty()) : ?>
   <figcaption><?= $caption ?></figcaption>
-  <?php endif ?>
+    <?php endif ?>
 </figure>
 <?php endif ?>

@@ -16,9 +16,9 @@
         <h1  class="font-titleXXL"><?=$page->headline()?></h1>
       </div>
 
-      <?php foreach ($page->blog()->toBlocks() as $block): ?>
+      <?php foreach ($page->blog()->toBlocks() as $block) : ?>
       <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-        <?= $block ?>
+            <?= $block ?>
       </div>
       <?php endforeach ?>
     </article>

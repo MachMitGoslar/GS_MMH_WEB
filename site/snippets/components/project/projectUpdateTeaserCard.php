@@ -12,7 +12,7 @@
     <img class="hero" src="<?=$project->cover()->url()?>">
   </div>
   <div class="content">
-    <?= snippet("components/project/statusheader",compact("project_step")) ?>
+    <?= snippet("components/project/statusheader", compact("project_step")) ?>
     <a href="<?= $project_step->parent() ?>">
      <h3 class="font-headline font-line-height-narrow mb-2"><?= $project->title()?></h3>
      <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $project_step->headline()?></h4>

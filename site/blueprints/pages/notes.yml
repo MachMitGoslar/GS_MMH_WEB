@@ -1,0 +1,38 @@
+title: Newsletters
+icon: 📧
+options:
+  changeStatus: false
+columns:
+  - width: 1/2
+    fields:
+      cover:
+        extends: fields/cover
+        label: Hero-Bild
+        help: Hauptbild für die Newsletter-Seite
+      
+      title:
+        label: Titel
+        type: text
+        placeholder: Newsletter
+      
+      headline:
+        label: Untertitel
+        type: text
+        placeholder: z.B. "Bleiben Sie auf dem Laufenden"
+      
+      description:
+        label: Beschreibung
+        type: textarea
+        placeholder: Beschreibung der Newsletter-Seite und was Nutzer erwarten können
+  - width: 1/2
+    label: Tagebuch
+    icon: book-open
+    sections: 
+      published:
+        extends: sections/notes
+        query: site.find("notes").children.published()
+        label: Veröffentlichte Einträge
+      drafts:
+        extends: sections/notes
+        query: site.find("notes").children.drafts()
+        label: Entwürfe

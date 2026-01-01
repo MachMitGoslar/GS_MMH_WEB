@@ -28,12 +28,12 @@
   </section>
 
   <!-- Author Section -->
-  <?php if ($author = $page->author()->toPage()): ?>
+  <?php if ($author = $page->author()->toPage()) : ?>
     <section class="grid content mb-7">
       <div class="newsletter-author-section grid-item" data-span="1/1">
         <div class="newsletter-author-content">
           <div class="newsletter-author-profile">
-            <?php if ($authorImage = $author->cover()): ?>
+            <?php if ($authorImage = $author->cover()) : ?>
               <img src="<?= $authorImage->url() ?>" alt="<?= $author->title() ?>" class="author-avatar">
             <?php endif ?>
             <div class="author-info">
@@ -49,7 +49,7 @@
     </section>
   <?php endif ?>    
   <!-- Weekly Schedule Section -->
-    <?php if ($page->weekly_dates() && $page->weekly_dates()->isNotEmpty()): ?>
+    <?php if ($page->weekly_dates() && $page->weekly_dates()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-3">Die Woche im MachMit!Haus</h2>
@@ -57,52 +57,52 @@
           <div class="calendar-grid">
             <?php
             $weeklyEvents = $page->weekly_dates()->toStructure();
-            $daysOfWeek = [
-              'monday' => 0,
-              'tuesday' => 1,
-              'wednesday' => 2,
-              'thursday' => 3,
-              'friday' => 4,
-            ];
-            $dayNames = [
-              'monday' => 'Mo',
-              'tuesday' => 'Di',
-              'wednesday' => 'Mi',
-              'thursday' => 'Do',
-              'friday' => 'Fr'
-            ];
+        $daysOfWeek = [
+        'monday' => 0,
+        'tuesday' => 1,
+        'wednesday' => 2,
+        'thursday' => 3,
+        'friday' => 4,
+        ];
+        $dayNames = [
+        'monday' => 'Mo',
+        'tuesday' => 'Di',
+        'wednesday' => 'Mi',
+        'thursday' => 'Do',
+        'friday' => 'Fr',
+        ];
 
-            // Initialize calendar grid for full week
-            $calendar = array_fill(0, 5, []);
+        // Initialize calendar grid for full week
+        $calendar = array_fill(0, 5, []);
 
-            // Group events by day
-            foreach ($weeklyEvents as $event) {
-              $dayKey = $event->day()->value();
-              if (isset($daysOfWeek[$dayKey])) {
+        // Group events by day
+        foreach ($weeklyEvents as $event) {
+            $dayKey = $event->day()->value();
+            if (isset($daysOfWeek[$dayKey])) {
                 $calendar[$daysOfWeek[$dayKey]][] = $event;
-              }
             }
+        }
 
-            // Display calendar grid for full week
-            for ($day = 0; $day < 5; $day++):
-              $dayKeys = array_keys($dayNames);
-              $currentDayKey = $dayKeys[$day] ?? '';
-              $currentDayName = $dayNames[$currentDayKey] ?? '';
-              ?>
+        // Display calendar grid for full week
+        for ($day = 0; $day < 5; $day++) :
+            $dayKeys = array_keys($dayNames);
+            $currentDayKey = $dayKeys[$day] ?? '';
+            $currentDayName = $dayNames[$currentDayKey] ?? '';
+            ?>
               <div class="calendar-day">
                 <div class="font-headline calendar-day-label"><?= $currentDayName ?></div>
                 <div class="calendar-events">
-                  <?php if (!empty($calendar[$day])): ?>
-                    <?php foreach ($calendar[$day] as $event): ?>
+                  <?php if (! empty($calendar[$day])) : ?>
+                        <?php foreach ($calendar[$day] as $event) : ?>
                       <div class="calendar-event mb-2 p-2 bg-gray-100 rounded">
                         <div class="font-footnote event-time"><?= $event->start_time()->toDate("H:i", $fallback = null) ?></div>
                         <div class="font-body event-title"><?= $event->activity() ?></div>
-                        <?php if ($event->location() && $event->location()->isNotEmpty()): ?>
+                            <?php if ($event->location() && $event->location()->isNotEmpty()) : ?>
                           <div class="font-caption event-location"><?= $event->location() ?></div>
-                        <?php endif ?>
+                            <?php endif ?>
                       </div>
-                    <?php endforeach ?>
-                  <?php else: ?>
+                        <?php endforeach ?>
+                  <?php else : ?>
                     <div class="font-body calendar-empty">-</div>
                   <?php endif ?>
                 </div>
@@ -116,53 +116,53 @@
 
 
     <!-- Upcoming Dates Section -->
-    <?php if ($page->upcomming_dates() && $page->upcomming_dates()->isNotEmpty()): ?>
+    <?php if ($page->upcomming_dates() && $page->upcomming_dates()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Kommende Termine</h2>
           
-          <?php 
+          <?php
           // Group events by month
-          $upcomingEvents = $page->upcomming_dates()->toStructure();
-          $eventsByMonth = [];
-          
-          foreach ($upcomingEvents as $event) {
+            $upcomingEvents = $page->upcomming_dates()->toStructure();
+        $eventsByMonth = [];
+
+        foreach ($upcomingEvents as $event) {
             if ($event->show_event_date()->toBool() && $event->event_date()->isNotEmpty()) {
-              $monthKey = $event->event_date()->toDate('Y-m');
-              $monthName = $event->event_date()->toDate('F Y');
-              
-              if (!isset($eventsByMonth[$monthKey])) {
-                $eventsByMonth[$monthKey] = [
-                  'name' => $monthName,
-                  'events' => []
-                ];
-              }
-              $eventsByMonth[$monthKey]['events'][] = $event;
+                $monthKey = $event->event_date()->toDate('Y-m');
+                $monthName = $event->event_date()->toDate('F Y');
+
+                if (! isset($eventsByMonth[$monthKey])) {
+                    $eventsByMonth[$monthKey] = [
+                      'name' => $monthName,
+                      'events' => [],
+                    ];
+                }
+                $eventsByMonth[$monthKey]['events'][] = $event;
             }
-          }
-          
-          // Sort months chronologically
-          ksort($eventsByMonth);
-          ?>
+        }
+
+        // Sort months chronologically
+        ksort($eventsByMonth);
+        ?>
           
           <div class="newsletter-months-grid">
-          <?php foreach ($eventsByMonth as $monthData): ?>
+          <?php foreach ($eventsByMonth as $monthData) : ?>
             <div class="newsletter-month-item">
               <h3 class="font-headline mb-3"><?= $monthData['name'] ?></h3>
               <ul class="events-list">
-                <?php foreach ($monthData['events'] as $event): ?>
+                <?php foreach ($monthData['events'] as $event) : ?>
                   <li class="eventsListItem">
                     <time class="font-footnote mb-2">
                       <?= $event->event_date()->toDate('d.m.Y') ?>
-                      <?php if ($event->event_date_end()->isNotEmpty()): ?>
+                      <?php if ($event->event_date_end()->isNotEmpty()) : ?>
                         - <?= $event->event_date_end()->toDate('d.m.Y') ?>
                       <?php endif ?>
                     </time>
                     <h4 class="font-subheadline mb-1"><?= $event->event_name() ?></h4>
-                    <?php if ($event->event_description()->isNotEmpty()): ?>
+                    <?php if ($event->event_description()->isNotEmpty()) : ?>
                       <p class="font-body mb-1"><?= $event->event_description() ?></p>
                     <?php endif ?>
-                    <?php if ($event->event_location()->isNotEmpty()): ?>
+                    <?php if ($event->event_location()->isNotEmpty()) : ?>
                       <p class="font-footnote text-gray-600">📍 <?= $event->event_location() ?></p>
                     <?php endif ?>
                   </li>
@@ -177,18 +177,18 @@
     <?php endif ?>
 
     <!-- Timeline/Year in Review Section -->
-    <?php if ($page->timeline() && $page->timeline()->isNotEmpty()): ?>
+    <?php if ($page->timeline() && $page->timeline()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-3">Jahresrückblick</h2>
           <div class="timeline-container">
             <?php
-            $timelineEntries = $page->timeline()->toStructure();
-            $isLeft = true;
-            foreach ($timelineEntries as $entry):
-              ?>
+        $timelineEntries = $page->timeline()->toStructure();
+        $isLeft = true;
+        foreach ($timelineEntries as $entry) :
+            ?>
               <div class="timeline-item <?= $isLeft ? 'timeline-item--left' : 'timeline-item--right' ?>">
-                <?php if ($isLeft): ?>
+                <?php if ($isLeft) : ?>
                   <div class="timeline-item__container">
                     <!-- Left side: Text | Image | Connector -->
                     <div class="timeline-content">
@@ -196,18 +196,18 @@
                       <div class="font-body timeline-text"><?= $entry->summary() ?></div>
                     </div>
                     <div class="timeline-image">
-                      <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()): ?>
+                      <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()) : ?>
                         <img src="<?= $imageFile->url() ?>" alt="<?= $entry->year() ?>" loading="lazy">
                       <?php endif ?>
                     </div>
                     <div class="timeline-connector"></div>
                   </div>
-                <?php else: ?>
+                <?php else : ?>
                   <!-- Right side: Connector | Image | Text -->
                   <div class="timeline-item__container">
                     <div class="timeline-connector"></div>
                     <div class="timeline-image">
-                      <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()): ?>
+                      <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()) : ?>
                         <img src="<?= $imageFile->url() ?>" alt="<?= $entry->year() ?>" loading="lazy">
                       <?php endif ?>
                     </div>
@@ -218,10 +218,10 @@
                   </div>
                 <?php endif ?>
               </div>
-              <?php
-              $isLeft = !$isLeft;
-            endforeach;
-            ?>
+                <?php
+            $isLeft = ! $isLeft;
+        endforeach;
+?>
           </div>
         </div>
       </section>
@@ -229,14 +229,14 @@
 
 
     <!-- Reviews Section -->
-    <?php if ($page->review_entries() && $page->review_entries()->isNotEmpty()): ?>
+    <?php if ($page->review_entries() && $page->review_entries()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Rückblicke</h2>
           <ul class="grid newsletter-grid mb-4">
-            <?php foreach ($page->review_entries()->toStructure() as $review): ?>
+            <?php foreach ($page->review_entries()->toStructure() as $review) : ?>
               <li class="c-projectUpdateTeaser-card">
-                <?php if ($review->image()->isNotEmpty() && $imageFile = $review->image()->toFile()): ?>
+                <?php if ($review->image()->isNotEmpty() && $imageFile = $review->image()->toFile()) : ?>
                   <div>
                     <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $review->headline() ?>">
                   </div>
@@ -246,11 +246,11 @@
                     <div class="status-badge">📖 Rückblick</div>
                   </div>
                   <h3 class="font-headline font-line-height-narrow mb-2"><?= $review->headline() ?></h3>
-                  <?php if ($review->subheadline()->isNotEmpty()): ?>
+                  <?php if ($review->subheadline()->isNotEmpty()) : ?>
                     <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $review->subheadline() ?></h4>
                   <?php endif ?>
                   <p class="font-body"><?= $review->content_text() ? $review->content_text()->excerpt(100) : '' ?></p>
-                  <?php if ($review->date()->isNotEmpty()): ?>
+                  <?php if ($review->date()->isNotEmpty()) : ?>
                     <p class="font-footnote mt-2"><?= $review->date()->toDate('d.m.Y') ?></p>
                   <?php endif ?>
                 </div>
@@ -261,14 +261,14 @@
       </section>
     <?php endif ?>
     <!-- Current Projects Section -->
-    <?php if ($page->actual_entries() && $page->actual_entries()->isNotEmpty()): ?>
+    <?php if ($page->actual_entries() && $page->actual_entries()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Aktuelle Projekte</h2>
           <ul class="grid newsletter-grid mb-4">
-            <?php foreach ($page->actual_entries()->toStructure() as $project): ?>
+            <?php foreach ($page->actual_entries()->toStructure() as $project) : ?>
               <li class="c-projectUpdateTeaser-card">
-                <?php if ($project->image()->isNotEmpty() && $imageFile = $project->image()->toFile()): ?>
+                <?php if ($project->image()->isNotEmpty() && $imageFile = $project->image()->toFile()) : ?>
                   <div>
                     <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $project->headline() ?>">
                   </div>
@@ -278,11 +278,11 @@
                     <div class="status-badge" data-color="active">🚀 Aktuell</div>
                   </div>
                   <h3 class="font-headline font-line-height-narrow mb-2"><?= $project->headline() ?></h3>
-                  <?php if ($project->subheadline()->isNotEmpty()): ?>
+                  <?php if ($project->subheadline()->isNotEmpty()) : ?>
                     <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $project->subheadline() ?></h4>
                   <?php endif ?>
                   <p class="font-body"><?= $project->content_text() ? $project->content_text()->excerpt(100) : '' ?></p>
-                  <?php if ($project->location()->isNotEmpty()): ?>
+                  <?php if ($project->location()->isNotEmpty()) : ?>
                     <p class="font-footnote mt-2">📍 <?= $project->location() ?></p>
                   <?php endif ?>
                 </div>
@@ -298,14 +298,14 @@
 
 
     <!-- Previews Section -->
-    <?php if ($page->upcomming_entries() && $page->upcomming_entries()->isNotEmpty()): ?>
+    <?php if ($page->upcomming_entries() && $page->upcomming_entries()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Vorschau</h2>
           <div class="grid newsletter-grid mb-4">
-            <?php foreach ($page->upcomming_entries()->toStructure() as $preview): ?>
+            <?php foreach ($page->upcomming_entries()->toStructure() as $preview) : ?>
               <div class="grid-item c-projectUpdateTeaser-card" data-span="1/1@s 1/2@m 1/3@l">
-                <?php if ($preview->image()->isNotEmpty() && $imageFile = $preview->image()->toFile()): ?>
+                <?php if ($preview->image()->isNotEmpty() && $imageFile = $preview->image()->toFile()) : ?>
                   <div>
                     <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $preview->headline() ?>">
                   </div>
@@ -315,11 +315,11 @@
                     <div class="status-badge" data-color="planning">🔮 Vorschau</div>
                   </div>
                   <h3 class="font-headline font-line-height-narrow mb-2"><?= $preview->headline() ?></h3>
-                  <?php if ($preview->subheadline()->isNotEmpty()): ?>
+                  <?php if ($preview->subheadline()->isNotEmpty()) : ?>
                     <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $preview->subheadline() ?></h4>
                   <?php endif ?>
                   <p class="font-body"><?= $preview->content_text() ? $preview->content_text()->excerpt(100) : '' ?></p>
-                  <?php if ($preview->date()->isNotEmpty()): ?>
+                  <?php if ($preview->date()->isNotEmpty()) : ?>
                     <p class="font-footnote mt-2">📅 <?= $preview->date()->toDate('d.m.Y') ?></p>
                   <?php endif ?>
                 </div>
@@ -331,14 +331,14 @@
     <?php endif ?>
 
     <!-- News Section -->
-    <?php if ($page->news() && $page->news()->isNotEmpty()): ?>
+    <?php if ($page->news() && $page->news()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Nachrichten aus dem MachMit!Haus</h2>
           <div class="grid newsletter-grid mb-4">
-            <?php foreach ($page->news()->toStructure() as $newsItem): ?>
+            <?php foreach ($page->news()->toStructure() as $newsItem) : ?>
               <div class="grid-item c-projectUpdateTeaser-card" data-span="1/1@s 1/2@m 1/3@l">
-                <?php if ($newsItem->image()->isNotEmpty() && $imageFile = $newsItem->image()->toFile()): ?>
+                <?php if ($newsItem->image()->isNotEmpty() && $imageFile = $newsItem->image()->toFile()) : ?>
                   <div>
                     <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $newsItem->headline() ?>">
                   </div>
@@ -348,11 +348,11 @@
                     <div class="status-badge">📰 Nachrichten</div>
                   </div>
                   <h3 class="font-headline font-line-height-narrow mb-2"><?= $newsItem->headline() ?></h3>
-                  <?php if ($newsItem->subheadline()->isNotEmpty()): ?>
+                  <?php if ($newsItem->subheadline()->isNotEmpty()) : ?>
                     <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $newsItem->subheadline() ?></h4>
                   <?php endif ?>
                   <p class="font-body"><?= $newsItem->content_text() ? $newsItem->content_text()->excerpt(100) : '' ?></p>
-                  <?php if ($newsItem->link()->isNotEmpty()): ?>
+                  <?php if ($newsItem->link()->isNotEmpty()) : ?>
                     <a href="<?= $newsItem->link() ?>" class="gs-c-btn mt-3" data-type="secondary" data-size="small" target="_blank">🔗 Weiterlesen</a>
                   <?php endif ?>
                 </div>
@@ -366,10 +366,10 @@
 
     <!-- Contact & Info Footer -->
     <section class="grid content mb-7">
-      <?php if ($page->closingsinfos() && $page->closingsinfos()->isNotEmpty()): ?>
+      <?php if ($page->closingsinfos() && $page->closingsinfos()->isNotEmpty()) : ?>
         <div class="c-newsletter-teaser grid-item" data-span="1/1">
           <div class="flex items-center mb-5">
-            <?php if (isset($authorImage) && $authorImage): ?>
+            <?php if (isset($authorImage) && $authorImage) : ?>
               <img src="<?= $authorImage->url() ?>" alt="Kontakt" class="author-avatar">
             <?php endif ?>
             <div>

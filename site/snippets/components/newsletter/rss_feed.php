@@ -21,14 +21,14 @@
  <pubDate><?= $parent->modified($format = "D, d M Y", $handler = null, $languageCode = null) ?> </pubDate>
  <ttl>1800</ttl>
 
- <?php foreach($pages as $page): ?>
+ <?php foreach ($pages as $page) : ?>
     <item>
         <title><?= $page->title() ?></title>
         <description><?= $page->headline() ?> </description>
         <link> <?= $page->url() ?></link>
         <pubDate> <?= $page->modified($format = "D, d M Y", $handler = null, $languageCode = null) ?></pubDate>
     </item>
-<?php endforeach ?>
+ <?php endforeach ?>
 
 </channel>
 </rss>

@@ -17,6 +17,8 @@
  *
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
+use Kirby\Cms\Page;
+
 class NotePage extends Page
 {
     public function cover()
@@ -29,5 +31,20 @@ class NotePage extends Page
     public function published($format = null)
     {
         return parent::date()->toDate($format ?? 'd M, Y');
+    }
+
+    public function string_content()
+    {
+        $string_content = 'test';
+        foreach ($this->text()->toBlocks() as $block) {
+            if ($block->type() === 'text' || $block->type() === 'accordion' || $block->type() === 'box' || $block->type() === 'heading') {
+                $string_content .= $block->text()->body();
+            }
+        }
+
+        return new Kirby\Cms\Block([
+            'type' => 'text',
+            'content' => $string_content,
+        ]);
     }
 }

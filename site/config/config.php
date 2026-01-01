@@ -8,6 +8,6 @@ return [
     'debug' => true,
     'panel' => [
         'install' => true,
-        'slug' => 'panel'
+        'slug' => 'panel',
     ],
 ];

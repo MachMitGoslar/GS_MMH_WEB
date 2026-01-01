@@ -1,0 +1,32 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "rules": {
+    "indentation": 2,
+    "string-quotes": "single",
+    "color-hex-case": "lower",
+    "color-hex-length": "short",
+    "selector-pseudo-element-colon-notation": "double",
+    "selector-pseudo-class-parentheses-space-inside": "never",
+    "declaration-block-trailing-semicolon": "always",
+    "declaration-colon-space-before": "never",
+    "declaration-colon-space-after": "always",
+    "number-leading-zero": "always",
+    "function-url-quotes": "always",
+    "comment-whitespace-inside": "always",
+    "color-named": null,
+    "no-duplicate-selectors": null,
+    "no-descending-specificity": null,
+    "block-no-empty": null,
+    "no-empty-source": null,
+    "selector-class-pattern": null,
+    "custom-property-pattern": null
+  },
+  "ignoreFiles": [
+    "node_modules/**/*",
+    "vendor/**/*",
+    "kirby/**/*",
+    "storage/**/*",
+    "**/*.min.css",
+    "site/plugins/**"
+  ]
+}

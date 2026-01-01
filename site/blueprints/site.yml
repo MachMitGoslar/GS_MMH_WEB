@@ -53,11 +53,35 @@ tabs:
   team:
     label: Team & Partners
     icon: User
-    fields:
+    sections:
       staff:
-        type: pages
-        parent: site.find("team")
-        template: member
+        extends: sections/roles
+        query: site.find("team").children.listed().filterBy('teams', 'staff', ',')
+        label: Hauptamt
+      volunteers:
+        extends: sections/roles
+        query: site.find("team").children.listed().filterBy('teams', 'volunteer', ',')
+        label: Ehrenamt
+      partners:
+        extends: sections/roles
+        query: site.find("team").children.listed().filterBy('teams', 'partner', ',')
+        label: Partner
+      issuers:
+        extends: sections/roles
+        query: site.find("team").children.listed().filterBy('teams', 'issuer', ',')
+        label: Auftraggeber
+  tagebuch:
+    label: Tagebuch
+    icon: book-open
+    sections: 
+      published:
+        extends: sections/notes
+        query: site.find("notes").children.published()
+        label: Veröffentlichte Einträge
+      drafts:
+        extends: sections/notes
+        query: site.find("notes").children.drafts()
+        label: Entwürfe
   footer:
     label: Footer
     icon: angle-down

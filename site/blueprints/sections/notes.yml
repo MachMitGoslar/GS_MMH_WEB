@@ -7,7 +7,7 @@ label: Notes
 parent: kirby.page("notes")
 info: "{{ page.published }}"
 template: note
-empty: No notes yet
+empty: Noch keine Einträge enthalten
 sortBy: date desc
 image:
   query: page.cover

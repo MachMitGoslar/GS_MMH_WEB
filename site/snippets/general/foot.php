@@ -1,5 +1,5 @@
 
-<?php // move to a separate js file and call it in the head snippet ?>
+<?php // move to a separate js file and call it in the head snippet?>
 
 <script async defer>
 

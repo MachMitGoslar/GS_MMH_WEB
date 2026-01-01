@@ -8,14 +8,18 @@
 return [
     'debug' => true,
     'panel' => [
-        'install' => true
+        'install' => true,
     ],
     'cache' => [
         'pages' => [
             'active' => false,
         ],
         'assets' => [
-            'active' => false,
+            'active' => true,
         ],
+    ],
+    'thumbs' => [
+        'driver' => 'im',
+        'bin' => '/usr/bin/convert',
     ],
 ];

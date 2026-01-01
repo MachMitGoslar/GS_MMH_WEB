@@ -9,7 +9,7 @@
     <section class="flex flex-column grid-item-span2">
       <h3 class="font-subheadline mb-2">Hauptseiten</h3>
       <ul>
-        <?php foreach($site->children()->listed() as $child): ?>
+        <?php foreach ($site->children()->listed() as $child) : ?>
           <li class="font-footnote">
             <a href="<?=$child->url()?>"><?=$child->title()?></a>
           </li>
@@ -19,9 +19,9 @@
     <section class="flex flex-column grid-item-span2">
       <h3 class="font-subheadline mb-2">Social Media</h3>
       <ul>
-        <?php foreach($site->social()->toStructure() as $child): ?>
+        <?php foreach ($site->social()->toStructure() as $child) : ?>
           <li class="font-footnote">
-            <a href="<?=$child->link() ? $child->link(): "test" ?>" target="_blank"><?=$child->title()?></a>
+            <a href="<?=$child->link() ? $child->link() : "test" ?>" target="_blank"><?=$child->title()?></a>
           </li>
         <?php endforeach ?>
       </ul>

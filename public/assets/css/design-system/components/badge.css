@@ -7,27 +7,27 @@
   white-space: nowrap;
 }
 
-.badge[data-variant="primary"] {
+.badge[data-variant='primary'] {
   background-color: var(--color-ripe-mango-700);
   color: var(--color-ripe-mango-1400);
 }
 
-.badge[data-variant="secondary"] {
+.badge[data-variant='secondary'] {
   background-color: var(--color-dead-pixel-400);
   color: var(--color-dead-pixel-1200);
 }
 
-.badge[data-variant="success"] {
+.badge[data-variant='success'] {
   background-color: #10b981;
   color: white;
 }
 
-.badge[data-variant="warning"] {
+.badge[data-variant='warning'] {
   background-color: #f59e0b;
   color: white;
 }
 
-.badge[data-variant="error"] {
+.badge[data-variant='error'] {
   background-color: #ef4444;
   color: white;
 }

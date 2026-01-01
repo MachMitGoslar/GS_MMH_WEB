@@ -13,7 +13,7 @@
   </div>
   <nav class="mainNav" id="mainNav">
     <ul class="mainNav-list">
-      <?php foreach($site->children()->listed() as $child): ?>
+      <?php foreach ($site->children()->listed() as $child) : ?>
         <li class="mainNav-list-item font-body">
           <a <?php e($child->isOpen(), ' class="active"') ?> href="<?=$child->url()?>"><?=$child->title()?></a>
         </li>

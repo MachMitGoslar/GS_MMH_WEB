@@ -16,10 +16,10 @@ $navigation = $site->navigation()?->toPages();
         </a>
         <button id="menu-toggle" aria-expanded="false" aria-controls="menu" class="hamburger"><?=svg("assets/svg/hamburger.svg")?></button>
     </div>
-    <?php if ($navigation): ?>
+    <?php if ($navigation) : ?>
         <nav class="mainNav" id="mainNav">
             <ul class="mainNav-list">
-                <?php foreach($navigation as $child): ?>
+                <?php foreach ($navigation as $child) : ?>
                     <li class="mainNav-list-item font-body">
                         <a <?php e($child->isOpen(), ' class="active"') ?> href="<?=$child->url()?>"><?=$child->title()?></a>
                     </li>
