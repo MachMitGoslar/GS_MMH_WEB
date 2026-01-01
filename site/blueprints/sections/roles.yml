@@ -1,0 +1,17 @@
+
+type: pages
+parent: site.find("team")
+view: cards
+template: member
+
+size: small
+info: "{{ page.images.count }} image(s)"
+layout: list
+templates: member
+create:
+  - member
+empty: Bisher keine Beteiligte
+image:
+  query: page.cover
+  cover: true
+  ratio: 1/1

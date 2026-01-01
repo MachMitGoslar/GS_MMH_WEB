@@ -1,0 +1,117 @@
+:root {
+}
+
+header,
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 2rem;
+  height: 3rem;
+  overflow: hidden;
+  background-color: var(--color-dead-pixel-10);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 8px 32px 0 rgb(0 0 0 / 8%),
+    0 4px 8px 0 rgb(0 0 0 / 4%),
+    0 2px 4px 0 rgb(0 0 0 / 2%);
+  transition: all 0.25s ease;
+
+  @media (width < 768px) {
+    padding: 0.5rem 1rem 0;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  & .logo {
+    height: 2rem;
+
+    & svg {
+      height: 100%;
+    }
+  }
+
+  & .placeholder {
+    width: 7rem;
+    @media (width < 768px) {
+      display: none;
+    }
+  }
+
+  & .mainNav {
+    display: block;
+    @media (width < 768px) {
+      display: none;
+    }
+  }
+
+  & .mainNav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    & .mainNav-list-item {
+      flex-grow: 0;
+
+      &:hover {
+        text-decoration: underline var(--color-fg-brand-primary) 2px;
+      }
+
+      & a:focus {
+        opacity: 0.3;
+      }
+      @media (width < 768px) {
+        font-size: var(--typo-size-500);
+        font-weight: var(--font-weight-bold);
+      }
+
+      & a.active {
+        color: var(--color-fg-brand-primary);
+        font-weight: var(--font-weight-medium);
+      }
+    }
+
+    @media (width < 768px) {
+      padding-top: 3rem;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 1rem;
+    }
+  }
+
+  & .hamburger {
+    display: none;
+    height: 2rem;
+
+    & svg {
+      height: 100%;
+    }
+    @media (width < 768px) {
+      display: block;
+    }
+  }
+
+  & .mobileMenuWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @media (width < 768px) {
+      width: 100%;
+    }
+  }
+}
+
+.mainNav.is-active {
+  display: block;
+  width: 100%;
+}
+
+.header.is-active {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  padding: 0.5rem 1rem 0;
+}

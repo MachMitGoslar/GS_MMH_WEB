@@ -1,0 +1,175 @@
+/* Newsletter Teaser Card Component Styles */
+
+.c-newsletterTeaserCard {
+  grid-column: span 4;
+  display: flex;
+  padding-bottom: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(0 0 0 / 10%);
+  background: #fff;
+  overflow: hidden;
+  contain: content;
+  transition: all 0.3s ease;
+}
+
+.c-newsletterTeaserCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgb(0 0 0 / 15%);
+  border-color: rgb(59 130 246 / 30%);
+}
+
+.c-newsletterTeaserCard .content {
+  padding: 0 1rem;
+  width: 100%;
+}
+
+/* Status Header */
+.c-newsletterTeaserCard .statusheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.c-newsletterTeaserCard .newsletter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-size: var(--typo-size-80);
+  font-weight: var(--font-weight-semiBold);
+  border-radius: 1rem;
+  background: var(--color-cornflower-400);
+  color: var(--color-white);
+}
+
+.c-newsletterTeaserCard .newsletter-badge-icon {
+  font-size: 0.875rem;
+}
+
+.c-newsletterTeaserCard .newsletter-badge-text {
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-size: 0.75rem;
+}
+
+.c-newsletterTeaserCard time {
+  color: var(--color-gray-600);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Hero Image */
+.c-newsletterTeaserCard .hero {
+  --aspected-ratio: 24/9;
+
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--aspected-ratio);
+  object-fit: cover;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  transition: transform 0.3s ease;
+}
+
+.c-newsletterTeaserCard:hover .hero {
+  transform: scale(1.05);
+}
+
+@media (width > 489px) {
+  .c-newsletterTeaserCard .hero {
+    --aspected-ratio: 21/9;
+  }
+}
+
+/* Content Styling */
+.c-newsletterTeaserCard a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.c-newsletterTeaserCard a:hover h3 {
+  color: var(--color-cornflower-600);
+}
+
+.c-newsletterTeaserCard h3 {
+  transition: color 0.2s ease;
+  color: var(--color-gray-900);
+}
+
+.c-newsletterTeaserCard p {
+  margin-bottom: 1rem;
+  color: var(--color-gray-700);
+  line-height: 1.6;
+}
+
+/* Button Override for Newsletter Context */
+.c-newsletterTeaserCard .gs-c-btn {
+  margin-top: auto;
+}
+
+/* Grid layouts */
+.newsletter-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.newsletter-grid--2cols {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .newsletter-grid--2cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.newsletter-grid--3cols {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .newsletter-grid--3cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .newsletter-grid--3cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Featured newsletter item */
+.c-newsletterTeaserCard.newsletter-item--featured {
+  border-color: var(--color-cornflower-300);
+  background: linear-gradient(135deg, #fef7ff 0%, #f0f9ff 100%);
+}
+
+.c-newsletterTeaserCard.newsletter-item--featured .newsletter-badge {
+  background: var(--color-cornflower-600);
+  box-shadow: 0 2px 4px rgb(59 130 246 / 20%);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .c-newsletterTeaserCard {
+    padding-bottom: 1.5rem;
+    gap: 0.75rem;
+  }
+
+  .c-newsletterTeaserCard .content {
+    padding: 0 0.75rem;
+  }
+
+  .c-newsletterTeaserCard .newsletter-badge {
+    padding: 0.1875rem 0.5rem;
+    font-size: 0.6875rem;
+  }
+
+  .c-newsletterTeaserCard .newsletter-badge-icon {
+    font-size: 0.75rem;
+  }
+}

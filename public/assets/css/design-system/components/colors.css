@@ -1,0 +1,148 @@
+/* Colors */
+:root {
+  --color-black: #000f;
+  --color-transapent: #0000;
+  --color-white: #ffff;
+
+  /* Dead Pixels */
+  --color-dead-pixel-10: #fafafaff;
+  --color-dead-pixel-25: #f5f5f5ff;
+  --color-dead-pixel-100: #f1f1f1ff;
+  --color-dead-pixel-200: #ecececff;
+  --color-dead-pixel-300: #d9d9d9ff;
+  --color-dead-pixel-400: #c6c6c6ff;
+  --color-dead-pixel-500: #b4b4b4ff;
+  --color-dead-pixel-600: #a2a2a2ff;
+  --color-dead-pixel-700: #919190ff;
+  --color-dead-pixel-800: #7f7f7fff;
+  --color-dead-pixel-900: #6f6f6eff;
+  --color-dead-pixel-1000: #5e5e5dff;
+  --color-dead-pixel-1100: #4e4e4dff;
+  --color-dead-pixel-1200: #3f3f3eff;
+  --color-dead-pixel-1300: #303030ff;
+  --color-dead-pixel-1400: #222f;
+  --color-dead-pixel-1500: #151515ff;
+
+  /* Ripe Mango */
+  --color-ripe-mango-100: #fff9e9ff;
+  --color-ripe-mango-200: #fef7e1ff;
+  --color-ripe-mango-300: #feefc3ff;
+  --color-ripe-mango-400: #fde7a5ff;
+  --color-ripe-mango-500: #fdde87ff;
+  --color-ripe-mango-600: #fcd66aff;
+  --color-ripe-mango-700: #fcce4cff;
+  --color-ripe-mango-800: #fbc62eff;
+  --color-ripe-mango-900: #eab51dff;
+  --color-ripe-mango-1000: #c99b19ff;
+  --color-ripe-mango-1100: #a78115ff;
+  --color-ripe-mango-1200: #866811ff;
+  --color-ripe-mango-1300: #644e0cff;
+  --color-ripe-mango-1400: #433408ff;
+  --color-ripe-mango-1500: #221a04ff;
+
+  /* Lager */
+  --color-lager-100: #faf681ff;
+  --color-lager-200: #f7f24bff;
+  --color-lager-300: #e5df16ff;
+  --color-lager-400: #d2cc15ff;
+  --color-lager-500: #beb913ff;
+  --color-lager-600: #aba711ff;
+  --color-lager-700: #99940fff;
+  --color-lager-800: #87830dff;
+  --color-lager-900: #75720bff;
+  --color-lager-1000: #64610aff;
+  --color-lager-1100: #535108ff;
+  --color-lager-1200: #434107ff;
+  --color-lager-1300: #333205ff;
+  --color-lager-1400: #242304ff;
+  --color-lager-1500: #161602ff;
+
+  /* Cornflower */
+  --color-cornflower-100: #edf0fbff;
+  --color-cornflower-200: #e7ecfaff;
+  --color-cornflower-300: #d0d9f5ff;
+  --color-cornflower-400: #b9c5f0ff;
+  --color-cornflower-500: #a1b2eaff;
+  --color-cornflower-600: #8ba0e6ff;
+  --color-cornflower-700: #738de0ff;
+  --color-cornflower-800: #5c7adbff;
+  --color-cornflower-900: #4e69c4ff;
+  --color-cornflower-1000: #425aa7ff;
+  --color-cornflower-1100: #374b8bff;
+  --color-cornflower-1200: #2c3c70ff;
+  --color-cornflower-1300: #222e56ff;
+  --color-cornflower-1400: #18213dff;
+  --color-cornflower-1500: #0f1426ff;
+
+  /* Ferocious */
+  --color-ferocious-100: #fdedecff;
+  --color-ferocious-1500: #2d0806ff;
+  --color-ferocious-200: #fce7e6ff;
+  --color-ferocious-300: #f9cfcdff;
+  --color-ferocious-400: #f6b7b2ff;
+  --color-ferocious-500: #f39e98ff;
+  --color-ferocious-600: #f0837cff;
+  --color-ferocious-700: #ec665cff;
+  --color-ferocious-800: #e84237ff;
+  --color-ferocious-900: #d6271bff;
+  --color-ferocious-1000: #b72217ff;
+  --color-ferocious-1100: #991c13ff;
+  --color-ferocious-1200: #7d1710ff;
+  --color-ferocious-1300: #61120cff;
+  --color-ferocious-1400: #460d09ff;
+
+  /* Pastel Green */
+  --color-pastel-green-100: #e2f6e2ff;
+  --color-pastel-green-200: #d8f3d8ff;
+  --color-pastel-green-300: #b1e6b1ff;
+  --color-pastel-green-400: #87d987ff;
+  --color-pastel-green-500: #74c774ff;
+  --color-pastel-green-600: #69b369ff;
+  --color-pastel-green-700: #5da05dff;
+  --color-pastel-green-800: #528d52ff;
+  --color-pastel-green-900: #477a47ff;
+  --color-pastel-green-1000: #3d683dff;
+  --color-pastel-green-1100: #335733ff;
+  --color-pastel-green-1200: #294629ff;
+  --color-pastel-green-1300: #1f361fff;
+  --color-pastel-green-1400: #162616ff;
+  --color-pastel-green-1500: #0e170eff;
+
+  /* Violaceous Greti */
+  --color-violaceous-greti-100: #f6eef7ff;
+  --color-violaceous-greti-200: #f4e9f4ff;
+  --color-violaceous-greti-300: #e8d2e9ff;
+  --color-violaceous-greti-400: #ddbcddff;
+  --color-violaceous-greti-500: #d2a6d2ff;
+  --color-violaceous-greti-600: #c690c7ff;
+  --color-violaceous-greti-700: #bb7abcff;
+  --color-violaceous-greti-800: #af63b1ff;
+  --color-violaceous-greti-900: #a44ca5ff;
+  --color-violaceous-greti-1000: #973399ff;
+  --color-violaceous-greti-1100: #88188aff;
+  --color-violaceous-greti-1200: #6e1370ff;
+  --color-violaceous-greti-1300: #560f57ff;
+  --color-violaceous-greti-1400: #3e0b3fff;
+  --color-violaceous-greti-1500: #270728ff;
+}
+
+:root {
+  --color-fg-brand-primary: var(--color-ripe-mango-1200);
+  --color-bg-brand-primary: var(--color-ripe-mango-1200);
+}
+
+.color-fg-brand-primary {
+  color: var(--color-fg-brand-primary);
+}
+
+.color-bg-brand-primary {
+  background: var(--color-fg-brand-primary);
+}
+
+.color-fg-light {
+  color: var(--color-dead-pixel-10);
+}
+
+.color-bg-dark {
+  color: var(--color-dead-pixel-1300);
+}

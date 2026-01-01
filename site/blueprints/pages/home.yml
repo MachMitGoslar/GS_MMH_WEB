@@ -10,48 +10,27 @@ icon: 🏠
 options:
   changeStatus: false
 
-# Here we define an info section and a pages section (`photography`)
-sections:
-  content:
-    type: fields
+columns:
+  - width: 1
     fields:
-      cover: fields/cover
-      headline:
+      cover:
+        extends: fields/cover
+  - width: 1/2
+    fields:
+      wellcomeHeadline:
         type: text
-        width: 1/2
-      gap:
-        width: 1/2
-      subheadline:
-        type: text
-        width: 1/2
+      wellcomeText:
+        type: textarea
+  - width: 1/2
+    fields:
+      info:
+        type: info
+        text: Den Newsletter Teaser kannst du <a href="/panel/site?tab=newsletter" target="_blank">hier</a> anpassen.
+  - width: 1
+    fields:
       oveda:
-        type: object
-        fields:
-          organizer:
-            extends: fields/orgaselect
-            label: Veranstalter
-          start:
-            type: date
-          end:
-            type: date
-          location:
-            label: Ort
-            type: locator
-            tiles: positron
-          distance:
-            label: Umkreis
-            type: range
-            min: 100
-            max: 10000
-            tooltip:
-              after: m
-
-
-  # The photography section extends a pages section defined in the `/site/blueprints/section/album.yml` blueprint
-  # More about reusing and extending sections: https://getkirby.com/docs/guide/blueprints/extending-blueprints#reusing-and-extending-sectionss
-  photography:
-    label: Projekte
-    extends: sections/projects
-    status: listed
-    size: small
-    help: All projects for the homepage are being pulled from the projects page.
+        extends: fields/oveda
+  - width: 1
+    fields:
+      blocks:
+        extends: fields/blocks

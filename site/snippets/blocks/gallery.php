@@ -1,23 +1,24 @@
 <?php
 /** @var \Kirby\Cms\Block $block */
+$caption = $block->caption();
+$crop = $block->crop()->isTrue();
+$ratio = $block->ratio()->or('auto');
 ?>
-<figure class="gallery grid grid-cols-3">
-  <ul>
-    <?php foreach ($block->images()->toFiles() as $image): ?>
-    <li>
-      <?php snippet('image', [
-        'alt'      => $image->alt(),
-        'contain'  => $block->crop()->isTrue(),
-        'lightbox' => true,
-        'ratio'    => $block->ratio()->or('auto'),
-        'src'      => $image->url(),
-      ]) ?>
+<figure<?= Html::attr(['data-ratio' => $ratio, 'data-crop' => $crop], null, ' ') ?>>
+  <ul class="grid">
+    <?php foreach ($block->images()->toFiles() as $image) : ?>
+    <li class="grid-item grid-item-span4">
+    <a href="<?= $image->url() ?>" data-fslightbox="gallery">
+      <img src="<?= $image->url() ?>" alt="<?= $image->alt()->esc() ?>" class="c-gallery-image" />
+
+      <!-- <?= $image?> -->
+      </a>
     </li>
     <?php endforeach ?>
   </ul>
-  <?php if ($block->caption()->isNotEmpty()): ?>
+  <?php if ($caption->isNotEmpty()) : ?>
   <figcaption>
-    <?= $block->caption() ?>
+        <?= $caption ?>
   </figcaption>
   <?php endif ?>
 </figure>

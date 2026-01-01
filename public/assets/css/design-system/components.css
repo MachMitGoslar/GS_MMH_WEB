@@ -1,0 +1,25 @@
+@import url('./components/colors.css');
+@import url('./components/fonts.css');
+
+@import url('./components/buttons.css');
+@import url('./components/badge.css');
+@import url('./components/highlight.css');
+
+@import url('./components/footer.css');
+@import url('./components/header.css');
+@import url('./components/hero.css');
+@import url('./components/newsletter.css');
+@import url('./components/newsletterTeaserCard.css');
+@import url('./components/newsletter-item.css');
+
+@import url('./components/projectTeaserCard.css');
+@import url('./components/projectUpdateTeaserCard.css');
+@import url('./components/teamMemberCard.css');
+@import url('./components/eventsList.css');
+@import url('./components/blog.css');
+@import url('./components/timeline.css');
+@import url('./components/designer.css');
+@import url('./components/cta.css');
+@import url('./components/blockquote.css');
+@import url('./components/video.css');
+@import url('./components/gallery.css');

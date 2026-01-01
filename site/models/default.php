@@ -23,5 +23,4 @@ class DefaultPage extends Page
     {
         return $this->content()->cover()->toFile() ?? $this->image();
     }
-
 }

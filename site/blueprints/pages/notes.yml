@@ -1,40 +1,38 @@
-# Each page blueprint must have a title, the title may be different from the file name
-title: Notes
-
-# Each page can have an icon that is shown in page listings when no preview image is available.
-icon: 📖
-
-# Define the form layout with two columns
-# More about columns: https://getkirby.com/docs/guide/blueprints/layout#defining-columns
-
+title: Newsletters
+icon: 📧
+options:
+  changeStatus: false
 columns:
-  - width: 1
+  - width: 1/2
     fields:
-      cover: fields/cover
-      subheadline:
+      cover:
+        extends: fields/cover
+        label: Hero-Bild
+        help: Hauptbild für die Newsletter-Seite
+      
+      title:
+        label: Titel
         type: text
-  - width: 1/3
-    # In the first column, we reuse the `notes` section
-    # (defined in `/site/blueprints/sections/notes.yml` twice with different page status and headline
-    sections:
+        placeholder: Newsletter
+      
+      headline:
+        label: Untertitel
+        type: text
+        placeholder: z.B. "Bleiben Sie auf dem Laufenden"
+      
+      description:
+        label: Beschreibung
+        type: textarea
+        placeholder: Beschreibung der Newsletter-Seite und was Nutzer erwarten können
+  - width: 1/2
+    label: Tagebuch
+    icon: book-open
+    sections: 
+      published:
+        extends: sections/notes
+        query: site.find("notes").children.published()
+        label: Veröffentlichte Einträge
       drafts:
         extends: sections/notes
-        label: Drafts
-        status: draft
-
-      unlisted:
-        extends: sections/notes
-        label: In Review
-        status: unlisted
-
-  - width: 2/3
-    # In the second column, we reuse the same section, this time for listed pages and with a different headline
-    sections:
-      listed:
-        extends: sections/notes
-        label: Published
-        status: listed
-        size: small
-        layout: cards
-
-# More about pages sections: https://getkirby.com/docs/reference/panel/sections/pages
+        query: site.find("notes").children.drafts()
+        label: Entwürfe

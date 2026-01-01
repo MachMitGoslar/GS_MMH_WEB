@@ -1,69 +1,38 @@
 <?php
-/*
-  Templates render the content of your pages.
-
-  They contain the markup together with some control structures
-  like loops or if-statements. The `$page` variable always
-  refers to the currently active page.
-
-  To fetch the content from each field we call the field name as a
-  method on the `$page` object, e.g. `$page->title()`.
-
-  This home template renders content from others pages, the children of
-  the `photography` page to display a nice gallery grid.
-
-  Snippets like the header and footer contain markup used in
-  multiple templates. They also help to keep templates clean.
-
-  More about templates: https://getkirby.com/docs/guide/templates/basics
+/**
+* @var \Kirby\Cms\Site $site
+* @var \Kirby\Cms\Page $page
 */
-
 ?>
-<?php snippet('main_layout', slots:true) ?>
-
-  <?php slot('hero') ?>
-    <?php snippet('hero', [
-      'title' => $page->headline(),
-      'subheading' => $page->subheadline(),
-      'cover' => $page->cover()
-      ]) 
-    ?>
-  <?php endslot() ?>
-
-  <?php slot() ?>
-  <ul class="grid lg:grid-cols-4 gap-4 md:grid-cols-2 xs:grid-col-1">
-  <?php foreach ($page->children()->listed() as $project): ?>
-  <a href="<?= $project->url() ?>">
-  <li class="col-span-1">
-
-
-    <figure class="relative hover:border-gold hover:border-solid hover:border-2 rounded-lg hover:rounded-lg">
-
-          <?php
-          /*
-            The `cover()` method defined in the `album.php`
-            page model can be used everywhere across the site
-            for this type of page
-
-            We can automatically resize images to a useful
-            size with Kirby's built-in image manipulation API
-          */
-          ?>
-          <?php if ($cover = $project->cover()): ?>
-            <p><?= $project->cover_focus() ?></p>
-              <img class="filter hover:blur aspect-square	border-2 border-transparent object-cover h-auto max-w-full rounded-lg hover:rounded-lg transition-all duration-300 cursor-pointer" style="focus: <?= $cover->focus() ?>" src="<?= $cover->resize(1024, 1024)->url() ?>" alt="<?= $cover->alt()->esc() ?>">
-
-          <?php endif ?>
-
-          <figcaption class=" rounded-lg absolute text-lg  text-white text-center bottom-0 py-5 w-full bg-gradient-to-t from-gold">
-              <p class="text-white font-black" ><?= $project->title()->esc() ?></p>
-          </figcaption>
-        </figure>
-  </li>
-  </a>
-
-  <?php endforeach ?>
-</ul>
-  <?php endslot() ?> 
-
-<?php endsnippet() ?>
+<?php snippet('general/head'); ?>
+<?php snippet('general/header'); ?>
+  <main>
+  <div class="mb-4">
+    <?=snippet('components/hero')?>
+  </div>
+  <section class="grid content mb-7">
+    <h1 class="font-titleXXL grid-item" data-span="1/1"><?=$page->title()?></h1>
+    <?php //Project Updates List?>
+        <section class="grid-item" data-span="1/1">
+            <ul class="grid mb-4">
+                <?php foreach ($page->children() as $project) : ?>
+                    <?php snippet('components/project/projectTeaserCard', compact('project')) ?>
+                <?php endforeach ?>
+                <li class="c-projectTeaserCard">
+                  <div >
+                    <img class="hero" src="https://picsum.photos/1600/800?random=2">
+                  </div>
+                  <div class="content">
+                    <h3 class="font-headline">Projektarchiv</h3>
+                    <p></p>
+                    <p class="font-footnote mb-3">Ein Blick in die Vergangenheit. Finde alle vergangenen und abgeschlossenen Projekte</p>
+                    <!-- <p class="font-body"><?=$project->text()->excerpt()?></p> -->
+                    <a href="<?=$project?>" class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill">Zum Projektarchiv</a>
+                  </div>
+                </li>
+            </ul>
+            <a class="gs-c-btn" data-type="primary" data-size="large" data-style="pill" href=<?=$site->page('projekte')?> >Eigenes Projekt starten?</a>
+        </section>
+  </section>
+  <?php snippet('general/footer'); ?>
+<?php snippet('general/foot'); ?>

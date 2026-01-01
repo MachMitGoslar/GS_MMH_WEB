@@ -1,0 +1,9 @@
+footer.footer {
+  background: var(--color-dead-pixel-100);
+  padding: 2rem 0 4rem;
+}
+
+body > footer {
+  position: sticky;
+  top: 100vh;
+}

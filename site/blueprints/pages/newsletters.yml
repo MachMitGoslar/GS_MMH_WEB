@@ -1,0 +1,57 @@
+title: Newsletters
+icon: 📧
+
+tabs:
+  content:
+    columns:
+      - width: 1/2
+        fields:
+          cover:
+            extends: fields/cover
+            label: Hero-Bild
+            help: Hauptbild für die Newsletter-Seite
+          
+          title:
+            label: Titel
+            type: text
+            placeholder: Newsletter
+          
+          headline:
+            label: Untertitel
+            type: text
+            placeholder: z.B. "Bleiben Sie auf dem Laufenden"
+          
+          description:
+            label: Beschreibung
+            type: textarea
+            placeholder: Beschreibung der Newsletter-Seite und was Nutzer erwarten können
+            
+      - width: 1/2
+        fields:
+          info:
+            type: info
+            text: Hier können Sie Newsletter-Ausgaben verwalten und veröffentlichen.
+            
+  newsletters:
+    label: Newsletter verwalten
+    columns:
+      - width: 1/2
+        sections:
+          drafts:
+            label: Entwürfe
+            type: pages
+            status: draft
+            template: newsletter
+      - width: 1/2
+        sections:
+          unlisted:
+            label: Nicht veröffentlicht
+            type: pages
+            status: unlisted
+            template: newsletter
+          listed:
+            label: Veröffentlicht
+            type: pages
+            status: listed
+            template: newsletter
+

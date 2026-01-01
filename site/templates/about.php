@@ -1,61 +1,76 @@
 <?php
-/*
-  Templates render the content of your pages.
-
-  They contain the markup together with some control structures
-  like loops or if-statements. The `$page` variable always
-  refers to the currently active page.
-
-  To fetch the content from each field we call the field name as a
-  method on the `$page` object, e.g. `$page->title()`.
-
-  This home template renders content from others pages, the children of
-  the `photography` page to display a nice gallery grid.
-
-  Snippets like the header and footer contain markup used in
-  multiple templates. They also help to keep templates clean.
-
-  More about templates: https://getkirby.com/docs/guide/templates/basics
+/**
+* @var \Kirby\Cms\Site $site
+* @var \Kirby\Cms\Page $page
 */
-
 ?>
-<?php snippet('main_layout', slots:true) ?>
+<?php snippet('general/head'); ?>
+<?php snippet('general/header'); ?>
+  <main>
+  <div class="mb-4">
+    <?=snippet('components/hero')?>
+  </div>
+  <section class="">
+    <div class="grid content">
+    <h1 class="font-titleXXL grid-item" data-span="1/1"><?=$page->title()?></h1>
 
-  <?php slot('hero') ?>
-    <?php snippet('hero', [
-      'title' => $page->title(),
-      'subheading' => $page->subheadline(),
-      'cover' => $page->cover()
-      ]) 
-    ?>
-  <?php endslot() ?>
+    </div>
+    <?php foreach ($page->layout()->toLayouts() as $layout) : ?>
+      <div class="grid content">
 
-  <?php slot() ?>
-    <?php snippet('layouts', ['field' => $page->layout()])  ?>
+        <?php foreach ($layout->columns() as $column) : ?>
+        <div class="grid-item" data-span="<?=$column->width()?>">
 
-    <aside class="contact mt-4 w-screen text-gray-700">
-      <h2 class=" font-black text-2xl">Unsere Kontaktdaten</h2>
-      <div class="grid grid-cols-3 gap-3">
-        <section class="column text">
-          <h3 class="font-thin" >Anschrift</h3>
-          <?= $page->address() ?>
-        </section>
-        <section class="column text">
-          <h3 class="font-thin" >Email</h3>
-          <p><?= Html::email($page->email()) ?></p>
-          <h3 class="font-thin" >Telefonisch</h3>
-          <p><?= Html::tel($page->phone()) ?></p>
-        </section>
-        <section class="column text">
-          <h3 class="font-thin" >online</h3>
-          <ul>
-            <?php foreach ($page->social()->toStructure() as $social): ?>
-            <li><?= Html::a($social->url(), $social->platform()) ?></li>
+            <?php foreach ($column->blocks() as $block) : ?>
+            <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                <?= $block ?>
+            </div>
             <?php endforeach ?>
-          </ul>
-        </section>
-      </div>
-    </aside>      
-  <?php endslot() ?> 
+        </div>
 
-<?php endsnippet() ?>
+        <?php endforeach ?>
+      </div>
+
+    <?php endforeach ?>
+  </section>
+
+  <!-- Team Galleries Section -->
+  <section class="team-section">
+    <div class="grid content">
+      <div class="grid-item" data-span="1/1">
+        
+        <!-- Main Team -->
+        <?= snippet('components/teamGallery', [
+          'teamMembers' => $staff,
+          'title' => 'Hauptamtliches Team',
+          'subtitle' => 'Unsere hauptamtlichen Mitarbeiterinnen und Mitarbeiter',
+        ]) ?>
+        
+        <!-- Volunteers -->
+        <?= snippet('components/teamGallery', [
+          'teamMembers' => $volunteers,
+          'title' => 'Ehrenamtliches Team',
+          'subtitle' => 'Engagierte Menschen, die das MachMit!Haus ehrenamtlich unterstützen',
+        ]) ?>
+        
+        <!-- Partners -->
+        <?= snippet('components/teamGallery', [
+          'teamMembers' => $partners,
+          'title' => 'Partner',
+          'subtitle' => 'Unsere wertvollen Partner und Kooperationspartner',
+        ]) ?>
+        
+        <!-- Issuers -->
+        <?= snippet('components/teamGallery', [
+          'teamMembers' => $issuers,
+          'title' => 'Auftraggeber',
+          'subtitle' => 'Institutionen und Organisationen, die uns beauftragen',
+        ]) ?>
+        
+      </div>
+    </div>
+  </section>
+
+  </main>
+<?php snippet('general/footer'); ?>
+<?php snippet('general/foot'); ?>

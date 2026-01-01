@@ -1,0 +1,3 @@
+type: blocks
+label: Inhaltselemente
+# not defining any fieldsets will give you kirbys default blocks

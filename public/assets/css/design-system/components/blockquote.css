@@ -1,0 +1,35 @@
+blockquote {
+  hanging-punctuation: first last;
+  display: grid;
+  font-size: 1.5rem;
+  font-weight: 200;
+  line-height: 1.5;
+  padding-left: 1rem;
+  border-left: solid var(--color-fg-brand-primary) 2px;
+  position: relative;
+
+  &::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    inset-inline: 10%;
+    inset-block: -50%;
+    aspect-ratio: 1;
+    border-radius: 1e3px;
+    background: #0ff2;
+    filter: blur(25px);
+  }
+
+  > p {
+    inline-size: 40ch;
+    text-wrap: balance;
+
+    &::before {
+      content: open-quote;
+    }
+
+    &::after {
+      content: close-quote;
+    }
+  }
+}

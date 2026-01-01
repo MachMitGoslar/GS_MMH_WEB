@@ -1,0 +1,148 @@
+.c-blog-text {
+  margin-top: 1.5rem;
+
+  & * + p {
+    margin-top: 1rem;
+    font-family: var(--font-family-sans);
+    font-size: var(--typo-size-100);
+    line-height: var(--typo-line-height-regular);
+    font-weight: var(--font-weight-regular);
+  }
+}
+
+.c-blog-list {
+  margin-top: 1rem;
+
+  & ul {
+    margin-left: 1em;
+  }
+
+  & ol {
+    margin-left: 1.5em;
+  }
+
+  & ol > li {
+    list-style: decimal-leading-zero;
+    padding-left: 0.25em;
+  }
+
+  & ul > li {
+    list-style: disc;
+  }
+
+  & ul ul > li {
+    list-style: disc;
+  }
+}
+
+.c-blog-heading {
+  & h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  & h2 {
+    font-size: var(--typo-size-300);
+    margin-top: 1.5rem;
+  }
+
+  & h3 {
+    font-size: var(--typo-size-100);
+    margin-top: 1.5rem;
+  }
+}
+
+.c-blog-image {
+  margin-top: 1rem;
+
+  & figure figcaption {
+    margin-top: 0.5rem;
+    font-size: var(--typo-size-80);
+  }
+}
+
+.c-blog-video {
+  margin-top: 1rem;
+
+  & figure {
+    aspect-ratio: 16/9;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.c-blog-video iframe {
+  width: 100%;
+  height: 100%;
+  background: blue;
+  object-fit: cover;
+}
+
+.c-blog-cta {
+  display: flex;
+  height: 100%;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+
+  & a.gs-c-btn {
+    margin-top: 1rem;
+  }
+
+  & [data-position='left'] {
+    align-items: start;
+  }
+
+  & [data-position='middle'] {
+    align-items: center;
+  }
+
+  & [data-position='right'] {
+    align-items: right;
+  }
+}
+
+:root {
+}
+
+.c-blog-card {
+  display: flex;
+  padding-bottom: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(0 0 0 / 10%);
+  background: #fff;
+  overflow: hidden;
+
+  /* Hero */
+
+  & figure > .hero {
+    --aspected-ration: 24/9;
+
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--aspected-ration);
+    object-fit: cover;
+    background: red;
+
+    @media (width > 489px) {
+      --aspected-ration: 21/9;
+    }
+    @media (width > 767px) {
+    }
+    @media (width > 1039px) {
+    }
+    @media (width > 1439px) {
+    }
+  }
+
+  & .content {
+    padding: 0 1rem;
+    width: 100%;
+
+    & .heading {
+      padding-top: 1rem;
+    }
+  }
+}

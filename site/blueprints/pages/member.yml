@@ -6,11 +6,11 @@ icon: 👤
 
 
 create:
-  title:
-    label: Name
+  title: '{{page.name}}'
+  slug: '{{page.name.slug}}'
   fields:
+    - name
     - teams
-
 status:
   listed: true
   draft: true
@@ -21,8 +21,8 @@ status:
 # Here we prevent changing the page slug and page deletion
 # More about page options: https://getkirby.com/docs/reference/panel/blueprints/page#options
 options:
-  delete: false
-  url: false
+  #delete: false
+  url: true
   status: true
 
 # We use tabs here to focus on the layout in one tab
@@ -42,7 +42,7 @@ columns:
       cover: fields/cover
       name:
         type: text
-        placeholder: "{{ page.title }}"
+        placeholder: Neue Person
         required: true
       description:
         type: textarea
@@ -62,8 +62,14 @@ columns:
         type: tags
         label: Teams
         options:
-          type: query
-          query: site.index.pluck("teams", ",", true)
+          - value: staff
+            text: "Hauptamtliches Team"
+          - value: volunteer
+            text: "Ehrenamtliches Team"
+          - value: partner
+            text: "Partner"
+          - value: issuer
+            text: "Auftraggeber"
       facebook:
         type: text
         help: z.B. goslar.de

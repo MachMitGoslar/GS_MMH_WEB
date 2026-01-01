@@ -1,0 +1,30 @@
+label: Wochenprogramm
+type: structure
+fields:
+  day:
+    label: Tag
+    type: select
+    required: true
+    default: monday
+    options:
+      monday: Montag
+      tuesday: Dienstag
+      wednesday: Mittwoch
+      thursday: Donnerstag
+      friday: Freitag
+      saturday: Samstag
+      sunday: Sonntag
+  start_time:
+    label: Startzeit
+    type: time
+    required: true
+  end_time:
+    label: Endzeit
+    type: time
+  activity:
+    label: Aktivität
+    type: textarea
+    required: true
+  recurring:
+    label: Wiederholfrequenz
+    type: text

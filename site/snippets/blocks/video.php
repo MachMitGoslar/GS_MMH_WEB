@@ -1,24 +1,30 @@
 <?php
-/*
-  Snippets are a great way to store code snippets for reuse
-  or to keep your templates clean.
+use Kirby\Cms\Html;
 
-  Block snippets control the HTML for individual blocks
-  in the blocks field. This video snippet overwrites
-  Kirby's default video block to add custom classes
-  and style attributes.
+/** @var \Kirby\Cms\Block $block */
+$caption = $block->caption();
 
-  More about snippets:
-  https://getkirby.com/docs/guide/templates/snippets
-*/
+if ($block->location() == 'kirby' &&
+    $video = $block->video()->toFile()
+) {
+    $url = $video->url();
+    $attrs = array_filter([
+        'autoplay' => $block->autoplay()->toBool(),
+        'controls' => $block->controls()->toBool(),
+        'loop' => $block->loop()->toBool(),
+        'muted' => $block->muted()->toBool(),
+        'poster' => $block->poster()->toFile()?->url(),
+        'preload' => $block->preload()->value(),
+    ]);
+} else {
+    $url = $block->url();
+}
 ?>
-<?php if ($block->url()->isNotEmpty()): ?>
-<figure>
-  <span class="video" style="--w:16;--h:9">
-    <?= video($block->url()) ?>
-  </span>
-  <?php if ($block->caption()->isNotEmpty()): ?>
-  <figcaption class="video-caption"><?= $block->caption() ?></figcaption>
-  <?php endif ?>
+<?php if ($video = Html::video($url, [], $attrs ?? ['class' => "c-external_video"])) : ?>
+<figure >
+        <?= $video ?>
+    <?php if ($caption->isNotEmpty()) : ?>
+  <figcaption><?= $caption ?></figcaption>
+    <?php endif ?>
 </figure>
 <?php endif ?>

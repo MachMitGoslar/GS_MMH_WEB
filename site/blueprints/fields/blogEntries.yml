@@ -1,0 +1,32 @@
+label: Items
+type: structure
+fields:
+  layout:
+    label: Layout
+    type: select
+    options:
+      imageLeft: Bild Links
+      imageRight: Bild Rechts
+    default: imageLeft
+  headline:
+    label: Titel
+    type: text
+    required: true
+  subheadline:
+    label: Untertitel
+    type: text
+  content_text:
+    label: Content Text
+    type: textarea
+    required: true
+  image:
+    label: image
+    type: files
+    query: page.images
+    required: true
+  link:
+    label: Link
+    type: url
+  mailto:
+    label: Mail to
+    type: email

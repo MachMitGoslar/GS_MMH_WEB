@@ -1,0 +1,20 @@
+type: object
+fields:
+    organizer:
+        extends: fields/orgaselect
+        label: Veranstalter
+    start:
+        type: date
+    end:
+        type: date
+    location:
+        label: Ort
+        type: locator
+        tiles: positron
+    distance:
+        label: Umkreis
+        type: range
+        min: 100
+        max: 10000
+        tooltip:
+            after: m

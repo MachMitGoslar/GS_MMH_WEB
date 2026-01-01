@@ -22,10 +22,13 @@
     "source": "https://github.com/MMH-Goslar/GS_MMH_WEB"
   },
   "require": {
-    "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-    "getkirby/cms": "^4.0",
-    "sylvainjule/locator": "^2.0",
-    "oblik/kirby-git": "^2.0"
+    "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+    "getkirby/cms": "^5.0",
+    "sylvainjule/locator": "^2.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.40",
+    "squizlabs/php_codesniffer": "^3.8"
   },
   "config": {
     "allow-plugins": {
@@ -36,7 +39,11 @@
   "scripts": {
     "start": [
       "Composer\\Config::disableProcessTimeout",
-      "@php -S localhost:8000 kirby/router.php"
-    ]
+      "@php -S localhost:8000 public/index.php"
+    ],
+    "format": "php-cs-fixer fix --diff",
+    "format:check": "php-cs-fixer fix --diff --dry-run",
+    "lint": "php -d memory_limit=512M ./vendor/bin/phpcs --standard=PSR2 --ignore=vendor,kirby,storage --extensions=php site/",
+    "lint:fix": "php -d memory_limit=512M ./vendor/bin/phpcbf --standard=PSR2 --ignore=vendor,kirby,storage --extensions=php site/"
   }
 }

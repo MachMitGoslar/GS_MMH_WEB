@@ -1,88 +1,51 @@
 <?php
-/*
-  Templates render the content of your pages.
-
-  They contain the markup together with some control structures
-  like loops or if-statements. The `$page` variable always
-  refers to the currently active page.
-
-  To fetch the content from each field we call the field name as a
-  method on the `$page` object, e.g. `$page->title()`.
-
-  This home template renders content from others pages, the children of
-  the `photography` page to display a nice gallery grid.
-
-  Snippets like the header and footer contain markup used in
-  multiple templates. They also help to keep templates clean.
-
-  More about templates: https://getkirby.com/docs/guide/templates/basics
+/**
+* @var \Kirby\Cms\Site $site
+* @var \Kirby\Cms\Page $page
 */
-
 ?>
-<?php snippet('main_layout', slots: true) ?>
-
-<?php slot('hero') ?>
-<?php snippet('hero', [
-  'title' => $page->headline(),
-  'subheading' => $page->subheadline(),
-  'cover' => $page->cover()
-])
-  ?>
-<?php endslot() ?>
-
-<?php slot() ?>
-
-<?php snippet('project_status_bar', slots: true) ?>
-  <?php slot('project_status') ?>
-    <?php
-    if ($project_status = $page->project_status()) {
-      snippet('project_status', ['project_status' => $project_status, "size" => '2xl']);
-    }
-    ?>
-  <?php endslot() ?>
-
-  <?php if ($page->team()->exists() && ($team = $page->team()->toPages())): ?>
-    <?php slot('team') ?>
-    <?= snippet('team_images', ['team' => $team, 'showTitle' => true]) ?>
-    <?php endslot() ?>
-  <?php endif ?>
-<?php endsnippet() ?>
-
-<div class="grid grid-cols-3">
-  <div class="col-span-3 lg:col-span-2 gap-4">
-    <div class="text format">
-      <?= $page->text() ?>
+<?php snippet('general/head'); ?>
+<?php snippet('general/header'); ?>
+  <main>
+  <div class="mb-4">
+    <?=snippet('components/hero')?>
+  </div>
+  <section class="grid content">
+    <div class="grid-item" data-span="1/1">
+    <h1 class="font-titleXXL "><?=$page->headline()->isEmpty() ? $page->title() : $page->headline() ?></h1>
+    <h2 class="font-titleXL font-weight-light"><?=$page->subheadline()?></h2>
     </div>
-    <?php if ($page->children()->isNotEmpty()): ?>
-      <div class="project_steps mt-3">
-        <h1 class=" font-black text-2xl"> Was bisher geschah</h1>
-        <div class="steps p-3">
-          <ol class="relative border-s border-gray-200 dark:border-gray-700">
-            <?php foreach ($page->children() as $entry): ?>
-              <?php snippet('timeline_entry', ['entry' => $entry]) ?>
+
+    <div id="project_description" class="grid-item" data-span="<?= $page->project_steps()->isNotEmpty() ? '2/3' : '1/1' ?>">
+        <h3 class="font-headline"> Projektbeschreibung</h3>
+        <div class="designer">
+        <?php foreach ($page->text()->toLayouts() as $layout) : ?>
+          <div class="grid content">
+
+            <?php foreach ($layout->columns() as $column) : ?>
+            <div class="grid-item" data-span="<?=$column->width()?>">
+
+                <?php foreach ($column->blocks() as $block) : ?>
+                <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                    <?= $block ?>
+                </div>
+                <?php endforeach ?>
+            </div>
+
             <?php endforeach ?>
-          </ol>
+          </div>
+
+        <?php endforeach ?>
         </div>
-
-      </div>
+    </div>
+    <?php if ($page->project_steps()->isNotEmpty()) : ?>
+    <div id="timeline" class="grid-item" data-span="1/3">
+        <?php snippet(name: "components/project/projectTimeline", data: ['project_steps' => $page->project_steps()]) ?>
+    </div>
     <?php endif ?>
-  </div>
 
-  <div class="col-span-3 lg:col-span-1">
-    <ul class="grid grid-cols-2 gap-4">
-      <?php foreach ($gallery as $image): ?>
-        <li>
-          <a href="<?= $image->url() ?>" data-lightbox>
-            <figure class="img" style="--w:<?= $image->width() ?>;--h:<?= $image->height() ?>">
-              <img src="<?= $image->crop(400, 400)->url() ?>" alt="<?= $image->alt()->esc() ?>">
-            </figure>
-          </a>
-        </li>
-      <?php endforeach ?>
-    </ul>
-  </div>
-</div>
-
-<?php endslot() ?>
-
-<?php endsnippet() ?>
+  </section>
+  <section>
+  </section>
+<?php snippet('general/footer'); ?>
+<?php snippet('general/foot'); ?>

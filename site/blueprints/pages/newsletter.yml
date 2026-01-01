@@ -1,0 +1,69 @@
+title: Newsletter
+
+fields:
+  cover:
+    label: Titelbild
+    type: files
+    extends: fields/blocks/image
+    help: Das Bild wird als Vorschaubild für den Newsletter verwendet
+    max: 1
+    width: 1/2
+  published:
+    label: Veröffentlichungsdatum
+    type: date
+    help: Wird automatisch gesetzt, wenn der Newsletter zum ersten Mal veröffentlicht wird
+    width: 1/2
+    
+  author:
+    label: Autor
+    type: pages
+    query: site.find("team").children.listed()
+    width: 1/2
+  greeting_text:
+    label: Begrüßungstext
+    type: textarea
+
+  # Wöchentliche Termine
+  weekly_dates:
+    label: Wöchentliche Termine 
+    extends: fields/weeklyDates
+  upcomming_dates:
+    label: Kommende Termine 
+    extends: fields/upcommingDates
+
+  # Jahresrückblick
+  timeline:
+    label: Jahresrückblick
+    type: structure
+    fields:
+      year:
+        label: Monat & Jahr
+        type: text
+        required: true
+      summary:
+        label: Zusammenfassungstext
+        type: textarea
+        required: true
+      image:
+        label: Bild
+        type: files
+        query: page.images
+        required: true
+
+  # Blog Einträge  
+  review_entries: 
+    label: Rückblick
+    extends: fields/blogEntries
+  actual_entries: 
+    label: Aktuelle Projekte
+    extends: fields/blogEntries
+  upcoming_entries:
+    label: Kommende Projekte
+    extends: fields/blogEntries
+  news:
+    label: Neuigkeiten aus dem MachMit!Haus
+    extends: fields/blogEntries
+  closingsInfos:
+    label: Abschlusstexte
+    type: textarea
+

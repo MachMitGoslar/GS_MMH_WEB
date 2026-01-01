@@ -4,6 +4,9 @@
 [submodule "content"]
 	path = content
 	url = https://github.com/MachMitGoslar/web_content
-[submodule "site/plugins/kirby_oveda"]
-	path = site/plugins/kirby_oveda
-	url = https://github.com/MachMitGoslar/kirby_oveda
+[submodule "site/plugins/gs-mmh-web-plugin"]
+	path = site/plugins/gs-mmh-web-plugin
+	url = https://github.com/MachMitGoslar/GS_MMH_WEB_PLUGIN
+[submodule "site/plugins/git-content"]
+	path = site/plugins/git-content
+	url = https://github.com/thathoff/kirby-git-content.git

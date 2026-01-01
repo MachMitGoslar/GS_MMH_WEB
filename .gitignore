@@ -7,6 +7,8 @@ Icon
 # Temporary files
 # ---------------
 
+/public/media/*
+!/public/media/index.html
 /media/*
 !/media/index.html
 
@@ -29,8 +31,9 @@ Icon
 # Cache Files
 # ---------------
 
+/storage/cache/*
 /site/cache/*
-!/site/cache/index.html
+!/storage/cache/index.html
 
 # Accounts
 # ---------------
@@ -41,8 +44,8 @@ Icon
 # Sessions
 # ---------------
 
-/site/sessions/*
-!/site/sessions/index.html
+/storage/sessions/*
+!/storage/sessions/index.html
 
 # License
 # ---------------
@@ -55,7 +58,10 @@ Icon
 /node_modules
 composer.phar
 vendor/
+/vendor/
 
-# Plugins
+# Plugins / Submodules
 #----------
-/site/plugins
+/site/plugins/*
+/kirby/*
+/content/

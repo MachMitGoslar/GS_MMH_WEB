@@ -1,58 +1,162 @@
-# Each page blueprint must have a title, the title may be different from the file name
-title: Note
+title: Tagebucheintrag
+icon: 📝
 
-# Sorting number scheme that is applied when page status is changed to `listed`
-# More about page sorting: https://getkirby.com/docs/reference/panel/blueprints/page#sorting
-num: date
+# Page options
+options:
+  url: true
+  status: true
+  template: note
 
-# Each page can have an icon that is shown in page listings when no preview image is available.
-icon: 📖
-
-# Custom descriptions for each page status depending on use case
-# More about page status: https://getkirby.com/docs/reference/panel/blueprints/page#statuses
+# Page status settings
 status:
-  draft:
-    label: Draft
-    text: The note is still in draft mode. It can only be seen by editors with panel access.
-  unlisted:
-    label: In Review
-    text: The note is online and can be visited with the direct URL. The team must still give the final go to publish it.
-  listed:
-    label: Published
-    text: The note is online and listed in the blog
+  draft: true
+  listed: true
 
-# Define the form layout with two columns
-# Columns are optional but help structure the form layout
-# More about columns: https://getkirby.com/docs/guide/blueprints/layout#defining-columns
-columns:
-  - width: 2/3
-    # This columns only has a single field
-    fields:
-      text:
-        type: blocks
+# Create settings for automatic field population
+create:
+  title: '{{ (page.date ?? "now") | date("d.m.Y") }}'
+  slug: '{{ (page.date ?? "now") | date("Ymd") }}_{{ page.title.slug }}'
+  template: note
 
-  - width: 1/3
-    # This second column holds a fields section with multiple fields
-    # More about fields sections: https://getkirby.com/docs/reference/panel/sections/fields
+tabs:
+  content:
+    label: Inhalt
+    # Two column layout for better organization
+    columns:
+      - width: 2/3
+        sections:
+          # Main content fields
+          content:
+            type: fields
+            fields:
+              # Cover image field
+              cover:
+                extends: fields/cover
+                label: Titelbild
+                help: Optionales Bild für den Tagebucheintrag
+                
+              # Main title field
+              title:
+                label: Titel
+                type: text
+                placeholder: z.B. "Erfolgreicher Workshop-Tag"
+                required: true
+                width: 1/1
+              
+              # Optional headline/subtitle
+              headline:
+                label: Untertitel
+                type: text
+                placeholder: Optionaler Untertitel für den Eintrag
+                width: 1/1
+                
+              
+              # Main text content using blocks
+              text:
+                label: Inhalt
+                type: blocks
+                required: true
+                fieldsets:
+                  - heading
+                  - text
+                  - image
+                  - gallery
+                  - video
+                  - quote
+                  - list
+                  - line
+                  - button
+                help: Der Hauptinhalt des Tagebucheintrags
+                
+      - width: 1/3
+        sections:
+          # Metadata and settings
+          meta:
+            type: fields
+            fields:
+              
+              # Author selection (team members)
+              author:
+                label: Autor(en) & Beteiligte
+                type: pages
+                query: site.find("team").children.listed()
+                template: member
+                multiple: true
+                help: Wer hat diesen Eintrag geschrieben?
+                layout: cards
+                size: tiny
+                image: 
+                  query: page.cover
+                  cover: true
+                  ratio: 1/1
+                info: "{{ page.name }}"
+                
+              # Tags for categorization
+              tags:
+                label: Schlagworte
+                type: tags
+                help: Tags zur Kategorisierung (z.B. "verwaltung", "digitalisierung", "beteiligung")
+                placeholder: Neue Tags hinzufügen...
+                accept: all
+                separator: ","
+                
+      
+            
+# Additional tabs for file management
+
+    
+  files:
+    label: Dateien
     sections:
-      meta:
-        type: fields
-        fields:
-          # If you need the same field in multiple locations, you can define them once and reuse whereever needed.
-          # Here we use a files field defined in `/site/blueprints/field/cover.yml`
-          cover: fields/cover
-          date:
-            type: date
-            time: true
-            default: now
-          author:
-            type: pages
-            template: member
-            templates: member
-            query: site.find("team")
-          # Fields types can be added using the shortcut `fieldname: true`
-          # (however, you can only use a fieldname once per page and this only makes sense for simple fields without configuration)
-          tags: true
       files:
         type: files
-        template: blocks/image
+        template: image
+        layout: cards
+        size: tiny
+        image:
+          cover: true
+          ratio: 1/1
+        info: "{{ file.dimensions }}"
+        help: Bilder und andere Dateien für diesen Eintrag
+        
+  settings:
+    label: Einstellungen
+    sections:
+      settings_fields:
+        type: fields
+        fields:
+          # SEO and meta fields
+          seo_title:
+            label: SEO Titel
+            type: text
+            placeholder: "{{ page.title }}"
+            help: Titel für Suchmaschinen (falls abweichend)
+            width: 1/2
+            
+          seo_description:
+            label: SEO Beschreibung
+            type: textarea
+            maxlength: 160
+            help: Kurze Beschreibung für Suchmaschinen
+            width: 1/2
+            
+          # Social sharing image
+          social_image:
+            label: Social Media Bild
+            type: files
+            max: 1
+            help: Bild für Social Media Sharing (falls abweichend vom Titelbild)
+            layout: list
+            
+          # Visibility settings
+          featured:
+            label: Hervorheben
+            type: toggle
+            text: Diesen Eintrag in Listen hervorheben
+            help: Featured Einträge werden prominenter dargestellt
+            
+          # Comments or feedback
+          internal_notes:
+            label: Interne Notizen
+            type: textarea
+            help: Interne Notizen oder Kommentare (nicht öffentlich sichtbar)

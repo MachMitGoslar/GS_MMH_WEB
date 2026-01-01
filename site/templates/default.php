@@ -1,41 +1,38 @@
 <?php
-
-/*
-  Templates render the content of your pages.
-
-  They contain the markup together with some control structures
-  like loops or if-statements. The `$page` variable always
-  refers to the currently active page.
-
-  To fetch the content from each field we call the field name as a
-  method on the `$page` object, e.g. `$page->title()`.
-
-  This home template renders content from others pages, the children of
-  the `photography` page to display a nice gallery grid.
-
-  Snippets like the header and footer contain markup used in
-  multiple templates. They also help to keep templates clean.
-
-  More about templates: https://getkirby.com/docs/guide/templates/basics
+/**
+* @var \Kirby\Cms\Site $site
+* @var \Kirby\Cms\Page $page
 */
-
 ?>
-<?php snippet('main_layout', slots:true) ?>
+<?php snippet('general/head'); ?>
+<?php snippet('general/header'); ?>
+  <main>
+  <div class="mb-4">
+    <?=snippet('components/hero')?>
+  </div>
+  <section class="">
+    <div class="grid content">
+    <h1 class="font-titleXXL grid-item" data-span="1/1"><?=$page->title()?></h1>
 
-  <?php slot('hero') ?>
-  <?php if($page->cover() && $page->cover()->exists()): ?>
-    <?php snippet('hero', [
-      'title' => $page->headline(),
-      'subheading' => $page->subheadline(),
-      'cover' => $page->cover()
-      ]) 
-    ?>
-  <?php endif; ?>
-  <?php endslot() ?>
+    </div>
+    <?php foreach ($page->layout()->toLayouts() as $layout) : ?>
+      <div class="grid content">
 
-  <?php slot() ?>
-    <?php snippet('layouts', ['field' => $page->layout()])  ?>
+        <?php foreach ($layout->columns() as $column) : ?>
+            <?php foreach ($column->blocks() as $block) : ?>
+        <div class="grid-item" data-span="<?=$column->width()?>">
+            <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                <?= $block ?>
+            </div>
+        </div>
+            <?php endforeach ?>
 
-  <?php endslot() ?> 
+        <?php endforeach ?>
+      </div>
 
-<?php endsnippet() ?>
+    <?php endforeach ?>
+  </section>
+
+  </main>
+<?php snippet('general/footer'); ?>
+<?php snippet('general/foot'); ?>
