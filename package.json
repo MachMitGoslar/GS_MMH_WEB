@@ -33,9 +33,7 @@
   },
   "homepage": "https://github.com/rangarius/GS_MMH_WEB#readme",
   "dependencies": {
-    "autoprefixer": "^10.4.19",
-    "flowbite-typography": "^1.0.3",
-    "postcss-cli": "^11.0.0"
+    "autoprefixer": "^10.4.19"
   },
   "devDependencies": {
     "browser-sync": "^3.0.2",

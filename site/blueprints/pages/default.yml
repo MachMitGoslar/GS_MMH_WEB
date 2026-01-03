@@ -50,9 +50,7 @@ columns:
               - text
               - image
               - list
-              - faq
-              - card
-              - cta
+                - card
               - button
               - timeline
 

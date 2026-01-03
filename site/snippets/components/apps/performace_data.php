@@ -51,8 +51,7 @@ for ($i = 0; $i < 5; $i++) {
 ?>],
       datasets: [
         <?php foreach ($values["urls"] as $url => $value) : ?>
-          {
-          label: "<?= $url ?>",
+          { label: "<?= $url ?>",
           data: [ 
             <?php foreach ($values["urls"][$url] as $data_point) : ?>
                 <?= $data_point."," ?>
