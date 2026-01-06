@@ -128,7 +128,7 @@
 
 :root {
   --color-fg-brand-primary: var(--color-ripe-mango-1200);
-  --color-bg-brand-primary: var(--color-ripe-mango-1200);
+  --color-bg-brand-primary: var(--color-ripe-mango-1300);
 }
 
 .color-fg-brand-primary {
@@ -136,7 +136,7 @@
 }
 
 .color-bg-brand-primary {
-  background: var(--color-fg-brand-primary);
+  background: var(--color-bg-brand-primary);
 }
 
 .color-fg-light {

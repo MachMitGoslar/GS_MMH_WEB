@@ -35,41 +35,12 @@
   </section>
 
   <!-- Team Galleries Section -->
-  <section class="team-section">
-    <div class="grid content">
-      <div class="grid-item" data-span="1/1">
-        
-        <!-- Main Team -->
-        <?= snippet('components/teamGallery', [
-          'teamMembers' => $staff,
-          'title' => 'Hauptamtliches Team',
-          'subtitle' => 'Unsere hauptamtlichen Mitarbeiterinnen und Mitarbeiter',
-        ]) ?>
-        
-        <!-- Volunteers -->
-        <?= snippet('components/teamGallery', [
-          'teamMembers' => $volunteers,
-          'title' => 'Ehrenamtliches Team',
-          'subtitle' => 'Engagierte Menschen, die das MachMit!Haus ehrenamtlich unterstützen',
-        ]) ?>
-        
-        <!-- Partners -->
-        <?= snippet('components/teamGallery', [
-          'teamMembers' => $partners,
-          'title' => 'Partner',
-          'subtitle' => 'Unsere wertvollen Partner und Kooperationspartner',
-        ]) ?>
-        
-        <!-- Issuers -->
-        <?= snippet('components/teamGallery', [
-          'teamMembers' => $issuers,
-          'title' => 'Auftraggeber',
-          'subtitle' => 'Institutionen und Organisationen, die uns beauftragen',
-        ]) ?>
-        
-      </div>
-    </div>
-  </section>
+  <?php snippet('components/team/teamsSection', [
+      'staff' => $staff,
+      'volunteers' => $volunteers,
+      'partners' => $partners,
+      'issuers' => $issuers,
+  ]) ?>
 
   </main>
 <?php snippet('general/footer'); ?>

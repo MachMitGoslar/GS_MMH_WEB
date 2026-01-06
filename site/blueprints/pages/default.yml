@@ -50,9 +50,10 @@ columns:
               - text
               - image
               - list
-                - card
+              - card
               - button
               - timeline
+              - form 
 
   sidebar:
     width: 1/3
