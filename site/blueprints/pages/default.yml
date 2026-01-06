@@ -50,11 +50,10 @@ columns:
               - text
               - image
               - list
-              - faq
               - card
-              - cta
               - button
               - timeline
+              - form 
 
   sidebar:
     width: 1/3

@@ -1,0 +1,495 @@
+/**
+ * Form Components - Design System
+ * DreamForm Integration with MachMit!Haus Design System
+ */
+
+/* ==========================================
+   FORM CONTAINER & STRUCTURE
+   ========================================== */
+:root {
+  --_background-primary-enabled: var(--color-ripe-mango-700);
+  --_background-primary-hover: var(--color-ripe-mango-300);
+  --_background-primary-pressed: var(--color-ripe-mango-200);
+  --_background-primary-disabled: var(--color-dead-pixel-25);
+  --_foreground-primary-enabled: var(--color-ripe-mango-1400);
+  --_foreground-primary-hover: var(--color-ripe-mango-1200);
+  --_foreground-primary-pressed: var(--color-ripe-mango-700);
+  --_foreground-primary-disabled: var(--color-dead-pixel-400);
+}
+
+.c-blog-form {
+  --form-border-radius: var(--border-radius-3, 8px);
+  --form-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+  --form-shadow-focus: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+
+  background: var(--color-white);
+  border-radius: var(--form-border-radius);
+  box-shadow: var(--form-shadow);
+  padding: var(--size-8);
+  margin: var(--size-6) 0;
+  max-width: 100%;
+  width: 100%;
+
+  @media (width >= 768px) {
+    padding: var(--size-10);
+  }
+}
+
+.c-blog-form h2 {
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-600);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--typo-line-height-narrow);
+  color: var(--color-dead-pixel-1400);
+  margin: 0 0 var(--size-6) 0;
+  text-align: left;
+}
+
+.dreamform p {
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-100);
+  line-height: var(--typo-line-height-regular);
+  color: var(--color-dead-pixel-1000);
+  margin: 0 0 var(--size-4) 0;
+}
+
+/* ==========================================
+   FORM FIELDS & INPUTS
+   ========================================== */
+
+.dreamform-field {
+  margin-bottom: var(--size-6);
+}
+
+.dreamform-field[data-has-error] .dreamform-error {
+  display: flex;
+}
+
+.dreamform-field:last-child {
+  margin-bottom: 0;
+}
+
+.dreamform-label {
+  display: block;
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-90);
+  font-weight: var(--font-weight-semiBold);
+  line-height: var(--typo-line-height-regular);
+  color: var(--color-dead-pixel-1300);
+  margin-bottom: var(--size-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dreamform-label > em {
+  color: var(--color-ferocious-800);
+  font-weight: var(--font-weight-bold);
+}
+
+.dreamform-input,
+.dreamform-textarea,
+.dreamform-select {
+  width: 100%;
+  padding: var(--size-4) var(--size-5);
+  border: 2px solid var(--color-dead-pixel-300);
+  border-radius: var(--border-radius-2, 4px);
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-100);
+  line-height: var(--typo-line-height-regular);
+  color: var(--color-dead-pixel-1400);
+  background: var(--color-white);
+  transition: border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--_background-primary-enabled);
+  }
+
+  &:hover {
+  }
+
+  &::placeholder {
+    color: var(--color-dead-pixel-600);
+    font-style: italic;
+  }
+}
+
+.dreamform-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.dreamform-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right var(--size-3) center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: var(--size-10);
+}
+
+/* ==========================================
+   CHECKBOX & RADIO INPUTS
+   ========================================== */
+
+.dreamform-checkbox,
+.dreamform-radio {
+  display: flex;
+  gap: var(--size-4);
+  margin-bottom: var(--size-4);
+  cursor: pointer;
+  align-items: center;
+}
+
+.dreamform-checkbox:last-child,
+.dreamform-radio:last-child {
+  margin-bottom: 0;
+}
+
+.dreamform-checkbox input[type='checkbox'],
+.dreamform-radio input[type='radio'] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--_background-primary-enabled);
+  flex-shrink: 0;
+}
+
+.dreamform-checkbox label,
+.dreamform-radio label {
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-100);
+  line-height: var(--typo-line-height-regular);
+  color: var(--color-dead-pixel-1200);
+  cursor: pointer;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: var(--font-weight-regular);
+}
+
+/* Specific styling for checkbox and radio containers */
+.dreamform .dreamform-checkbox,
+.dreamform .dreamform-radio {
+  padding: var(--size-2) 0;
+}
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.dreamform-button,
+.dreamform-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-2);
+  padding: var(--size-4) var(--size-8);
+  border: 2px solid var(--_background-primary-enabled);
+  border-radius: var(--border-radius-2, 4px);
+  background: var(--_background-primary-enabled);
+  color: var(--color-bg-dark);
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-100);
+  font-weight: var(--font-weight-semiBold);
+  line-height: var(--typo-line-height-regular);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 3rem;
+
+  &:hover {
+    background: var(--_background-primary-hover);
+    border-color: var(--_background-primary-hover);
+    color: var(--_foreground-primary-hover);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--form-shadow);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: var(--form-shadow-focus),
+      0 0 0 3px rgb(252 206 46 / 20%);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+
+    &:hover {
+      background: var(--color-dead-pixel-800);
+      border-color: var(--color-dead-pixel-800);
+      transform: none;
+      box-shadow: var(--form-shadow);
+    }
+  }
+}
+
+/* Secondary button variant */
+.dreamform-button--secondary {
+  background: transparent;
+  color: var(--color-ripe-mango-800);
+  border-color: var(--color-ripe-mango-800);
+
+  &:hover {
+    background: var(--color-ripe-mango-800);
+    color: var(--color-white);
+  }
+}
+
+/* ==========================================
+   FILE UPLOAD
+   ========================================== */
+
+.dreamform-file-upload {
+  position: relative;
+  border: 2px dashed var(--color-dead-pixel-400);
+  border-radius: var(--border-radius-3, 8px);
+  padding: var(--size-8);
+  text-align: center;
+  background: var(--color-dead-pixel-25);
+  transition: border-color 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-ripe-mango-600);
+    background: var(--color-ripe-mango-100);
+  }
+
+  &.dragover {
+    border-color: var(--color-ripe-mango-800);
+    background: var(--color-ripe-mango-200);
+  }
+}
+
+.dreamform-file-upload input[type='file'] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dreamform-file-upload-content {
+  pointer-events: none;
+}
+
+.dreamform-file-upload-icon {
+  font-size: var(--typo-size-600);
+  color: var(--color-dead-pixel-600);
+  margin-bottom: var(--size-2);
+}
+
+.dreamform-file-upload-text {
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-100);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-dead-pixel-1200);
+}
+
+.dreamform-file-upload-hint {
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-90);
+  color: var(--color-dead-pixel-800);
+  margin-top: var(--size-1);
+}
+
+/* ==========================================
+   ERROR & SUCCESS STATES
+   ========================================== */
+
+.dreamform-error {
+  color: var(--color-ferocious-800);
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-90);
+  font-weight: var(--font-weight-medium);
+  margin-top: var(--size-1);
+  display: none;
+  align-items: center;
+  gap: var(--size-1);
+}
+
+.dreamform-error::before {
+  content: '⚠';
+  flex-shrink: 0;
+}
+
+.dreamform-field--error .dreamform-input,
+.dreamform-field--error .dreamform-textarea,
+.dreamform-field--error .dreamform-select,
+.dreamform-field.has-error .dreamform-input,
+.dreamform-field.has-error .dreamform-textarea,
+.dreamform-field.has-error .dreamform-select {
+  border-color: var(--color-ferocious-800);
+}
+
+.dreamform-field--error .dreamform-input:focus,
+.dreamform-field--error .dreamform-textarea:focus,
+.dreamform-field--error .dreamform-select:focus,
+.dreamform-field.has-error .dreamform-input:focus,
+.dreamform-field.has-error .dreamform-textarea:focus,
+.dreamform-field.has-error .dreamform-select:focus {
+  box-shadow: 0 0 0 3px rgb(232 66 55 / 20%);
+}
+
+.dreamform-success {
+  background: var(--color-pastel-green-100);
+  border: 2px solid var(--color-pastel-green-600);
+  border-radius: var(--border-radius-3, 8px);
+  padding: var(--size-6);
+  margin: var(--size-6) 0;
+  text-align: center;
+}
+
+.dreamform-success-title {
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-400);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-pastel-green-1300);
+  margin: 0 0 var(--size-2) 0;
+}
+
+.dreamform-success-message {
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-100);
+  color: var(--color-pastel-green-1200);
+  margin: 0;
+}
+
+/* ==========================================
+   LOADING STATES
+   ========================================== */
+
+.dreamform-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.dreamform-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: -0.75rem 0 0 -0.75rem;
+  border: 2px solid var(--color-dead-pixel-400);
+  border-top-color: var(--color-ripe-mango-800);
+  border-radius: 50%;
+  animation: dreamform-spin 1s linear infinite;
+}
+
+@keyframes dreamform-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================
+   HONEYPOT & SECURITY
+   ========================================== */
+
+.dreamform-honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+@media (width < 768px) {
+  .dreamform {
+    padding: var(--size-6);
+    margin: var(--size-4) 0;
+  }
+
+  .dreamform-button,
+  .dreamform-submit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dreamform h2 {
+    font-size: var(--typo-size-500);
+  }
+}
+
+@media (width >= 1024px) {
+  .dreamform-field-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size-6);
+  }
+
+  .dreamform-field-group .dreamform-field {
+    margin-bottom: 0;
+  }
+}
+
+/* Form wrapper for better integration */
+.dreamform form {
+  width: 100%;
+}
+
+.dreamform .dreamform-field:last-child {
+  margin-bottom: var(--size-6);
+}
+
+/* ==========================================
+   HIGH CONTRAST & ACCESSIBILITY
+   ========================================== */
+
+@media (prefers-contrast: high) {
+  .dreamform-input,
+  .dreamform-textarea,
+  .dreamform-select {
+    border-width: 3px;
+  }
+
+  .dreamform-button,
+  .dreamform-submit {
+    border-width: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dreamform-input,
+  .dreamform-textarea,
+  .dreamform-select,
+  .dreamform-button,
+  .dreamform-submit {
+    transition: none;
+  }
+
+  .dreamform-loading::after {
+    animation: none;
+  }
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+
+@media print {
+  .c-blog-form,
+  .dreamform {
+    box-shadow: none;
+    border: 1px solid var(--color-dead-pixel-600);
+  }
+
+  .dreamform-button,
+  .dreamform-submit {
+    display: none;
+  }
+}

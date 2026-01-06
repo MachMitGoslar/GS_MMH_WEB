@@ -3,7 +3,7 @@ type: php
 docroot: ./public
 php_version: "8.4"
 webserver_type: nginx-fpm
-xdebug_enabled: false
+xdebug_enabled: true
 additional_hostnames: []
 additional_fqdns: []
 host_webserver_port: "8001"
@@ -17,7 +17,7 @@ web_extra_exposed_ports:
 - name: xdebug
   container_port: 9003
   http_port: 9002
-  https_port: 9003
+  https_port: 9004
 webimage_extra_packages: [php8.4-gd]
 corepack_enable: false
 disable_host_ssh_agent: true

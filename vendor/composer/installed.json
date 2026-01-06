@@ -3682,6 +3682,63 @@
                 }
             ],
             "install-path": "../symfony/yaml"
+        },
+        {
+            "name": "tobimori/kirby-dreamform",
+            "version": "2.1.3",
+            "version_normalized": "2.1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tobimori/kirby-dreamform.git",
+                "reference": "d0ea961fa9fd9948aaaac881d00f85d4424d3434"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tobimori/kirby-dreamform/zipball/d0ea961fa9fd9948aaaac881d00f85d4424d3434",
+                "reference": "d0ea961fa9fd9948aaaac881d00f85d4424d3434",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.2.1",
+                "php": ">=8.3.0"
+            },
+            "require-dev": {
+                "getkirby/cms": "^5"
+            },
+            "time": "2025-12-19T11:28:39+00:00",
+            "type": "kirby-plugin",
+            "extra": {
+                "kirby-cms-path": false
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "tobimori\\DreamForm\\": "classes"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Möritz",
+                    "email": "tobias@moeritz.io"
+                }
+            ],
+            "description": "Kirby DreamForm is an opiniated form builder plugin for Kirby CMS 4+ that makes forms work like magic",
+            "homepage": "https://plugins.andkindness.com/dreamform",
+            "support": {
+                "issues": "https://github.com/tobimori/kirby-dreamform/issues",
+                "source": "https://github.com/tobimori/kirby-dreamform/tree/2.1.3"
+            },
+            "funding": [
+                {
+                    "url": "https://plugins.andkindness.com/dreamform/pricing",
+                    "type": "custom"
+                }
+            ],
+            "install-path": "../../site/plugins/kirby-dreamform"
         }
     ],
     "dev": true,

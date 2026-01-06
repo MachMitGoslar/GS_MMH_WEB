@@ -65,3 +65,6 @@ vendor/
 /site/plugins/*
 /kirby/*
 /content/
+
+
+.php-cs-fixer.cache

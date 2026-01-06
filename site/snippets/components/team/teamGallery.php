@@ -22,7 +22,7 @@ if (! isset($teamMembers) || $teamMembers->count() === 0) {
   
   <div class="team-grid">
     <?php foreach ($teamMembers as $member) : ?>
-        <?= snippet('components/teamMemberCard', ['teamMember' => $member]) ?>
+        <?= snippet('components/team/teamMemberCard', ['teamMember' => $member]) ?>
     <?php endforeach ?>
   </div>
 </section>
