@@ -10,7 +10,7 @@
   </div>
   <div class="content">
     <div class="statusheader">
-    <?= snippet("components/project/statusBadge", ["status" => $project->project_status()]) ?>
+    <?= snippet("content-types/projects/statusBadge", ["status" => $project->project_status()]) ?>
     <time><?=date("d.m.Y")?></time>
     </div>
 

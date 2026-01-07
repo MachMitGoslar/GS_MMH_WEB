@@ -3,7 +3,7 @@
  * Newsletter Template - Redesigned to match PDF layout
  */
 ?>
-<?php snippet('general/head', slots: true); ?>
+<?php snippet('layout/head', slots: true); ?>
 
 <?php slot('head') ?>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet">
@@ -15,7 +15,7 @@
 
 <?php endsnippet() ?>
 
-<?php snippet('general/header'); ?>
+<?php snippet('layout/header'); ?>
 
 <main class="main">
   <!-- Newsletter Hero Section -->
@@ -446,4 +446,4 @@
         </script>
 </main>
 
-<?php snippet('general/footer'); ?>
+<?php snippet('layout/footer'); ?>

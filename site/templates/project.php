@@ -4,11 +4,11 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<?php snippet('general/head'); ?>
-<?php snippet('general/header'); ?>
+<?php snippet('layout/head'); ?>
+<?php snippet('layout/header'); ?>
   <main>
   <div class="mb-4">
-    <?=snippet('components/hero')?>
+    <?=snippet('sections/hero')?>
   </div>
   <section class="grid content">
     <div class="grid-item" data-span="1/1">
@@ -40,12 +40,12 @@
     </div>
     <?php if ($page->project_steps()->isNotEmpty()) : ?>
     <div id="timeline" class="grid-item" data-span="1/3">
-        <?php snippet(name: "components/project/projectTimeline", data: ['project_steps' => $page->project_steps()]) ?>
+        <?php snippet(name: "content-types/projects/projectTimeline", data: ['project_steps' => $page->project_steps()]) ?>
     </div>
     <?php endif ?>
 
   </section>
   <section>
   </section>
-<?php snippet('general/footer'); ?>
-<?php snippet('general/foot'); ?>
+<?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>

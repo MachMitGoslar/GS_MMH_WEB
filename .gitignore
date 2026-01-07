@@ -68,3 +68,8 @@ vendor/
 
 
 .php-cs-fixer.cache
+.vscode/mcp.json
+.github/
+.ddev/
+.claude/
+figma-tokens.json

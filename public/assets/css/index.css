@@ -1,5 +1,9 @@
+/* Design System - Framework-level styles */
 @import url('./design-system/components.css');
 @import url('./design-system/layout.css');
+
+/* Site-Specific - MachMit!Haus Goslar styles */
+@import url('./site/site.css');
 
 :root {
 }

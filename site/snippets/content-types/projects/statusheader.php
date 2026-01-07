@@ -12,7 +12,7 @@ $to = $project_step->project_status_to();
 <div class="statusheader">
       <div>
       <?php if ($from->isNotEmpty()) : ?>
-            <?= snippet("components/project/statusBadge", ["status" => $from]) ?>
+            <?= snippet("content-types/projects/statusBadge", ["status" => $from]) ?>
       <?php endif ?>
 
       <?php if ($from->isNotEmpty() && $to->isNotEmpty()) : ?>
@@ -21,7 +21,7 @@ $to = $project_step->project_status_to();
         </span>
       <?php endif ?>
       <?php if ($to->isNotEmpty()) : ?>
-            <?= snippet("components/project/statusBadge", ["status" => $to]) ?>
+            <?= snippet("content-types/projects/statusBadge", ["status" => $to]) ?>
       <?php endif ?>
       </div>
 

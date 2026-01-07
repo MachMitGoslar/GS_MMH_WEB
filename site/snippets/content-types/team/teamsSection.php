@@ -18,28 +18,28 @@
       <div class="grid-item" data-span="1/1">
         
         <!-- Main Team -->
-        <?= snippet('components/team/teamGallery', [
+        <?= snippet('content-types/team/teamGallery', [
           'teamMembers' => $staff,
           'title' => 'Hauptamtliches Team',
           'subtitle' => 'Unsere hauptamtlichen Mitarbeiterinnen und Mitarbeiter',
         ]) ?>
         
         <!-- Volunteers -->
-        <?= snippet('components/team/teamGallery', [
+        <?= snippet('content-types/team/teamGallery', [
           'teamMembers' => $volunteers,
           'title' => 'Ehrenamtliches Team',
           'subtitle' => 'Engagierte Menschen, die das MachMit!Haus ehrenamtlich unterstützen',
         ]) ?>
         
         <!-- Partners -->
-        <?= snippet('components/team/teamGallery', [
+        <?= snippet('content-types/team/teamGallery', [
           'teamMembers' => $partners,
           'title' => 'Partner',
           'subtitle' => 'Unsere wertvollen Partner und Kooperationspartner',
         ]) ?>
         
         <!-- Issuers -->
-        <?= snippet('components/team/teamGallery', [
+        <?= snippet('content-types/team/teamGallery', [
           'teamMembers' => $issuers,
           'title' => 'Auftraggeber',
           'subtitle' => 'Institutionen und Organisationen, die uns beauftragen',

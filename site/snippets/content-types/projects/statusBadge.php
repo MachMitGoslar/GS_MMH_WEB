@@ -4,7 +4,7 @@
  * var $status: string
  *
 */
-$color = getColor($status);
+$color = getProjectStatusColor($status);
 
 ?>
 

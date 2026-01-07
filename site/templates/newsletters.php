@@ -5,14 +5,14 @@
 */
 ?>
 
-<?php snippet('general/head'); ?>
-<?php snippet('general/header'); ?>
+<?php snippet('layout/head'); ?>
+<?php snippet('layout/header'); ?>
 
 <main class="main">
 
   <!-- Hero Section -->
   <div class="mb-7">
-    <?= snippet('components/hero') ?>
+    <?= snippet('sections/hero') ?>
   </div>
 
   <!-- Content Section -->
@@ -64,7 +64,7 @@
 
         foreach ($sortedNewsletters as $index => $newsletter) :
             ?>
-              <?= snippet('components/newsletter/newsletterItem', [
+              <?= snippet('content-types/newsletter/newsletterItem', [
             'newsletter' => $newsletter,
             'class' => $index === 0 ? 'newsletter-item--featured' : '',
               ]) ?>
@@ -100,4 +100,4 @@
 
 </main>
 
-<?php snippet('general/footer'); ?>
+<?php snippet('layout/footer'); ?>
