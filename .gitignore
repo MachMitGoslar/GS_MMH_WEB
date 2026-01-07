@@ -23,6 +23,9 @@ Icon
 *.sublime-workspace
 /.vscode
 /.idea
+/.ddev
+/.husky
+
 
 # -------------SECURITY-------------
 # NEVER publish these files via Git!
@@ -35,15 +38,12 @@ Icon
 /site/cache/*
 !/storage/cache/index.html
 
-# Accounts
+
+
+# Sessions & Accounts
 # ---------------
-
-/site/accounts/*
-!/site/accounts/index.html
-
-# Sessions
-# ---------------
-
+/storage/accounts/*
+!/storage/accounts/index.html
 /storage/sessions/*
 !/storage/sessions/index.html
 
@@ -58,7 +58,7 @@ Icon
 /node_modules
 composer.phar
 vendor/
-/vendor/
+/vendor/*
 
 # Plugins / Submodules
 #----------
