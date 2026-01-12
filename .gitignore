@@ -25,7 +25,7 @@ Icon
 /.idea
 /.ddev
 /.husky
-
+.env
 
 # -------------SECURITY-------------
 # NEVER publish these files via Git!
@@ -46,6 +46,13 @@ Icon
 !/storage/accounts/index.html
 /storage/sessions/*
 !/storage/sessions/index.html
+
+/storage/*.json
+
+# Logs
+# ---------------
+/storage/logs/*
+!/storage/logs/index.html
 
 # License
 # ---------------

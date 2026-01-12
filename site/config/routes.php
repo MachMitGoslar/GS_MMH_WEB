@@ -74,4 +74,37 @@ return [
             return new Response($content, 'application/json');
         },
     ],
+
+    /**
+     * Room Booking Request API
+     * Handles room booking form submissions
+     */
+    [
+        'pattern' => 'booking-request.json',
+        'method' => 'POST',
+        'action' => function () {
+            require_once kirby()->root('snippets') . '/content-types/rooms/bookingRequestHandler.php';
+
+            $result = handleBookingRequest();
+
+            return new Response(
+                json_encode($result, JSON_UNESCAPED_UNICODE),
+                'application/json',
+                $result['success'] ? 200 : 400
+            );
+        },
+    ],
+    /**
+     * Room Booking Request API (GET fallback for debugging)
+     */
+    [
+        'pattern' => 'booking-request.json',
+        'method' => 'GET',
+        'action' => function () {
+            return new Response(
+                json_encode(['status' => 'ok', 'message' => 'Booking API endpoint. Use POST to submit.']),
+                'application/json'
+            );
+        },
+    ],
 ];

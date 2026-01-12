@@ -11,5 +11,6 @@ empty: Noch keine Einträge enthalten
 sortBy: date desc
 image:
   query: page.cover
+  label: Titelbild
   cover: true
   ratio: 3/2

@@ -20,7 +20,7 @@ fields:
     type: textarea
     required: true
   image:
-    label: image
+    label: Bild
     type: files
     query: page.images
     required: true
@@ -28,5 +28,5 @@ fields:
     label: Link
     type: url
   mailto:
-    label: Mail to
+    label: E-Mail
     type: email

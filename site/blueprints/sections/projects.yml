@@ -12,5 +12,6 @@ template: project
 empty: Bisher keine Projekte
 image:
   query: page.cover
+  label: Titelbild
   cover: true
   ratio: 5/4

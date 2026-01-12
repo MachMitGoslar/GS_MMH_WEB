@@ -13,5 +13,6 @@ create:
 empty: Bisher keine Beteiligte
 image:
   query: page.cover
+  label: Titelbild
   cover: true
   ratio: 1/1
