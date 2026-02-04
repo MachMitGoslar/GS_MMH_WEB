@@ -8,7 +8,7 @@
   <?php slot()?>
 
   <div class="mb-4">
-    <?=snippet('components/hero', ['url' => "https://machmit.goslar.de/fileadmin/_processed_/a/0/csm_mmh___zukunft_nds_18d4453785.jpg"])?>
+    <?=snippet('sections/hero', ['url' => "https://machmit.goslar.de/fileadmin/_processed_/a/0/csm_mmh___zukunft_nds_18d4453785.jpg"])?>
   </div>
   <div class="grid content mt-3 mb-6">
     <article class="grid-item-half-span-center">

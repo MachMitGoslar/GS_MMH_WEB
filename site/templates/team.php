@@ -1,8 +1,8 @@
-<?php snippet('general/head'); ?>
-<?php snippet('general/header'); ?>
+<?php snippet('layout/head'); ?>
+<?php snippet('layout/header'); ?>
 
 <main class="main">
-    <?php snippet('components/team/teamsSection', data: [
+    <?php snippet('content-types/team/teamsSection', data: [
         'staff' => $staff,
         'volunteers' => $volunteers,
         'partners' => $partners,
@@ -12,4 +12,4 @@
     ]); ?>
 </main>
 
-<?php snippet('general/footer'); ?>
+<?php snippet('layout/footer'); ?>

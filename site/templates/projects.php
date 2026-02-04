@@ -4,11 +4,11 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<?php snippet('general/head'); ?>
-<?php snippet('general/header'); ?>
+<?php snippet('layout/head'); ?>
+<?php snippet('layout/header'); ?>
   <main>
   <div class="mb-4">
-    <?=snippet('components/hero')?>
+    <?=snippet('sections/hero')?>
   </div>
   <section class="grid content mb-7">
     <h1 class="font-titleXXL grid-item" data-span="1/1"><?=$page->title()?></h1>
@@ -16,7 +16,7 @@
         <section class="grid-item" data-span="1/1">
             <ul class="grid mb-4">
                 <?php foreach ($page->children() as $project) : ?>
-                    <?php snippet('components/project/projectTeaserCard', compact('project')) ?>
+                    <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
                 <?php endforeach ?>
                 <li class="c-projectTeaserCard">
                   <div >
@@ -34,5 +34,5 @@
             <a class="gs-c-btn" data-type="primary" data-size="large" data-style="pill" href=<?=$site->page('projekte')?> >Eigenes Projekt starten?</a>
         </section>
   </section>
-  <?php snippet('general/footer'); ?>
-<?php snippet('general/foot'); ?>
+  <?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>

@@ -56,19 +56,19 @@ tabs:
     sections:
       staff:
         extends: sections/roles
-        query: site.find("team").children.listed().filterBy('teams', 'staff', ',')
+        query: site.find("team").children.filterBy('teams', 'staff', ',')
         label: Hauptamt
       volunteers:
         extends: sections/roles
-        query: site.find("team").children.listed().filterBy('teams', 'volunteer', ',')
+        query: site.find("team").children.filterBy('teams', 'volunteer', ',')
         label: Ehrenamt
       partners:
         extends: sections/roles
-        query: site.find("team").children.listed().filterBy('teams', 'partner', ',')
+        query: site.find("team").children.filterBy('teams', 'partner', ',')
         label: Partner
       issuers:
         extends: sections/roles
-        query: site.find("team").children.listed().filterBy('teams', 'issuer', ',')
+        query: site.find("team").children.filterBy('teams', 'issuer', ',')
         label: Auftraggeber
   tagebuch:
     label: Tagebuch

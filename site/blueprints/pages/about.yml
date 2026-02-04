@@ -1,5 +1,5 @@
 # Each page blueprint must have a title, the title may be different from the file name
-title: About us
+title: Über uns
 
 # Each page can have an icon that is shown in page listings when no preview image is available.
 icon: ☎️
@@ -27,7 +27,8 @@ options:
 tabs:
   content:
     icon: text
-    label: Content
+    label: Inhalt
+    # Two column layout for better organization
     fields:
       cover: fields/cover
 
@@ -39,7 +40,7 @@ tabs:
         type: text
         label: Subtitel
       layout:
-        label: Layout
+        label: Inhalt
         type: layout
         layouts:
           - "1/1"
@@ -74,26 +75,26 @@ tabs:
   # https://getkirby.com/docs/guide/blueprints/layout#defining-columns
   contact:
     icon: map
-    label: Contact
+    label: Kontaktinformationen
     columns:
       - width: 1/2
         # Kirby has many different field types, from simple text fields to the more complex structure field that contains subfields
         # All available field types: https://getkirby.com/docs/reference/panel/fields
         fields:
           address:
-            label: Address
+            label: Addresse
             type: writer
             inline: true
           email:
             label: Email
             type: email
           phone:
-            label: Phone
+            label: Telefon
             type: tel
       - width: 1/2
         fields:
           social:
-            label: On the web
+            label: Soziale Medien
             type: structure
             columns:
               platform: true
