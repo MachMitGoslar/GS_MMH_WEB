@@ -1,176 +1,333 @@
 # Development Setup Guide
 
-## Current Working Setup
+## Quick Start
 
-### PHP Development Server (Currently Active)
-The project is currently running with a local PHP development server:
-- **Server**: http://localhost:8000  
-- **PHP Version**: 8.4.15 (via Homebrew)
-- **Xdebug**: Enabled with step debugging
-- **Command**: `composer start`
-
-### Debugging Environment
-✅ **Fully Configured**
-- Xdebug 3.4.7 installed and configured
-- VS Code PHP Debug extension installed
-- Launch configurations available in `.vscode/launch.json`
-- Test script available at `debug_test.php`
-
-### Current Development Workflow
-1. Start server: `composer start`
-2. Access site: http://localhost:8000
-3. Debug: Use VS Code debug panel with configured launch settings
-
-## DDEV Setup (Future Enhancement)
-
-### Status
-🔄 **Partially Configured** - Installation complete but Docker compatibility issues
-
-### What's Ready
-- DDEV v1.24.10 installed via Homebrew
-- Project configuration created (`.ddev/config.yaml`)
-- PHP 8.4 and Xdebug enabled in config
-
-### Current Blocker
-Docker buildx version compatibility issue:
-- Current: buildx v0.11.2 (too old)
-- Required: buildx v0.17+
-- Docker Desktop: v4.22.1 (needs update)
-
-### DDEV Configuration
-```yaml
-name: GS-MMH-WEB
-type: php
-docroot: .
-php_version: "8.4"
-webserver_type: nginx-fpm
-xdebug_enabled: true
-database:
-    type: mariadb
-    version: "10.11"
-disable_host_ssh_agent: true
-```
-
-### Resolving DDEV Setup
-
-#### Option 1: Update Docker Desktop
-1. Update Docker Desktop to latest version (v4.25+)
-2. Restart Docker
-3. Run `ddev start`
-
-#### Option 2: Alternative Installation
-1. Use Docker Desktop alternatives (OrbStack, Colima)
-2. Install via package manager with newer Docker
-
-### Benefits of DDEV (Once Working)
-- Containerized environment with consistent PHP/MySQL versions
-- Isolated from host system PHP
-- Easy environment reset and sharing
-- Built-in development tools (Mailpit, database management)
-- HTTPS support with automatic certificates
-
-## Database Considerations
-
-### Current Setup
-The Kirby CMS is currently file-based (no database required for basic operation).
-
-### With DDEV
-When DDEV is working, you'll have:
-- MariaDB 10.11 available
-- Database accessible at `ddev.site:3306` 
-- Web interface via `ddev describe`
-
-## Project Structure Notes
-
-### Content Issues
-The site currently shows "home page does not exist" - this indicates:
-- Missing `content/home/` directory structure, or
-- Incorrect Kirby content organization
-
-### File Structure
-```
-content/
-├── home/           # Main homepage content
-├── 1_projects/     # Projects section
-├── 2_wie-funktioniert-machmit/
-├── 3_uber-uns/
-└── 4_notes/
-```
-
-## Commands Reference
-
-### Current Development
+### DDEV (Recommended)
 ```bash
-# Start development server
-composer start
-
-# Stop server (Ctrl+C in terminal)
-
-# Debug test
-/opt/homebrew/opt/php@8.4/bin/php debug_test.php
-```
-
-### Future DDEV Commands
-```bash
-# Start DDEV environment
+# Start the development environment
 ddev start
 
-# Stop DDEV
-ddev stop
+# Open in browser
+ddev launch
 
-# View project info
-ddev describe
+# Stop when done
+ddev stop
+```
+
+### Alternative: Local PHP Server
+```bash
+composer start
+# Access at http://localhost:8000
+```
+
+---
+
+## DDEV Setup
+
+### Overview
+This project uses [DDEV](https://ddev.com/) for local development, providing a containerized environment with PHP 8.4, Nginx, and MariaDB.
+
+### Prerequisites
+- **Docker Desktop** (v4.25+) or compatible container runtime (OrbStack, Colima)
+- **DDEV** v1.24+ installed via Homebrew: `brew install ddev/ddev/ddev`
+
+### Configuration
+The DDEV configuration is in `.ddev/config.yaml`:
+
+| Setting | Value |
+|---------|-------|
+| Project Name | `GS-MMH-WEB` |
+| Type | PHP |
+| Docroot | `./public` |
+| PHP Version | 8.4 |
+| Webserver | nginx-fpm |
+| Database | MariaDB 10.11 |
+| Xdebug | Enabled |
+
+### URLs
+- **Site**: https://gs-mmh-web.ddev.site
+- **Mailpit**: https://gs-mmh-web.ddev.site:8026
+- **PHPMyAdmin**: `ddev launch -p` (or use TablePlus/other client)
+
+### Common Commands
+
+```bash
+# Start/stop environment
+ddev start
+ddev stop
+ddev restart
 
 # Open project in browser
 ddev launch
 
-# Access database
-ddev mysql
+# View project info and URLs
+ddev describe
 
 # SSH into web container
 ddev ssh
 
-# Update configuration
-ddev config
+# Run Composer commands
+ddev composer install
+ddev composer update
+
+# Database access
+ddev mysql                    # MySQL CLI
+ddev export-db > backup.sql   # Export database
+ddev import-db < backup.sql   # Import database
+
+# Xdebug control (toggle for performance)
+ddev xdebug on               # Enable Xdebug
+ddev xdebug off              # Disable Xdebug
+ddev xdebug status           # Check status
 
 # View logs
-ddev logs
+ddev logs                    # All logs
+ddev logs -f                 # Follow logs
+ddev logs -s web             # Web container only
+
+# Refresh/rebuild
+ddev restart                 # Restart containers
+ddev debug rebuild           # Rebuild images (after config changes)
 ```
+
+### Xdebug Configuration
+Xdebug is pre-configured and enabled by default. For VS Code:
+
+1. Install the **PHP Debug** extension
+2. Use the existing `.vscode/launch.json` configuration
+3. Set breakpoints and start debugging
+
+**Performance tip**: Disable Xdebug when not debugging:
+```bash
+ddev xdebug off
+```
+
+### Custom PHP Settings
+Add custom PHP settings in `.ddev/php/`:
+```bash
+# Create custom ini file
+echo "memory_limit = 512M" > .ddev/php/custom.ini
+ddev restart
+```
+
+### Environment Variables
+Add environment variables in `.ddev/config.yaml`:
+```yaml
+web_environment:
+  - KIRBY_DEBUG=true
+  - MY_API_KEY=secretvalue
+```
+
+Or create a `.ddev/.env` file for sensitive values (add to `.gitignore`).
+
+---
+
+## Local PHP Server (Alternative)
+
+If you prefer not to use Docker/DDEV, you can use the local PHP development server.
+
+### Prerequisites
+- PHP 8.4 installed (via Homebrew: `brew install php@8.4`)
+- Composer installed
+
+### Setup
+```bash
+# Install dependencies
+composer install
+
+# Start development server
+composer start
+
+# Access at http://localhost:8000
+```
+
+### Xdebug with Local PHP
+Xdebug is configured in the Homebrew PHP installation:
+- VS Code launch configurations available in `.vscode/launch.json`
+- Test with: `/opt/homebrew/opt/php@8.4/bin/php debug_test.php`
+
+---
+
+## Project Structure
+
+```
+GS_MMH_WEB/
+├── .ddev/                  # DDEV configuration
+│   ├── config.yaml         # Main DDEV config
+│   ├── php/                # Custom PHP ini files
+│   └── nginx_full/         # Custom Nginx config
+├── .vscode/                # VS Code settings
+│   ├── launch.json         # Debug configurations
+│   └── settings.json       # PHP settings
+├── content/                # Kirby content (file-based CMS)
+├── public/                 # Web root (docroot)
+│   ├── assets/             # Static assets (CSS, JS, images)
+│   └── index.php           # Entry point
+├── site/                   # Kirby site code
+│   ├── blueprints/         # Panel blueprints
+│   ├── config/             # Kirby configuration
+│   ├── controllers/        # Page controllers
+│   ├── plugins/            # Kirby plugins
+│   ├── snippets/           # Reusable snippets
+│   └── templates/          # Page templates
+├── storage/                # Kirby storage (cache, sessions)
+├── vendor/                 # Composer dependencies
+├── composer.json           # PHP dependencies
+└── kirby/                  # Kirby CMS core
+```
+
+---
+
+## Database
+
+### Kirby CMS
+Kirby is a **file-based CMS** and does not require a database for content storage. All content is stored in the `content/` directory as text files.
+
+### MariaDB (via DDEV)
+A MariaDB database is available if needed for custom functionality:
+
+```bash
+# Access database CLI
+ddev mysql
+
+# Connection details (for external tools)
+Host: 127.0.0.1
+Port: Run `ddev describe` to see the port
+Database: db
+Username: db
+Password: db
+```
+
+---
+
+## Debugging
+
+### VS Code Setup
+1. Install **PHP Debug** extension
+2. Open the Debug panel (Cmd+Shift+D)
+3. Select "Listen for Xdebug" configuration
+4. Start debugging (F5)
+5. Set breakpoints in your PHP files
+6. Refresh the browser to trigger breakpoints
+
+### Launch Configurations
+Available in `.vscode/launch.json`:
+- **Listen for Xdebug**: Standard debugging
+- **Launch currently open script**: Debug current file directly
+
+### Troubleshooting Xdebug
+```bash
+# Check Xdebug status
+ddev xdebug status
+
+# Enable if disabled
+ddev xdebug on
+
+# Check PHP info
+ddev exec php -i | grep xdebug
+
+# View Xdebug logs
+ddev logs -s web | grep -i xdebug
+```
+
+---
 
 ## Troubleshooting
 
-### Current Issues
-1. **Xdebug "already loaded" warning**: Cosmetic only, debugging works
-2. **Composer deprecation notices**: Cosmetic only, functionality unaffected
-3. **Kirby homepage error**: Content structure configuration needed
-
 ### DDEV Issues
-1. **Docker buildx version**: Update Docker Desktop to resolve
-2. **SSH agent errors**: Currently configured to omit SSH agent container
 
-## Next Steps
+**Container won't start**
+```bash
+ddev poweroff          # Stop all DDEV projects
+ddev start             # Try again
+```
 
-### Immediate (Current Setup)
-1. ✅ Development server working
-2. ✅ Debugging environment ready
-3. 🔄 Fix Kirby content structure for homepage
+**Port conflicts**
+```bash
+ddev describe          # Check current ports
+# Edit .ddev/config.yaml to change ports if needed
+```
 
-### Future (DDEV)
-1. Update Docker Desktop
-2. Test DDEV startup
-3. Migrate development workflow to DDEV
-4. Configure project-specific database if needed
+**Rebuild after config changes**
+```bash
+ddev debug rebuild
+ddev start
+```
 
-## Files Created/Modified
+**Docker issues**
+```bash
+# Restart Docker Desktop
+# Then:
+ddev restart
+```
 
-### New Files
-- `.vscode/launch.json` - VS Code debugging configurations
-- `.vscode/settings.json` - VS Code PHP debugging settings
-- `debug_test.php` - Debugging test script
-- `DEBUG_SETUP.md` - Debugging setup documentation
-- `.ddev/config.yaml` - DDEV project configuration
-- `DEVELOPMENT_SETUP.md` - This file
+### Kirby Issues
 
-### Modified Files
-- `composer.json` - Updated start script with correct PHP path
-- `site/snippets/components/ferienpass/csv_helper.php` - Removed Kirby Remote dependency
+**"Home page does not exist"**
+- Ensure `content/home/` directory exists
+- Check file permissions in `content/`
+
+**Panel access issues**
+- Access panel at `/panel`
+- Check `site/config/config.php` for panel settings
+
+### Performance
+
+**Slow file operations (macOS)**
+DDEV uses Mutagen for file sync on macOS. If experiencing issues:
+```bash
+ddev mutagen status    # Check sync status
+ddev mutagen sync      # Force sync
+```
+
+---
+
+## Additional Tools
+
+### Mailpit (Email Testing)
+DDEV includes Mailpit for catching outgoing emails:
+- Access at: https://gs-mmh-web.ddev.site:8026
+- All emails sent from PHP are captured here
+
+### Database Management
+```bash
+# Export database
+ddev export-db > backup.sql.gz
+
+# Import database
+ddev import-db < backup.sql.gz
+
+# Use phpMyAdmin
+ddev launch -p
+```
+
+### Running Tests
+```bash
+# Run PHPUnit tests (if configured)
+ddev exec vendor/bin/phpunit
+
+# Run specific test
+ddev exec vendor/bin/phpunit tests/MyTest.php
+```
+
+---
+
+## Files Reference
+
+### Configuration Files
+| File | Purpose |
+|------|---------|
+| `.ddev/config.yaml` | DDEV project configuration |
+| `.vscode/launch.json` | VS Code debug configurations |
+| `.vscode/settings.json` | VS Code PHP settings |
+| `composer.json` | PHP dependencies and scripts |
+| `site/config/config.php` | Kirby CMS configuration |
+
+### Useful Scripts
+```bash
+# Start local PHP server
+composer start
+
+# Clear Kirby cache
+rm -rf storage/cache/*
+```
