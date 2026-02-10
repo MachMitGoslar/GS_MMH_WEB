@@ -1,5 +1,7 @@
 <?php
 /** @var \Kirby\Cms\Block $block */
+use Kirby\Toolkit\Html;
+
 $caption = $block->caption();
 $crop = $block->crop()->isTrue();
 $ratio = $block->ratio()->or('auto');
