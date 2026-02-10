@@ -32,6 +32,29 @@
 
     <?php endforeach ?>
   </section>
+  <!-- GALLERY -->
+   <?php if ($page->files()->isNotEmpty()): ?>
+    <section>
+        <div class="grid content">
+            <h2 class="font-titleL grid-item" data-span="1/1">Galerie</h2>
+            <div class="grid-item" data-span="1/1">
+                <div class="c-gallery">
+                    <ul class="grid">
+                        <?php foreach ($page->files() as $image_file) : ?>
+                          <?php $image = $image_file->toFile() ?>
+                        <li class="grid-item grid-item-span4">
+                        <a href="<?= $image_file->url() ?>" data-fslightbox="gallery">
+                          <img src="<?= $image_file->url() ?>" alt="<?= $image_file->alt()->esc() ?>" class="c-gallery-image" />
+
+                          <!-- <?= $image_file?> -->
+                          </a>
+                        </li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+        </div>      
+    </section>
+  <?php endif ?>
 
   </main>
 <?php snippet('general/footer'); ?>

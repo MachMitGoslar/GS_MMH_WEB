@@ -68,3 +68,16 @@ vendor/
 
 
 .php-cs-fixer.cache
+
+# Claude
+/.claude/*
+
+### Storage
+/storage/accounts/*
+/storage/cache/*
+/storage/sessions/*
+/storage/logs/*
+/storage/calendar_key.json
+
+.env
+figma-tokens.json
