@@ -57,6 +57,12 @@ columns:
           - card
           - testimonial
           - cta
+      form:
+        label: Formular
+        type: page
+        template: form
+        help: Wähle hier das Formular, das am Ende angezeigt werden soll
+        required: false
 
 
       team:
