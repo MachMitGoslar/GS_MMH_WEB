@@ -34,7 +34,7 @@
                     <?php snippet('components/events/eventsListItem', compact('event')) ?>
                 <?php endforeach ?>
             </ul>
-            <a class="gs-c-btn" data-type="secondary" data-size="regualr" data-style="pill" href="<?=$site->page('Terminkalender')?>" >Zu den Terminen</a>
+            <a class="gs-c-btn" data-type="secondary" data-size="regualr" data-style="pill" href="<?=$site->page('events')?>" >Zu den Terminen</a>
         </section>
         <?php //Divider?>
         <div class="divider grid-item" data-span="1/1"></div>
