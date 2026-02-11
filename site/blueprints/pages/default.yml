@@ -58,6 +58,7 @@ columns:
               - button
               - timeline
               - form 
+              - gallery
 
   sidebar:
     width: 1/3

@@ -25,7 +25,7 @@ Icon
 /.idea
 /.ddev
 /.husky
-.env
+
 
 # -------------SECURITY-------------
 # NEVER publish these files via Git!
@@ -46,13 +46,6 @@ Icon
 !/storage/accounts/index.html
 /storage/sessions/*
 !/storage/sessions/index.html
-
-/storage/*.json
-
-# Logs
-# ---------------
-/storage/logs/*
-!/storage/logs/index.html
 
 # License
 # ---------------
@@ -75,8 +68,16 @@ vendor/
 
 
 .php-cs-fixer.cache
-.vscode/mcp.json
-.github/
-.ddev/
-.claude/
+
+# Claude
+/.claude/*
+
+### Storage
+/storage/accounts/*
+/storage/cache/*
+/storage/sessions/*
+/storage/logs/*
+/storage/calendar_key.json
+
+.env
 figma-tokens.json
