@@ -7,6 +7,9 @@
  * the MachMit!Haus website functionality.
  */
 
+use Kirby\Cms\Site;
+use Kirby\Cms\Pages;
+
 /**
  * Get the color class name for a project status
  *
@@ -32,4 +35,17 @@ function getProjectStatusColor(string $status): string
         default:
             return "false";
     }
+}
+
+/**
+ * Return all projects with status badge "abgeschlossen".
+ *
+ * @param Site $site
+ * @return Pages
+ */
+function getArchivedProjects(Site $site)
+{
+    return $site->page('projects')
+        ?->children()
+        ->filterBy('project_status', 'abgeschlossen');
 }
