@@ -22,4 +22,9 @@ return [
         'driver' => 'im',
         'bin' => '/usr/bin/convert',
     ],
+    'google' => [
+        'calendar' => [
+            'credentials' => __DIR__ . '/../../storage/calendar_key.json',
+        ],
+    ],
 ];

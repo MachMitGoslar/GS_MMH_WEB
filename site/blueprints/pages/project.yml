@@ -29,9 +29,11 @@ columns:
       cover: fields/cover
       headline:
         type: text
+        label: Titel
         placeholder: "{{ page.title }}"
-        help: Leave empty to use the title as headline
+        help: Leer lassen, um den Titel als Anriss zu verwenden
       subheadline:
+        label: Subtitel
         type: text
       project_status:
         type: select
@@ -55,6 +57,12 @@ columns:
           - card
           - testimonial
           - cta
+      form:
+        label: Formular
+        type: page
+        template: form
+        help: Wähle hier das Formular, das am Ende angezeigt werden soll
+        required: false
 
 
       team:

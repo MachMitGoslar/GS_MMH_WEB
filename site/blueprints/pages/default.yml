@@ -1,6 +1,6 @@
 # Each page blueprint must have a title, the title may be different from the file name
 # This default blueprint is used to display a page in the Panel whenever a custom page blueprint is missing.
-title: Simple Page
+title: Standard Seite
 
 # Each page can have an icon that is shown in page listings when no preview image is available.
 icon: 📝
@@ -24,11 +24,14 @@ columns:
         fields:
           cover: fields/cover
           headline:
+            label: Titel
             type: text
           subheadline:
+            label: Subtitel
             type: text
           text:
             type: writer
+            label: Text
             toolbar:
               inline: true
               marks:
@@ -38,6 +41,7 @@ columns:
           layout:
             type: layout
             size: huge
+            label: Inhalt
             layouts:
               - "1/1"
               - "1/2, 1/2"
@@ -66,4 +70,6 @@ columns:
       # Files section: https://getkirby.com/docs/reference/panel/sections/files
       files:
         type: files
+        uploads: false
+
 

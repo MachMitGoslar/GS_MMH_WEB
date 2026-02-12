@@ -4,11 +4,11 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<?php snippet('general/head'); ?>
-<?php snippet('general/header'); ?>
+<?php snippet('layout/head'); ?>
+<?php snippet('layout/header'); ?>
   <main>
   <div class="mb-4">
-    <?=snippet('components/hero')?>
+    <?=snippet('sections/hero')?>
   </div>
   <section class="">
     <div class="grid content">
@@ -32,30 +32,7 @@
 
     <?php endforeach ?>
   </section>
-  <!-- GALLERY -->
-   <?php if ($page->files()->isNotEmpty()): ?>
-    <section>
-        <div class="grid content">
-            <h2 class="font-titleL grid-item" data-span="1/1">Galerie</h2>
-            <div class="grid-item" data-span="1/1">
-                <div class="c-gallery">
-                    <ul class="grid">
-                        <?php foreach ($page->files() as $image_file) : ?>
-                          <?php $image = $image_file->toFile() ?>
-                        <li class="grid-item grid-item-span4">
-                        <a href="<?= $image_file->url() ?>" data-fslightbox="gallery">
-                          <img src="<?= $image_file->url() ?>" alt="<?= $image_file->alt()->esc() ?>" class="c-gallery-image" />
-
-                          <!-- <?= $image_file?> -->
-                          </a>
-                        </li>
-                        <?php endforeach ?>
-                    </ul>
-                </div>
-        </div>      
-    </section>
-  <?php endif ?>
 
   </main>
-<?php snippet('general/footer'); ?>
-<?php snippet('general/foot'); ?>
+<?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>

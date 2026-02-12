@@ -17,6 +17,7 @@
  *
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
+use Kirby\Cms\Page;
 use Kirby\Cms\Site;
 
 class HomePage extends Page

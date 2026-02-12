@@ -4,11 +4,11 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<?php snippet('general/head'); ?>
-<?php snippet('general/header'); ?>
+<?php snippet('layout/head'); ?>
+<?php snippet('layout/header'); ?>
   <main>
   <div class="mb-4">
-    <?=snippet('components/hero')?>
+    <?=snippet('sections/hero')?>
   </div>
   <section class="">
     <div class="grid content">
@@ -35,7 +35,7 @@
   </section>
 
   <!-- Team Galleries Section -->
-  <?php snippet('components/team/teamsSection', [
+  <?php snippet('content-types/team/teamsSection', [
       'staff' => $staff,
       'volunteers' => $volunteers,
       'partners' => $partners,
@@ -43,5 +43,5 @@
   ]) ?>
 
   </main>
-<?php snippet('general/footer'); ?>
-<?php snippet('general/foot'); ?>
+<?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>

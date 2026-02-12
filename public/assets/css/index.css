@@ -1,5 +1,9 @@
+/* Design System - Framework-level styles */
 @import url('./design-system/components.css');
 @import url('./design-system/layout.css');
+
+/* Site-Specific - MachMit!Haus Goslar styles */
+@import url('./site/site.css');
 
 :root {
 }
@@ -71,9 +75,10 @@ body {
 
 html,
 body {
+  height: 100%;
+
   --color-page-background: var(--color-dead-pixel-10);
 
-  height: 100%;
   background: var(--color-page-background);
 }
 

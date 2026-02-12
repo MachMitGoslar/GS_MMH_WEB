@@ -5,7 +5,7 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<?php snippet('general/head', slots: true); ?>
+<?php snippet('layout/head', slots: true); ?>
 
 <?php slot('head') ?>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <?php endslot() ?>
 
 <?php endsnippet() ?>
-<?php snippet('general/header'); ?>
+<?php snippet('layout/header'); ?>
 
 <main>
   <section class="member-detail">
@@ -135,7 +135,7 @@
           <h2>Aktuelle Projekte</h2>
           <div class="projects-grid">
             <?php foreach ($memberProjects as $project) : ?>
-                <?= snippet('components/project/projectTeaserCard', ['project' => $project]) ?>
+                <?= snippet('content-types/projects/projectTeaserCard', ['project' => $project]) ?>
             <?php endforeach ?>
           </div>
         </div>
@@ -294,5 +294,5 @@
 </script>
 <?php endif ?>
 
-<?php snippet('general/footer'); ?>
-<?php snippet('general/foot'); ?>
+<?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>

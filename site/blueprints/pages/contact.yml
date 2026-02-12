@@ -1,0 +1,69 @@
+title: Kontaktseite
+icon: email
+
+options:
+  status: true
+  delete: false
+  duplicate: false
+
+columns:
+  - width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          intro:
+            label: Einleitung
+            type: textarea
+            size: small
+
+          email:
+            label: E-Mail
+            type: email
+
+          phone:
+            label: Telefonnummer
+            type: tel
+
+          website:
+            label: Website
+            type: url
+
+          address:
+            label: Adresse
+            type: textarea
+            size: small
+
+          text:
+            label: Zusätzliche Inhalte
+            type: blocks
+            fieldsets:
+              - heading
+              - text
+              - image
+              - gallery
+              - video
+              - box
+              - faq
+              - card
+              - testimonial
+              - cta
+
+  - width: 1/3
+    sections:
+      map:
+        type: fields
+        fields:
+          lat:
+            label: Latitude
+            type: number
+            step: 0.000001
+
+          lng:
+            label: Longitude
+            type: number
+            step: 0.000001
+
+          mapbox_token:
+            label: Mapbox Access Token
+            type: text

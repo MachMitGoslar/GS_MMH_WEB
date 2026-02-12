@@ -1,0 +1,673 @@
+/**
+ * Notes (Tagebuch) Styles
+ * Styles for note listing and detail pages
+ */
+
+/* ==========================================================================
+   Notes Listing Page
+   ========================================================================== */
+
+.notes-hero {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-secondary, #f5f5f5);
+  margin-bottom: var(--spacing-7, 3rem);
+}
+
+.notes-hero-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.notes-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.notes-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 30%),
+    rgb(0 0 0 / 60%)
+  );
+}
+
+.notes-hero-content {
+  position: relative;
+  z-index: 1;
+  color: var(--color-fg-light, #fff);
+  text-align: center;
+  padding: var(--spacing-5, 2rem);
+}
+
+.notes-hero-content h1 {
+  color: inherit;
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
+.notes-hero-content p {
+  color: inherit;
+  opacity: 0.9;
+}
+
+.notes-listing {
+  padding-bottom: var(--spacing-7, 3rem);
+}
+
+.notes-listing .section-title {
+  margin-bottom: var(--spacing-4, 1.5rem);
+  padding-bottom: var(--spacing-2, 0.5rem);
+  border-bottom: 2px solid var(--color-primary, #000);
+}
+
+.notes-empty {
+  color: var(--color-fg-muted, #666);
+  font-style: italic;
+}
+
+/* Notes Grid - Card Layout */
+.notes-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note-card-wrapper {
+  grid-column: span 1;
+
+  @media (width > 767px) {
+    grid-column: span 4;
+  }
+  @media (width > 1039px) {
+    grid-column: span 4;
+  }
+}
+
+.note-card-wrapper--featured {
+  grid-column: span 1;
+
+  @media (width > 767px) {
+    grid-column: span 8;
+  }
+  @media (width > 1039px) {
+    grid-column: span 12;
+  }
+}
+
+/* ==========================================================================
+   Note Card Component
+   ========================================================================== */
+
+.note-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-primary, #fff);
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
+  transition: transform 0.2s ease,
+    box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.note-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+}
+
+/* Image Wrapper - positions authors on border */
+.note-card-image-wrapper {
+  position: relative;
+}
+
+.note-card-image-link {
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.note-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.note-card:hover .note-card-image {
+  transform: scale(1.05);
+}
+
+/* Note Card Authors - positioned on image/content border, right side */
+.note-card-authors {
+  position: absolute;
+  bottom: 0;
+  right: var(--spacing-3, 1rem);
+  transform: translateY(50%);
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.note-card-author {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--color-bg-primary, #fff);
+  margin-left: -10px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  background: var(--color-bg-primary, #fff);
+}
+
+.note-card-author:first-child {
+  margin-left: 0;
+}
+
+.note-card-author img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-avatar-small {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary, #000);
+  color: var(--color-fg-light, #fff);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.note-card-author-more {
+  margin-left: var(--spacing-1, 0.25rem);
+  padding: 0.25rem 0.5rem;
+  background: var(--color-bg-primary, #fff);
+  border-radius: 1rem;
+  color: var(--color-fg-muted, #666);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+}
+
+/* Content Area */
+.note-card-content {
+  padding: var(--spacing-3, 1rem);
+  padding-top: calc(
+    var(--spacing-3, 1rem) + 8px
+  ); /* Extra space for overlapping authors */
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.note-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2, 0.5rem);
+  align-items: center;
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
+.note-card-date {
+  color: var(--color-fg-muted, #666);
+}
+
+.note-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1, 0.25rem);
+}
+
+.note-card-tags .tag {
+  font-size: 0.75rem;
+  color: var(--color-primary, #000);
+  opacity: 0.7;
+}
+
+.note-card-title {
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
+.note-card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.note-card-title a:hover {
+  color: var(--color-primary, #000);
+}
+
+.note-card-subtitle {
+  color: var(--color-fg-muted, #666);
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
+.note-card-excerpt {
+  color: var(--color-fg-secondary, #444);
+  margin-bottom: var(--spacing-3, 1rem);
+  flex: 1;
+}
+
+/* Button is last element - using gs-c-btn secondary styling */
+.note-card-content .gs-c-btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* Featured Note Card */
+.note-card--featured {
+  box-shadow: 0 4px 16px rgb(0 0 0 / 12%);
+}
+
+.note-card-featured {
+  position: relative;
+}
+
+.note-card-featured .note-card-image-wrapper {
+  position: relative;
+}
+
+.note-card-featured .note-card-image-link {
+  aspect-ratio: 21 / 9;
+}
+
+.note-card-featured .note-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(0 0 0 / 70%) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Featured card authors - larger, positioned on right */
+.note-card-featured .note-card-authors {
+  bottom: 0;
+  right: var(--spacing-5, 2rem);
+}
+
+.note-card-featured .note-card-author {
+  width: 48px;
+  height: 48px;
+  border-width: 3px;
+}
+
+.note-card-featured .note-card-content {
+  position: relative;
+  color: var(--color-fg-primary, #000);
+  padding: var(--spacing-4, 1.5rem);
+  padding-top: calc(var(--spacing-4, 1.5rem) + 12px);
+}
+
+.note-card-featured .note-card-date {
+  color: var(--color-fg-muted, #666);
+}
+
+.note-card-featured .note-card-subtitle,
+.note-card-featured .note-card-excerpt {
+  color: var(--color-fg-secondary, #444);
+}
+
+.note-card-featured .note-card-title a {
+  color: var(--color-fg-primary, #000);
+}
+
+.note-card-featured .note-card-tags .tag {
+  color: var(--color-primary, #000);
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   Note Detail Page
+   ========================================================================== */
+
+.note-article {
+  padding-bottom: var(--spacing-7, 3rem);
+}
+
+/* Hero with Image */
+.note-hero {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: var(--spacing-5, 2rem);
+}
+
+.note-hero-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.note-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.note-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 80%) 0%,
+    rgb(0 0 0 / 20%) 50%,
+    transparent 100%
+  );
+}
+
+.note-hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: var(--spacing-5, 2rem) 0;
+}
+
+.note-hero-content .grid-item {
+  color: var(--color-fg-light, #fff);
+}
+
+.note-meta-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2, 0.5rem);
+  align-items: center;
+  margin-bottom: var(--spacing-3, 1rem);
+}
+
+.note-meta-hero .note-date {
+  color: rgb(255 255 255 / 90%);
+}
+
+.note-meta-hero .note-tags .tag {
+  color: rgb(255 255 255 / 80%);
+}
+
+.note-title {
+  color: var(--color-fg-light, #fff);
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
+.note-subtitle {
+  color: rgb(255 255 255 / 90%);
+}
+
+/* Header without Image */
+.note-header {
+  padding-top: var(--spacing-5, 2rem);
+  padding-bottom: var(--spacing-4, 1.5rem);
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  margin-bottom: var(--spacing-4, 1.5rem);
+}
+
+.note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2, 0.5rem);
+  align-items: center;
+  margin-bottom: var(--spacing-3, 1rem);
+}
+
+.note-date {
+  color: var(--color-fg-muted, #666);
+}
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1, 0.25rem);
+}
+
+.note-tags .tag {
+  color: var(--color-primary, #000);
+  opacity: 0.7;
+}
+
+/* Authors Section */
+.note-authors {
+  padding: var(--spacing-4, 1.5rem) 0;
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  margin-bottom: var(--spacing-4, 1.5rem);
+}
+
+.authors-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3, 1rem);
+}
+
+.author-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
+  padding: var(--spacing-2, 0.5rem);
+  border-radius: var(--radius-md, 8px);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease;
+}
+
+.author-card:hover {
+  background: var(--color-bg-secondary, #f5f5f5);
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary, #000);
+  color: var(--color-fg-light, #fff);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  color: var(--color-fg-primary, #000);
+}
+
+.author-role {
+  color: var(--color-fg-muted, #666);
+}
+
+/* Main Content */
+.note-content {
+  padding: var(--spacing-4, 1.5rem) 0;
+}
+
+.note-body .c-blog {
+  margin-bottom: var(--spacing-4, 1.5rem);
+}
+
+/* Sidebar */
+.note-sidebar {
+  padding-left: var(--spacing-4, 1.5rem);
+  border-left: 1px solid var(--color-border, #e0e0e0);
+}
+
+@media (max-width: 768px) {
+  .note-sidebar {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--color-border, #e0e0e0);
+    padding-top: var(--spacing-4, 1.5rem);
+    margin-top: var(--spacing-4, 1.5rem);
+  }
+}
+
+.sidebar-section {
+  margin-bottom: var(--spacing-4, 1.5rem);
+}
+
+.sidebar-title {
+  margin-bottom: var(--spacing-2, 0.5rem);
+  color: var(--color-fg-muted, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Share Buttons */
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2, 0.5rem);
+}
+
+.share-btn {
+  padding: var(--spacing-1, 0.25rem) var(--spacing-2, 0.5rem);
+  border-radius: var(--radius-sm, 4px);
+  font-size: 0.875rem;
+  text-decoration: none;
+  color: var(--color-fg-light, #fff);
+  transition: opacity 0.2s ease;
+}
+
+.share-btn:hover {
+  opacity: 0.8;
+}
+
+.share-facebook {
+  background: #1877f2;
+}
+
+.share-twitter {
+  background: #1da1f2;
+}
+
+.share-email {
+  background: var(--color-fg-muted, #666);
+}
+
+/* Sidebar Tags */
+.sidebar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1, 0.25rem);
+}
+
+.sidebar-tag {
+  padding: var(--spacing-1, 0.25rem) var(--spacing-2, 0.5rem);
+  background: var(--color-bg-secondary, #f5f5f5);
+  border-radius: var(--radius-sm, 4px);
+  font-size: 0.875rem;
+  color: var(--color-fg-secondary, #444);
+}
+
+/* Related Notes */
+.related-notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2, 0.5rem);
+}
+
+.related-note-link {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-2, 0.5rem);
+  border-radius: var(--radius-sm, 4px);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease;
+}
+
+.related-note-link:hover {
+  background: var(--color-bg-secondary, #f5f5f5);
+}
+
+.related-note-title {
+  color: var(--color-fg-primary, #000);
+  margin-bottom: var(--spacing-1, 0.25rem);
+}
+
+.related-note-date {
+  color: var(--color-fg-muted, #666);
+}
+
+/* Navigation */
+.note-navigation {
+  border-top: 1px solid var(--color-border, #e0e0e0);
+  padding-top: var(--spacing-4, 1.5rem);
+  margin-top: var(--spacing-4, 1.5rem);
+}
+
+.note-nav-links {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--spacing-4, 1.5rem);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .note-nav-links {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3, 1rem);
+  }
+}
+
+.note-nav-link {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-2, 0.5rem);
+  border-radius: var(--radius-md, 8px);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease;
+}
+
+.note-nav-link:hover {
+  background: var(--color-bg-secondary, #f5f5f5);
+}
+
+.note-nav-prev {
+  text-align: left;
+}
+
+.note-nav-next {
+  text-align: right;
+}
+
+.note-nav-all {
+  text-align: center;
+  background: var(--color-bg-secondary, #f5f5f5);
+}
+
+.note-nav-placeholder {
+  visibility: hidden;
+}
+
+.nav-label {
+  color: var(--color-fg-muted, #666);
+  margin-bottom: var(--spacing-1, 0.25rem);
+}
+
+.nav-title {
+  color: var(--color-fg-primary, #000);
+}

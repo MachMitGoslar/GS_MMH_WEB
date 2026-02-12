@@ -2,11 +2,14 @@ type: structure
 min: 1
 fields:
   link:
+    label: Link
     type: link
   linkText:
+      label: Text
       type: text
   target:
     type: toggle
-    text: Open in new window?
+    label: In neuem Fenster öffnen?
+    text: In neuem Fenster öffnen?
   classnames:
       type: text
