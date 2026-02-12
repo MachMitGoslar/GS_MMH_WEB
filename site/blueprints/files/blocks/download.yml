@@ -1,0 +1,15 @@
+name: download
+label: Datei Download
+fields:
+  title:
+    label: Beschreibung
+    type: text
+    required: true
+  text:
+    label: Beschreibung
+    type: text
+    required: true
+  file:
+    label: Datei auswählen
+    type: files
+    required: true
