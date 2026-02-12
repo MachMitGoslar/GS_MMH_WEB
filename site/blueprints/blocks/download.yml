@@ -13,4 +13,4 @@ fields:
     label: Datei auswählen
     type: files
     required: true
-    help: "Die Datei, die heruntergeladen wird"
+    help: "Stelle eine Datei bereit"
