@@ -1,11 +1,11 @@
 .c-downloadBlock {
   display: flex;
-  align-items: flex-start; /* Icon oben ausrichten */
+  align-items: flex-start;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-dead-pixel-300);
   border-radius: 0.5rem;
-  background-color: #fff;
+  background-color: var(--color-dead-pixel-10);
   box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
   cursor: pointer;
   text-decoration: none;
@@ -14,7 +14,7 @@
 }
 
 .c-downloadBlock:hover {
-  background-color: #f9fafb;
+  background-color: var(--color-dead-pixel-100);
   box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 }
 
@@ -22,7 +22,7 @@
 .c-downloadBlock__icon svg {
   width: 2rem;
   height: 2rem;
-  color: #000; /* schwarz */
+  color: var(--color-dead-pixel-1500);
 }
 
 /* Textbereich */
@@ -39,8 +39,21 @@
 
 /* Beschreibung = schwarz */
 .c-downloadBlock__description {
-  color: #000;
+  color: var(--color-dead-pixel-1500);
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.4;
+}
+
+.c-downloadBlock__size {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--color-dead-pixel-1000);
+}
+
+.c-downloadBlock__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
 }
