@@ -13,11 +13,11 @@ database:
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []
-web_extra_exposed_ports:
-- name: xdebug
-  container_port: 9003
-  http_port: 9002
-  https_port: 9004
+# web_extra_exposed_ports:
+# - name: xdebug
+#   container_port: 9003
+#   http_port: 9002
+#   https_port: 9004
 webimage_extra_packages: [php8.4-gd]
 corepack_enable: false
 disable_host_ssh_agent: true
