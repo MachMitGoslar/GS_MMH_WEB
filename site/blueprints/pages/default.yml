@@ -59,6 +59,7 @@ columns:
               - timeline
               - form 
               - gallery
+              - download
 
   sidebar:
     width: 1/3

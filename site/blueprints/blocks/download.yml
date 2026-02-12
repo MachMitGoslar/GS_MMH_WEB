@@ -2,14 +2,15 @@ name: download
 label: Datei Download
 fields:
   title:
-    label: Beschreibung
+    label: Titel
     type: text
     required: true
   text:
     label: Beschreibung
-    type: text
-    required: true
+    type: textarea
+    required: false
   file:
     label: Datei auswählen
     type: files
     required: true
+    help: "Die Datei, die heruntergeladen wird"
