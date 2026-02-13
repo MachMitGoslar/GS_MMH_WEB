@@ -1,0 +1,98 @@
+name: Bug melden
+description: Einen Fehler auf der MachMit!Haus Webseite melden
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke, dass du dir die Zeit nimmst, einen Fehler zu melden!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: Was ist passiert?
+      placeholder: Beschreibe den Fehler so genau wie moeglich.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Erwartetes Verhalten
+      description: Was haettest du stattdessen erwartet?
+      placeholder: Beschreibe, was eigentlich passieren sollte.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zum Reproduzieren
+      description: Wie kann der Fehler nachgestellt werden?
+      placeholder: |
+        1. Gehe zu '...'
+        2. Klicke auf '...'
+        3. Scrolle nach unten zu '...'
+        4. Fehler erscheint
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Falls moeglich, fuege Screenshots hinzu.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: Geraet
+      options:
+        - Desktop
+        - Tablet
+        - Smartphone
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Andere
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Bereich der Webseite
+      description: Welcher Teil der Seite ist betroffen?
+      options:
+        - Startseite
+        - Projekte
+        - Raeume / Buchung
+        - Newsletter
+        - Veranstaltungen
+        - Team
+        - Blog / Notizen
+        - Panel (Verwaltung)
+        - Andere
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Zusaetzlicher Kontext
+      description: Gibt es weitere Informationen, die hilfreich sein koennten?
+    validations:
+      required: false
