@@ -1,0 +1,83 @@
+name: Feature vorschlagen
+description: Eine neue Funktion oder Verbesserung vorschlagen
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke fuer deinen Vorschlag! Jede Idee hilft, das MachMit!Haus Webprojekt besser zu machen.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Motivation
+      description: Welches Problem soll geloest werden oder was fehlt aktuell?
+      placeholder: Beschreibe, warum dieses Feature hilfreich waere.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Gewuenschte Loesung
+      description: Wie stellst du dir die Funktion vor?
+      placeholder: Beschreibe, wie es funktionieren koennte.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativen
+      description: Hast du andere Loesungswege in Betracht gezogen?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Bereich
+      description: Welcher Teil der Seite waere betroffen?
+      options:
+        - Startseite
+        - Projekte
+        - Raeume / Buchung
+        - Newsletter
+        - Veranstaltungen
+        - Team
+        - Blog / Notizen
+        - Panel (Verwaltung)
+        - Design / Layout
+        - Performance
+        - Andere
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Wichtigkeit
+      description: Wie wichtig ist dieses Feature fuer dich?
+      options:
+        - Nice to have
+        - Wuerde den Alltag erleichtern
+        - Wird dringend benoetigt
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Skizzen / Screenshots
+      description: Falls vorhanden, fuege Mockups, Skizzen oder Referenzbeispiele hinzu.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Zusaetzlicher Kontext
+      description: Gibt es weitere Informationen zu diesem Vorschlag?
+    validations:
+      required: false
