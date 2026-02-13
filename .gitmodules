@@ -2,9 +2,6 @@
 	path = kirby
 	url = https://github.com/getkirby/kirby.git
 	branch = release/5.2.1
-[submodule "content"]
-	path = content
-	url = https://github.com/MachMitGoslar/web_content
 [submodule "site/plugins/gs-mmh-web-plugin"]
 	path = site/plugins/gs-mmh-web-plugin
 	url = https://github.com/MachMitGoslar/GS_MMH_WEB_PLUGIN
