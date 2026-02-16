@@ -32,4 +32,5 @@ return [
 
     // Load custom hooks
     'hooks' => require __DIR__ . '/hooks.php',
+
 ];

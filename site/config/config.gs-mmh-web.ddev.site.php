@@ -27,4 +27,47 @@ return [
             'credentials' => __DIR__ . '/../../storage/calendar_key.json',
         ],
     ],
+    'email' => [
+        'transport' => [
+            'type' => 'smtp',
+            'host' => 'localhost',   // SMTP-Host im Container
+            'port' => 1025,           // SMTP-Port
+            'security' => false,
+            'auth' => false,
+            'username' => 'noreply@gs-mmh-web.ddev.site',
+            'password' => 'Passwort123!',
+        ],
+        'from' => 'noreply@gs-mmh-web.ddev.site',
+    ],
+    // Settings for the DreamForm plugin
+    'tobimori.dreamform' => [
+        'storeSubmissions' => true,
+        'log' => true,
+        'email' => [
+            'from' => 'noreply@gs-mmh-web.ddev.site',
+            'name' => "MachMit!Haus",
+        ],
+        'guards' => [
+            // activated guards
+            'available' => [
+                'honeypot',
+                'ratelimit',
+            ],
+
+            // Honeypot settings
+            'honeypot.availableFields' => [
+                'website',
+                'email',
+                'name',
+                'url',
+                'birthdate',
+            ],
+
+            // RateLimit settings
+            'ratelimit' => [
+                'limit' => 10,   // maximum of 10 requests
+                'interval' => 3,  // in 3 minutes
+            ],
+        ],
+    ],
 ];

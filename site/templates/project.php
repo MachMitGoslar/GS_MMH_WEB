@@ -37,8 +37,14 @@
 
         <?php endforeach ?>
         </div>
+        <section>
+            <?php snippet('dreamform/forms', ['page' => $page]) ?>
+        </section>
     </div>
-    <?php if ($page->project_steps()->isNotEmpty()) : ?>
+
+
+
+      <?php if ($page->project_steps()->isNotEmpty()) : ?>
     <div id="timeline" class="grid-item" data-span="1/3">
         <?php snippet(name: "content-types/projects/projectTimeline", data: ['project_steps' => $page->project_steps()]) ?>
     </div>
