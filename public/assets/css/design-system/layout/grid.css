@@ -1,164 +1,119 @@
 :root {
 }
 
+/* ------------------------------------
+   GRID CONTAINER
+------------------------------------ */
+
 .grid {
   --grid-colums-count: 1;
   --grid-gap: 1rem;
 
   display: grid;
-  grid-template-columns: repeat(var(--grid-colums-count), 1fr);
+  grid-template-columns: repeat(var(--grid-colums-count), minmax(0, 1fr));
   gap: var(--grid-gap);
-  @media (width > 767px) {
-    --grid-gap: 1rem;
+}
+
+/* Breakpoints steuern nur die Anzahl der Gesamtspalten */
+
+@media (min-width: 768px) {
+  .grid {
     --grid-colums-count: 8;
   }
-  @media (width > 1039px) {
+}
+
+@media (min-width: 1040px) {
+  .grid {
     --grid-colums-count: 12;
   }
-  @media (width > 1439px) {
+}
+
+@media (min-width: 1440px) {
+  .grid {
     --grid-colums-count: 12;
     --grid-gap: 2rem;
   }
 }
 
+/* ------------------------------------
+   GRID ITEMS = KIRBY COLUMNS
+   (Nur Breite definieren – KEINE Position!)
+------------------------------------ */
+
+/* Mobile: alles untereinander */
 .grid-item {
-  &[data-span='1/1'] {
-    --span: 1;
+  grid-column: span 1;
+}
 
-    grid-column: span var(--span);
+/* Inhalte innerhalb einer Spalte sauber stapeln */
+.grid-item {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
 
-    @media (width > 767px) {
-      --span: 8;
-    }
-    @media (width > 1039px) {
-      --span: 12;
-    }
-    @media (width > 1439px) {
-      --span: 12;
-    }
+/* ------------------------------------
+   TABLET (8-Spalten-System)
+------------------------------------ */
+
+@media (min-width: 768px) {
+  .grid-item[data-span='1/1'] {
+    grid-column: span 8;
   }
 
-  &[data-span='1/2'] {
-    --span: 2;
-
-    grid-column: span var(--span);
-
-    @media (width > 767px) {
-      --span: 4;
-    }
-    @media (width > 1039px) {
-      --span: 6;
-    }
-    @media (width > 1439px) {
-      --span: 6;
-    }
-  }
-
-  &[data-span='1/2'][data-position='center'] {
-    --start: 1;
-    --span: 1;
-
-    grid-column: var(--start) / span var(--span);
-
-    @media (width > 767px) {
-      --span: 4;
-    }
-    @media (width > 1039px) {
-      --start: 4;
-      --span: 6;
-    }
-    @media (width > 1439px) {
-      --start: 4;
-      --span: 6;
-    }
-  }
-
-  &[data-span='2/3'] {
-    --start: 1;
-    --span: 1;
-
-    grid-column: var(--start) / span var(--span);
-
-    @media (width > 767px) {
-      --span: 8;
-    }
-    @media (width > 1039px) {
-      --start: 1;
-      --span: 7;
-    }
-    @media (width > 1439px) {
-      --start: 1;
-      --span: 7;
-    }
-  }
-
-  &[data-span='1/3'] {
-    --start: 1;
-    --span: 3;
-
+  .grid-item[data-span='1/2'] {
     grid-column: span 4;
-    @media (width > 489px) {
-      --span: 1;
-    }
-    @media (width > 767px) {
-      --span: 8;
-    }
-    @media (width > 1039px) {
-      --start: 8;
-      --span: 5;
-    }
-    @media (width > 1439px) {
-      --start: 8;
-      --span: 5;
-    }
   }
 
-  &[data-span='1/4'] {
-    --start: 1;
-    --span: 1;
-
-    grid-column: span var(--span);
-
-    @media (width > 489px) {
-      --span: 2;
-    }
-
-    @media (width > 767px) {
-      --span: 4;
-    }
-
-    @media (width > 1039px) {
-      --span: 3;
-    }
-
-    @media (width > 1439px) {
-      --span: 3;
-    }
+  .grid-item[data-span='1/3'] {
+    grid-column: span 8;
+  } /* stacked for readability */
+  .grid-item[data-span='2/3'] {
+    grid-column: span 8;
   }
 
-  &[data-span='3/4'] {
-    --start: 1;
-    --span: 1;
+  .grid-item[data-span='1/4'] {
+    grid-column: span 4;
+  }
 
-    grid-column: span var(--span);
-
-    @media (width > 489px) {
-      --span: 2;
-    }
-
-    @media (width > 767px) {
-      --span: 4;
-    }
-
-    @media (width > 1039px) {
-      --span: 9;
-    }
-
-    @media (width > 1439px) {
-      --span: 9;
-    }
+  .grid-item[data-span='3/4'] {
+    grid-column: span 8;
   }
 }
+
+/* ------------------------------------
+   DESKTOP (12-Spalten-System)
+------------------------------------ */
+
+@media (min-width: 1040px) {
+  .grid-item[data-span='1/1'] {
+    grid-column: span 12;
+  }
+
+  .grid-item[data-span='1/2'] {
+    grid-column: span 6;
+  }
+
+  .grid-item[data-span='1/3'] {
+    grid-column: span 4;
+  }
+
+  .grid-item[data-span='2/3'] {
+    grid-column: span 8;
+  }
+
+  .grid-item[data-span='1/4'] {
+    grid-column: span 3;
+  }
+
+  .grid-item[data-span='3/4'] {
+    grid-column: span 9;
+  }
+}
+
+/* ------------------------------------
+   OPTIONAL HELPERS (falls genutzt)
+------------------------------------ */
 
 .grid-item-span1 {
   grid-column: span 1;
@@ -184,12 +139,19 @@
   grid-column: span 6;
 }
 
+/* ------------------------------------
+   DEBUG (optional entfernen)
+------------------------------------ */
+
 .test-column {
   display: block;
   width: 100%;
   height: 20rem;
   background: red;
-  @media (width > 767px) {
+}
+
+@media (min-width: 768px) {
+  .test-column {
     height: 100vh;
   }
 }
