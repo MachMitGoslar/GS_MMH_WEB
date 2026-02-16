@@ -378,6 +378,7 @@
     var(--color-ripe-mango-600) 100%
   );
   transform: translateX(-50%);
+  z-index: 0;
 
   @media (width < 1024px) {
     width: 2px;
