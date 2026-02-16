@@ -318,7 +318,7 @@
   }
 
   .timeline-container--constrained .timeline-connector {
-    left: 16px;
+    top: 0;
   }
 
   .timeline-container--constrained .timeline-image {
