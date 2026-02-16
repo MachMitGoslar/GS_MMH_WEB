@@ -7,8 +7,8 @@
  * the MachMit!Haus website functionality.
  */
 
-use Kirby\Cms\Site;
 use Kirby\Cms\Pages;
+use Kirby\Cms\Site;
 
 /**
  * Get the color class name for a project status
