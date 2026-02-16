@@ -255,7 +255,6 @@
 
 .timeline-container--constrained .timeline-connector {
   position: absolute;
-  left: 32px;
   top: var(--size-4);
   width: 16px;
   height: 16px;
@@ -319,7 +318,7 @@
   }
 
   .timeline-container--constrained .timeline-connector {
-    left: 16px;
+    top: 0;
   }
 
   .timeline-container--constrained .timeline-image {
