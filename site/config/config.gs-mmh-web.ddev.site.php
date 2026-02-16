@@ -32,8 +32,8 @@ return [
             'type' => 'smtp',
             'host' => 'localhost',   // SMTP-Host im Container
             'port' => 1025,           // SMTP-Port
-            'security' => false,       // TLS nicht nötig bei Mailpit
-            'auth' => false,            // Auth aktivieren
+            'security' => false,
+            'auth' => false,
             'username' => 'noreply@gs-mmh-web.ddev.site',
             'password' => 'Passwort123!',
         ],
