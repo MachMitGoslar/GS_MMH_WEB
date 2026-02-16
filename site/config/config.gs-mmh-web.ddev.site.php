@@ -27,4 +27,16 @@ return [
             'credentials' => __DIR__ . '/../../storage/calendar_key.json',
         ],
     ],
+    'email' => [
+        'transport' => [
+            'type' => 'smtp',
+            'host' => 'localhost',   // SMTP-Host im Container
+            'port' => 1025,           // SMTP-Port
+            'security' => false,       // TLS nicht nötig bei Mailpit
+            'auth' => false,            // Auth aktivieren
+            'username' => 'noreply@gs-mmh-web.ddev.site',
+            'password' => 'Passwort123!',
+        ],
+        'from' => 'noreply@gs-mmh-web.ddev.site',
+    ],
 ];

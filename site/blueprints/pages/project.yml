@@ -57,13 +57,8 @@ columns:
           - card
           - testimonial
           - cta
-      form:
-        label: Formular
-        type: page
-        template: form
-        help: Wähle hier das Formular, das am Ende angezeigt werden soll
-        required: false
 
+      form: dreamform/fields/form
 
       team:
         type: pages
