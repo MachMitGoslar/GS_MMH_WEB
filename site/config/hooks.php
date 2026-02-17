@@ -164,4 +164,25 @@ return [
             }
         }
     },
+    'dreamform.submitted:after' => function ($submission, $form) {
+
+        // The page under which DreamForm stores submissions (adjust as needed!)
+        $parent = page('forms');
+
+        if (! $parent) {
+            return;
+        }
+
+        // DreamForm creates the latest entry as a Draft
+        $entry = $parent->drafts()->sortBy('created', 'desc')->first();
+
+        if (! $entry) {
+            return;
+        }
+
+        // Set the status directly
+        $entry->changeStatus('unlisted');
+
+    },
+
 ];
