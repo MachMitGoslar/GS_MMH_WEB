@@ -1,0 +1,44 @@
+/* -----------------------------------
+   Two Column Table (Reusable Block)
+----------------------------------- */
+
+.two-column-table {
+  width: 100%;
+}
+
+.two-column-table table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Grundzellen */
+.two-column-table td {
+  padding: 0.75rem 0;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-dead-pixel-300);
+}
+
+/* Zebra-Streifen: jede gerade Zeile */
+.two-column-table tr:nth-child(even) {
+  background-color: var(--color-dead-pixel-100);
+}
+
+/* Erste Spalte (z. B. Wochentage) */
+.two-column-table .col1 {
+  width: 40%;
+  font-weight: 500;
+  color: var(--color-dead-pixel-1300);
+  padding-right: 1rem;
+}
+
+/* Zweite Spalte (z. B. Zeiten) */
+.two-column-table .col2 {
+  width: 60%;
+  color: var(--color-dead-pixel-1100);
+}
+
+/* Hover für bessere Lesbarkeit */
+.two-column-table tr:hover {
+  background-color: var(--color-dead-pixel-200);
+}
