@@ -1,0 +1,51 @@
+// Entry View
+{
+  "title": "Meldungen",
+  "description": "Hier findest du alle wichtigen Meldungen",
+  "image_url": "http://external.com/image-1.jpg",
+  "call_to_action_url": "http://external.com/index-data.json",
+  "published_at": "2024-12-05T13:45",
+  "widget_type": null
+}
+
+Optionales Attribut: widget_type
+Das Config JSON kann optional ein widget_type-Attribut enthalten, um den Widget-Typ explizit zu setzen.
+Erlaubte Werte: ["construction_sites", "events", "news", "sue", "surveys", "waste", "weather"]
+
+// Index Views
+[
+  {
+    "id": 1,
+    "title": "Meldung 1",
+    "description": "Dies ist eine Beschreibung",
+    "image_url": "http://external.com/image-url.jpg",
+    "call_to_action_url": "http://external.com/webview-url-1",
+    "published_at": "2024-12-05T13:45"
+  },
+  {
+    "id": 2,
+    "title": "Meldung 2",
+    "description": "Dies ist eine Beschreibung",
+    "image_url": "http://external.com/image-url.jpg",
+    "call_to_action_url": "http://external.com/webview-url-2",
+    "published_at": "2025-01-01T13:45"
+  }
+]
+
+// Detail View
+{
+  "id": 2,
+  "title": "Meldung 2",
+  "summary": "Zusammenfassung",
+  "description": "<p>Dies ist eine <strong>Beschreibung</strong></p>",
+  "images": [
+    {
+      "url": "http://external.com/image-url-1.jpg"
+    },
+    {
+      "url": "http://external.com/image-url-2.jpg"
+    }
+  ],
+  "call_to_action_url": "http://external.com/webview-url-2",
+  "published_at": "2024-12-05T13:45"
+}
