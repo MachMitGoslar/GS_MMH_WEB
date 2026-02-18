@@ -81,3 +81,25 @@ vendor/
 
 .env
 figma-tokens.json
+
+# ===============================
+# DreamForm: Ignore submissions only
+# ===============================
+
+# firstly: allow everything in forms
+/content/forms/**
+
+# but ignore all subdirectories (submissions)
+/content/forms/*/*/
+
+# ignore also the content of those subdirectories
+/content/forms/*/*/**
+
+# allow important files in forms
+!/content/forms/*/form.txt
+!/content/forms/*/forms.txt
+!/content/forms/*/*.yml
+!/content/forms/*/*.yaml
+!/content/forms/*/*.php
+!/content/forms/*/*.md
+
