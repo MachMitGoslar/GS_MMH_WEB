@@ -5,13 +5,13 @@
  */
 ?>
 
-<?php snippet('general/head'); ?>
-<?php snippet('general/header'); ?>
+<?php snippet('layout/head'); ?>
+<?php snippet('layout/header'); ?>
 
 <main class="main">
 
     <div class="mb-4">
-        <?=snippet('components/hero')?>
+        <?=snippet('sections/hero')?>
     </div>
 
     <section class="grid content mb-7">
@@ -28,7 +28,7 @@
             <h2 class="font-title mb-3">Termine</h2>
             <ul class="grid mb-4">
                 <?php foreach ($events as $event) : ?>
-                    <?php snippet('components/events/eventsListItem', compact('event')) ?>
+                    <?php snippet('content-types/events/eventsListItem', compact('event')) ?>
                 <?php endforeach ?>
             </ul>
             <?php // Pagination?>
@@ -46,5 +46,5 @@
     </section>
 </main>
 
-<?php snippet('general/footer'); ?>
-<?php snippet('general/foot'); ?>
+<?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>
