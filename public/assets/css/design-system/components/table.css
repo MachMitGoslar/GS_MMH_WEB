@@ -19,16 +19,8 @@
   background-color: var(--color-dead-pixel-100);
 }
 
-/* first column */
-.two-column-table .col1 {
-  width: 40%;
-  font-weight: 500;
+/* columns */
+.two-column-table {
+  width: 100%;
   color: var(--color-dead-pixel-1300);
-  padding-right: 1rem;
-}
-
-/* second column  */
-.two-column-table .col2 {
-  width: 60%;
-  color: var(--color-dead-pixel-1100);
 }
