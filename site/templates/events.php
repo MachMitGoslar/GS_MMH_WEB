@@ -4,7 +4,7 @@
  * @var Kirby\Cms\Page $page
  */
 
-$keyword = get('keyword');
+$keyword = get('keyword') ?: '';
 ?>
 
 <?php snippet('layout/head'); ?>
