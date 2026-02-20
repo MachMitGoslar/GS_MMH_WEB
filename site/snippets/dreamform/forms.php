@@ -48,6 +48,7 @@ $formPage = $page->form()->toPage();
                                     'input' => ['class' => 'dreamform-radio'],
                             ],
                             'checkbox' => [
+                                    'input' => ['class' => ''],
                                     'row' => ['class' => 'dreamform-checkbox'],
                             ],
 
