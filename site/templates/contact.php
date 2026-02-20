@@ -8,11 +8,6 @@
 ?>
 <?php snippet('layout/head', slots: true); ?>
 
-<?php slot('head') ?>
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
-<?php endslot() ?>
-
 <?php endsnippet() ?>
 <?php snippet('layout/header'); ?>
 
@@ -35,34 +30,21 @@
     </section>
 
     <!-- Contact + Map -->
-    <section class="grid content mb-7">
-        <div class="grid-item" data-span="1/3">
-            <div class="contact-info mb-4">
-                <h3 class="font-headline mb-3">Ihr Kontakt zu uns</h3>
+    <?= snippet('sections/contact-map', [
+            'title' => 'Ihr Kontakt zu uns',
+            'email' => $page->email(),
+            'website' => $page->website(),
+            'phone' => $page->phone(),
+            'social' => $page->social(),
+            'addressLabel' => $page->address()->kt(),
+            'lat' => $page->lat()->value(),
+            'lng' => $page->lng()->value(),
+            'mapboxToken' => $page->mapbox_token(),
+    ]) ?>
 
-                <div class="contact-item font-body mb-2">
-                    📧 <a href="mailto:machmit@goslar.de">machmit@goslar.de</a>
-                </div>
-                <div class="contact-item font-body mb-2">
-                    🌐 <a href="https://machmit.goslar.de">machmit.goslar.de</a>
-                </div>
-                <div class="contact-item font-body mb-2">
-                    📞 <a href="tel:05321704525">05321 704 525</a>
-                </div>
-            </div>
 
-            <p class="social-info">
-                Folgen Sie uns: <strong>@machmitgoslar</strong>
-            </p>
-        </div>
 
-        <div class="grid-item" data-span="1/2">
-            <div id="map" class="mb-2"></div>
-            <p class="font-footnote">Markt 7, 38640 Goslar</p>
-        </div>
-    </section>
-
-    <!-- 🔽 Flexible Blocks (wie Project) -->
+    <!-- 🔽 Flexible Blocks -->
     <div class="designer">
         <?php foreach ($page->text()->toLayouts() as $layout) : ?>
             <div class="grid content">
