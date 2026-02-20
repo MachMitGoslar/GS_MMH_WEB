@@ -1,28 +1,49 @@
 <?php
 
-// Alle Newsletter
-$newsletters = page('newsletter')->children()->listed();
+function latestUpdateAll()
+{
+    $newsletters = page('newsletter')
+        ?->children()
+        ->listed() ?? pages();
 
-// Alle Projektupdate-Steps
-$projektSteps = page('1_projects')->children()
-    ->map(function ($project) {
-        return $project->children()->listed(); // Steps
-    })->flatten();
+    $projektSteps = page('1_projects')
+        ?->children()
+        ->map(fn ($p) => $p->children()->listed())
+        ->flatten() ?? pages();
 
-// Alle Updates in einer Collection zusammenführen
-$alleUpdates = $newsletters->merge($projektSteps);
+    return $newsletters->merge($projektSteps);
+}
 
-// Sortieren nach Datum
-$alleUpdates = $alleUpdates->sort(function ($a, $b) {
-    // Datum je nach Typ ermitteln
-    $dateA = $a->published_at()->or($a->project_start_date())->toDate();
-    $dateB = $b->published_at()->or($b->project_start_date())->toDate();
+function latestUpdateTimestamp($p): int
+{
+    if ($p->publish_date()->isNotEmpty()) {
+        return $p->publish_date()->toTimestamp();
+    }
 
-    return $dateB <=> $dateA; // absteigend
-});
+    if (method_exists($p, 'published') && $p->published()) {
+        return $p->published()->toTimestamp();
+    }
 
-// Neuestes Update
-$neuestesUpdate = $alleUpdates->first();
+    if ($p->project_start_time()->isNotEmpty()) {
+        return $p->project_start_time()->toTimestamp();
+    }
 
-// Ausgabe prüfen
-echo $neuestesUpdate->title() . ' - ' . ($neuestesUpdate->published_at()->isNotEmpty() ? $neuestesUpdate->published_at()->toDate('Y-m-d') : $neuestesUpdate->project_start_date()->toDate('Y-m-d'));
+    if ($p->modified()) {
+        return $p->modified();
+    }
+
+    return -intval($p->num());
+}
+
+function latestUpdate()
+{
+    $all = latestUpdateAll();
+
+    if ($all->isEmpty()) {
+        return null;
+    }
+
+    return $all
+        ->sortBy(fn ($p) => latestUpdateTimestamp($p), 'desc')
+        ->first();
+}

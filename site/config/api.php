@@ -4,6 +4,7 @@
  * Custom API Routes
  * These routes have higher priority and won't be intercepted by plugins
  */
+require_once __DIR__ . '/../controllers/latest-update.php';
 
 return [
     'routes' => [
@@ -30,6 +31,59 @@ return [
             },
         ],
         /**
+         * Create Newsletter Image
+         */
+        [
+            'pattern' => 'newsletter-cover/(:any).svg',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function ($slug) {
+
+                if (! $page = page('newsletter/' . $slug)) {
+                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+                }
+
+                $title = $page->title()->value();
+                $logo = url('assets/svg/RZ-RGB_MM!2_iv.svg');
+
+                $svg = <<<SVG
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+                      <defs>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" style="stop-color:#5d4e37;stop-opacity:1" />
+                          <stop offset="50%" style="stop-color:#6b5b47;stop-opacity:1" />
+                          <stop offset="100%" style="stop-color:#4a3c28;stop-opacity:1" />
+                        </linearGradient>
+                      </defs>
+                    
+                      <!-- Hintergrund mit Farbverlauf -->
+                      <rect width="100%" height="100%" fill="url(#grad)" />
+                    
+                      <!-- Logo -->
+                      <image href="{$logo}" x="80" y="80" width="220" />
+                    
+                      <!-- Text -->
+                      <text x="80" y="320"
+                            font-family="Arial, sans-serif"
+                            font-size="72"
+                            font-weight="700"
+                            fill="#ffffff">
+                            Newsletter
+                      </text>
+                    
+                      <text x="80" y="420"
+                            font-family="Arial, sans-serif"
+                            font-size="48"
+                            fill="#ffffff">
+                            {$title}
+                      </text>
+                    </svg>
+                    SVG;
+
+                return new Kirby\Cms\Response($svg, 'image/svg+xml');
+            },
+        ],
+        /**
          * Latest Update for Goslar App Kachel
          */
         [
@@ -38,68 +92,35 @@ return [
             'auth' => false,
             'action' => function () {
 
-                // Newsletter
-                $newsletters = page('newsletter')
-                    ?->children()
-                    ->listed() ?? pages();
+                $update = latestUpdate();
 
-                // Projekte (alle Steps)
-                $projektSteps = page('1_projects')
-                    ?->children()
-                    ->map(fn ($p) => $p->children()->listed())
-                    ->flatten() ?? pages();
-
-                // Zusammenführen
-                $alleUpdates = $newsletters->merge($projektSteps);
-
-                if ($alleUpdates->isEmpty()) {
+                if (! $update) {
                     return [
                         'status' => 'error',
                         'message' => 'Keine Updates gefunden',
-                        'code' => 404,
                     ];
                 }
 
-                /**
-                 * 🔑 Zentrale Datumslogik – IDENTISCH zu deinem Frontend
-                 */
-                $sortTimestamp = function ($p) {
+                // Datum bestimmen
+                $timestamp = latestUpdateTimestamp($update);
 
-                    // Newsletter-Felder
-                    if ($p->publish_date()->isNotEmpty()) {
-                        return $p->publish_date()->toTimestamp();
-                    }
-
-                    if (method_exists($p, 'published') && $p->published()) {
-                        return $p->published()->toTimestamp();
-                    }
-
-                    // Projekt-Feld
-                    if ($p->project_start_date()->isNotEmpty()) {
-                        return $p->project_start_date()->toTimestamp();
-                    }
-
-                    // Fallback: Modified-Date
-                    if ($p->modified()) {
-                        return $p->modified();
-                    }
-
-                    // Letzter Fallback: Panel-Sortierung
-                    return -intval($p->num());
-                };
-
-                $neuestesUpdate = $alleUpdates
-                    ->sortBy($sortTimestamp, 'desc')
-                    ->first();
+                // Bild je nach Typ
+                $image_url = $update->intendedTemplate()->name() === 'newsletter'
+                    ? url('api/newsletter-cover/' . $update->slug() . '.svg')
+                    : $update->project_image()->toFile()?->url();
 
                 return [
-                    'title' => $neuestesUpdate->title()->value(),
-                    'type' => $neuestesUpdate->intendedTemplate()->name(),
-                    'date' => date('Y-m-d', $sortTimestamp($neuestesUpdate)),
-                    'url' => $neuestesUpdate->url(),
+                    'title' => $update->title()->value(),
+                    'description' => $update->description()->isNotEmpty()
+                        ? $update->description()->value()
+                        : $update->text()->excerpt(160)->value(),
+                    'image_url' => $image_url,
+                    'call_to_action_url' => $update->url(),
+                    'published_at' => date('Y-m-d\TH:i', $timestamp),
+                    'widget_type' => null,
                 ];
             },
         ],
-    ],
+        ],
 
 ];
