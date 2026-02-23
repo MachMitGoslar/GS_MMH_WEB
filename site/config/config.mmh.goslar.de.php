@@ -13,10 +13,10 @@ return [
         'install' => false,
     ],
     'db' => [
-        'host' => 'localhost',
-        'database' => 'admin_mmh',
-        'user' => 'admin_mmh',
-        'password' => '147bwl4_Q',
+        'host' => getenv('MMH_DB_Host') ?: 'localhost',
+        'database' => getenv('MMH_DB_Database') ?: 'admin_mmh',
+        'user' => getenv('MMH_DB_User') ?: 'admin_mmh',
+        'password' => getenv('MMH_DB_Password') ?: '147bwl4_Q',
     ],
     'thumbs' => [
         'driver' => 'im',
