@@ -146,7 +146,6 @@
 
 .dreamform-checkbox input[type='checkbox'] {
   appearance: none;
-  appearance: none;
   width: 1.25rem;
   height: 1.25rem;
   display: inline-flex;
@@ -216,66 +215,6 @@
 .dreamform .dreamform-checkbox,
 .dreamform .dreamform-radio {
   padding: var(--size-2) 0;
-}
-
-/* ==========================================
-   BUTTONS
-   ========================================== */
-
-.dreamform-button,
-.dreamform-submit {
-  /* Background */
-  --_background: var(--color-ripe-mango-700);
-
-  /* Foreground */
-  --_foreground: var(--color-ripe-mango-1400);
-
-  /* Border */
-  --_border-width: 1px;
-  --_border: var(--_border-width) solid rgb(0 0 0 / 0%);
-  --_border-radius: var(--border-radius-pill);
-
-  /* Font */
-  --_font-size: 0.875rem;
-  --_font-weight: 600;
-
-  /* Padding */
-  --_padding-horizontal: 1rem;
-  --_padding-vertical: 0.5rem;
-  --_height: 2.25rem;
-
-  text-align: center;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: var(--_background);
-  color: var(--_foreground);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  padding: var(--_padding-vertical) var(--_padding-horizontal);
-  font-size: var(--_font-size);
-  font-weight: var(--_font-weight);
-  height: var(--_height);
-
-  &:hover {
-    --_background: var(--color-ripe-mango-300);
-    --_foreground: var(--color-ripe-mango-1200);
-  }
-
-  &:focus {
-    --_background: var(--color-ripe-mango-200);
-    --_foreground: var(--color-ripe-mango-700);
-  }
-
-  &.disabled,
-  &[disabled] {
-    --_background: var(--color-dead-pixel-25);
-    --_foreground: var(--color-dead-pixel-400);
-
-    pointer-events: none;
-  }
 }
 
 /* Secondary button variant */
