@@ -11,7 +11,7 @@ return [
         'install' => true,
     ],
     'db' => [
-        'host' => 'db',
+        'host' => 'db:3306',
         'database' => 'db',
         'user' => 'db',
         'password' => 'db',
