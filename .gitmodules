@@ -8,9 +8,6 @@
 [submodule "site/plugins/gs-mmh-web-plugin"]
 	path = site/plugins/gs-mmh-web-plugin
 	url = https://github.com/MachMitGoslar/GS_MMH_WEB_PLUGIN
-[submodule "site/plugins/gs-mmh-signage-plugin"]
-	path = site/plugins/gs-mmh-signage-plugin
-	url = https://github.com/MachMitGoslar/GS_MMH_SIGNAGE_PLUGIN
 [submodule "site/plugins/git-content"]
 	path = site/plugins/git-content
 	url = https://github.com/thathoff/kirby-git-content.git
