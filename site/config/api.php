@@ -92,48 +92,93 @@ return [
             'auth' => false,
             'action' => function () {
 
-                $update = latestUpdate();
-
-                if (! $update) {
+                if (! $data = latestUpdateData()) {
                     return [
                         'status' => 'error',
                         'message' => 'Keine Updates gefunden',
                     ];
                 }
 
-                // Datum bestimmen
-                $timestamp = latestUpdateTimestamp($update);
+                return $data;
+            },
+        ],
+        [
+            'pattern' => 'highlights',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function () {
 
-                // Newsletter vs. Projekt-Step unterscheiden
-                if ($update->intendedTemplate()->name() === 'newsletter') {
+                // Dynamisches Update holen (Newsletter oder Projekt-Step)
+                $dynamic = latestUpdateData();
 
-                    $image_url = url('api/newsletter-cover/' . $update->slug() . '.svg');
-                    $call_to_action_url = $update->url();
-
-
-                } else {
-                    $project = $update->parent();
-
-                    // UUID-Cover sauber auflösen
-                    $coverFile = $project->content()->get('cover')?->toFile();
-
-                    $image_url = $coverFile
-                        ? $coverFile->url()
-                        : null;
-
-                    $call_to_action_url = $project->url();
-
+                if ($dynamic) {
+                    $dynamic['id'] = 2;              // feste ID
+                    unset($dynamic['widget_type']);  // entfernen
                 }
 
+                // Seiten holen
+                $homePage = page('home');
+                $projectsPage = page('projects');
+                $newsletterPage = page('newsletter');
+                $diaryPage = page('notes');
+                $aboutPage = page('uber-uns');
+
+                $now = date('Y-m-d\TH:i');
+
+                // Helper-Funktion: Cover-URL wie beim latest-update
+                $coverUrl = function ($p) {
+                    if (! $p) {
+                        return null;
+                    }
+                    $coverFile = $p->content()->get('cover')?->toFile();
+
+                    return $coverFile ? $coverFile->url() : null;
+                };
+
                 return [
-                    'title' => $update->title()->value(),
-                    'description' => $update->description()->isNotEmpty()
-                        ? $update->description()->value()
-                        : $update->text()->excerpt(160)->value(),
-                    'image_url' => $image_url,
-                    'call_to_action_url' => $call_to_action_url,
-                    'published_at' => date('Y-m-d\TH:i', $timestamp),
-                    'widget_type' => null,
+                    [
+                        'id' => 1,
+                        'title' => 'Heute im MM!H',
+                        'description' => 'Entdecke die heutigen Events im MachMit!Haus oder gelange zur Raumbuchung.',
+                        'image_url' => $coverUrl($homePage),
+                        'call_to_action_url' => $homePage?->url(),
+                        'published_at' => $now,
+                    ],
+
+                    $dynamic, // Slot 2 = Latest Update mit Cover
+
+                    [
+                        'id' => 3,
+                        'title' => 'Projekte',
+                        'description' => 'Alle MachMit!Projekte auf einem Blick',
+                        'image_url' => $coverUrl($projectsPage),
+                        'call_to_action_url' => $projectsPage?->url(),
+                        'published_at' => $now,
+                    ],
+                    [
+                        'id' => 4,
+                        'title' => 'Newsletter',
+                        'description' => 'Entdecke unseren Newsletter.',
+                        'image_url' => $coverUrl($newsletterPage),
+                        'call_to_action_url' => $newsletterPage?->url(),
+                        'published_at' => $now,
+                    ],
+                    [
+                        'id' => 5,
+                        'title' => 'Tagebuch',
+                        'description' => 'Berichte aus unserem Alltag.',
+                        'image_url' => $coverUrl($diaryPage),
+                        'call_to_action_url' => $diaryPage?->url(),
+                        'published_at' => $now,
+                    ],
+                    [
+                        'id' => 6,
+                        'title' => 'Über uns',
+                        'description' => 'Verschaffe dir einen Überblick!',
+                        'image_url' => $coverUrl($aboutPage),
+                        'call_to_action_url' => $aboutPage?->url(),
+                        'published_at' => $now,
+                    ],
                 ];
             },
         ],
