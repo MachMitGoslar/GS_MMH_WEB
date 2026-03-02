@@ -87,40 +87,55 @@ return [
              * Latest Update for Goslar App Kachel
              */
         [
-                'pattern' => 'latest-update',
-                'method' => 'GET',
-                'auth' => false,
-                'action' => function () {
+            'pattern' => 'latest-update',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function () {
 
-                    $update = latestUpdate();
+                $update = latestUpdate();
 
-                    if (! $update) {
-                        return [
-                            'status' => 'error',
-                            'message' => 'Keine Updates gefunden',
-                        ];
-                    }
-
-                    // Datum bestimmen
-                    $timestamp = latestUpdateTimestamp($update);
-
-                    // Bild je nach Typ
-                    $image_url = $update->intendedTemplate()->name() === 'newsletter'
-                        ? url('api/newsletter-cover/' . $update->slug() . '.svg')
-                        : $update->project_image()->toFile()?->url();
-
+                if (! $update) {
                     return [
-                        'title' => $update->title()->value(),
-                        'description' => $update->description()->isNotEmpty()
-                            ? $update->description()->value()
-                            : $update->text()->excerpt(160)->value(),
-                        'image_url' => $image_url,
-                        'call_to_action_url' => $update->url(),
-                        'published_at' => date('Y-m-d\TH:i', $timestamp),
-                        'widget_type' => null,
+                        'status' => 'error',
+                        'message' => 'Keine Updates gefunden',
                     ];
-                },
-            ],
-        ],
+                }
 
+                // Datum bestimmen
+                $timestamp = latestUpdateTimestamp($update);
+
+                // Newsletter vs. Projekt-Step unterscheiden
+                if ($update->intendedTemplate()->name() === 'newsletter') {
+
+                    $image_url = url('api/newsletter-cover/' . $update->slug() . '.svg');
+                    $call_to_action_url = $update->url();
+
+
+                } else {
+                    $project = $update->parent();
+
+                    // UUID-Cover sauber auflösen
+                    $coverFile = $project->content()->get('cover')?->toFile();
+
+                    $image_url = $coverFile
+                        ? $coverFile->url()
+                        : null;
+
+                    $call_to_action_url = $project->url();
+
+                }
+
+                return [
+                    'title' => $update->title()->value(),
+                    'description' => $update->description()->isNotEmpty()
+                        ? $update->description()->value()
+                        : $update->text()->excerpt(160)->value(),
+                    'image_url' => $image_url,
+                    'call_to_action_url' => $call_to_action_url,
+                    'published_at' => date('Y-m-d\TH:i', $timestamp),
+                    'widget_type' => null,
+                ];
+            },
+        ],
+    ],
 ];
