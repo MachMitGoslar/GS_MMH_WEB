@@ -1,37 +1,41 @@
 <?php
 
-function latestUpdateAll()
+use Kirby\Cms\Pages;
+
+function latestUpdateAll(): Pages
 {
+    // Newsletter sammeln
     $newsletters = page('newsletter')
         ?->children()
-        ->listed() ?? pages();
+        ->listed()
+        ?? new Pages([]);
 
-    $projektSteps = page('1_projects')
+    // Projekte sammeln
+    $projektSteps = page('projects')
         ?->children()
         ->map(fn ($p) => $p->children()->listed())
-        ->flatten() ?? pages();
+        ->flatten()
+        ?? new Pages([]);
 
+    // Beide Collections zusammenführen
     return $newsletters->merge($projektSteps);
 }
 
 function latestUpdateTimestamp($p): int
 {
+    // Newsletter: publish_date prüfen
     if ($p->publish_date()->isNotEmpty()) {
         return $p->publish_date()->toTimestamp();
     }
 
-    if (method_exists($p, 'published') && $p->published()) {
-        return $p->published()->toTimestamp();
+
+    // Projekte: project_start_date prüfen
+    if ($p->project_start_date()->isNotEmpty()) {
+        return $p->project_start_date()->toTimestamp();
     }
 
-    if ($p->project_start_time()->isNotEmpty()) {
-        return $p->project_start_time()->toTimestamp();
-    }
 
-    if ($p->modified()) {
-        return $p->modified();
-    }
-
+    // Letzter Fallback: Folder-Nummer
     return -intval($p->num());
 }
 
@@ -43,7 +47,8 @@ function latestUpdate()
         return null;
     }
 
+    // Sortierung nach Timestamp (absteigend)
     return $all
-        ->sortBy(fn ($p) => latestUpdateTimestamp($p), 'desc')
+        ->sortBy(fn ($p) => (int) latestUpdateTimestamp($p), 'desc')
         ->first();
 }

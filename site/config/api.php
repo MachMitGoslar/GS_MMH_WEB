@@ -33,94 +33,94 @@ return [
         /**
          * Create Newsletter Image
          */
-        [
-            'pattern' => 'newsletter-cover/(:any).svg',
-            'method' => 'GET',
-            'auth' => false,
-            'action' => function ($slug) {
+    [
+        'pattern' => 'newsletter-cover/(:any).svg',
+        'method' => 'GET',
+        'auth' => false,
+        'action' => function ($slug) {
 
-                if (! $page = page('newsletter/' . $slug)) {
-                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
-                }
+            if (! $page = page('newsletter/' . $slug)) {
+                return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+            }
 
-                $title = $page->title()->value();
-                $logo = url('assets/svg/RZ-RGB_MM!2_iv.svg');
+            $title = $page->title()->value(); // z. B. "Bürgerbeteiligung"
+            $logo = url('assets/svg/RZ-RGB_MM!2_iv.svg');
 
-                $svg = <<<SVG
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-                      <defs>
-                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" style="stop-color:#5d4e37;stop-opacity:1" />
-                          <stop offset="50%" style="stop-color:#6b5b47;stop-opacity:1" />
-                          <stop offset="100%" style="stop-color:#4a3c28;stop-opacity:1" />
-                        </linearGradient>
-                      </defs>
-                    
-                      <!-- Hintergrund mit Farbverlauf -->
-                      <rect width="100%" height="100%" fill="url(#grad)" />
-                    
-                      <!-- Logo -->
-                      <image href="{$logo}" x="80" y="80" width="220" />
-                    
-                      <!-- Text -->
-                      <text x="80" y="320"
-                            font-family="Arial, sans-serif"
-                            font-size="72"
-                            font-weight="700"
-                            fill="#ffffff">
-                            Newsletter
-                      </text>
-                    
-                      <text x="80" y="420"
-                            font-family="Arial, sans-serif"
-                            font-size="48"
-                            fill="#ffffff">
-                            {$title}
-                      </text>
-                    </svg>
-                    SVG;
+            $svg = <<<SVG
+    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+      <defs>
+        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#5d4e37;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#6b5b47;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#4a3c28;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+    
+      <!-- Background -->
+      <rect width="100%" height="100%" fill="url(#grad)" />
+    
+      <!-- Logo  -->
+      <image href="{$logo}" x="38.4%" y="20%" width="280" />
+    
+      <!-- Text -->
+      <text x="50%" y="70%" text-anchor="middle" dominant-baseline="middle"
+            font-family="Arial, sans-serif"
+            font-size="60"
+            font-weight="700"
+            fill="#ffffff">
+            Newsletter
+      </text>
+    
+      <text x="50%" y="80%" text-anchor="middle"
+            font-family="Arial, sans-serif"
+            font-size="28"
+            fill="#ffffff">
+            {$title}
+      </text>
+    </svg>
+    SVG;
 
-                return new Kirby\Cms\Response($svg, 'image/svg+xml');
-            },
-        ],
+            return new Kirby\Cms\Response($svg, 'image/svg+xml');
+        },
+    ],
         /**
-         * Latest Update for Goslar App Kachel
-         */
+             * Latest Update for Goslar App Kachel
+             */
         [
-            'pattern' => 'latest-update',
-            'method' => 'GET',
-            'auth' => false,
-            'action' => function () {
+                'pattern' => 'latest-update',
+                'method' => 'GET',
+                'auth' => false,
+                'action' => function () {
 
-                $update = latestUpdate();
+                    $update = latestUpdate();
 
-                if (! $update) {
+                    if (! $update) {
+                        return [
+                            'status' => 'error',
+                            'message' => 'Keine Updates gefunden',
+                        ];
+                    }
+
+                    // Datum bestimmen
+                    $timestamp = latestUpdateTimestamp($update);
+
+                    // Bild je nach Typ
+                    $image_url = $update->intendedTemplate()->name() === 'newsletter'
+                        ? url('api/newsletter-cover/' . $update->slug() . '.svg')
+                        : $update->project_image()->toFile()?->url();
+
                     return [
-                        'status' => 'error',
-                        'message' => 'Keine Updates gefunden',
+                        'title' => $update->title()->value(),
+                        'description' => $update->description()->isNotEmpty()
+                            ? $update->description()->value()
+                            : $update->text()->excerpt(160)->value(),
+                        'image_url' => $image_url,
+                        'call_to_action_url' => $update->url(),
+                        'published_at' => date('Y-m-d\TH:i', $timestamp),
+                        'widget_type' => null,
                     ];
-                }
-
-                // Datum bestimmen
-                $timestamp = latestUpdateTimestamp($update);
-
-                // Bild je nach Typ
-                $image_url = $update->intendedTemplate()->name() === 'newsletter'
-                    ? url('api/newsletter-cover/' . $update->slug() . '.svg')
-                    : $update->project_image()->toFile()?->url();
-
-                return [
-                    'title' => $update->title()->value(),
-                    'description' => $update->description()->isNotEmpty()
-                        ? $update->description()->value()
-                        : $update->text()->excerpt(160)->value(),
-                    'image_url' => $image_url,
-                    'call_to_action_url' => $update->url(),
-                    'published_at' => date('Y-m-d\TH:i', $timestamp),
-                    'widget_type' => null,
-                ];
-            },
-        ],
+                },
+            ],
         ],
 
 ];
