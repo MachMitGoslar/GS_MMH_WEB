@@ -84,7 +84,7 @@ function latestUpdate()
 /**
  * Ein Update in API-Response-Format umwandeln
  */
-function latestUpdateToArray($update): ?array
+function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
 {
     if (! $update) {
         return null;
@@ -92,24 +92,22 @@ function latestUpdateToArray($update): ?array
 
     $timestamp = latestUpdateTimestamp($update);
 
-    // Newsletter vs Projekt-Step unterscheiden
+    // Bild bestimmen
     if ($update->intendedTemplate()->name() === 'newsletter') {
-
         $image_url = url('api/newsletter-cover/' . $update->slug() . '.svg');
-        $call_to_action_url = $update->url();
-
     } else {
-
         $project = $update->parent();
-
-        // UUID-Cover sauber auflösen
         $coverFile = $project->content()->get('cover')?->toFile();
+        $image_url = $coverFile ? $coverFile->url() : null;
+    }
 
-        $image_url = $coverFile
-            ? $coverFile->url()
-            : null;
-
-        $call_to_action_url = $project->url();
+    // 🔹 URL bestimmen
+    if ($for_highlights_link) {
+        $call_to_action_url = url('api/highlights'); // Link auf Highlights
+    } else {
+        $call_to_action_url = $update->intendedTemplate()->name() === 'newsletter'
+            ? $update->url()
+            : $update->parent()->url();
     }
 
     return [
@@ -129,7 +127,7 @@ function latestUpdateToArray($update): ?array
  * Komfortfunktion:
  * Liefert direkt das neueste Update als Array
  */
-function latestUpdateData(): ?array
+function latestUpdateData(bool $forHighlightsLink = false): ?array
 {
-    return latestUpdateToArray(latestUpdate());
+    return latestUpdateToArray(latestUpdate(), $forHighlightsLink);
 }

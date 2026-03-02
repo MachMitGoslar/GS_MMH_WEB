@@ -91,8 +91,9 @@ return [
             'method' => 'GET',
             'auth' => false,
             'action' => function () {
+                $data = latestUpdateData(true);
 
-                if (! $data = latestUpdateData()) {
+                if (! $data) {
                     return [
                         'status' => 'error',
                         'message' => 'Keine Updates gefunden',
@@ -102,21 +103,23 @@ return [
                 return $data;
             },
         ],
+        /**
+         * Endpoint 2nd view in app
+         */
         [
             'pattern' => 'highlights',
             'method' => 'GET',
             'auth' => false,
             'action' => function () {
 
-                // Dynamisches Update holen (Newsletter oder Projekt-Step)
+                // get updates dynamically
                 $dynamic = latestUpdateData();
 
                 if ($dynamic) {
-                    $dynamic['id'] = 2;              // feste ID
-                    unset($dynamic['widget_type']);  // entfernen
+                    $dynamic['id'] = 2;
+                    unset($dynamic['widget_type']);
                 }
 
-                // Seiten holen
                 $homePage = page('home');
                 $projectsPage = page('projects');
                 $newsletterPage = page('newsletter');
@@ -125,7 +128,6 @@ return [
 
                 $now = date('Y-m-d\TH:i');
 
-                // Helper-Funktion: Cover-URL wie beim latest-update
                 $coverUrl = function ($p) {
                     if (! $p) {
                         return null;
@@ -145,7 +147,7 @@ return [
                         'published_at' => $now,
                     ],
 
-                    $dynamic, // Slot 2 = Latest Update mit Cover
+                    $dynamic, // Slot 2 = Latest Update
 
                     [
                         'id' => 3,
