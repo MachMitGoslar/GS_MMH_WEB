@@ -7,3 +7,9 @@ columns:
       pages:
         type: pages
         template: form
+
+storage:
+  type: files
+  root: site/storage/forms
+  format: json
+

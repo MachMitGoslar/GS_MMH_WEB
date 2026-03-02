@@ -60,6 +60,7 @@ columns:
               - form 
               - gallery
               - download
+              - table
 
   sidebar:
     width: 1/3

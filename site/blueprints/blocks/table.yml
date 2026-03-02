@@ -1,0 +1,21 @@
+name: Tabelle (2 Spalten)
+icon: table
+
+fields:
+  title:
+    label: Überschrift
+    type: text
+
+  rows:
+    label: Zeilen
+    type: structure
+    fields:
+      col1:
+        label: Linke Spalte
+        type: text
+        width: 1/2
+
+      col2:
+        label: Rechte Spalte
+        type: text
+        width: 1/2
