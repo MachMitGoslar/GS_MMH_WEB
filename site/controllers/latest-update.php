@@ -2,6 +2,9 @@
 
 use Kirby\Cms\Pages;
 
+/**
+ * Alle neuesten Updates sammeln (Newsletter + Projekt-Steps)
+ */
 function latestUpdateAll(): Pages
 {
     // Newsletter sammeln
@@ -10,35 +13,61 @@ function latestUpdateAll(): Pages
         ->listed()
         ?? new Pages([]);
 
-    // Projekte sammeln
-    $projektSteps = page('projects')
-        ?->children()
-        ->map(fn ($p) => $p->children()->listed())
-        ->flatten()
-        ?? new Pages([]);
 
-    // Beide Collections zusammenführen
-    return $newsletters->merge($projektSteps);
+    // Projekt-Steps sammeln
+    $projektSteps = new Pages([]);
+    $projects = page('projects')?->children()->listed() ?? new Pages([]);
+
+    foreach ($projects as $project) {
+        $steps = $project->children()->listed() ?? new Pages([]);
+
+        $projektSteps = $projektSteps->merge($steps);
+    }
+
+    // Steps nach project_start_date absteigend sortieren
+    $projektSteps = $projektSteps->sortBy(
+        fn ($step) => $step->project_start_date()->isNotEmpty()
+            ? strtotime($step->project_start_date()->value())
+            : 0,
+        'desc'
+    );
+
+
+    // Newsletter + ProjektSteps zusammenführen
+    $all = $newsletters->merge($projektSteps);
+
+    return $all;
 }
 
+/**
+ * Timestamp für Sortierung bestimmen
+ */
 function latestUpdateTimestamp($p): int
 {
-    // Newsletter: publish_date prüfen
-    if ($p->publish_date()->isNotEmpty()) {
-        return $p->publish_date()->toTimestamp();
+    $title = $p->title()->value();
+    $published = $p->published()->value() ?? 'leer';
+    $projectStart = $p->project_start_date()->value() ?? 'leer';
+
+    if ($p->published()->isNotEmpty()) {
+        $ts = strtotime($p->published()->value());
+
+        return $ts;
     }
 
-
-    // Projekte: project_start_date prüfen
     if ($p->project_start_date()->isNotEmpty()) {
-        return $p->project_start_date()->toTimestamp();
+        $ts = strtotime($p->project_start_date()->value());
+
+        return $ts;
     }
 
+    $ts = $p->modified()->toTimestamp();
 
-    // Letzter Fallback: Folder-Nummer
-    return -intval($p->num());
+    return $ts;
 }
 
+/**
+ * Das neueste Update ermitteln
+ */
 function latestUpdate()
 {
     $all = latestUpdateAll();
@@ -47,8 +76,7 @@ function latestUpdate()
         return null;
     }
 
-    // Sortierung nach Timestamp (absteigend)
-    return $all
-        ->sortBy(fn ($p) => (int) latestUpdateTimestamp($p), 'desc')
-        ->first();
+    $sorted = $all->sortBy(fn ($p) => latestUpdateTimestamp($p), 'desc');
+
+    return $sorted->first();
 }

@@ -43,7 +43,7 @@ return [
                 return new Kirby\Cms\Response('Not found', 'text/plain', 404);
             }
 
-            $title = $page->title()->value(); // z. B. "Bürgerbeteiligung"
+            $title = $page->title()->value();
             $logo = url('assets/svg/RZ-RGB_MM!2_iv.svg');
 
             $svg = <<<SVG
