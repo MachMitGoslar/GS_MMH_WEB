@@ -70,7 +70,7 @@
     width: 100%;
     aspect-ratio: var(--aspected-ration);
     object-fit: cover;
-    background: red;
+    background: transparent;
 
     @media (width > 489px) {
       --aspected-ration: 21/9;

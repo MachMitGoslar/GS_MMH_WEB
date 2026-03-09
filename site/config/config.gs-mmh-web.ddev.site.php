@@ -11,6 +11,12 @@ return [
     'panel' => [
         'install' => true,
     ],
+    'db' => [
+        'host' => 'db:3306',
+        'database' => 'db',
+        'user' => 'db',
+        'password' => 'db',
+    ],
     'cache' => [
         'pages' => [
             'active' => false,
@@ -48,7 +54,7 @@ return [
     ],
     // Settings for the DreamForm plugin
     'tobimori.dreamform' => [
-        'storeSubmissions' => true,
+        'storeSubmissions' => false,
         'log' => true,
         'email' => [
             'from' => 'noreply@gs-mmh-web.ddev.site',

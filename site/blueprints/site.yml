@@ -98,5 +98,14 @@ tabs:
       general:
         type: pages
         label: Generelle Seiten
+  forms:
+    label: Formulare
+    icon: wpforms
+    sections:
+      forms:
+        type: pages
+        label: Formulare
+        template: form
+        query: site.find("forms").children()
         
     
