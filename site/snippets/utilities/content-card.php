@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Content Card Snippet
  * Reusable component for news, projects, reviews, and previews

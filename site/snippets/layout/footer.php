@@ -27,9 +27,9 @@
             </ul>
         </section>
         <section class="flex flex-column grid-item-span2">
-            <h3 class="font-subheadline mb-2"><a href="<?=$site->page("newsletter")->url()?>">Newsletter</a>  </h3>
+            <h3 class="font-subheadline mb-2"><a href="<?=$site->page('newsletter')->url()?>">Newsletter</a>  </h3>
             <ul>
-            <?php foreach ($site->page("newsletter")->children() as $child) : ?>
+            <?php foreach ($site->page('newsletter')->children() as $child) : ?>
                     <li class="font-footnote"> <a href="<?=$child->url()?>"> <?=$child->title()?> </a> </li>
             <?php endforeach ?>
             </ul>

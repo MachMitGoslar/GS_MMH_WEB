@@ -1,4 +1,5 @@
 <?php
+
 /** @var \Kirby\Cms\Block $block */
 use Kirby\Toolkit\Html;
 

@@ -1,6 +1,5 @@
 <?php
 
-
 return function ($page, $site) {
 
     $teamPage = $site->find('team');

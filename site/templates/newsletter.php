@@ -1,7 +1,9 @@
 <?php
+
 /**
  * Newsletter Template - Redesigned to match PDF layout
  */
+
 ?>
 <?php snippet('layout/head', slots: true); ?>
 
@@ -92,10 +94,10 @@
               <div class="calendar-day">
                 <div class="font-headline calendar-day-label"><?= $currentDayName ?></div>
                 <div class="calendar-events">
-                  <?php if (! empty($calendar[$day])) : ?>
+                  <?php if (!empty($calendar[$day])) : ?>
                         <?php foreach ($calendar[$day] as $event) : ?>
                       <div class="calendar-event mb-2 p-2 bg-gray-100 rounded">
-                        <div class="font-footnote event-time"><?= $event->start_time()->toDate("H:i", $fallback = null) ?></div>
+                        <div class="font-footnote event-time"><?= $event->start_time()->toDate('H:i', $fallback = null) ?></div>
                         <div class="font-body event-title"><?= $event->activity() ?></div>
                             <?php if ($event->location() && $event->location()->isNotEmpty()) : ?>
                           <div class="font-caption event-location"><?= $event->location() ?></div>
@@ -131,7 +133,7 @@
                 $monthKey = $event->event_date()->toDate('Y-m');
                 $monthName = $event->event_date()->toDate('F Y');
 
-                if (! isset($eventsByMonth[$monthKey])) {
+                if (!isset($eventsByMonth[$monthKey])) {
                     $eventsByMonth[$monthKey] = [
                       'name' => $monthName,
                       'events' => [],
@@ -219,7 +221,7 @@
                 <?php endif ?>
               </div>
                 <?php
-            $isLeft = ! $isLeft;
+            $isLeft = !$isLeft;
         endforeach;
 ?>
           </div>

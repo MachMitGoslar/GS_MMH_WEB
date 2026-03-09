@@ -26,14 +26,14 @@ function createCalendarEvent(
     string $description,
     string $startDateTime,
     string $endDateTime,
-    ?string $location = null
+    ?string $location = null,
 ): array {
     $kirby = App::instance();
 
     // Get service account credentials path from config
     $credentialsPath = $kirby->option('google.calendar.credentials');
 
-    if (! $credentialsPath || ! file_exists($credentialsPath)) {
+    if (!$credentialsPath || !file_exists($credentialsPath)) {
         return [
             'success' => false,
             'message' => 'Google Calendar credentials not configured',
@@ -44,7 +44,7 @@ function createCalendarEvent(
         // Get access token using service account
         $accessToken = getGoogleAccessToken($credentialsPath);
 
-        if (! $accessToken) {
+        if (!$accessToken) {
             return [
                 'success' => false,
                 'message' => 'Failed to obtain Google access token',
@@ -70,7 +70,7 @@ function createCalendarEvent(
         }
 
         $response = Remote::request(
-            "https://www.googleapis.com/calendar/v3/calendars/" . urlencode($calendarId) . "/events",
+            'https://www.googleapis.com/calendar/v3/calendars/' . urlencode($calendarId) . '/events',
             [
                 'method' => 'POST',
                 'headers' => [
@@ -78,7 +78,7 @@ function createCalendarEvent(
                     'Content-Type: application/json',
                 ],
                 'data' => json_encode($event),
-            ]
+            ],
         );
 
         if ($response->code() === 200 || $response->code() === 201) {
@@ -98,7 +98,6 @@ function createCalendarEvent(
                 'code' => $response->code(),
             ];
         }
-
     } catch (Exception $e) {
         return [
             'success' => false,
@@ -114,7 +113,7 @@ function getGoogleAccessToken(string $credentialsPath): ?string
 {
     $credentials = json_decode(file_get_contents($credentialsPath), true);
 
-    if (! $credentials) {
+    if (!$credentials) {
         return null;
     }
 
@@ -140,7 +139,7 @@ function getGoogleAccessToken(string $credentialsPath): ?string
         $header . '.' . $claim,
         $signature,
         $privateKey,
-        'SHA256'
+        'SHA256',
     );
     $signature = base64_encode($signature);
 
@@ -204,7 +203,7 @@ function createBookingCalendarEvents($bookingRequest): array
     foreach ($rooms as $room) {
         $calendarId = $room->google_calendar_id()->value();
 
-        if (! $calendarId) {
+        if (!$calendarId) {
             $results[] = [
                 'room' => $room->title()->value(),
                 'success' => false,
@@ -223,7 +222,7 @@ function createBookingCalendarEvents($bookingRequest): array
             $description,
             $startDateTime,
             $endDateTime,
-            $location
+            $location,
         );
 
         $result['room'] = $room->title()->value();
@@ -238,7 +237,7 @@ function createBookingCalendarEvents($bookingRequest): array
         if ($endDate) {
             $results = array_merge(
                 $results,
-                createRecurringEvents($bookingRequest, $rooms, $pattern, $endDate)
+                createRecurringEvents($bookingRequest, $rooms, $pattern, $endDate),
             );
         }
     }
@@ -259,7 +258,7 @@ function createRecurringEvents($bookingRequest, $rooms, string $pattern, string 
     $timeEnd = $bookingRequest->request_time_end()->value();
 
     // Determine interval
-    $interval = match($pattern) {
+    $interval = match ($pattern) {
         'weekly' => new DateInterval('P1W'),
         'biweekly' => new DateInterval('P2W'),
         'monthly' => new DateInterval('P1M'),
@@ -295,7 +294,7 @@ function createRecurringEvents($bookingRequest, $rooms, string $pattern, string 
         foreach ($rooms as $room) {
             $calendarId = $room->google_calendar_id()->value();
 
-            if (! $calendarId) {
+            if (!$calendarId) {
                 continue;
             }
 
@@ -308,7 +307,7 @@ function createRecurringEvents($bookingRequest, $rooms, string $pattern, string 
                 $description,
                 $startDateTime,
                 $endDateTime,
-                $location
+                $location,
             );
 
             $result['room'] = $room->title()->value();

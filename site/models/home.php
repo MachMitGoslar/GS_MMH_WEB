@@ -17,6 +17,7 @@
  *
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
+
 use Kirby\Cms\Page;
 use Kirby\Cms\Site;
 
@@ -28,12 +29,12 @@ class HomePage extends Page
     }
     public function projects(): Kirby\Cms\Pages
     {
-        return $this->site()->page("projects")->children();
+        return $this->site()->page('projects')->children();
     }
 
     public function project_steps(): array
     {
-        $projects = $this->site()->page("projects")->children() ;
+        $projects = $this->site()->page('projects')->children() ;
         $steps_array = [];
         foreach ($projects as $project) {
             $steps = $project->project_steps()->toStructure();

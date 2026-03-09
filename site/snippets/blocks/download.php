@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Download Block
  *
@@ -7,10 +8,11 @@
  * - $block->title()  -> main title
  * - $block->text()   -> description in black
  */
+
 /** @var \Kirby\Cms\Block $block */
 ?>
 
-<?php if ($file = $block->file()->toFile()): ?>
+<?php if ($file = $block->file()->toFile()) : ?>
     <!-- Ganze Box klickbar -->
     <a href="<?= $file->url() ?>" download class="c-downloadBlock flex items-start gap-4 p-4 border rounded-md bg-white shadow-sm no-underline">
 
@@ -31,10 +33,10 @@
 
         <!-- Textbereich -->
         <div class="c-downloadBlock__content">
-            <?php if ($block->title()->isNotEmpty()): ?>
+            <?php if ($block->title()->isNotEmpty()) : ?>
                 <p class="c-downloadBlock__title"><?= $block->title() ?></p>
             <?php endif; ?>
-            <?php if ($block->text()->isNotEmpty()): ?>
+            <?php if ($block->text()->isNotEmpty()) : ?>
                 <p class="c-downloadBlock__description"><?= $block->text() ?></p>
             <?php endif; ?>
         </div>

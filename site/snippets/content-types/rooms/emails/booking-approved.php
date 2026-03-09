@@ -34,20 +34,17 @@ Datum: <?= $request_date ?>
 
 Uhrzeit: <?= $request_time_start ?> - <?= $request_time_end ?> Uhr
 <?php if ($is_recurring && $recurrence_pattern) : ?>
-
 Wiederholung: <?= $recurrenceLabels[$recurrence_pattern] ?? $recurrence_pattern ?>
-<?php if ($recurrence_end_date) : ?>
+    <?php if ($recurrence_end_date) : ?>
  bis <?= $recurrence_end_date ?>
-<?php endif ?>
+    <?php endif ?>
 <?php endif ?>
 
 Erwartete Teilnehmer: <?= $expected_attendees ?> Personen
-<?php if (! empty($admin_notes)) : ?>
-
-
+<?php if (!empty($admin_notes)) : ?>
 == Hinweise ==
 
-<?= $admin_notes ?>
+    <?= $admin_notes ?>
 <?php endif ?>
 
 

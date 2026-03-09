@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<ruleset name="GS-MMH-WEB">
+    <description>PSR-12 with Kirby CMS exceptions for templates, snippets, and controllers</description>
+
+    <!-- Directories to check -->
+    <file>site/</file>
+
+    <!-- Only check PHP files -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Exclude third-party and generated directories -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/kirby/*</exclude-pattern>
+    <exclude-pattern>*/storage/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+    <!-- Third-party plugins: not our code, skip entirely -->
+    <exclude-pattern>*/plugins/kirby-dreamform/*</exclude-pattern>
+    <exclude-pattern>*/plugins/locator/*</exclude-pattern>
+    <exclude-pattern>*/plugins/git-content/*</exclude-pattern>
+    <exclude-pattern>*/plugins/helpers/*</exclude-pattern>
+
+    <!-- Signage plugin has its own codebase and standards -->
+    <exclude-pattern>*/plugins/gs-mmh-signage-plugin/*</exclude-pattern>
+
+    <!-- Base standard -->
+    <rule ref="PSR12"/>
+
+    <!--
+        PSR1.Files.SideEffects:
+        Kirby templates, snippets, controllers, and config files are intentionally
+        procedural — they mix declarations with output/side-effects by design.
+    -->
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>*/templates/*</exclude-pattern>
+        <exclude-pattern>*/snippets/*</exclude-pattern>
+        <exclude-pattern>*/controllers/*</exclude-pattern>
+        <exclude-pattern>*/config/*</exclude-pattern>
+        <exclude-pattern>*/helpers.php</exclude-pattern>
+        <exclude-pattern>*/index.php</exclude-pattern>
+    </rule>
+
+    <!--
+        PSR12.Files.FileHeader:
+        Kirby snippet/template files use <?php + blank line + use statements,
+        which conflicts with PSR-12's strict file header ordering rule.
+    -->
+    <rule ref="PSR12.Files.FileHeader">
+        <exclude-pattern>*/snippets/*</exclude-pattern>
+        <exclude-pattern>*/templates/*</exclude-pattern>
+        <exclude-pattern>*/controllers/*</exclude-pattern>
+        <exclude-pattern>*/config/*</exclude-pattern>
+    </rule>
+
+    <!--
+        PSR1.Classes.ClassDeclaration.MissingNamespace:
+        Kirby page models are registered by class name convention and do not
+        require namespaces. Plugin index.php files also don't need namespaces.
+    -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>*/models/*</exclude-pattern>
+    </rule>
+
+    <!--
+        PSR1.Methods.CamelCapsMethodName:
+        Kirby models define magic field-accessor methods using snake_case
+        to mirror Kirby's content field naming (e.g. project_steps()).
+    -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>*/models/*</exclude-pattern>
+    </rule>
+
+    <!--
+        Generic.Files.LineLength:
+        PSR-12 recommends 120 chars. HTML-mixed template and snippet files
+        often can't avoid longer lines without harming readability.
+        Warnings only in pure PHP; suppressed in templates and snippets.
+    -->
+    <rule ref="Generic.Files.LineLength">
+        <exclude-pattern>*/templates/*</exclude-pattern>
+        <exclude-pattern>*/snippets/*</exclude-pattern>
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
+
+</ruleset>

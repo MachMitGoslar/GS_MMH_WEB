@@ -64,13 +64,13 @@ $allRooms = $roomsPage->children()->listed();
       <?php $gallery = $page->gallery()->toFiles(); ?>
       <?php if ($gallery->count() > 0) : ?>
         <div class="room-gallery">
-          <?php foreach ($gallery as $image) : ?>
+            <?php foreach ($gallery as $image) : ?>
             <a href="<?= $image->url() ?>" class="room-gallery-item" data-lightbox="room-gallery">
               <img src="<?= $image->crop(300, 200)->url() ?>"
                    alt="<?= $image->alt()->or($page->title()) ?>"
                    loading="lazy">
             </a>
-          <?php endforeach ?>
+            <?php endforeach ?>
         </div>
       <?php endif ?>
 
@@ -92,11 +92,11 @@ $allRooms = $roomsPage->children()->listed();
       <?php if ($page->description()->isNotEmpty()) : ?>
         <div class="room-description">
           <h2 class="font-title">Beschreibung</h2>
-          <?php foreach ($page->description()->toBlocks() as $block) : ?>
+            <?php foreach ($page->description()->toBlocks() as $block) : ?>
             <div class="c-blog c-blog-<?= $block->type() ?>">
-              <?= $block ?>
+                <?= $block ?>
             </div>
-          <?php endforeach ?>
+            <?php endforeach ?>
         </div>
       <?php endif ?>
 
@@ -112,7 +112,7 @@ $allRooms = $roomsPage->children()->listed();
                   <?= snippet('content-types/rooms/equipmentIcon', ['icon' => $item->icon()->value()]) ?>
                 </span>
                 <span class="equipment-name font-body"><?= $item->name()->html() ?></span>
-                <?php if (! $item->included()->toBool()) : ?>
+                <?php if (!$item->included()->toBool()) : ?>
                   <span class="equipment-extra-label font-footnote">Gegen Aufpreis</span>
                 <?php endif ?>
               </li>
@@ -145,14 +145,14 @@ $allRooms = $roomsPage->children()->listed();
               </div>
             <?php endif ?>
           </div>
-          <?php if ($page->nonprofit_discount()->toBool()) : ?>
+            <?php if ($page->nonprofit_discount()->toBool()) : ?>
             <p class="pricing-discount font-footnote">
               💡 <?= $page->nonprofit_discount_percent()->or(0) ?>% Rabatt für gemeinnützige Organisationen
             </p>
-          <?php endif ?>
-          <?php if ($page->pricing_notes()->isNotEmpty()) : ?>
+            <?php endif ?>
+            <?php if ($page->pricing_notes()->isNotEmpty()) : ?>
             <p class="pricing-notes font-footnote"><?= $page->pricing_notes()->html() ?></p>
-          <?php endif ?>
+            <?php endif ?>
         </div>
       <?php endif ?>
 

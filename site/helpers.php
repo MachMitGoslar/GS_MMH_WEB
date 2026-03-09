@@ -22,18 +22,18 @@ use Kirby\Cms\Site;
 function getProjectStatusColor(string $status): string
 {
     switch ($status) {
-        case "in Planung":
-            return "planning";
-        case "in Vorbereitung":
-            return "preparing";
-        case "aktiv":
-            return "active";
-        case "in Auswertung":
-            return "review";
-        case "abgeschlossen":
-            return "done";
+        case 'in Planung':
+            return 'planning';
+        case 'in Vorbereitung':
+            return 'preparing';
+        case 'aktiv':
+            return 'active';
+        case 'in Auswertung':
+            return 'review';
+        case 'abgeschlossen':
+            return 'done';
         default:
-            return "false";
+            return 'false';
     }
 }
 

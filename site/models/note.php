@@ -17,6 +17,7 @@
  *
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
+
 use Kirby\Cms\Page;
 
 class NotePage extends Page
@@ -25,8 +26,6 @@ class NotePage extends Page
     {
         return $this->content()->cover()->toFile() ?? $this->image();
     }
-
-
 
     public function published($format = null)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Reusable Contact + Map section
  *
@@ -19,35 +20,34 @@ $website = $website?->value();
 $phone = $phone?->value();
 $mapboxToken = $mapboxToken?->value();
 
-
 ?>
 
 <section class="grid content mb-7">
     <!-- Contact Text -->
     <div class="grid-item" data-span="1/3">
         <div class="contact-info mb-4">
-            <?php if ($title): ?>
+            <?php if ($title) : ?>
                 <h3 class="font-headline mb-3"><?= $title ?></h3>
             <?php endif ?>
 
-            <?php if ($email): ?>
+            <?php if ($email) : ?>
                 <div class="contact-item font-body mb-2">
                     📧 <a href="mailto:<?= $email ?>"><?= $email ?></a>
                 </div>
             <?php endif ?>
 
-            <?php if ($website): ?>
+            <?php if ($website) : ?>
                 <div class="contact-item font-body mb-2">
                     🌐 <a href="<?= $website ?>"><?= preg_replace('#^https?://#', '', $website) ?></a>
                 </div>
             <?php endif ?>
 
-            <?php if ($phone): ?>
+            <?php if ($phone) : ?>
                 <div class="contact-item font-body mb-2">
                     📞 <a href="tel:<?= $phone ?>"><?= $phone ?></a>
                 </div>
             <?php endif ?>
-            <?php if ($social): ?>
+            <?php if ($social) : ?>
                 <div class="contact-item font-body mb-2"">
                                                       Folgen Sie uns: <strong><?= $social ?></strong>
                 </div>
@@ -61,7 +61,7 @@ $mapboxToken = $mapboxToken?->value();
     <div class="grid-item" data-span="2/3">
         <div id="map" class="mb-2"></div>
 
-        <?php if ($addressLabel): ?>
+        <?php if ($addressLabel) : ?>
             <p class="font-footnote"><?= $addressLabel ?></p>
         <?php endif ?>
 

@@ -48,7 +48,7 @@ $regularNotes = $notes->filterBy('featured', '!=', true);
         <ul class="grid notes-grid notes-grid--featured">
           <?php foreach ($featuredNotes as $note) : ?>
             <li class="note-card-wrapper note-card-wrapper--featured">
-              <?= snippet('content-types/notes/noteCard', ['note' => $note, 'featured' => true]) ?>
+                <?= snippet('content-types/notes/noteCard', ['note' => $note, 'featured' => true]) ?>
             </li>
           <?php endforeach ?>
         </ul>
@@ -67,7 +67,7 @@ $regularNotes = $notes->filterBy('featured', '!=', true);
         <ul class="grid notes-grid">
           <?php foreach ($regularNotes as $note) : ?>
             <li class="note-card-wrapper">
-              <?= snippet('content-types/notes/noteCard', ['note' => $note]) ?>
+                <?= snippet('content-types/notes/noteCard', ['note' => $note]) ?>
             </li>
           <?php endforeach ?>
         </ul>

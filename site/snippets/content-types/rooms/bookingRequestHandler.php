@@ -27,7 +27,7 @@ function handleBookingRequest(): array
 
     // Get rooms parent page
     $roomsPage = $kirby->site()->find('rooms');
-    if (! $roomsPage) {
+    if (!$roomsPage) {
         return [
             'success' => false,
             'message' => 'Systemfehler: Räume-Seite nicht gefunden.',
@@ -36,7 +36,7 @@ function handleBookingRequest(): array
 
     // Get or create booking-requests container
     $requestsPage = $roomsPage->find('booking-requests');
-    if (! $requestsPage) {
+    if (!$requestsPage) {
         // Create the requests container if it doesn't exist
         try {
             $kirby->impersonate('kirby');
@@ -83,7 +83,7 @@ function handleBookingRequest(): array
 
     // Validate email format
     $email = get('requester_email');
-    if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return [
             'success' => false,
             'message' => 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
@@ -114,7 +114,7 @@ function handleBookingRequest(): array
 
     // Get selected room IDs and validate they exist
     $selectedRoomIds = get('rooms');
-    if (! is_array($selectedRoomIds)) {
+    if (!is_array($selectedRoomIds)) {
         $selectedRoomIds = [$selectedRoomIds];
     }
     $validRoomIds = [];
@@ -176,7 +176,6 @@ function handleBookingRequest(): array
             'message' => 'Ihre Buchungsanfrage wurde erfolgreich übermittelt. Sie erhalten in Kürze eine Bestätigung per E-Mail.',
             'reference' => $slug,
         ];
-
     } catch (Exception $e) {
         $kirby->impersonate();
 

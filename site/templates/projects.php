@@ -22,7 +22,7 @@
             <?= $page->headline()->or($page->title()) ?>
         </h1>
 
-        <?php if ($page->subheadline()->isNotEmpty()): ?>
+        <?php if ($page->subheadline()->isNotEmpty()) : ?>
             <p class="grid-item font-copyL" data-span="1/1">
                 <?= $page->subheadline() ?>
             </p>
@@ -30,7 +30,7 @@
     </section>
 
 
-    <?php if ($page->show_search()->toBool()): ?>
+    <?php if ($page->show_search()->toBool()) : ?>
         <section class="content mb-5">
             <?= snippet('blocks/searchbar') ?>
         </section>
@@ -39,16 +39,16 @@
 
     <section class="grid content mb-7">
 
-        <?php if ($page->show_active()->toBool()): ?>
+        <?php if ($page->show_active()->toBool()) : ?>
             <section class="grid-item" data-span="1/1">
                 <ul class="grid mb-4">
 
-                    <?php foreach ($activeProjects as $project): ?>
+                    <?php foreach ($activeProjects as $project) : ?>
                         <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
                     <?php endforeach; ?>
 
 
-                    <?php if ($archivePage && ! $page->show_archive()->toBool()): ?>
+                    <?php if ($archivePage && !$page->show_archive()->toBool()) : ?>
                         <li class="c-projectTeaserCard">
 
                             <div>
@@ -59,7 +59,7 @@
                             <div class="content">
                                 <h3 class="font-headline"><?= $archivePage->title() ?></h3>
 
-                                <?php if ($archivePage->subheadline()->isNotEmpty()): ?>
+                                <?php if ($archivePage->subheadline()->isNotEmpty()) : ?>
                                     <p class="font-footnote mb-3">
                                         <?= $archivePage->subheadline() ?>
                                     </p>
@@ -82,16 +82,16 @@
         <?php endif; ?>
 
 
-        <?php if ($page->show_archive()->toBool()): ?>
+        <?php if ($page->show_archive()->toBool()) : ?>
             <section class="grid-item" data-span="1/1">
 
-                <?php if ($archiveProjects->count()): ?>
+                <?php if ($archiveProjects->count()) : ?>
                     <ul class="grid mb-4">
-                        <?php foreach ($archiveProjects as $project): ?>
+                        <?php foreach ($archiveProjects as $project) : ?>
                             <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
                         <?php endforeach; ?>
                     </ul>
-                <?php else: ?>
+                <?php else : ?>
                     <p>Keine abgeschlossenen Projekte gefunden.</p>
                 <?php endif; ?>
 

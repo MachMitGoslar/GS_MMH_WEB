@@ -7,7 +7,7 @@ return function ($site, $page, $kirby) {
     // project source
     $projectsRoot = $site->find('projects');
 
-    if (! $projectsRoot) {
+    if (!$projectsRoot) {
         return [
             'activeProjects' => collect(),
             'archiveProjects' => collect(),
@@ -33,7 +33,7 @@ return function ($site, $page, $kirby) {
      */
     $archiveProjects = $allProjects->filterBy(
         'project_status',
-        'abgeschlossen'
+        'abgeschlossen',
     );
 
     /**

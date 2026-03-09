@@ -1,5 +1,6 @@
 
 <?php
+
 use Kirby\Http\Remote;
 
 /**
@@ -13,7 +14,7 @@ use Kirby\Http\Remote;
 
 $programm_id = $data['id'] ?? 74;
 
-$json = Remote::get('https://goslar.feripro.de/api/programs/'.$programm_id.'/events/')->json();
+$json = Remote::get('https://goslar.feripro.de/api/programs/' . $programm_id . '/events/')->json();
 
 /* Fetch Events from Caching Server */
 //$json = Remote::get('https://crawler.goslar.app/events.json')->json();
@@ -30,16 +31,13 @@ function sort_by_start($a, $b)
     return strnatcmp($a['start'], $b['start']);
 }
 
-
 $rand = random_int(0, count($events) - 1);
 $event = $events[$rand];
 
-
 $json_event['title'] = $event['name'];
-$json_event['description'] = "<strong>".$event['name'] . "</strong> - " . $event['description'];
+$json_event['description'] = '<strong>' . $event['name'] . '</strong> - ' . $event['description'];
 $json_event['published_at'] = $event['start'];
-$json_event['image_url'] = "https://jugend.goslar.de/fileadmin/_processed_/3/1/csm_Post_a87fefbd79.png";
-$json_event['call_to_action_url'] = "https://goslar.feripro.de/anmeldung/".$programm_id."/veranstaltungen/".$event["event_id"];
-
+$json_event['image_url'] = 'https://jugend.goslar.de/fileadmin/_processed_/3/1/csm_Post_a87fefbd79.png';
+$json_event['call_to_action_url'] = 'https://goslar.feripro.de/anmeldung/' . $programm_id . '/veranstaltungen/' . $event['event_id'];
 
 print json_encode($json_event, JSON_UNESCAPED_SLASHES);

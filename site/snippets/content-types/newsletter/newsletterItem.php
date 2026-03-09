@@ -13,7 +13,7 @@ $class = $class ?? '';
 $publishDate = null;
 if ($newsletter->publish_date()->isNotEmpty()) {
     $publishDate = $newsletter->publish_date();
-} elseif ($newsletter->published() && ! $newsletter->published()->isEmpty()) {
+} elseif ($newsletter->published() && !$newsletter->published()->isEmpty()) {
     $publishDate = $newsletter->published();
 } else {
     $publishDate = $newsletter->modified();
@@ -21,7 +21,7 @@ if ($newsletter->publish_date()->isNotEmpty()) {
 
 // Get the first image from the newsletter, or use a fallback
 $heroImage = $newsletter->cover();
-if ($heroImage && ! $heroImage->exists()) {
+if ($heroImage && !$heroImage->exists()) {
     // Try to get first image from newsletter content
     $heroImage = $newsletter->images()->last();
 }

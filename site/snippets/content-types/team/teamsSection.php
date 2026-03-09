@@ -1,5 +1,7 @@
 <?php
+
 /**  Teams Section Snippet */
+
 /* @var Kirby\Cms\Collection $staff
  * @var Kirby\Cms\Collection $volunteers
  * @var Kirby\Cms\Collection $partners

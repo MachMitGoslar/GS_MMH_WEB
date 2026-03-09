@@ -17,8 +17,8 @@ return [
     [
         'pattern' => 'newsletter.xml',
         'action' => function () {
-            $pages = site()->page("newsletter")->children()->listed();
-            $parent = site()->page(path: "newsletter");
+            $pages = site()->page('newsletter')->children()->listed();
+            $parent = site()->page(path: 'newsletter');
 
             $content = snippet('content-types/newsletter/rss_feed', compact('pages', 'parent'), true);
 
@@ -35,7 +35,7 @@ return [
         'pattern' => '/app/(:any)',
         'action' => function ($any) {
             $data['url'] = $any;
-            $data['day'] = date("Y-m-d");
+            $data['day'] = date('Y-m-d');
 
             if ($app_request = Db::first('app_requests', '*', ['url' => $data['url'], 'day' => $data['day']])) {
                 $data['requests'] = $app_request->requests();
@@ -90,7 +90,7 @@ return [
             return new Response(
                 json_encode($result, JSON_UNESCAPED_UNICODE),
                 'application/json',
-                $result['success'] ? 200 : 400
+                $result['success'] ? 200 : 400,
             );
         },
     ],
@@ -103,7 +103,7 @@ return [
         'action' => function () {
             return new Response(
                 json_encode(['status' => 'ok', 'message' => 'Booking API endpoint. Use POST to submit.']),
-                'application/json'
+                'application/json',
             );
         },
     ],
