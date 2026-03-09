@@ -1,4 +1,5 @@
 <?php
+
 /**
 * @var \Kirby\Cms\Site $site
 * @var \Kirby\Cms\Page $page
@@ -6,12 +7,12 @@
 ?>
 <li class="c-projectTeaserCard">
   <div>
-    <img class="hero" src=" <?=$project->cover()->url() ?: print("https://picsum.photos/1600/800?random=2") ?> " />
+    <img class="hero" src=" <?=$project->cover()->url() ?: print('https://picsum.photos/1600/800?random=2') ?> " />
   </div>
   <div class="content">
     <div class="statusheader">
-    <?= snippet("content-types/projects/statusBadge", ["status" => $project->project_status()]) ?>
-    <time><?=date("d.m.Y")?></time>
+    <?= snippet('content-types/projects/statusBadge', ['status' => $project->project_status()]) ?>
+    <time><?=date('d.m.Y')?></time>
     </div>
 
     <h3 class="font-headline"><?=$project->title()?></h3>

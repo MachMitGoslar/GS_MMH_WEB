@@ -43,7 +43,7 @@
             <h2 class="font-title mb-3">Projektupdates</h2>
 
             <ul class="grid mb-4">
-                <?php foreach ($kirby->collection("project-updates")->paginate(6) as $project_step) : ?>
+                <?php foreach ($kirby->collection('project-updates')->paginate(6) as $project_step) : ?>
                     <?php $project = $project_step->parent() ?>
                     <?php snippet('content-types/projects/projectUpdateTeaserCard', compact(['project', 'project_step'])) ?>
                 <?php endforeach ?>

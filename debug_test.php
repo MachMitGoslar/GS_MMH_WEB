@@ -4,8 +4,8 @@
  * Test script for debugging with Xdebug
  */
 
-$name = "Kirby Application";
-$version = "4.7.2";
+$name = 'Kirby Application';
+$version = '4.7.2';
 
 echo "Welcome to $name version $version\n";
 

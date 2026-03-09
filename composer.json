@@ -44,7 +44,7 @@
     ],
     "format": "php-cs-fixer fix --diff",
     "format:check": "php-cs-fixer fix --diff --dry-run",
-    "lint": "php -d memory_limit=512M ./vendor/bin/phpcs --standard=PSR2 --ignore=vendor,kirby,storage --extensions=php site/",
-    "lint:fix": "php -d memory_limit=512M ./vendor/bin/phpcbf --standard=PSR2 --ignore=vendor,kirby,storage --extensions=php site/"
+    "lint": "php -d memory_limit=512M ./vendor/bin/phpcs --standard=phpcs.xml",
+    "lint:fix": "php -d memory_limit=512M ./vendor/bin/phpcbf --standard=phpcs.xml"
   }
 }

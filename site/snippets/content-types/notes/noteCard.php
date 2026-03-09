@@ -48,9 +48,9 @@ $authors = $note->author()->toPages();
           </time>
           <?php if ($note->tags()->isNotEmpty()) : ?>
             <div class="note-card-tags">
-              <?php foreach ($note->tags()->split() as $tag) : ?>
+                <?php foreach ($note->tags()->split() as $tag) : ?>
                 <span class="tag">#<?= $tag ?></span>
-              <?php endforeach ?>
+                <?php endforeach ?>
             </div>
           <?php endif ?>
         </div>
@@ -82,18 +82,18 @@ $authors = $note->author()->toPages();
       <!-- Authors on image border (right side) -->
       <?php if ($authors->count() > 0) : ?>
         <div class="note-card-authors">
-          <?php foreach ($authors->limit(2) as $author) : ?>
+            <?php foreach ($authors->limit(2) as $author) : ?>
             <a href="<?= $author->url() ?>" class="note-card-author" title="<?= $author->title()->html() ?>">
-              <?php if ($authorImage = $author->cover()) : ?>
+                <?php if ($authorImage = $author->cover()) : ?>
                 <img src="<?= $authorImage->crop(40, 40)->url() ?>" alt="<?= $author->title()->html() ?>">
-              <?php else : ?>
+                <?php else : ?>
                 <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
-              <?php endif ?>
+                <?php endif ?>
             </a>
-          <?php endforeach ?>
-          <?php if ($authors->count() > 2) : ?>
+            <?php endforeach ?>
+            <?php if ($authors->count() > 2) : ?>
             <span class="note-card-author-more font-footnote">+<?= $authors->count() - 2 ?></span>
-          <?php endif ?>
+            <?php endif ?>
         </div>
       <?php endif ?>
     </div>

@@ -32,7 +32,7 @@
             datasets: [
                 <?php foreach ($datasets as $url => $values) : ?>
                 { label: "<?= $url ?>",
-                data: [<?=implode(",", $values)?>],
+                data: [<?=implode(',', $values)?>],
                 borderWidth: 1
                 },
                 <?php endforeach ?>

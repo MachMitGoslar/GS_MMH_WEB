@@ -39,7 +39,7 @@ return [
         'auth' => false,
         'action' => function ($slug) {
 
-            if (! $page = page('newsletter/' . $slug)) {
+            if (!$page = page('newsletter/' . $slug)) {
                 return new Kirby\Cms\Response('Not found', 'text/plain', 404);
             }
 
@@ -93,7 +93,7 @@ return [
             'action' => function () {
                 $data = latestUpdateData(true);
 
-                if (! $data) {
+                if (!$data) {
                     return [
                         'status' => 'error',
                         'message' => 'Keine Updates gefunden',
@@ -129,7 +129,7 @@ return [
                 $now = date('Y-m-d\TH:i');
 
                 $coverUrl = function ($p) {
-                    if (! $p) {
+                    if (!$p) {
                         return null;
                     }
                     $coverFile = $p->content()->get('cover')?->toFile();

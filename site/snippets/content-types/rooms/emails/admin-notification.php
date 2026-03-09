@@ -34,11 +34,9 @@ Name: <?= $requester_name ?>
 
 E-Mail: <?= $requester_email ?>
 <?php if ($requester_phone) : ?>
-
 Telefon: <?= $requester_phone ?>
 <?php endif ?>
 <?php if ($requester_organization) : ?>
-
 Organisation: <?= $requester_organization ?>
 <?php endif ?>
 
@@ -51,11 +49,10 @@ Datum: <?= $request_date ?>
 
 Uhrzeit: <?= $request_time_start ?> - <?= $request_time_end ?> Uhr
 <?php if ($is_recurring && $recurrence_pattern) : ?>
-
 Wiederholung: <?= $recurrenceLabels[$recurrence_pattern] ?? $recurrence_pattern ?>
-<?php if ($recurrence_end_date) : ?>
+    <?php if ($recurrence_end_date) : ?>
  bis <?= $recurrence_end_date ?>
-<?php endif ?>
+    <?php endif ?>
 <?php endif ?>
 
 Erwartete Teilnehmer: <?= $expected_attendees ?> Personen
@@ -63,9 +60,8 @@ Erwartete Teilnehmer: <?= $expected_attendees ?> Personen
 Verwendungszweck:
 <?= $purpose ?>
 <?php if ($special_requirements) : ?>
-
 Besondere Anforderungen:
-<?= $special_requirements ?>
+    <?= $special_requirements ?>
 <?php endif ?>
 
 

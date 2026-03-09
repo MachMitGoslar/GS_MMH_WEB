@@ -39,7 +39,7 @@
 
       <?php if ($room->short_description()->isNotEmpty()) : ?>
         <p class="room-card-description font-body">
-          <?= $room->short_description()->excerpt(120) ?>
+            <?= $room->short_description()->excerpt(120) ?>
         </p>
       <?php endif ?>
 
@@ -47,14 +47,14 @@
       <?php $equipment = $room->equipment()->toStructure()->limit(4); ?>
       <?php if ($equipment->count() > 0) : ?>
         <div class="room-card-equipment">
-          <?php foreach ($equipment as $item) : ?>
+            <?php foreach ($equipment as $item) : ?>
             <span class="equipment-icon-small" title="<?= $item->name()->html() ?>">
-              <?= snippet('content-types/rooms/equipmentIcon', ['icon' => $item->icon()->value(), 'small' => true]) ?>
+                <?= snippet('content-types/rooms/equipmentIcon', ['icon' => $item->icon()->value(), 'small' => true]) ?>
             </span>
-          <?php endforeach ?>
-          <?php if ($room->equipment()->toStructure()->count() > 4) : ?>
+            <?php endforeach ?>
+            <?php if ($room->equipment()->toStructure()->count() > 4) : ?>
             <span class="equipment-more font-footnote">+<?= $room->equipment()->toStructure()->count() - 4 ?></span>
-          <?php endif ?>
+            <?php endif ?>
         </div>
       <?php endif ?>
 

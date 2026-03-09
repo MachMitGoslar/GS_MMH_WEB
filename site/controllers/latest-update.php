@@ -13,7 +13,6 @@ function latestUpdateAll(): Pages
         ->listed()
         ?? new Pages([]);
 
-
     // Projekt-Steps sammeln
     $projektSteps = new Pages([]);
     $projects = page('projects')?->children()->listed() ?? new Pages([]);
@@ -29,9 +28,8 @@ function latestUpdateAll(): Pages
         fn ($step) => $step->project_start_date()->isNotEmpty()
             ? strtotime($step->project_start_date()->value())
             : 0,
-        'desc'
+        'desc',
     );
-
 
     // Newsletter + ProjektSteps zusammenführen
     $all = $newsletters->merge($projektSteps);
@@ -86,7 +84,7 @@ function latestUpdate()
  */
 function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
 {
-    if (! $update) {
+    if (!$update) {
         return null;
     }
 

@@ -8,11 +8,11 @@
           <div class="timeline-connector"></div>
           <div class="timeline-item__container">
             <div class="timeline-content">
-              <div class="timeline-date"><?= $project_step->project_start_date("d.m.Y") ?></div>
+              <div class="timeline-date"><?= $project_step->project_start_date('d.m.Y') ?></div>
               <?php if ($project_step->project_status_from()->isNotEmpty() || $project_step->project_status_to()->isNotEmpty()) : ?>
                 <div class="timeline-status-pills">
                     <?php if ($project_step->project_status_from()->isNotEmpty()) : ?>
-                        <?= snippet("content-types/projects/statusBadge", ["status" => $project_step->project_status_from()]) ?>
+                        <?= snippet('content-types/projects/statusBadge', ['status' => $project_step->project_status_from()]) ?>
                     <?php endif ?>
                     <?php if ($project_step->project_status_from()->isNotEmpty() && $project_step->project_status_to()->isNotEmpty()) : ?>
                     <svg class="timeline-status-arrow" width="16" height="12" viewBox="0 0 16 12" fill="none">
@@ -20,7 +20,7 @@
                     </svg>
                     <?php endif ?>
                     <?php if ($project_step->project_status_to()->isNotEmpty()) : ?>
-                        <?= snippet("content-types/projects/statusBadge", ["status" => $project_step->project_status_to()]) ?>
+                        <?= snippet('content-types/projects/statusBadge', ['status' => $project_step->project_status_to()]) ?>
                     <?php endif ?>
                 </div>
               <?php endif ?>

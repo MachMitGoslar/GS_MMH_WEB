@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Note (Tagebucheintrag) Detail Template
  * @var \Kirby\Cms\Site $site
@@ -16,8 +17,8 @@
       <section class="note-hero">
         <div class="note-hero-image">
           <img src="<?= $cover->crop(1920, 800)->url() ?>"
-               alt="<?= $page->title()->html() ?>"
-               loading="eager">
+            alt="<?= $page->title()->html() ?>"
+            loading="eager">
           <div class="note-hero-overlay"></div>
         </div>
         <div class="note-hero-content">
@@ -105,7 +106,7 @@ if ($authors->count() > 0) :
         <div class="note-body">
           <?php foreach ($page->text()->toBlocks() as $block) : ?>
             <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-              <?= $block ?>
+                <?= $block ?>
             </div>
           <?php endforeach ?>
         </div>
@@ -118,22 +119,22 @@ if ($authors->count() > 0) :
           <h4 class="font-subheadline sidebar-title">Teilen</h4>
           <div class="share-buttons">
             <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($page->url()) ?>"
-               target="_blank"
-               rel="noopener"
-               class="share-btn share-facebook"
-               title="Auf Facebook teilen">
+              target="_blank"
+              rel="noopener"
+              class="share-btn share-facebook"
+              title="Auf Facebook teilen">
               Facebook
             </a>
             <a href="https://twitter.com/intent/tweet?url=<?= urlencode($page->url()) ?>&text=<?= urlencode($page->title()->value()) ?>"
-               target="_blank"
-               rel="noopener"
-               class="share-btn share-twitter"
-               title="Auf Twitter teilen">
+              target="_blank"
+              rel="noopener"
+              class="share-btn share-twitter"
+              title="Auf Twitter teilen">
               Twitter
             </a>
             <a href="mailto:?subject=<?= urlencode($page->title()->value()) ?>&body=<?= urlencode($page->url()) ?>"
-               class="share-btn share-email"
-               title="Per E-Mail teilen">
+              class="share-btn share-email"
+              title="Per E-Mail teilen">
               E-Mail
             </a>
           </div>
@@ -153,7 +154,7 @@ if ($authors->count() > 0) :
 
         <!-- Related Notes -->
         <?php
-        $relatedNotes = $page->siblings(false)->listed()->shuffle()->limit(3);
+    $relatedNotes = $page->siblings(false)->listed()->shuffle()->limit(3);
 if ($relatedNotes->count() > 0) :
     ?>
           <div class="sidebar-section">

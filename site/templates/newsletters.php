@@ -49,7 +49,7 @@
             }
             // Secondary: use published date if available
             $published = $newsletter->published();
-            if ($published && ! $published->isEmpty()) {
+            if ($published && !$published->isEmpty()) {
                 return $published->toTimestamp();
             }
             // Tertiary: use modified date
@@ -59,12 +59,12 @@
             }
 
             // Final fallback: reverse folder number for manual ordering
-            return -intval($newsletter->num());
+            return -(int) ($newsletter->num());
         }, 'desc');
 
         foreach ($sortedNewsletters as $index => $newsletter) :
             ?>
-              <?= snippet('content-types/newsletter/newsletterItem', [
+                <?= snippet('content-types/newsletter/newsletterItem', [
             'newsletter' => $newsletter,
             'class' => $index === 0 ? 'newsletter-item--featured' : '',
               ]) ?>

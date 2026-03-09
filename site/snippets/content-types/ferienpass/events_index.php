@@ -1,13 +1,16 @@
 
 <?php
+
+use Kirby\http\Remote;
+
 /**
 * @var Kirby\Cms\Site $site
 * @var Kirby\Cms\Page $page
 */
 ?>
 <?php
-$program_id = 69;
-$json = Remote::get('https://goslar.feripro.de/api/programs/'.$program_id.'/events/')->json();
+$program_id = 74;
+$json = Remote::get('https://goslar.feripro.de/api/programs/' . $program_id . '/events/')->json();
 //$json = Remote::get('https://crawler.goslar.app/events.json')->json();
 
 $events = $json;
@@ -31,10 +34,10 @@ foreach ($events as $event) {
     ];
     $json_event['id'] = $id;
     $json_event['title'] = $event['name'];
-    $json_event['description'] = $event['duration_summary'] . " " . $event['description'];
+    $json_event['description'] = $event['duration_summary'] . ' ' . $event['description'];
     $json_event['published_at'] = $event['start'];
-    $json_event['image_url'] = $event['cover_photo'] ? $event['cover_photo']['thumbnail'] : "https://jugend.goslar.de/fileadmin/_processed_/3/1/csm_Post_a87fefbd79.png";
-    $json_event['call_to_action_url'] = "https://goslar.feripro.de/anmeldung/".$program_id."/veranstaltungen/".$event["event_id"];
+    $json_event['image_url'] = $event['cover_photo'] ? $event['cover_photo']['thumbnail'] : 'https://jugend.goslar.de/fileadmin/_processed_/3/1/csm_Post_a87fefbd79.png';
+    $json_event['call_to_action_url'] = 'https://goslar.feripro.de/anmeldung/' . $program_id . '/veranstaltungen/' . $event['event_id'];
     array_push($new_events, $json_event);
     $id++;
 }

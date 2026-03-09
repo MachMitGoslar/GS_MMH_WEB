@@ -63,6 +63,10 @@ vendor/
 # Plugins / Submodules
 #----------
 /site/plugins/*
+!/site/plugins/gs-mmh-web-plugin
+!/site/plugins/gs-mmh-web-plugin/*
+!/site/plugins/gs-mmh-signage
+!/site/plugins/gs-mmh-signage/*
 /kirby/*
 /content/
 

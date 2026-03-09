@@ -24,12 +24,10 @@ Raum/Räume: <?= $room_names ?>
 Datum: <?= $request_date ?>
 
 Uhrzeit: <?= $request_time_start ?> - <?= $request_time_end ?> Uhr
-<?php if (! empty($denial_reason)) : ?>
-
-
+<?php if (!empty($denial_reason)) : ?>
 == Begründung ==
 
-<?= $denial_reason ?>
+    <?= $denial_reason ?>
 <?php endif ?>
 
 

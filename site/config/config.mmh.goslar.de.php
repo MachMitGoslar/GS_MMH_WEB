@@ -7,6 +7,7 @@
  * This setting must be set to false in production.
  * All config options: https://getkirby.com/docs/reference/system/options
  */
+
 return [
     'debug' => true,
     'panel' => [
@@ -22,7 +23,5 @@ return [
         'driver' => 'im',
         'bin' => '/usr/bin/convert',
     ],
-
-
 
 ];

@@ -6,7 +6,7 @@
 * @var string $subtitle
 */
 
-if (! isset($teamMembers) || $teamMembers->count() === 0) {
+if (!isset($teamMembers) || $teamMembers->count() === 0) {
     return;
 }
 ?>

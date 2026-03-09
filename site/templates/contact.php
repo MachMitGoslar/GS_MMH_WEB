@@ -22,7 +22,7 @@
             <?= $page->title() ?>
         </h1>
 
-        <?php if ($page->intro()->isNotEmpty()): ?>
+        <?php if ($page->intro()->isNotEmpty()) : ?>
             <div class="mb-6">
                 <?= $page->intro()->kt() ?>
             </div>

@@ -16,10 +16,10 @@ class MemberPage extends Page
 
     public function description()
     {
-        if (! $this->content()->description()->isNotEmpty()) {
+        if (!$this->content()->description()->isNotEmpty()) {
             $block = new Block([
-                "type" => "text",
-                "content" => "Ich hätte so gern eine Beschreibung!!".file_get_contents('http://loripsum.net/api/plaintext'),
+                'type' => 'text',
+                'content' => 'Ich hätte so gern eine Beschreibung!!' . file_get_contents('http://loripsum.net/api/plaintext'),
             ]);
 
             return $block->content()->body();

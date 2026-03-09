@@ -7,7 +7,7 @@
         'volunteers' => $volunteers,
         'partners' => $partners,
         'issuers' => $issuers,
-        'title' => $page->headline() ?? "Teams & Unterstützer:innen",
+        'title' => $page->headline() ?? 'Teams & Unterstützer:innen',
         'subtitle' => $page->subheadline(),
     ]); ?>
 </main>

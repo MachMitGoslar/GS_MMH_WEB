@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rooms (Räume) Listing Template
  * @var \Kirby\Cms\Site $site
@@ -14,8 +15,8 @@
     <?php if ($page->cover() && $cover = $page->cover()->toFile()) : ?>
       <div class="rooms-hero-image">
         <img src="<?= $cover->crop(1920, 600)->url() ?>"
-             alt="<?= $page->title()->html() ?>"
-             loading="eager">
+          alt="<?= $page->title()->html() ?>"
+          loading="eager">
         <div class="rooms-hero-overlay"></div>
       </div>
     <?php endif ?>
@@ -57,7 +58,7 @@
         <ul class="grid rooms-grid">
           <?php foreach ($rooms as $room) : ?>
             <li class="room-card-wrapper">
-              <?= snippet('content-types/rooms/roomCard', ['room' => $room]) ?>
+                <?= snippet('content-types/rooms/roomCard', ['room' => $room]) ?>
             </li>
           <?php endforeach ?>
         </ul>
@@ -100,7 +101,7 @@
   <section id="booking-form" class="grid content rooms-form-section">
 
     <div class="grid-item" data-span="2/3">
-      
+
       <h2 class="font-title mb-4">Buchungsanfrage</h2>
 
       <?= snippet('content-types/rooms/bookingForm', ['rooms' => $rooms, 'settings' => $page]) ?>
@@ -127,12 +128,12 @@
           <h2 class="font-title mb-4">Verfügbarkeit</h2>
           <div class="calendar-embed">
             <iframe src="<?= $page->overview_calendar_url() ?>"
-                    style="border: 0"
-                    width="100%"
-                    height="400"
-                    frameborder="0"
-                    scrolling="no"
-                    loading="lazy"></iframe>
+              style="border: 0"
+              width="100%"
+              height="400"
+              frameborder="0"
+              scrolling="no"
+              loading="lazy"></iframe>
           </div>
           <p class="font-footnote calendar-note">
             Grau hinterlegte Zeiten sind bereits belegt.
