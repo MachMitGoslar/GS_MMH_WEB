@@ -1,18 +1,22 @@
 
 <?php
+use Kirby\Http\Remote;
+
 /**
 * @var Kirby\Cms\Site $site
 * @var Kirby\Cms\Page $page
+* @var array $data
+* @uses Kirby\Http\Remote
 */
 ?>
 <?php
 
-$programm_id = 67;
+$programm_id = $data['id'] ?? 74;
 
-//$json = Remote::get('https://goslar.feripro.de/api/programs/'.$programm_id.'/events/')->json();
+$json = Remote::get('https://goslar.feripro.de/api/programs/'.$programm_id.'/events/')->json();
 
 /* Fetch Events from Caching Server */
-$json = Remote::get('https://crawler.goslar.app/events.json')->json();
+//$json = Remote::get('https://crawler.goslar.app/events.json')->json();
 
 $events = $json;
 

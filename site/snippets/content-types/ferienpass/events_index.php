@@ -1,12 +1,14 @@
 
 <?php
+use Kirby\http\Remote;
+
 /**
 * @var Kirby\Cms\Site $site
 * @var Kirby\Cms\Page $page
 */
 ?>
 <?php
-$program_id = 69;
+$program_id = 74;
 $json = Remote::get('https://goslar.feripro.de/api/programs/'.$program_id.'/events/')->json();
 //$json = Remote::get('https://crawler.goslar.app/events.json')->json();
 

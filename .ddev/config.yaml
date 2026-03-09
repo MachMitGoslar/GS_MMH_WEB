@@ -10,6 +10,9 @@ host_webserver_port: "8001"
 database:
     type: mariadb
     version: "10.11"
+    database: mmh_dev_db
+    user: mmh_dev_user
+    password: mmh_dev_password
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []

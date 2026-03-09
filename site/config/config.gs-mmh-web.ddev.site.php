@@ -27,6 +27,12 @@ return [
             'credentials' => __DIR__ . '/../../storage/calendar_key.json',
         ],
     ],
+    'db' => [
+        'host' => 'db',
+        'database' => 'db',
+        'user' => 'db',
+        'password' => 'db',
+    ],
     'email' => [
         'transport' => [
             'type' => 'smtp',
