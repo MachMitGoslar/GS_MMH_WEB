@@ -109,13 +109,14 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
     }
 
     return [
-        'id' => $update->id(),
+        //'id' => $update->id(),
         'title' => $update->title()->value(),
         'description' => $update->description()->isNotEmpty()
             ? $update->description()->value()
             : $update->text()->excerpt(160)->value(),
         'image_url' => $image_url,
-        'call_to_action_url' => $call_to_action_url,
+        'call_to_action_url' => url('api/highlights'),
+        //'call_to_action_url' => $call_to_action_url,
         'published_at' => date('Y-m-d\TH:i', $timestamp),
         'widget_type' => null,
     ];
