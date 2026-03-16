@@ -264,6 +264,13 @@ return [
                         'call_to_action_url' => $aboutPage?->url(),
                         'published_at' => $now,
                     ],
+                    [
+                        'id' => 7,
+                        'title' => 'WhatsApp Community',
+                        'description' => 'Tritt unserer WhatsApp Community bei und bleibe immer auf dem Laufenden!',
+                        'image_url' => url('assets/svg/machmit-logo.svg'),
+                        'call_to_action_url' => 'https://chat.whatsapp.com/IxjUee7gVOY3KfQhvdUsA3?mode=gi_t',
+                    ],
                 ];
             },
         ],
