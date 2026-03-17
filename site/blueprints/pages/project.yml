@@ -57,6 +57,7 @@ columns:
           - card
           - testimonial
           - cta
+          - form
 
       form: dreamform/fields/form
 
@@ -85,5 +86,4 @@ columns:
          - project_step
        empty: Noch keine Projektschritte angelegt
        sortBy: project_start_date asc
- 
-          
+
