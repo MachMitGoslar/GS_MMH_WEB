@@ -7,23 +7,97 @@
   margin-bottom: 2rem;
 }
 
-.designer .accordion-details {
-  /* padding-block: 1rem;
-    padding-inline: 2rem; */
+.faq-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.accordion-details {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-dead-pixel-300);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.accordion-details[open] {
   background-color: var(--color-dead-pixel-200);
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  border-color: var(--color-dead-pixel-400);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 6%);
 }
 
-.designer .accordion-summary {
+.accordion-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  color: var(--color-fg-brand-primary);
   border-bottom: 1px solid var(--color-fg-brand-primary);
-  border-top: 1px solid var(--color-fg-brand-primary);
-  padding: 1rem;
 }
 
-.designer .accordion-details p {
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
+.accordion-details[open] .accordion-summary {
+  color: var(--color-dead-pixel-1200);
+  border-bottom-color: var(--color-dead-pixel-300);
+}
+
+.accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-summary::after {
+  content: '';
+  width: 0.65rem;
+  height: 0.65rem;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  margin-left: auto;
+}
+
+.accordion-details[open] .accordion-summary::after {
+  transform: rotate(-135deg);
+}
+
+.accordion-summary:focus-visible {
+  outline: 2px solid var(--color-fg-brand-primary);
+  outline-offset: 2px;
+}
+
+.accordion-text {
+  margin: 0;
+  padding: 0.75rem 1.25rem 1.25rem;
+  color: var(--color-dead-pixel-1200);
+}
+
+.accordion-text p {
+  margin: 0;
+}
+
+.accordion-text ul,
+.accordion-text ol {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
+  list-style-position: outside;
+}
+
+.accordion-text ul {
+  list-style-type: disc;
+}
+
+.accordion-text ol {
+  list-style-type: decimal;
+}
+
+.accordion-text li {
+  margin: 0.25rem 0;
 }
 
 /** CARD **/
