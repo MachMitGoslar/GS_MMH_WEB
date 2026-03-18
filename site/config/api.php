@@ -31,9 +31,92 @@ return [
             },
         ],
         /**
+         * All-Rooms Availability API
+         */
+        [
+            'pattern' => 'rooms/availability.json',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function () {
+                $kirby = kirby();
+                $roomsPage = $kirby->site()->find('rooms');
+
+                if (!$roomsPage || !$kirby->option('nextcloud.calendar_url')) {
+                    return ['rooms' => []];
+                }
+
+                $weeks = max(1, min(16, (int) get('weeks', 12)));
+                $includeTentative = get('tentative', '1') !== '0';
+                $berlin = new \DateTimeZone('Europe/Berlin');
+                $rangeStart = new \DateTime('today', $berlin);
+                $rangeEnd = new \DateTime("+{$weeks} weeks", $berlin);
+                $rangeEnd->setTime(23, 59, 59);
+
+                require_once $kirby->root('snippets') . '/content-types/rooms/nextcloudCalendarIntegration.php';
+
+                $palette = ['#e84237', '#5c7adb', '#5da05d', '#af63b1', '#fbc62e'];
+                $rooms = [];
+                $i = 0;
+
+                foreach ($roomsPage->children()->listed() as $room) {
+                    $resourceEmail = $room->nextcloud_resource_email()->value();
+                    if (!$resourceEmail) {
+                        continue;
+                    }
+                    $rooms[] = [
+                        'slug' => $room->slug(),
+                        'title' => $room->title()->value(),
+                        'color' => $palette[$i % count($palette)],
+                        'slots' => ncRoomBusySlots($resourceEmail, $rangeStart, $rangeEnd, $includeTentative),
+                    ];
+                    $i++;
+                }
+
+                return ['rooms' => $rooms];
+            },
+        ],
+        /**
+         * Per-Room Availability API
+         */
+        [
+            'pattern' => 'rooms/(:any)/availability.json',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function (string $roomSlug) {
+                $kirby = kirby();
+                $room = $kirby->site()->find('rooms/' . $roomSlug)
+                      ?? $kirby->site()->find('raeume/' . $roomSlug);
+
+                if (!$room || $room->intendedTemplate()->name() !== 'room') {
+                    return new Kirby\Cms\Response(
+                        json_encode(['error' => 'Room not found']),
+                        'application/json',
+                        404,
+                    );
+                }
+
+                $resourceEmail = $room->nextcloud_resource_email()->value();
+                if (!$resourceEmail || !$kirby->option('nextcloud.calendar_url')) {
+                    return ['slots' => [], 'room' => $roomSlug];
+                }
+
+                $weeks = max(1, min(16, (int) get('weeks', 6)));
+                $includeTentative = get('tentative', '1') !== '0';
+                $berlin = new \DateTimeZone('Europe/Berlin');
+                $rangeStart = new \DateTime('today', $berlin);
+                $rangeEnd = new \DateTime("+{$weeks} weeks", $berlin);
+                $rangeEnd->setTime(23, 59, 59);
+
+                require_once $kirby->root('snippets') . '/content-types/rooms/nextcloudCalendarIntegration.php';
+                $slots = ncRoomBusySlots($resourceEmail, $rangeStart, $rangeEnd, $includeTentative);
+
+                return ['slots' => $slots, 'room' => $roomSlug];
+            },
+        ],
+        /**
          * Create Newsletter Image
          */
-    [
+        [
         'pattern' => 'newsletter-cover/(:any).svg',
         'method' => 'GET',
         'auth' => false,
@@ -82,7 +165,7 @@ return [
 
             return new Kirby\Cms\Response($svg, 'image/svg+xml');
         },
-    ],
+        ],
         /**
              * Latest Update for Goslar App Kachel
              */
@@ -180,6 +263,13 @@ return [
                         'image_url' => $coverUrl($aboutPage),
                         'call_to_action_url' => $aboutPage?->url(),
                         'published_at' => $now,
+                    ],
+                    [
+                        'id' => 7,
+                        'title' => 'WhatsApp Community',
+                        'description' => 'Tritt unserer WhatsApp Community bei und bleibe immer auf dem Laufenden!',
+                        'image_url' => url('assets/svg/machmit-logo.svg'),
+                        'call_to_action_url' => 'https://chat.whatsapp.com/IxjUee7gVOY3KfQhvdUsA3?mode=gi_t',
                     ],
                 ];
             },
