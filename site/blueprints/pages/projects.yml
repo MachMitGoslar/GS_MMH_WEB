@@ -59,3 +59,18 @@ tabs:
           - "Nein"
           - "Ja"
         default: false
+
+  archive:
+    label: Projektarchiv
+    icon: archive
+    columns:
+      - width: 1/1
+        sections:
+          archive_projects:
+            type: pages
+            label: Archivierte Projekte
+            parent: site.find("project-archive")
+            status: all
+            template: project
+            create: true
+            sortable: true

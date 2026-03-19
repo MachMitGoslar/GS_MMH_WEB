@@ -40,6 +40,14 @@
         <section>
             <?php snippet('dreamform/forms', ['page' => $page]) ?>
         </section>
+        <?php if ($page->team()->isNotEmpty()) : ?>
+        <section class="project-team">
+            <?= snippet('content-types/team/teamGallery', [
+              'teamMembers' => $page->team()->toPages(),
+              'title' => 'Projektteam',
+            ]) ?>
+        </section>
+        <?php endif ?>
     </div>
 
 
