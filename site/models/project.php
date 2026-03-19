@@ -14,6 +14,8 @@
  *
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
+use Kirby\Panel\Page as PanelPage;
+
 class ProjectPage extends Page
 {
     public function cover()
@@ -24,5 +26,35 @@ class ProjectPage extends Page
     public function project_steps(): Kirby\Cms\Pages
     {
         return $this->children()->sortBy('project_start_date', 'desc');
+    }
+
+    public function panel(): PanelPage
+    {
+        return new ProjectPanelPage($this);
+    }
+}
+
+class ProjectPanelPage extends PanelPage
+{
+    public function breadcrumb(): array
+    {
+        $page = $this->model();
+        $archive = $page->site()->find('project-archive');
+        $projects = $page->site()->find('projects');
+
+        if ($archive && $projects && $page->parent()->id() === $archive->id()) {
+            return [
+                [
+                    'label' => $archive->title()->toString(),
+                    'link' => $projects->panel()->url(true) . '?tab=archive',
+                ],
+                [
+                    'label' => $page->title()->toString(),
+                    'link' => $this->url(true),
+                ],
+            ];
+        }
+
+        return parent::breadcrumb();
     }
 }

@@ -37,7 +37,8 @@ tabs:
         type: headline
 
       show_active:
-        label: Aktive Projekte anzeigen
+        label: Aktive Projekte (Hauptseite)
+        help: Anzeige auf der MachMit!Projekte-Seite.
         type: toggle
         text:
           - "Nein"
@@ -45,7 +46,8 @@ tabs:
         default: true
 
       show_archive:
-        label: Abgeschlossene Projekte anzeigen
+        label: Archivierte Projekte (Hauptseite)
+        help: Anzeige des Archivbereichs auf der MachMit!Projekte-Seite.
         type: toggle
         text:
           - "Nein"
@@ -53,7 +55,8 @@ tabs:
         default: false
 
       show_search:
-        label: Suchfeld anzeigen
+        label: Suchfeld im Archiv
+        help: Anzeige des Suchfelds auf der Archivseite.
         type: toggle
         text:
           - "Nein"
@@ -67,7 +70,7 @@ tabs:
       - width: 1/1
         sections:
           archive_projects:
-            type: pages
+            extends: sections/projects
             label: Archivierte Projekte
             parent: site.find("project-archive")
             status: all
