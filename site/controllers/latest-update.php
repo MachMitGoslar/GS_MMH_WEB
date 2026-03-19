@@ -109,7 +109,7 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
     }
 
     return [
-        'id' => $update->id(),
+        //'id' => $update->id(),
         'title' => $update->title()->value(),
         'description' => $update->description()->isNotEmpty()
             ? $update->description()->value()
