@@ -1,4 +1,6 @@
 <?php
+$blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
+?><?php
 /**
  * @var \Kirby\Cms\Site $site
  * @var \Kirby\Cms\Page $page
@@ -7,10 +9,23 @@
 // Eingeloggter User (Panel)
 $user = kirby()->user();
 
-// Zeitprüfung
-$now = time();
-$publish = $page->publish_date()->isNotEmpty() ? $page->publish_date()->toDate() : null;
-$end = $page->end_date()->isNotEmpty() ? $page->end_date()->toDate() : null;
+// Zeitprüfung (deutsche Zeit)
+$timezone = new DateTimeZone(kirby()->option('date.timezone', 'Europe/Berlin'));
+$now = (new DateTimeImmutable('now', $timezone))->getTimestamp();
+
+$publish = null;
+if ($page->publish_date()->isNotEmpty()) {
+    $publishValue = $page->publish_date()->toDate('Y-m-d H:i');
+    $publishDate = DateTimeImmutable::createFromFormat('Y-m-d H:i', $publishValue, $timezone);
+    $publish = $publishDate ? $publishDate->getTimestamp() : null;
+}
+
+$end = null;
+if ($page->end_date()->isNotEmpty()) {
+    $endValue = $page->end_date()->toDate('Y-m-d H:i');
+    $endDate = DateTimeImmutable::createFromFormat('Y-m-d H:i', $endValue, $timezone);
+    $end = $endDate ? $endDate->getTimestamp() : null;
+}
 
 // Nur blockieren, wenn KEIN User eingeloggt ist
 if (!$user && (($publish && $publish > $now) || ($end && $end < $now))) {
@@ -40,9 +55,13 @@ if (!$user && (($publish && $publish > $now) || ($end && $end < $now))) {
                         <div class="grid-item" data-span="<?= $column->width() ?>">
 
                             <?php foreach ($column->blocks() as $block) : ?>
-                                <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-                                    <?= $block ?>
-                                </div>
+
+                                <?php if ($blockIsVisible($block)): ?>
+                                    <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                                        <?= $block ?>
+                                    </div>
+                                <?php endif ?>
+
                             <?php endforeach ?>
 
                         </div>

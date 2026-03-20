@@ -186,5 +186,16 @@ return [
         // Set the status directly
         $entry->changeStatus('unlisted');
     },
+    /**
+     * Make sure that the publishing date of a content page is lower than the ending date
+     */
+    'page.update:before' => function ($newPage, $values, $strings) {
 
+        $publish = isset($values['publish_date']) ? strtotime($values['publish_date']) : null;
+        $end = isset($values['end_date']) ? strtotime($values['end_date']) : null;
+
+        if ($publish && $end && $end < $publish) {
+            throw new Exception('Das Enddatum darf nicht vor dem Veröffentlichungsdatum liegen.');
+        }
+    },
 ];
