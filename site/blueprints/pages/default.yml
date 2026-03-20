@@ -1,77 +1,85 @@
-# Each page blueprint must have a title, the title may be different from the file name
-# This default blueprint is used to display a page in the Panel whenever a custom page blueprint is missing.
 title: Standard Seite
-
-# Each page can have an icon that is shown in page listings when no preview image is available.
 icon: 📝
 
 options:
-  changeTemplate: 
+  changeTemplate:
     - about
 
-# Custom descriptions of page statuses depending on use case
-# More about page statuses: https://getkirby.com/docs/reference/panel/blueprints/page#statuses
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    columns:
+      main:
+        width: 2/3
+        sections:
+          fields:
+            type: fields
+            fields:
+              cover: fields/cover
+              headline:
+                label: Titel
+                type: text
+              subheadline:
+                label: Subtitel
+                type: text
+              text:
+                type: writer
+                label: Text
+                toolbar:
+                  inline: true
+                  marks:
+                    - bold
+                    - button
+              layout:
+                type: layout
+                size: huge
+                label: Inhalt
+                layouts:
+                  - "1/1"
+                  - "1/2, 1/2"
+                  - "1/4, 1/4, 1/4, 1/4"
+                  - "1/3, 2/3"
+                  - "2/3, 1/3"
+                  - "1/3, 1/3, 1/3"
+                fieldsets:
+                  - heading
+                  - text
+                  - image
+                  - list
+                  - card
+                  - button
+                  - timeline
+                  - form
+                  - gallery
+                  - download
+                  - table
 
-# Content area width 2 columns and 3 sections: fields, pages, and files
-# Columns: https://getkirby.com/docs/guide/blueprints/layout#defining-columns
-columns:
-  main:
-    width: 2/3
-    sections:
-      # Fields section: https://getkirby.com/docs/reference/panel/sections/fields
-      fields:
-        type: fields
-        fields:
-          cover: fields/cover
-          headline:
-            label: Titel
-            type: text
-          subheadline:
-            label: Subtitel
-            type: text
-          text:
-            type: writer
-            label: Text
-            toolbar:
-              inline: true
-              marks:
-                - bold
-                - button
+      sidebar:
+        width: 1/3
+        sections:
+          pages:
+            type: pages
+            template: default
+          files:
+            type: files
+            uploads: false
 
-          layout:
-            type: layout
-            size: huge
-            label: Inhalt
-            layouts:
-              - "1/1"
-              - "1/2, 1/2"
-              - "1/4, 1/4, 1/4, 1/4"
-              - "1/3, 2/3"
-              - "2/3, 1/3"
-              - "1/3, 1/3, 1/3"
-            fieldsets:
-              - heading
-              - text
-              - image
-              - list
-              - card
-              - button
-              - timeline
-              - form 
-              - gallery
-              - download
-              - table
-
-  sidebar:
-    width: 1/3
-    sections:
-      # Pages section: https://getkirby.com/docs/reference/panel/sections/pages
-      pages:
-        type: pages
-        template: default
-      # Files section: https://getkirby.com/docs/reference/panel/sections/files
-      files:
-        type: files
-        uploads: false
-
-
+  schedule:
+    label: Veröffentlichung
+    icon: clock
+    columns:
+      main:
+        sections:
+          scheduling:
+            type: fields
+            fields:
+              publish_date:
+                label: Veröffentlichungsdatum
+                type: date
+                time: true
+                default: now
+              end_date:
+                label: Enddatum
+                type: date
+                time: true
