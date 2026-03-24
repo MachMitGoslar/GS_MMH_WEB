@@ -43,12 +43,48 @@ tabs:
                 label: Ausführliche Beschreibung
                 type: blocks
                 fieldsets:
-                  - heading
-                  - text
-                  - image
-                  - gallery
-                  - list
-                  - quote
+                  heading:
+                    extends: blocks/heading
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  text:
+                    extends: blocks/text
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  image:
+                    extends: blocks/image
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  gallery:
+                    extends: blocks/gallery
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  list:
+                    extends: blocks/list
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  quote:
+                    extends: blocks/quote
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
                 help: Detaillierte Beschreibung des Raumes
 
           gallery_section:

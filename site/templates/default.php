@@ -1,5 +1,5 @@
 <?php
-$blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
+$contentIsVisible = require kirby()->root('controllers') . '/blocks.php';
 ?><?php
 /**
  * @var \Kirby\Cms\Site $site
@@ -49,17 +49,18 @@ if (!$user && (($publish && $publish > $now) || ($end && $end < $now))) {
             </div>
 
             <?php foreach ($page->layout()->toLayouts() as $layout) : ?>
+                <?php if (!$contentIsVisible($layout)) {
+                    continue;
+                } ?>
                 <div class="grid content">
 
                     <?php foreach ($layout->columns() as $column) : ?>
                         <div class="grid-item" data-span="<?= $column->width() ?>">
 
                             <?php foreach ($column->blocks() as $block) : ?>
-                                <?php if ($blockIsVisible($block)) : ?>
-                                    <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-                                        <?= $block ?>
-                                    </div>
-                                <?php endif ?>
+                                <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                                    <?= $block ?>
+                                </div>
 
                             <?php endforeach ?>
 

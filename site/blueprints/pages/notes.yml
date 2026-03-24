@@ -58,6 +58,6 @@ tabs:
         sections:
           drafts:
             extends: sections/notes
-            query: page.children.drafts
+            query: page.drafts
             label: Entwürfe
             empty: Keine Entwürfe vorhanden

@@ -1,4 +1,5 @@
 <?php
+$blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
 
 /**
  * Rooms (Räume) Listing Template
@@ -37,9 +38,11 @@
     <section class="grid content rooms-intro">
       <div class="grid-item" data-span="2/3">
         <?php foreach ($page->description()->toBlocks() as $block) : ?>
-          <div class="c-blog c-blog-<?= $block->type() ?>">
-            <?= $block ?>
-          </div>
+          <?php if ($blockIsVisible($block)) : ?>
+            <div class="c-blog c-blog-<?= $block->type() ?>">
+              <?= $block ?>
+            </div>
+          <?php endif ?>
         <?php endforeach ?>
       </div>
     </section>
@@ -89,9 +92,11 @@
       <div class="grid-item" data-span="2/3">
         <h2 class="font-title">Buchungshinweise</h2>
         <?php foreach ($page->booking_info()->toBlocks() as $block) : ?>
-          <div class="c-blog c-blog-<?= $block->type() ?>">
-            <?= $block ?>
-          </div>
+          <?php if ($blockIsVisible($block)) : ?>
+            <div class="c-blog c-blog-<?= $block->type() ?>">
+              <?= $block ?>
+            </div>
+          <?php endif ?>
         <?php endforeach ?>
       </div>
     </section>

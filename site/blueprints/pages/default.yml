@@ -54,6 +54,19 @@ tabs:
                   - gallery
                   - download
                   - table
+                settings:
+                  fields:
+                    publish_date:
+                      label: Veröffentlichungsdatum
+                      type: date
+                      time: true
+                      default: now
+                      width: 1/2
+                    end_date:
+                      label: Enddatum
+                      type: date
+                      time: true
+                      width: 1/2
 
       sidebar:
         width: 1/3

@@ -3,6 +3,7 @@ icon: 📧
 
 tabs:
   content:
+    label: Content
     columns:
       - width: 1/2
         fields:
@@ -54,4 +55,3 @@ tabs:
             type: pages
             status: listed
             template: newsletter
-

@@ -14,7 +14,8 @@ status:
 
 # Create settings for automatic field population
 create:
-  title: '{{ (page.date ?? "now") | date("d.m.Y") }}'
+  title:
+    label: Titel
   slug: '{{ (page.date ?? "now") | date("Ymd") }}_{{ page.title.slug }}'
   template: note
 
@@ -57,15 +58,69 @@ tabs:
                 type: blocks
                 required: true
                 fieldsets:
-                  - heading
-                  - text
-                  - image
-                  - gallery
-                  - video
-                  - quote
-                  - list
-                  - line
-                  - button
+                  heading:
+                    extends: blocks/heading
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  text:
+                    extends: blocks/text
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  image:
+                    extends: blocks/image
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  gallery:
+                    extends: blocks/gallery
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  video:
+                    extends: blocks/video
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  quote:
+                    extends: blocks/quote
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  list:
+                    extends: blocks/list
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  line:
+                    extends: blocks/line
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  button:
+                    extends: blocks/button
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
                 help: Der Hauptinhalt des Tagebucheintrags
                 
       - width: 1/3
