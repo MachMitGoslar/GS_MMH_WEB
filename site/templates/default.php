@@ -55,8 +55,7 @@ if (!$user && (($publish && $publish > $now) || ($end && $end < $now))) {
                         <div class="grid-item" data-span="<?= $column->width() ?>">
 
                             <?php foreach ($column->blocks() as $block) : ?>
-
-                                <?php if ($blockIsVisible($block)): ?>
+                                <?php if ($blockIsVisible($block)) : ?>
                                     <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
                                         <?= $block ?>
                                     </div>

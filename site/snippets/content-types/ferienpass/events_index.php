@@ -14,7 +14,6 @@ $json = Remote::get('https://goslar.feripro.de/api/programs/' . $program_id . '/
 //$json = Remote::get('https://crawler.goslar.app/events.json')->json();
 
 $events = $json;
-
 usort($events, 'sort_by_start');
 //var_dump($events[1]['start']);
 
@@ -27,7 +26,6 @@ function sort_by_start($a, $b)
 
 $new_events = [];
 $id = 0;
-
 foreach ($events as $event) {
     $json_event = [
 
