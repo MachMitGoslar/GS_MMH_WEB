@@ -4,12 +4,28 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
+<?php $teamMembers = $page->team()->toPages(); ?>
 <?php snippet('layout/head'); ?>
 <?php snippet('layout/header'); ?>
   <main>
   <div class="mb-4">
     <?=snippet('sections/hero')?>
   </div>
+  <?php if ($teamMembers->isNotEmpty()) : ?>
+    <section class="project-team-strip-wrap">
+      <div class="project-team-strip" aria-label="Projektteam">
+        <?php foreach ($teamMembers as $member) : ?>
+          <a href="<?= $member->url() ?>" class="project-team-member" title="<?= $member->title()->html() ?>">
+            <?php if ($memberImage = $member->cover()) : ?>
+              <img src="<?= $memberImage->crop(72, 72)->url() ?>" alt="<?= $member->title()->html() ?>" width="72" height="72">
+            <?php else : ?>
+              <span class="project-team-placeholder"><?= strtoupper(substr($member->title()->value(), 0, 1)) ?></span>
+            <?php endif ?>
+          </a>
+        <?php endforeach ?>
+      </div>
+    </section>
+  <?php endif ?>
   <section class="grid content">
     <div class="grid-item" data-span="1/1">
     <h1 class="font-titleXXL "><?=$page->headline()->isEmpty() ? $page->title() : $page->headline() ?></h1>
@@ -40,14 +56,6 @@
         <section>
             <?php snippet('dreamform/forms', ['page' => $page]) ?>
         </section>
-        <?php if ($page->team()->isNotEmpty()) : ?>
-        <section class="project-team">
-            <?= snippet('content-types/team/teamGallery', [
-              'teamMembers' => $page->team()->toPages(),
-              'title' => 'Projektteam',
-            ]) ?>
-        </section>
-        <?php endif ?>
     </div>
 
 

@@ -17,6 +17,7 @@
 @import url('./components/newsletter-item.css');
 @import url('./components/blog.css');
 @import url('./components/notes.css');
+@import url('./components/projectTeamStrip.css');
 @import url('./components/rooms.css');
 
 @media (max-width: 767px) {
