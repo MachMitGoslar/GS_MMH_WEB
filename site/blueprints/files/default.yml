@@ -8,7 +8,7 @@ title: Image
 # More about file blueprints: https://getkirby.com/docs/reference/panel/blueprints/file
 
 accept: 
-  type: image
+  mime: image/*, application/pdf,  application/x-pdf
 
 columns:
   - width: 1/2
