@@ -25,7 +25,7 @@ tabs:
           - team
   newsletter:
     label: Newsletter
-    icon: edit
+    icon: email
     fields:
       newsletterTeaserHeadline:
         type: text
@@ -45,14 +45,14 @@ tabs:
         template: newsletter
   navigation:
     label: Navigation
-    icon: bars
+    icon: menu
     fields:
       navigation:
         type: pages
         label: Navigation
   team:
     label: Team & Partners
-    icon: User
+    icon: users
     sections:
       staff:
         extends: sections/roles
@@ -72,7 +72,7 @@ tabs:
         label: Auftraggeber
   tagebuch:
     label: Tagebuch
-    icon: book-open
+    icon: book
     sections: 
       published:
         extends: sections/notes
@@ -84,7 +84,7 @@ tabs:
         label: Entwürfe
   footer:
     label: Footer
-    icon: angle-down
+    icon: text-bottom
     fields:
       social:
         type: structure
@@ -100,7 +100,7 @@ tabs:
         label: Generelle Seiten
   forms:
     label: Formulare
-    icon: wpforms
+    icon: document
     sections:
       forms:
         type: pages

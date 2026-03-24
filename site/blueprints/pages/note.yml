@@ -22,6 +22,7 @@ create:
 tabs:
   content:
     label: Inhalt
+    icon: text
     # Two column layout for better organization
     columns:
       - width: 2/3

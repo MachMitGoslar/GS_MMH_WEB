@@ -4,6 +4,7 @@ icon: 📧
 tabs:
   content:
     label: Content
+    icon: text
     columns:
       - width: 1/2
         fields:

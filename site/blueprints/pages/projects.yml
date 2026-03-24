@@ -4,6 +4,7 @@ icon: 🖼
 tabs:
   content:
     label: Inhalt
+    icon: text
     columns:
       - width: 2/3
         fields:
