@@ -4,14 +4,7 @@
 # More about pages sections: https://getkirby.com/docs/reference/panel/sections/pages
 type: pages
 label: Projekte
-#parent: kirby.page("projects")
-size: small
-info: "{{ page.images.count }} image(s)"
-#layout: cards
 template: project
+size: small
+info: false
 empty: Bisher keine Projekte
-image:
-  query: page.cover
-  label: Titelbild
-  cover: true
-  ratio: 5/4

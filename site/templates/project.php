@@ -16,7 +16,7 @@
     <h2 class="font-titleXL font-weight-light"><?=$page->subheadline()?></h2>
     </div>
 
-    <div id="project_description" class="grid-item" data-span="<?= $page->project_steps()->isNotEmpty() ? '2/3' : '1/1' ?>">
+    <div id="project-description" class="grid-item" data-span="<?= $page->project_steps()->isNotEmpty() ? '2/3' : '1/1' ?>">
         <h3 class="font-headline"> Projektbeschreibung</h3>
         <div class="designer">
         <?php foreach ($page->text()->toLayouts() as $layout) : ?>
@@ -40,6 +40,14 @@
         <section>
             <?php snippet('dreamform/forms', ['page' => $page]) ?>
         </section>
+        <?php if ($page->team()->isNotEmpty()) : ?>
+        <section class="project-team">
+            <?= snippet('content-types/team/teamGallery', [
+              'teamMembers' => $page->team()->toPages(),
+              'title' => 'Projektteam',
+            ]) ?>
+        </section>
+        <?php endif ?>
     </div>
 
 

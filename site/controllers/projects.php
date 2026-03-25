@@ -6,6 +6,7 @@ return function ($site, $page, $kirby) {
 
     // project source
     $projectsRoot = $site->find('projects');
+    $archiveRoot = $site->find('project-archive');
 
     if (!$projectsRoot) {
         return [
@@ -19,22 +20,8 @@ return function ($site, $page, $kirby) {
     /**
      * Load all projects
      */
-    $allProjects = $projectsRoot->children()->listed();
-
-    /**
-     * get active projects
-     */
-    $activeProjects = $allProjects->filter(function ($project) {
-        return $project->project_status()->value() !== 'abgeschlossen';
-    });
-
-    /**
-     * get archived projects
-     */
-    $archiveProjects = $allProjects->filterBy(
-        'project_status',
-        'abgeschlossen',
-    );
+    $activeProjects = $projectsRoot->children()->listed();
+    $archiveProjects = $archiveRoot ? $archiveRoot->children()->listed() : collect();
 
     /**
      * Show searchbar if activated

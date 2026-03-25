@@ -18,3 +18,10 @@
 @import url('./components/blog.css');
 @import url('./components/notes.css');
 @import url('./components/rooms.css');
+
+@media (max-width: 767px) {
+  #project-description .grid.content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
