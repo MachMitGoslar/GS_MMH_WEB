@@ -1,74 +1,64 @@
-.project-team-strip-wrap {
+.project-title-wrapper {
   position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: end;
-  align-items: end;
-  height: 0;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 2rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
+/* TEAM STRIP POSITIONING */
 .project-team-strip {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
 }
 
+/* AVATAR STYLE */
 .project-team-member {
-  display: block;
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid var(--color-page-background);
-  margin-left: -10px;
-  box-shadow: 0 4px 10px rgb(0 0 0 / 12%);
+  border: 4px solid #fff;
   background: #fff;
-  flex: 0 0 auto;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
   position: relative;
 }
 
-.project-team-member:first-child {
-  margin-left: 0;
+/* overlap effect */
+.project-team-member + .project-team-member {
+  margin-left: -1em;
 }
 
+/* IMAGE */
 .project-team-member img {
-  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* PLACEHOLDER */
 .project-team-placeholder {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   background: var(--color-fg-brand-primary);
   color: #fff;
-  font-size: 1rem;
   font-weight: 600;
 }
 
-@media (width > 767px) {
-  .project-team-member {
-    width: 84px;
-    height: 84px;
-    margin-left: -21px;
+/* DESKTOP: float avatars into hero area */
+@media (min-width: 768px) {
+  .project-team-strip {
+    position: absolute;
+    top: -4rem; /* pulls into hero */
+    right: 0;
+    margin-top: 0;
   }
-}
 
-@media (min-width: 1040px) {
-  .project-team-strip-wrap {
-    width: calc(33.333% - 1rem);
-    margin-left: auto;
-    justify-content: center;
-    padding-right: 0;
-    padding-left: 0;
-    margin-top: 2.5rem;
+  .project-team-member {
+    width: 80px;
+    height: 80px;
+  }
+
+  .project-team-member + .project-team-member {
+    margin-left: -1em;
   }
 }

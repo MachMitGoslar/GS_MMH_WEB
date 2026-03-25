@@ -11,32 +11,42 @@
   <div class="mb-4">
     <?=snippet('sections/hero')?>
   </div>
-  <?php if ($teamMembers->isNotEmpty()) : ?>
-    <section class="project-team-strip-wrap">
-      <div class="project-team-strip" aria-label="Projektteam">
-        <?php foreach ($teamMembers as $member) : ?>
-          <a href="<?= $member->url() ?>" class="project-team-member" title="<?= $member->title()->html() ?>">
-            <?php if ($memberImage = $member->cover()) : ?>
-              <img src="<?= $memberImage->crop(72, 72)->url() ?>" alt="<?= $member->title()->html() ?>" width="72" height="72">
-            <?php else : ?>
-              <span class="project-team-placeholder"><?= strtoupper(substr($member->title()->value(), 0, 1)) ?></span>
-            <?php endif ?>
-          </a>
-        <?php endforeach ?>
-      </div>
-    </section>
-  <?php endif ?>
   <section class="grid content">
     <div class="grid-item" data-span="1/1">
-    <h1 class="font-titleXXL "><?=$page->headline()->isEmpty() ? $page->title() : $page->headline() ?></h1>
-    <h2 class="font-titleXL font-weight-light"><?=$page->subheadline()?></h2>
+
+      <div class="project-title-wrapper">
+        <h1 class="font-titleXXL project-title">
+          <?= $page->headline()->isEmpty() ? $page->title() : $page->headline() ?>
+        </h1>
+
+        <h2 class="font-titleXL font-weight-light">
+          <?= $page->subheadline() ?>
+        </h2>
+
+        <?php if ($teamMembers->isNotEmpty()) : ?>
+          <div class="project-team-strip" aria-label="Projektteam">
+            <?php foreach ($teamMembers as $member) : ?>
+              <a href="<?= $member->url() ?>" class="project-team-member" title="<?= $member->title()->html() ?>">
+                <?php if ($memberImage = $member->cover()) : ?>
+                  <img src="<?= $memberImage->crop(80, 80)->url() ?>" alt="<?= $member->title()->html() ?>">
+                <?php else : ?>
+                  <span class="project-team-placeholder">
+                <?= strtoupper(substr($member->title()->value(), 0, 1)) ?>
+              </span>
+                <?php endif ?>
+              </a>
+            <?php endforeach ?>
+          </div>
+        <?php endif ?>
+      </div>
+
     </div>
 
     <div id="project-description" class="grid-item" data-span="<?= $page->project_steps()->isNotEmpty() ? '2/3' : '1/1' ?>">
         <h3 class="font-headline"> Projektbeschreibung</h3>
         <div class="designer">
         <?php foreach ($page->text()->toLayouts() as $layout) : ?>
-          <div class="grid content">
+          <div class="grid project-layout-grid">
 
             <?php foreach ($layout->columns() as $column) : ?>
             <div class="grid-item" data-span="<?=$column->width()?>">

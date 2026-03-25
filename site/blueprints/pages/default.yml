@@ -60,7 +60,6 @@ tabs:
                       label: Veröffentlichungsdatum
                       type: date
                       time: true
-                      default: now
                       width: 1/2
                     end_date:
                       label: Enddatum

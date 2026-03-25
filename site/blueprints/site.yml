@@ -26,23 +26,32 @@ tabs:
   newsletter:
     label: Newsletter
     icon: email
-    fields:
-      newsletterTeaserHeadline:
-        type: text
-        label: Teaser Headline
-      newsletterTeaserSubheadline:
-        type: text
-        label: Teaser Subheadline
-      newsletterTeaserText:
-        type: text
-        label: Teaser Text
-      newsletterTeaserButtonText:
-        type: text
-        label: Teaser Button Text
-      sections:
-        type: pages
-        label: Newsletter Seiten
-        template: newsletter
+    columns:
+      left:
+        width: 2/3
+        sections:
+          newsletterPage:
+            type: pages
+            label: Newsletter
+            query: site.index.filterBy("id", "newsletter")
+            create: false
+            templates:
+              - newsletters
+      right:
+        width: 1/3
+        fields:
+          newsletterTeaserHeadline:
+            type: text
+            label: Teaser Headline
+          newsletterTeaserSubheadline:
+            type: text
+            label: Teaser Subheadline
+          newsletterTeaserText:
+            type: text
+            label: Teaser Text
+          newsletterTeaserButtonText:
+            type: text
+            label: Teaser Button Text
   navigation:
     label: Navigation
     icon: menu
