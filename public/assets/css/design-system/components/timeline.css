@@ -82,6 +82,10 @@
   padding: 16px;
 }
 
+.c-project-timeline-card .image {
+  margin-top: 1rem;
+}
+
 /* Headline area */
 .c-project-timeline-card .headline {
   display: flex;
