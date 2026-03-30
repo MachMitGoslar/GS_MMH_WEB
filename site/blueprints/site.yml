@@ -111,10 +111,15 @@ tabs:
     label: Formulare
     icon: document
     sections:
-      forms:
+      published:
         type: pages
-        label: Formulare
+        label: Veröffentlichte Formulare
         template: form
         query: site.find("forms").children()
-        
-    
+
+      drafts:
+        type: pages
+        label: Entwürfe
+        template: form
+        status: draft
+        query: site.drafts()

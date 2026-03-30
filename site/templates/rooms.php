@@ -38,11 +38,11 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
     <section class="grid content rooms-intro">
       <div class="grid-item" data-span="2/3">
         <?php foreach ($page->description()->toBlocks() as $block) : ?>
-          <?php if ($blockIsVisible($block)) : ?>
+            <?php if ($blockIsVisible($block)) : ?>
             <div class="c-blog c-blog-<?= $block->type() ?>">
-              <?= $block ?>
+                <?= $block ?>
             </div>
-          <?php endif ?>
+            <?php endif ?>
         <?php endforeach ?>
       </div>
     </section>
@@ -92,11 +92,11 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
       <div class="grid-item" data-span="2/3">
         <h2 class="font-title">Buchungshinweise</h2>
         <?php foreach ($page->booking_info()->toBlocks() as $block) : ?>
-          <?php if ($blockIsVisible($block)) : ?>
+            <?php if ($blockIsVisible($block)) : ?>
             <div class="c-blog c-blog-<?= $block->type() ?>">
-              <?= $block ?>
+                <?= $block ?>
             </div>
-          <?php endif ?>
+            <?php endif ?>
         <?php endforeach ?>
       </div>
     </section>

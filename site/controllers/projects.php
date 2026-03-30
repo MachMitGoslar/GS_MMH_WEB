@@ -23,11 +23,11 @@ return function ($site, $page, $kirby) {
     $listedProjects = $projectsRoot->children()->listed();
 
     $activeProjects = $listedProjects->filter(
-        fn ($project) => $project->project_status()->value() !== 'abgeschlossen'
+        fn ($project) => $project->project_status()->value() !== 'abgeschlossen',
     );
 
     $archivedFromProjects = $listedProjects->filter(
-        fn ($project) => $project->project_status()->value() === 'abgeschlossen'
+        fn ($project) => $project->project_status()->value() === 'abgeschlossen',
     );
 
     $archiveProjects = $archiveRoot

@@ -64,19 +64,21 @@ function download_image($event)
     $url = $event['cover_photo'] ? $event['cover_photo']['medium'] : 'https://jugend.goslar.de/fileadmin/_processed_/9/2/csm_jugendarbeit_3d_3051faadc4.png';
     $img = 'pics/' . $event['relative_id'] . '.png';
     $data = file_get_contents($url);
-//print($data);
+    //print($data);
     $file = imagecreatefromstring($data);
     $imageSize_w = imagesx($file);
     $imageSize_h = imagesy($file);
-//$file = imagecrop($file, ['x' => 0, 'y' => ($imageSize_h-$imageSize_w*(9/16))/2, 'width' => $imageSize_w, 'height' =>  $imageSize_w*(9/16)]);
+    //$file = imagecrop($file, ['x' => 0, 'y' => ($imageSize_h-$imageSize_w*(9/16))/2, 'width' => $imageSize_w, 'height' =>  $imageSize_w*(9/16)]);
 
     imagepng($file, $img);
+
     return $img;
 }
 
 function escape_string($string)
 {
     $string = str_replace(["\n"], ', ', $string);
+
     return str_replace(["\r"], '', $string);
 }
 

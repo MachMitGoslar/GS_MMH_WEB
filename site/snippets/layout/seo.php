@@ -33,6 +33,7 @@ if ($page) {
 
         if ($value !== '') {
             $metaDescription = $value;
+
             break;
         }
     }

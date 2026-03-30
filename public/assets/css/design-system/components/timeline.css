@@ -1,89 +1,88 @@
-/* Timeline Container */
-.c-project-timeline {
-  background: var(--primary-color);
-  margin: 20px auto;
-  padding: 20px;
-}
-
-/* Card container */
-.c-project-timeline-card {
+/* Standard Timeline Container */
+.timeline-block--standard.c-project-timeline {
   position: relative;
-  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px 0;
 }
 
-/* setting padding based on even or odd */
-.c-project-timeline-card:nth-child(odd) {
-  padding: 30px 0 30px 30px;
-}
-
-.c-project-timeline-card:nth-child(even) {
-  padding: 30px 30px 30px 0;
-}
-
-/* Global ::before */
-.c-project-timeline-card::before {
+.timeline-block--standard.c-project-timeline::before {
   content: '';
   position: absolute;
-  width: 50%;
-  border: solid var(--color-fg-brand-primary);
-}
-
-/* Setting the border of top, bottom, left */
-.c-project-timeline-card:nth-child(odd)::before {
-  left: 0;
-  top: -4.5px;
-  bottom: -4.5px;
-  border-width: 5px 0 5px 5px;
-  border-radius: 50px 0 0 50px;
-}
-
-/* Setting the top and bottom to "-5px" because earlier it was out of a pixel in mobile devices */
-@media only screen and (max-width: 400px) {
-  .c-project-timeline-card:nth-child(odd)::before {
-    top: -5px;
-    bottom: -5px;
-  }
-}
-
-/* Setting the border of top, bottom, right */
-.c-project-timeline-card:nth-child(even)::before {
-  right: 0;
   top: 0;
   bottom: 0;
-  border-width: 5px 5px 5px 0;
-  border-radius: 0 50px 50px 0;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background: var(--color-fg-brand-primary);
+  border-radius: 999px;
 }
 
-/* Removing the border if it is the first card */
-.c-project-timeline-card:first-child::before {
-  border-top: 0;
-  border-top-left-radius: 0;
+/* Standard card container */
+.timeline-block--standard .c-project-timeline-card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin-bottom: -20px;
 }
 
-/* Removing the border if it is the last card  and it's odd */
-.c-project-timeline-card:last-child:nth-child(odd)::before {
-  border-bottom: 0;
-  border-bottom-left-radius: 0;
+.timeline-block--standard .c-project-timeline-card:last-child {
+  margin-bottom: 0;
 }
 
-/* Removing the border if it is the last card  and it's even */
-.c-project-timeline-card:last-child:nth-child(even)::before {
-  border-bottom: 0;
-  border-bottom-right-radius: 0;
+.timeline-block--standard .c-project-timeline-card:nth-child(odd) {
+  justify-content: flex-start;
+  padding-right: calc(50% + 32px);
+}
+
+.timeline-block--standard .c-project-timeline-card:nth-child(even) {
+  justify-content: flex-end;
+  padding-left: calc(50% + 32px);
+}
+
+.timeline-block--standard .c-project-timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translateX(-50%);
+  background: var(--color-bg-default, white);
+  border: 4px solid var(--color-fg-brand-primary);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.timeline-block--standard .c-project-timeline-card::after {
+  content: '';
+  position: absolute;
+  top: 36px;
+  height: 2px;
+  width: 32px;
+  background: var(--color-fg-brand-primary);
+}
+
+.timeline-block--standard .c-project-timeline-card:nth-child(odd)::after {
+  left: calc(50% - 32px);
+}
+
+.timeline-block--standard .c-project-timeline-card:nth-child(even)::after {
+  left: 50%;
 }
 
 /* Information about the timeline */
 .info {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100%;
   background: var(--color-dead-pixel-1300);
   color: var(--color-dead-pixel-10);
   border-radius: 10px;
-  padding: 10px;
+  padding: 16px;
 }
 
 /* Headline area */
-
 .c-project-timeline-card .headline {
   display: flex;
   justify-content: space-between;
@@ -93,95 +92,321 @@
 .c-project-timeline-card .title {
   color: var(--color-fg-brand-primary);
   position: relative;
+  margin: 0;
 }
 
-/* Timeline dot  */
-.c-project-timeline-card .headline::before {
+.c-project-timeline-card .text ul,
+.c-project-timeline-card .text ol {
+  margin: 0.75rem 0 0;
+  padding-left: 1.5rem;
+  list-style-position: outside;
+}
+
+.c-project-timeline-card .text ul {
+  list-style-type: disc;
+}
+
+.c-project-timeline-card .text ol {
+  list-style-type: decimal;
+}
+
+.c-project-timeline-card .text li + li {
+  margin-top: 0.35rem;
+}
+
+@media (width < 768px) {
+  .timeline-block--standard.c-project-timeline {
+    padding: 8px 0;
+  }
+
+  .timeline-block--standard.c-project-timeline::before {
+    left: 20px;
+    transform: none;
+  }
+
+  .timeline-block--standard .c-project-timeline-card,
+  .timeline-block--standard .c-project-timeline-card:nth-child(odd),
+  .timeline-block--standard .c-project-timeline-card:nth-child(even) {
+    justify-content: flex-start;
+    padding-left: 52px;
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .timeline-block--standard .c-project-timeline-card::before {
+    left: 20px;
+    top: 24px;
+    transform: translateX(-50%);
+  }
+
+  .timeline-block--standard .c-project-timeline-card::after,
+  .timeline-block--standard .c-project-timeline-card:nth-child(odd)::after,
+  .timeline-block--standard .c-project-timeline-card:nth-child(even)::after {
+    left: 20px;
+    top: 32px;
+    width: 32px;
+  }
+}
+
+/* Compact Timeline Container */
+.timeline-block--compact.c-project-timeline {
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.timeline-block--compact .c-project-timeline-card {
+  position: relative;
+}
+
+.timeline-block--compact .c-project-timeline-card:nth-child(odd) {
+  padding: 30px 0 30px 30px;
+}
+
+.timeline-block--compact .c-project-timeline-card:nth-child(even) {
+  padding: 30px 30px 30px 0;
+}
+
+.timeline-block--compact .c-project-timeline-card::before {
+  content: '';
+  position: absolute;
+  width: 50%;
+  border: solid var(--color-fg-brand-primary);
+}
+
+.timeline-block--compact .c-project-timeline-card:nth-child(odd)::before {
+  left: 0;
+  top: -4.5px;
+  bottom: -4.5px;
+  border-width: 5px 0 5px 5px;
+  border-radius: 50px 0 0 50px;
+}
+
+.timeline-block--compact .c-project-timeline-card:nth-child(even)::before {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-width: 5px 5px 5px 0;
+  border-radius: 0 50px 50px 0;
+}
+
+.timeline-block--compact .c-project-timeline-card:first-child::before {
+  border-top: 0;
+  border-top-left-radius: 0;
+}
+
+.timeline-block--compact
+.c-project-timeline-card:last-child:nth-child(odd)::before {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+}
+
+.timeline-block--compact
+.c-project-timeline-card:last-child:nth-child(even)::before {
+  border-bottom: 0;
+  border-bottom-right-radius: 0;
+}
+
+.timeline-block--compact .c-project-timeline-card .headline::before {
   content: '';
   position: absolute;
   width: 15px;
   height: 15px;
   background: white;
   border-radius: 999px;
-  z-index: 500;
+  z-index: 2;
   margin-top: 3px;
   border: 3px solid var(--color-fg-brand-primary);
 }
 
-/* text right if the card is even  */
-.c-project-timeline-card:nth-child(even) > .info > .headline {
+.timeline-block--compact
+.c-project-timeline-card:nth-child(even)
+> .info
+> .headline {
   flex-direction: row-reverse;
 }
 
-/* setting dot to the left if the card is odd */
-.c-project-timeline-card:nth-child(odd) > .info > .headline::before {
-  left: -5px;
+.timeline-block--compact
+.c-project-timeline-card:nth-child(odd)
+> .info
+> .headline::before {
+  left: -8px;
 }
 
-/* setting dot to the right if the card is odd */
-.c-project-timeline-card:nth-child(even) > .info > .headline::before {
-  right: -5px;
+.timeline-block--compact
+.c-project-timeline-card:nth-child(even)
+> .info
+> .headline::before {
+  right: -8px;
+}
+
+@media only screen and (max-width: 400px) {
+  .timeline-block--compact .c-project-timeline-card:nth-child(odd)::before {
+    top: -5px;
+    bottom: -5px;
+  }
+}
+
+@media (width < 768px) {
+  .timeline-block--compact.c-project-timeline {
+    padding: 8px 0;
+  }
+
+  .timeline-block--compact .c-project-timeline-card {
+    margin-bottom: 15px;
+  }
+
+  .timeline-block--compact .c-project-timeline-card:nth-child(odd) {
+    padding-left: 34px;
+    padding-right: 8px;
+  }
+
+  .timeline-block--compact .c-project-timeline-card:nth-child(even) {
+    padding-right: 34px;
+    padding-left: 8px;
+  }
+
+  .timeline-block--compact .c-project-timeline-card:nth-child(odd)::before {
+    left: 0;
+    right: auto;
+    top: -10px;
+    bottom: -10px;
+  }
+
+  .timeline-block--compact .c-project-timeline-card:nth-child(even)::before {
+    right: 0;
+    left: auto;
+    top: -10px;
+    bottom: -10px;
+  }
+
+  .timeline-block--compact .c-project-timeline-card:first-child::before {
+    top: 0;
+  }
+
+  .timeline-block--compact
+  .c-project-timeline-card:last-child:nth-child(odd)::before,
+  .timeline-block--compact
+  .c-project-timeline-card:last-child:nth-child(even)::before {
+    bottom: 0;
+  }
+
+  .timeline-block--compact .c-project-timeline-card .headline::before {
+    content: none;
+  }
+
+  .timeline-block--compact .c-project-timeline-card::after {
+    content: '';
+    position: absolute;
+    top: 26px;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border: 3px solid var(--color-fg-brand-primary);
+    border-radius: 999px;
+    z-index: 3;
+  }
+
+  .timeline-block--compact .c-project-timeline-card:nth-child(odd)::after {
+    left: -5px;
+  }
+
+  .timeline-block--compact .c-project-timeline-card:nth-child(even)::after {
+    right: -5px;
+  }
 }
 
 /* Constrained Timeline Styles */
 
 /* When timeline is in a constrained width (like 1/3 grid), adapt the layout */
 .timeline-container--constrained {
-  position: relative;
-  padding: var(--size-4) 0;
+  --timeline-constrained-accent: var(--color-fg-muted);
+
+  margin: 20px auto;
+  padding: 20px;
 }
 
-.timeline-container--constrained::before {
-  content: '';
-  position: absolute;
-  left: var(--size-6);
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(
-    180deg,
-    var(--color-ripe-mango-800) 0%,
-    var(--color-ripe-mango-600) 100%
-  );
-  z-index: 1;
+.timeline-container--constrained .timeline-item__container {
+  position: relative;
 }
 
 .timeline-container--constrained .timeline-item {
   position: relative;
-  margin: var(--size-6) 0;
-  padding-left: 60px;
+}
+
+.timeline-container--constrained .timeline-item:nth-child(odd) {
+  padding: 30px 0 30px 30px;
+}
+
+.timeline-container--constrained .timeline-item:nth-child(even) {
+  padding: 30px 30px 30px 0;
+}
+
+.timeline-container--constrained .timeline-item::before {
+  content: '';
+  position: absolute;
+  width: 50%;
+  border: solid var(--timeline-constrained-accent);
+}
+
+.timeline-container--constrained .timeline-item:nth-child(odd)::before {
+  left: 0;
+  top: -4.5px;
+  bottom: -4.5px;
+  border-width: 5px 0 5px 5px;
+  border-radius: 50px 0 0 50px;
+}
+
+@media only screen and (max-width: 400px) {
+  .timeline-container--constrained .timeline-item:nth-child(odd)::before {
+    top: -5px;
+    bottom: -5px;
+  }
+}
+
+.timeline-container--constrained .timeline-item:nth-child(even)::before {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-width: 5px 5px 5px 0;
+  border-radius: 0 50px 50px 0;
+}
+
+.timeline-container--constrained .timeline-item:first-child::before {
+  border-top: 0;
+  border-top-left-radius: 0;
+}
+
+.timeline-container--constrained
+.timeline-item:last-child:nth-child(odd)::before {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+}
+
+.timeline-container--constrained
+.timeline-item:last-child:nth-child(even)::before {
+  border-bottom: 0;
+  border-bottom-right-radius: 0;
 }
 
 .timeline-container--constrained .timeline-item__container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   width: 100%;
-  position: relative;
-  background: var(--color-bg-subtle);
-  border-radius: var(--border-radius-4);
-  padding: 1rem;
-  border: 1px solid var(--color-border-default);
-  margin-left: 0;
+  background: var(--color-dead-pixel-1300);
+  color: var(--color-dead-pixel-10);
+  border-radius: 10px;
+  padding: 16px;
 }
 
 .timeline-container--constrained .timeline-content {
   width: 100%;
-  margin-bottom: 1rem;
   position: relative;
 }
 
 .timeline-container--constrained .timeline-date {
-  position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
-  font-size: var(--typo-size-80);
-  color: var(--color-fg-muted);
-  font-weight: var(--font-weight-regular);
-  background: var(--color-bg-default);
-  padding: 0.375rem 0.625rem;
-  border-radius: var(--border-radius-4);
-  border: 1px solid var(--color-border-subtle);
+  display: block;
+  color: var(--timeline-constrained-accent);
+  margin: 0 0 0.5rem;
 }
 
 .timeline-container--constrained .timeline-status-pills {
@@ -255,70 +480,96 @@
 
 .timeline-container--constrained .timeline-connector {
   position: absolute;
-  top: var(--size-4);
-  width: 16px;
-  height: 16px;
-  background: var(--color-ripe-mango-600);
-  border: 3px solid white;
-  border-radius: 50%;
+  top: 19px;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 999px;
   z-index: 2;
-  box-shadow: 0 0 0 1px var(--color-border-default);
+  border: 3px solid var(--timeline-constrained-accent);
+}
+
+.timeline-container--constrained
+.timeline-item:nth-child(odd)
+.timeline-connector {
+  left: -7px;
+}
+
+.timeline-container--constrained
+.timeline-item:nth-child(even)
+.timeline-connector {
+  right: -7px;
 }
 
 .timeline-container--constrained .timeline-title {
-  margin: 0.5rem 0;
-  color: var(--color-fg-emphasis);
-  font-size: var(--typo-size-110);
-  line-height: var(--typo-line-height-110);
+  margin: 0;
+  color: var(--timeline-constrained-accent);
 }
 
 .timeline-container--constrained .timeline-text {
-  color: var(--color-fg-default);
-  line-height: var(--typo-line-height-110);
-  font-size: var(--typo-size-100);
+  color: var(--color-dead-pixel-10);
+}
+
+.timeline-container--constrained .timeline-text a,
+.c-project-timeline-card .text a {
+  color: var(--timeline-constrained-accent, var(--color-fg-muted));
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+/* Compact block reuses the standard card layout; only the date/link styling stays specific */
+.timeline-block--compact .timeline-item::before,
+.timeline-block--compact .timeline-item:nth-child(odd)::before,
+.timeline-block--compact .timeline-item:nth-child(even)::before {
+  content: none;
+}
+
+.timeline-block--compact .timeline-item__container {
+  position: static;
+}
+
+.timeline-block--compact .timeline-content {
+  width: auto;
+  position: static;
+}
+
+.timeline-block--compact .timeline-connector {
+  display: none;
+}
+
+.timeline-block--compact .timeline-title {
+  color: var(--color-fg-brand-primary);
 }
 
 /* Mobile responsiveness for constrained timeline */
 @media (width < 1024px) and (width >= 768px) {
-  /* Tablet breakpoint */
   .timeline-container--constrained .timeline-item {
-    padding-left: 50px;
-    margin: var(--size-5) 0;
+    margin: 0;
   }
 
   .timeline-container--constrained .timeline-item__container {
-    padding: var(--size-3);
-    margin-left: 0;
-    width: calc(100% - 50px);
-  }
-
-  .timeline-container--constrained .timeline-connector {
-    left: 32px;
+    padding: 16px;
   }
 }
 
 @media (width < 768px) {
   .timeline-container--constrained {
-    padding: var(--size-3) 0;
-  }
-
-  .timeline-container--constrained::before {
-    left: var(--size-4);
+    padding: 8px 0;
   }
 
   .timeline-container--constrained .timeline-item {
     padding-left: 40px;
-    margin: var(--size-4) 0;
+    padding-right: 0;
+    margin: 0;
   }
 
   .timeline-container--constrained .timeline-item__container {
     padding: var(--size-3);
-    margin-left: 0;
-    width: calc(100% - 40px);
   }
 
   .timeline-container--constrained .timeline-connector {
-    top: 0;
+    left: -8px;
+    right: auto;
   }
 
   .timeline-container--constrained .timeline-image {

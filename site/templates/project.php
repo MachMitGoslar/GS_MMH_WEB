@@ -31,7 +31,7 @@
                   <img src="<?= $memberImage->crop(80, 80)->url() ?>" alt="<?= $member->title()->html() ?>">
                 <?php else : ?>
                   <span class="project-team-placeholder">
-                <?= strtoupper(substr($member->title()->value(), 0, 1)) ?>
+                    <?= strtoupper(substr($member->title()->value(), 0, 1)) ?>
               </span>
                 <?php endif ?>
               </a>

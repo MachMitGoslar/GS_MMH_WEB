@@ -49,7 +49,9 @@
     <section class="content">
         <div class="designer">
             <?php foreach ($page->text()->toBlocks() as $block) : ?>
-                <?php if (!$blockIsVisible($block)) continue; ?>
+                <?php if (!$blockIsVisible($block)) {
+                    continue;
+                } ?>
                 <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
                     <?= $block ?>
                 </div>

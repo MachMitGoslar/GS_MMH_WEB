@@ -107,11 +107,11 @@ if ($authors->count() > 0) :
       <div class="grid-item" data-span="2/3">
         <div class="note-body">
           <?php foreach ($page->text()->toBlocks() as $block) : ?>
-            <?php if ($blockIsVisible($block)) : ?>
+                <?php if ($blockIsVisible($block)) : ?>
               <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-                  <?= $block ?>
+                    <?= $block ?>
               </div>
-            <?php endif ?>
+                <?php endif ?>
           <?php endforeach ?>
         </div>
       </div>

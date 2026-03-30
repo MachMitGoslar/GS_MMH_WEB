@@ -1,5 +1,5 @@
 title: Buchungsanfrage
-icon: calendar-check
+icon: calendar
 num: "{{ page.request_date.toDate('Ymd') }}_{{ page.slug }}"
 
 # Status represents the booking state

@@ -95,11 +95,11 @@ $allRooms = $roomsPage->children()->listed();
         <div class="room-description">
           <h2 class="font-title">Beschreibung</h2>
             <?php foreach ($page->description()->toBlocks() as $block) : ?>
-              <?php if ($blockIsVisible($block)) : ?>
+                <?php if ($blockIsVisible($block)) : ?>
                 <div class="c-blog c-blog-<?= $block->type() ?>">
                     <?= $block ?>
                 </div>
-              <?php endif ?>
+                <?php endif ?>
             <?php endforeach ?>
         </div>
       <?php endif ?>
