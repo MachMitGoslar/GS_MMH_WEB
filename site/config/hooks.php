@@ -168,23 +168,23 @@ return [
         }
     },
     'dreamform.submitted:after' => function ($submission, $form) {
-
-        // The page under which DreamForm stores submissions (adjust as needed!)
-        $parent = page('forms');
-
-        if (!$parent) {
+        if (!$form) {
             return;
         }
 
-        // DreamForm creates the latest entry as a Draft
-        $entry = $parent->drafts()->sortBy('created', 'desc')->first();
+        // DreamForm stores new entries as drafts below the actual form page.
+        $entry = $form->drafts()
+            ->filterBy('intendedTemplate', 'submission')
+            ->sortBy('created', 'desc')
+            ->first();
 
         if (!$entry) {
             return;
         }
 
-        // Set the status directly
-        $entry->changeStatus('unlisted');
+        if ($entry->status() === 'draft') {
+            $entry->changeStatus('unlisted');
+        }
     },
     /**
      * Make sure that the publishing date of a content page is lower than the ending date

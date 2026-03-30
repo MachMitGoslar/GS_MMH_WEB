@@ -114,12 +114,13 @@ tabs:
       published:
         type: pages
         label: Veröffentlichte Formulare
+        parent: site.find("forms")
         template: form
-        query: site.find("forms").children()
+        status: listed
 
       drafts:
         type: pages
         label: Entwürfe
+        parent: site.find("forms")
         template: form
         status: draft
-        query: site.drafts()

@@ -54,7 +54,7 @@ return [
     ],
     // Settings for the DreamForm plugin
     'tobimori.dreamform' => [
-        'storeSubmissions' => false,
+        'storeSubmissions' => true,
         'log' => true,
         'email' => [
             'from' => 'noreply@gs-mmh-web.ddev.site',
