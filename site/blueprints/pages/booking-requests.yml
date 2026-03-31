@@ -1,5 +1,5 @@
 title: Buchungsanfragen
-icon: inbox
+icon: calendar
 options:
   changeStatus: false
   changeSlug: false

@@ -17,11 +17,12 @@
 @import url('./components/newsletter-item.css');
 @import url('./components/blog.css');
 @import url('./components/notes.css');
+@import url('./components/projectTeamStrip.css');
 @import url('./components/rooms.css');
 
-@media (max-width: 767px) {
-  #project-description .grid.content {
-    padding-left: 0;
-    padding-right: 0;
-  }
+#project-description .project-layout-grid {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }

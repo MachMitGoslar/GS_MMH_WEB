@@ -12,13 +12,10 @@
 $url = 'https://goslar.feripro.de/api/programs/69/events/';
 $jsonData = file_get_contents($url);
 $json = json_decode($jsonData, true);
-
 $events = $json;
-
 $file = fopen('contacts.csv', 'w');
 fputs($file, $bom = chr(0xEF) . chr(0xBB) . chr(0xBF));
 fputcsv($file, ['Name', 'Age', 'Group', 'Price', 'Organizer', 'ID', 'Dates','Meeting', '@Image'], ';', enclosure: '"', escape: ',');
-
 function calculate_age($event)
 {
     if ($event['min_age'] != '') {
@@ -97,7 +94,6 @@ foreach ($events as $event) {
         escape_string($event['meeting_point']),
         download_image($event),
         ];
-
     fputcsv($file, $fields, ';', '"', '\\');
 }
 fclose($file);

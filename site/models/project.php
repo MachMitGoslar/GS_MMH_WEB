@@ -14,6 +14,7 @@
  *
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
+
 use Kirby\Panel\Page as PanelPage;
 
 class ProjectPage extends Page

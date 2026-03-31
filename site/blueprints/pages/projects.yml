@@ -1,9 +1,10 @@
 title: Projekte
-icon: 🖼
+icon: images
 
 tabs:
   content:
     label: Inhalt
+    icon: text
     columns:
       - width: 2/3
         fields:
@@ -23,6 +24,7 @@ tabs:
           projects:
             type: pages
             label: Projekte
+            query: page.children.filterBy("project_status", "!=", "abgeschlossen")
             status: all
             template: project
             create: true
@@ -72,7 +74,7 @@ tabs:
           archive_projects:
             extends: sections/projects
             label: Archivierte Projekte
-            parent: site.find("project-archive")
+            query: site.find("project-archive").children.merge(site.find("projects").children).filterBy("project_status", "abgeschlossen")
             status: all
             template: project
             create: true

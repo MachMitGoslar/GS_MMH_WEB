@@ -1,8 +1,10 @@
 title: Newsletters
-icon: 📧
+icon: email
 
 tabs:
   content:
+    label: Content
+    icon: text
     columns:
       - width: 1/2
         fields:
@@ -54,4 +56,3 @@ tabs:
             type: pages
             status: listed
             template: newsletter
-

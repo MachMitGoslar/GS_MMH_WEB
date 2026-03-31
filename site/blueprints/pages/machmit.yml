@@ -1,4 +1,5 @@
 title: Machmit
+icon: home
 
 fields:
   blogEntry: fields/BlogEntry
