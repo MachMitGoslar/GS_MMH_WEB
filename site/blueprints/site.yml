@@ -83,11 +83,11 @@ tabs:
     label: Tagebuch
     icon: book
     sections: 
-      published:
+      tagebuch_published:
         extends: sections/notes
         query: site.find("notes").children.published()
         label: Veröffentlichte Einträge
-      drafts:
+      tagebuch_drafts:
         extends: sections/notes
         query: site.find("notes").drafts()
         label: Entwürfe
@@ -111,14 +111,14 @@ tabs:
     label: Formulare
     icon: document
     sections:
-      published:
+      forms_published:
         type: pages
         label: Veröffentlichte Formulare
         parent: site.find("forms")
         template: form
         status: listed
 
-      drafts:
+      forms_drafts:
         type: pages
         label: Entwürfe
         parent: site.find("forms")
