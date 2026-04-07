@@ -1,19 +1,19 @@
-<div class="project-timeline mb-7">
+<div class="project-timeline project-step-timeline mb-7">
   <h3 class="font-headline mb-3">Projektentwicklung</h3>
   
   <?php if ($project_steps && count($project_steps) > 0) :
         ?>
-  <div class="timeline-container timeline-container--constrained">
+  <div class="project-step-timeline-container">
       <?php foreach ($project_steps as $project_step) :
             ?>
-        <div class="timeline-item">
-          <div class="timeline-connector"></div>
-          <div class="timeline-item__container">
-            <div class="timeline-content">
-              <div class="timeline-date"><?= $project_step->project_start_date('d.m.Y') ?></div>
+        <div class="project-step-timeline-item">
+          <div class="project-step-timeline-connector"></div>
+          <div class="project-step-timeline-card">
+            <div class="project-step-timeline-content">
+              <div class="project-step-timeline-date"><?= $project_step->project_start_date()->toDate('d.m.Y') ?></div>
               <?php if ($project_step->project_status_from()->isNotEmpty() || $project_step->project_status_to()->isNotEmpty()) :
                     ?>
-                <div class="timeline-status-pills">
+                <div class="project-step-timeline-status-pills">
                     <?php if ($project_step->project_status_from()->isNotEmpty()) :
                         ?>
                         <?= snippet('content-types/projects/statusBadge', ['status' => $project_step->project_status_from()]) ?>
@@ -21,7 +21,7 @@
                     endif ?>
                     <?php if ($project_step->project_status_from()->isNotEmpty() && $project_step->project_status_to()->isNotEmpty()) :
                         ?>
-                    <svg class="timeline-status-arrow" width="16" height="12" viewBox="0 0 16 12" fill="none">
+                    <svg class="project-step-timeline-status-arrow" width="16" height="12" viewBox="0 0 16 12" fill="none">
                       <path d="M10 2L14 6L10 10M14 6H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <?php endif ?>
@@ -32,8 +32,8 @@
                     endif ?>
                 </div>
               <?php endif ?>
-              <h4 class="timeline-title"><?= $project_step->title()->html() ?></h4>
-              <div class="timeline-text"><?= $project_step->description()->html() ?></div>
+              <h4 class="project-step-timeline-title"><?= $project_step->title()->html() ?></h4>
+              <div class="project-step-timeline-text"><?= $project_step->description()->html() ?></div>
             </div>
           </div>
         </div>
