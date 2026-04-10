@@ -183,19 +183,19 @@
       var(--color-bg-brand-primary),
       var(--color-bg-brand-secondary)
     );
-    margin-bottom: 3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-top: 2px solid var(--color-ripe-mango-200);
 
     .member-hero-content {
       display: flex;
-      gap: 2rem;
       align-items: flex-start;
-      max-width: 1000px;
-      margin: 0 auto;
+      gap: 2rem;
+      width: 100%;
 
       @media (max-width: 768px) {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        gap: 1.5rem;
       }
     }
   }
@@ -234,21 +234,36 @@
     }
   }
 
+  .contact-profile-section {
+    display: flex;
+    flex: 0 0 min(28rem, 40%);
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+    min-width: 0;
+    align-self: stretch;
+  }
+
   .member-info {
     flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
 
     .member-name {
       font-size: var(--typo-size-170);
       font-weight: var(--font-weight-bold);
       color: var(--color-black);
-      margin: 0 0 0.5rem;
+      margin: 0;
       line-height: 1.2;
     }
 
     .member-role {
       font-size: var(--typo-size-120);
       color: var(--color-ripe-mango-1000);
-      margin-bottom: 1.5rem;
+      margin-bottom: 0;
       font-weight: var(--font-weight-medium);
     }
   }
@@ -258,6 +273,12 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 2rem;
+    justify-content: flex-start;
+
+    &.team-badges--profile {
+      margin-bottom: 0;
+      max-width: none;
+    }
 
     .team-badge {
       padding: 0.25rem 0.75rem;
@@ -357,13 +378,12 @@
 
   /* Unified Contact & Map Section */
   .contact-section-unified {
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     width: 100%;
+    flex: 1 1 auto;
 
     @media (max-width: 768px) {
-      width: 100vw;
-      margin-left: calc(-50vw + 50%);
-      padding: 0 1rem;
+      margin-bottom: 1.5rem;
     }
   }
 
@@ -378,6 +398,7 @@
     .contact-card-header {
       display: flex;
       align-items: center;
+      justify-content: flex-start;
       gap: 0.75rem;
       margin-bottom: 2rem;
       padding-bottom: 1rem;
@@ -397,8 +418,12 @@
 
     .contact-content-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 3rem;
+
+      &.contact-content-grid--without-map {
+        grid-template-columns: 1fr;
+      }
 
       @media (max-width: 768px) {
         grid-template-columns: 1fr;
@@ -415,15 +440,25 @@
       border-bottom: 1px solid var(--color-grey-200);
     }
 
+    .contact-info-section {
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+
     .contact-items {
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
     }
 
     .contact-item-inline {
       display: flex;
       align-items: center;
+      justify-content: flex-start;
       gap: 0.75rem;
       padding: 0.75rem 1rem;
       border-radius: 0.5rem;
@@ -432,6 +467,7 @@
       text-decoration: none;
       transition: all 0.2s ease;
       border: 1px solid transparent;
+      text-align: left;
 
       &:hover {
         background: var(--color-ripe-mango-50);
@@ -447,6 +483,7 @@
       span {
         font-weight: var(--font-weight-medium);
         font-size: var(--typo-size-95);
+        min-width: 0;
       }
     }
 
@@ -501,6 +538,10 @@
       border-bottom: 2px solid var(--color-ripe-mango-200);
       padding-bottom: 0.75rem;
     }
+  }
+
+  .member-description {
+    margin-top: -0.75rem;
   }
 
   .description-content {
@@ -647,6 +688,146 @@
         background: #f00;
         color: white;
       }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .member-hero {
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .profile-image-large {
+      width: 152px;
+      height: 152px;
+      border-width: 3px;
+    }
+
+    .member-info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      .member-name {
+        margin: 0;
+        font-size: clamp(2rem, 8vw, 2.75rem);
+        line-height: 1.05;
+        text-wrap: balance;
+      }
+
+      .member-role {
+        margin-bottom: 0;
+        max-width: 24rem;
+        font-size: var(--typo-size-105);
+        line-height: 1.3;
+      }
+    }
+
+    .team-badges {
+      justify-content: center;
+      margin-bottom: 0.5rem;
+
+      &.team-badges--card {
+        position: static;
+        max-width: none;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .unified-contact-card {
+      padding: 1.25rem;
+      border-radius: 1rem;
+
+      .contact-card-header {
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.85rem;
+        padding-right: 0;
+        justify-content: center;
+        text-align: center;
+
+        h3 {
+          font-size: var(--typo-size-110);
+        }
+      }
+
+      .contact-content-grid {
+        gap: 1.25rem;
+      }
+
+      .contact-info-section,
+      .map-info-section {
+        width: 100%;
+      }
+
+      .contact-items {
+        gap: 0.75rem;
+      }
+
+      .contact-item-inline {
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 0.85rem 0.9rem;
+
+        span {
+          word-break: break-word;
+        }
+      }
+
+      .map-container {
+        .member-map {
+          height: 180px;
+        }
+      }
+    }
+
+    .member-description,
+    .member-projects,
+    .member-newsletters,
+    .member-notes,
+    .member-social {
+      margin-bottom: 2.25rem;
+
+      h2 {
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.6rem;
+        font-size: var(--typo-size-125);
+      }
+    }
+
+    .description-content {
+      font-size: var(--typo-size-100);
+      line-height: 1.6;
+    }
+
+    .projects-grid,
+    .newsletters-grid,
+    .notes-grid,
+    .social-links {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .newsletter-card,
+    .note-card {
+      padding: 1.1rem;
+
+      .newsletter-meta,
+      .note-meta {
+        align-items: flex-start;
+        gap: 0.5rem;
+        flex-direction: column;
+      }
+    }
+
+    .contact-profile-section {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
   }
 }
