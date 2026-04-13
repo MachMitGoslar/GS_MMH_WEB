@@ -60,22 +60,4 @@
     </section>
 </main>
 
-<script>
-    mapboxgl.accessToken = '<?= esc($page->mapbox_token()) ?>';
-
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/standard',
-        center: [<?= $page->lng() ?>, <?= $page->lat() ?>],
-        zoom: 15,
-        attributionControl: false
-    });
-
-    map.scrollZoom.disable();
-
-    new mapboxgl.Marker()
-        .setLngLat([<?= $page->lng() ?>, <?= $page->lat() ?>])
-        .addTo(map);
-</script>
-
 <?php snippet('layout/footer'); ?>

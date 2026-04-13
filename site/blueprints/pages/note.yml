@@ -201,6 +201,8 @@ tabs:
             label: Social Media Bild
             type: files
             max: 1
+            query: page.images.template('image')
+            uploads: image
             help: Bild für Social Media Sharing (falls abweichend vom Titelbild)
             layout: list
             

@@ -458,9 +458,13 @@
    ========================================== */
 
 @media (width < 768px) {
-  .dreamform {
+  .c-blog-form {
     padding: var(--size-6);
-    margin: var(--size-4) 0;
+  }
+
+  .dreamform {
+    padding: 0;
+    margin: 0;
   }
 
   .dreamform-button,

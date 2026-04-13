@@ -4,20 +4,216 @@
  * Newsletter Template - Redesigned to match PDF layout
  */
 
+$pdfExport = $pdfExport
+    ?? Kirby\Cms\App::instance()->request()->get('pdf') === '1';
 ?>
 <?php snippet('layout/head', slots: true); ?>
 
 <?php slot('head') ?>
+<?php if ($pdfExport !== true) : ?>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
+<?php endif ?>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<?php if ($pdfExport === true) : ?>
+<style>
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #fff;
+    overflow: visible !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .main {
+    padding-top: 0;
+    display: block;
+    overflow: visible !important;
+  }
+
+  .site-header,
+  .site-footer,
+  footer,
+  #map,
+  script[src*='mapbox'],
+  .mapboxgl-map {
+    display: none !important;
+  }
+
+  .newsletter-cover {
+    margin: 0 0 1rem;
+    min-block-size: auto;
+    padding: 1.5rem 1.25rem;
+    background: linear-gradient(135deg, #5d4e37 0%, #6b5b47 50%, #4a3c28 100%) !important;
+    color: #fff !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .newsletter-cover::before {
+    display: none;
+  }
+
+  .newsletter-title,
+  .newsletter-date {
+    color: #fff !important;
+    text-shadow: none;
+  }
+
+  .newsletter-logo {
+    margin-bottom: 1rem;
+    inline-size: 180px;
+  }
+
+  .grid,
+  .newsletter-grid,
+  .calendar-grid,
+  .newsletter-months-grid,
+  .newsletter-author-content,
+  .timeline-item__container {
+    display: block !important;
+  }
+
+  .grid-item,
+  .newsletter-month-item,
+  .eventsListItem,
+  .c-projectUpdateTeaser-card,
+  .timeline-item,
+  .timeline-content,
+  .weekly-calendar,
+  .newsletter-author-section {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 0 0.875rem !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .newsletter-months-grid,
+  .newsletter-month-item,
+  .newsletter-month-item .events-list {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .newsletter-month-item .eventsListItem {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .content,
+  .grid.content {
+    gap: 0.75rem !important;
+  }
+
+  section {
+    margin-bottom: 1rem !important;
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  ul,
+  li {
+    margin-top: 0 !important;
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin-bottom: 0.5rem !important;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  p,
+  li,
+  .calendar-event,
+  .contact-item {
+    margin-bottom: 0.375rem !important;
+  }
+
+  .newsletter-author-section,
+  .weekly-calendar,
+  .eventsListItem,
+  .c-projectUpdateTeaser-card,
+  .timeline-content {
+    padding: 0.875rem !important;
+  }
+
+  .newsletter-author-content,
+  .newsletter-author-profile {
+    gap: 0.75rem !important;
+  }
+
+  .calendar-day-label {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .timeline-container {
+    padding: 0;
+  }
+
+  .timeline-container::before,
+  .timeline-connector,
+  .timeline-image {
+    display: none !important;
+  }
+
+  .timeline-item--left .timeline-content,
+  .timeline-item--right .timeline-content {
+    margin: 0 !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .author-avatar {
+    width: 72px !important;
+    min-width: 72px !important;
+    max-width: 72px !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    max-height: 72px !important;
+    aspect-ratio: 1 / 1;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+</style>
+<script>
+  window.addEventListener('load', function () {
+    window.setTimeout(function () {
+      window.print();
+    }, 250);
+  });
+</script>
+<?php endif ?>
 <?php endslot() ?>
 
 <?php endsnippet() ?>
 
-<?php snippet('layout/header'); ?>
+<?php if ($pdfExport !== true) : ?>
+    <?php snippet('layout/header'); ?>
+<?php endif ?>
 
 <main class="main">
   <!-- Newsletter Hero Section -->

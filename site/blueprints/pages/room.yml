@@ -96,7 +96,7 @@ tabs:
                 type: files
                 layout: cards
                 size: small
-                uploads: true
+                uploads: image
                 multiple: true
                 accepts:
                   - image/jpeg
@@ -329,6 +329,7 @@ tabs:
     sections:
       files:
         type: files
+        template: image
         layout: cards
         size: small
-        uploads: true
+        uploads: image

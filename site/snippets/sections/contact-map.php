@@ -48,7 +48,7 @@ $mapboxToken = $mapboxToken?->value();
                 </div>
             <?php endif ?>
             <?php if ($social) : ?>
-                <div class="contact-item font-body mb-2"">
+                <div class="contact-item font-body mb-2">
                                                       Folgen Sie uns: <strong><?= $social ?></strong>
                 </div>
             <?php endif ?>
@@ -59,7 +59,16 @@ $mapboxToken = $mapboxToken?->value();
 
     <!-- Map -->
     <div class="grid-item" data-span="2/3">
-        <div id="map" class="mb-2"></div>
+        <?= snippet('components/locationMap', [
+            'id' => 'map',
+            'class' => 'mb-2',
+            'lat' => $lat,
+            'lng' => $lng,
+            'mapboxToken' => $mapboxToken,
+            'popupTitle' => $title ?: 'MachMit!Haus',
+            'popupText' => $addressLabel ?: 'Markt 7, 38640 Goslar',
+            'popupAnchor' => 'right',
+        ]) ?>
 
         <?php if ($addressLabel) : ?>
             <p class="font-footnote"><?= $addressLabel ?></p>
@@ -67,21 +76,3 @@ $mapboxToken = $mapboxToken?->value();
 
     </div>
 </section>
-
-<script>
-    mapboxgl.accessToken = '<?= esc($mapboxToken) ?>';
-
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/standard',
-        center: [<?= $lng ?>, <?= $lat ?>],
-        zoom: 15,
-        attributionControl: false
-    });
-
-    map.scrollZoom.disable();
-
-    new mapboxgl.Marker()
-        .setLngLat([<?= $lng ?>, <?= $lat ?>])
-        .addTo(map);
-</script>

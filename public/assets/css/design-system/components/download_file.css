@@ -1,6 +1,6 @@
 .c-downloadBlock {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
   padding: 1rem;
   border: 1px solid var(--color-dead-pixel-300);
@@ -28,6 +28,9 @@
 /* Textbereich */
 .c-downloadBlock__content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Titel = primary color */

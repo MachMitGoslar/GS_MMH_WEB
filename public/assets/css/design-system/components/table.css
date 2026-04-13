@@ -1,5 +1,6 @@
 .two-column-table {
   width: 100%;
+  padding-block: 1.5rem;
 }
 
 .two-column-table table {

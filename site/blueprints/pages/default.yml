@@ -54,6 +54,7 @@ tabs:
                   - gallery
                   - download
                   - table
+                  - faq
                 settings:
                   fields:
                     publish_date:

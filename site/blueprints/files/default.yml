@@ -8,7 +8,18 @@ title: Image
 # More about file blueprints: https://getkirby.com/docs/reference/panel/blueprints/file
 
 accept: 
-  mime: image/*, application/pdf,  application/x-pdf
+  mime:
+    - application/pdf
+    - application/x-pdf
+    - application/zip
+    - application/x-zip-compressed
+    - application/vnd.ms-powerpoint
+    - application/vnd.openxmlformats-officedocument.presentationml.presentation
+    - application/msword
+    - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    - application/vnd.ms-excel
+    - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    - video/mp4
 
 columns:
   - width: 1/2

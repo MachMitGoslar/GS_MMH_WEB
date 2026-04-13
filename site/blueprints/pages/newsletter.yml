@@ -1,5 +1,13 @@
 title: Newsletter
 icon: email
+buttons:
+  - open
+  - preview
+  - pdf
+  - "-"
+  - settings
+  - languages
+  - status
 
 fields:
   cover:
@@ -48,7 +56,9 @@ fields:
       image:
         label: Bild
         type: files
+        max: 1
         query: page.images
+        uploads: image
         required: true
 
   # Blog Einträge  
@@ -67,4 +77,3 @@ fields:
   closingsInfos:
     label: Abschlusstexte
     type: textarea
-

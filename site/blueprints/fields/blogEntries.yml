@@ -22,7 +22,9 @@ fields:
   image:
     label: Bild
     type: files
+    max: 1
     query: page.images
+    uploads: image
     required: true
   link:
     label: Link
