@@ -1,11 +1,12 @@
 title: Räume
-icon: building
+icon: box
 options:
   changeStatus: false
 
 tabs:
   content:
     label: Inhalt
+    icon: text
     columns:
       - width: 2/3
         sections:
@@ -36,18 +37,54 @@ tabs:
                 label: Einleitung
                 type: blocks
                 fieldsets:
-                  - heading
-                  - text
-                  - list
+                  heading:
+                    extends: blocks/heading
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  text:
+                    extends: blocks/text
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  list:
+                    extends: blocks/list
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
                 help: Einleitungstext für die Räume-Seite
 
               booking_info:
                 label: Buchungshinweise
                 type: blocks
                 fieldsets:
-                  - heading
-                  - text
-                  - list
+                  heading:
+                    extends: blocks/heading
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  text:
+                    extends: blocks/text
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  list:
+                    extends: blocks/list
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
                 help: Allgemeine Informationen zur Raumbuchung (Vorlaufzeit, Bedingungen, etc.)
               
               show_calendar_overview:

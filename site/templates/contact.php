@@ -7,6 +7,7 @@
  */
 ?>
 <?php snippet('layout/head', slots: true); ?>
+<?php $blockIsVisible = require kirby()->root('controllers') . '/blocks.php'; ?>
 
 <?php endsnippet() ?>
 <?php snippet('layout/header'); ?>
@@ -45,25 +46,18 @@
 
 
     <!-- 🔽 Flexible Blocks -->
-    <div class="designer">
-        <?php foreach ($page->text()->toLayouts() as $layout) : ?>
-            <div class="grid content">
-
-                <?php foreach ($layout->columns() as $column) : ?>
-                    <div class="grid-item" data-span="<?=$column->width()?>">
-
-                        <?php foreach ($column->blocks() as $block) : ?>
-                            <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-                                <?= $block ?>
-                            </div>
-                        <?php endforeach ?>
-                    </div>
-
-                <?php endforeach ?>
-            </div>
-
-        <?php endforeach ?>
-    </div>
+    <section class="content">
+        <div class="designer">
+            <?php foreach ($page->text()->toBlocks() as $block) : ?>
+                <?php if (!$blockIsVisible($block)) {
+                    continue;
+                } ?>
+                <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                    <?= $block ?>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </section>
 </main>
 
 <script>

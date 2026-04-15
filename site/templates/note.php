@@ -5,6 +5,8 @@
  * @var \Kirby\Cms\Site $site
  * @var \Kirby\Cms\Page $page
  */
+
+$blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
 ?>
 <?php snippet('layout/head'); ?>
 <?php snippet('layout/header'); ?>
@@ -105,9 +107,11 @@ if ($authors->count() > 0) :
       <div class="grid-item" data-span="2/3">
         <div class="note-body">
           <?php foreach ($page->text()->toBlocks() as $block) : ?>
-            <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-                <?= $block ?>
-            </div>
+                <?php if ($blockIsVisible($block)) : ?>
+              <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                    <?= $block ?>
+              </div>
+                <?php endif ?>
           <?php endforeach ?>
         </div>
       </div>

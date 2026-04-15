@@ -167,6 +167,56 @@ return [
         },
         ],
         /**
+         * Create Notes Image
+         */
+        [
+        'pattern' => 'notes-cover/(:any).svg',
+        'method' => 'GET',
+        'auth' => false,
+        'action' => function ($slug) {
+
+            if (!$page = page('notes/' . $slug)) {
+                return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+            }
+
+            $title = $page->title()->value();
+            $logo = url('assets/svg/RZ-RGB_MM!2_iv.svg');
+
+            $svg = <<<SVG
+    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+      <defs>
+        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#39556b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#46677f;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#2d475a;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+
+      <rect width="100%" height="100%" fill="url(#grad)" />
+
+      <image href="{$logo}" x="38.4%" y="20%" width="280" />
+
+      <text x="50%" y="70%" text-anchor="middle" dominant-baseline="middle"
+            font-family="Arial, sans-serif"
+            font-size="60"
+            font-weight="700"
+            fill="#ffffff">
+            Tagebuch
+      </text>
+
+      <text x="50%" y="80%" text-anchor="middle"
+            font-family="Arial, sans-serif"
+            font-size="28"
+            fill="#ffffff">
+            {$title}
+      </text>
+    </svg>
+    SVG;
+
+            return new Kirby\Cms\Response($svg, 'image/svg+xml');
+        },
+        ],
+        /**
              * Latest Update for Goslar App Kachel
              */
         [
@@ -199,7 +249,7 @@ return [
                 $dynamic = latestUpdateData();
 
                 if ($dynamic) {
-                    $dynamic['id'] = 2;
+                    $dynamic['id'] = 1;
                     unset($dynamic['widget_type']);
                 }
 
@@ -208,6 +258,8 @@ return [
                 $newsletterPage = page('newsletter');
                 $diaryPage = page('notes');
                 $aboutPage = page('uber-uns');
+                $latestNewsletter = $newsletterPage?->children()->listed()->sortBy('published', 'desc')->first();
+                $latestDiary = $diaryPage?->children()->listed()->sortBy('date', 'desc')->first();
 
                 $now = date('Y-m-d\TH:i');
 
@@ -221,16 +273,16 @@ return [
                 };
 
                 return [
+                    $dynamic, // Slot 1 = Latest Update
+
                     [
-                        'id' => 1,
+                        'id' => 2,
                         'title' => 'Heute im MM!H',
                         'description' => 'Entdecke die heutigen Events im MachMit!Haus oder gelange zur Raumbuchung.',
                         'image_url' => $coverUrl($homePage),
                         'call_to_action_url' => $homePage?->url(),
                         'published_at' => $now,
                     ],
-
-                    $dynamic, // Slot 2 = Latest Update
 
                     [
                         'id' => 3,
@@ -244,7 +296,9 @@ return [
                         'id' => 4,
                         'title' => 'Newsletter',
                         'description' => 'Entdecke unseren Newsletter.',
-                        'image_url' => $coverUrl($newsletterPage),
+                        'image_url' => $latestNewsletter
+                            ? url('api/newsletter-cover/' . $latestNewsletter->slug() . '.svg')
+                            : null,
                         'call_to_action_url' => $newsletterPage?->url(),
                         'published_at' => $now,
                     ],
@@ -252,7 +306,9 @@ return [
                         'id' => 5,
                         'title' => 'Tagebuch',
                         'description' => 'Berichte aus unserem Alltag.',
-                        'image_url' => $coverUrl($diaryPage),
+                        'image_url' => $latestDiary
+                            ? url('api/notes-cover/' . $latestDiary->slug() . '.svg')
+                            : null,
                         'call_to_action_url' => $diaryPage?->url(),
                         'published_at' => $now,
                     ],

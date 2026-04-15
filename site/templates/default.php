@@ -1,41 +1,62 @@
 <?php
 /**
-* @var \Kirby\Cms\Site $site
-* @var \Kirby\Cms\Page $page
-*/
+ * @var \Kirby\Cms\Site $site
+ * @var \Kirby\Cms\Page $page
+ */
 ?>
+<?php
+/**
+ * Shared visibility closure for timed pages, layouts and blocks.
+ */
+$contentIsVisible = require kirby()->root('controllers') . '/blocks.php';
+
+if (!$contentIsVisible($page)) {
+    go(site()->errorPage()->url(), 404);
+}
+?>
+
 <?php snippet('layout/head'); ?>
 <?php snippet('layout/header'); ?>
-  <main>
-  <div class="mb-4">
-    <?=snippet('sections/hero')?>
-  </div>
-  <section class="">
-    <div class="grid content">
-    <h1 class="font-titleXXL grid-item" data-span="1/1"><?=$page->title()?></h1>
 
-    </div>
-      <?php foreach ($page->layout()->toLayouts() as $layout) : ?>
-          <div class="grid content">
+    <main>
+        <div class="mb-4">
+            <?= snippet('sections/hero') ?>
+        </div>
 
-              <?php foreach ($layout->columns() as $column) : ?>
-                  <!-- DIESE DIV IST DIE SPALTE -->
-                  <div class="grid-item" data-span="<?= $column->width() ?>">
+        <section>
+            <div class="grid content">
+                <h1 class="font-titleXXL grid-item" data-span="1/1">
+                    <?= $page->title() ?>
+                </h1>
+            </div>
 
-                      <?php foreach ($column->blocks() as $block) : ?>
-                          <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-                              <?= $block ?>
-                          </div>
-                      <?php endforeach ?>
+            <?php foreach ($page->layout()->toLayouts() as $layout) : ?>
+                <?php if (!$contentIsVisible($layout)) {
+                    continue;
+                } ?>
+                <div class="grid content">
 
-                  </div>
-              <?php endforeach ?>
+                    <?php foreach ($layout->columns() as $column) : ?>
+                        <div class="grid-item" data-span="<?= $column->width() ?>">
 
-          </div>
-      <?php endforeach ?>
+                            <?php foreach ($column->blocks() as $block) : ?>
+                                <?php if (!$contentIsVisible($block)) {
+                                    continue;
+                                } ?>
+                                <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+                                    <?= $block ?>
+                                </div>
 
-  </section>
+                            <?php endforeach ?>
 
-  </main>
+                        </div>
+                    <?php endforeach ?>
+
+                </div>
+            <?php endforeach ?>
+
+        </section>
+    </main>
+
 <?php snippet('layout/footer'); ?>
 <?php snippet('layout/foot'); ?>

@@ -20,8 +20,19 @@ return function ($site, $page, $kirby) {
     /**
      * Load all projects
      */
-    $activeProjects = $projectsRoot->children()->listed();
-    $archiveProjects = $archiveRoot ? $archiveRoot->children()->listed() : collect();
+    $listedProjects = $projectsRoot->children()->listed();
+
+    $activeProjects = $listedProjects->filter(
+        fn ($project) => $project->project_status()->value() !== 'abgeschlossen',
+    );
+
+    $archivedFromProjects = $listedProjects->filter(
+        fn ($project) => $project->project_status()->value() === 'abgeschlossen',
+    );
+
+    $archiveProjects = $archiveRoot
+        ? $archiveRoot->children()->listed()->merge($archivedFromProjects)
+        : $archivedFromProjects;
 
     /**
      * Show searchbar if activated

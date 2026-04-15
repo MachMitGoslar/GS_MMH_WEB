@@ -1,4 +1,5 @@
 title: Dreamform Form
+icon: survey
 
 columns:
   main:
@@ -6,10 +7,13 @@ columns:
     sections:
       pages:
         type: pages
+        label: Veröffentlichte Formulare
+        parent: site.find("forms")
         template: form
-
-storage:
-  type: files
-  root: site/storage/forms
-  format: json
-
+        status: listed
+      drafts:
+        type: pages
+        label: Entwürfe
+        parent: site.find("forms")
+        template: form
+        status: draft
