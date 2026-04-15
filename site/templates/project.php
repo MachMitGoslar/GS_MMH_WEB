@@ -4,9 +4,66 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
+<?php $contentIsVisible = require kirby()->root('controllers') . '/blocks.php'; ?>
 <?php $teamMembers = $page->team()->toPages(); ?>
 <?php snippet('layout/head'); ?>
 <?php snippet('layout/header'); ?>
+<style>
+  @media (min-width: 768px) {
+    .project-team-strip.is-floating.is-expanded,
+    .project-team-strip.is-floating:focus-within {
+      direction: rtl;
+      justify-content: center;
+      padding: 0.5rem 1.25rem 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      transform: translateY(-3.2rem);
+    }
+
+    .project-team-strip.is-floating.is-expanded::after,
+    .project-team-strip.is-floating:focus-within::after {
+      content: none;
+    }
+
+    .project-team-strip.is-floating.is-expanded .project-team-member,
+    .project-team-strip.is-floating:focus-within .project-team-member {
+      direction: ltr;
+      position: relative;
+      z-index: 1;
+      margin-right: 0;
+      right: 0;
+    }
+
+    .project-team-strip.is-floating.is-expanded .project-team-label,
+    .project-team-strip.is-floating:focus-within .project-team-label {
+      direction: ltr;
+      display: flex;
+      position: absolute;
+      left: 50%;
+      right: auto;
+      bottom: -4rem;
+      transform: translateX(-50%);
+      align-items: center;
+      justify-content: center;
+      min-width: 7.5rem;
+      height: 3.25rem;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--color-fg-brand-primary);
+      border-radius: 1.1rem;
+      background: var(--color-white);
+      color: var(--color-fg-brand-primary);
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1;
+      z-index: 1;
+      pointer-events: none;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+  }
+</style>
   <main>
   <div class="mb-4">
     <?=snippet('sections/hero')?>
@@ -41,6 +98,7 @@
                 </span>
               </a>
             <?php endforeach ?>
+            <h2 class="project-team-label">#Team</h2>
           </div>
         <?php endif ?>
       </div>
@@ -51,12 +109,18 @@
         <h3 class="font-headline"> Projektbeschreibung</h3>
         <div class="designer">
         <?php foreach ($page->text()->toLayouts() as $layout) : ?>
+          <?php if (!$contentIsVisible($layout)) {
+              continue;
+          } ?>
           <div class="grid project-layout-grid">
 
             <?php foreach ($layout->columns() as $column) : ?>
             <div class="grid-item" data-span="<?=$column->width()?>">
 
                 <?php foreach ($column->blocks() as $block) : ?>
+                <?php if (!$contentIsVisible($block)) {
+                    continue;
+                } ?>
                 <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
                     <?= $block ?>
                 </div>

@@ -42,10 +42,6 @@ function latestUpdateAll(): Pages
  */
 function latestUpdateTimestamp($p): int
 {
-    $title = $p->title()->value();
-    $published = $p->published()->value() ?? 'leer';
-    $projectStart = $p->project_start_date()->value() ?? 'leer';
-
     if ($p->published()->isNotEmpty()) {
         $ts = strtotime($p->published()->value());
 
@@ -88,10 +84,11 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
         return null;
     }
 
+    $isNewsletter = $update->intendedTemplate()->name() === 'newsletter';
     $timestamp = latestUpdateTimestamp($update);
 
     // Bild bestimmen
-    if ($update->intendedTemplate()->name() === 'newsletter') {
+    if ($isNewsletter) {
         $image_url = url('api/newsletter-cover/' . $update->slug() . '.svg');
     } else {
         $project = $update->parent();
@@ -103,17 +100,25 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
     if ($for_highlights_link) {
         $call_to_action_url = url('api/highlights'); // Link auf Highlights
     } else {
-        $call_to_action_url = $update->intendedTemplate()->name() === 'newsletter'
+        $call_to_action_url = $isNewsletter
             ? $update->url()
             : $update->parent()->url();
     }
 
+    $description = $update->description()->isNotEmpty()
+        ? $update->description()->value()
+        : $update->text()->excerpt(160)->value();
+
+    $title = $update->title()->value();
+
+    if ($isNewsletter) {
+        $description = $title;
+        $title = 'Newsletter';
+    }
+
     return [
-        //'id' => $update->id(),
-        'title' => $update->title()->value(),
-        'description' => $update->description()->isNotEmpty()
-            ? $update->description()->value()
-            : $update->text()->excerpt(160)->value(),
+        'title' => $title,
+        'description' => $description,
         'image_url' => $image_url,
         'call_to_action_url' => $call_to_action_url,
         'published_at' => date('Y-m-d\TH:i', $timestamp),
