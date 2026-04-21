@@ -8,6 +8,7 @@
 
 use Kirby\Cms\Response;
 use Kirby\Database\Db;
+use Kirby\Http\Exceptions\NextRouteException;
 
 return [
     /**
@@ -28,24 +29,67 @@ return [
     ],
 
     /**
+     * Horoscope Card API
+     * Returns the daily Goslarer Horoskope as a JSON app-card payload.
+     * Defined before the `/app/(:any)` tracker so it wins route matching.
+     */
+    [
+        'pattern' => '/app/horoskop_card',
+        'action' => function () {
+            $content = snippet('content-types/horoskope/card', [], true);
+
+            return new Response($content, 'application/json');
+        },
+    ],
+
+    /**
+     * Horoskope List Page
+     * Renders the daily Goslarer Horoskope as an HTML list with
+     * collapsible texts per zodiac sign.
+     * Defined before the `/app/(:any)` tracker so it wins route matching.
+     */
+    [
+        'pattern' => '/app/horoskope',
+        'action' => function () {
+            $content = snippet('content-types/horoskope/list', [], true);
+
+            return new Response($content, 'text/html');
+        },
+    ],
+
+    /**
      * App Request Tracking
-     * Tracks requests from the mobile app
+     * Increments a per-URL/per-day counter for any /app/* request, then
+     * hands the request off to the next matching route so the specific
+     * /app/<endpoint> routes below can produce the actual response.
+     *
+     * Any thrown DB error is swallowed — tracking must never break an
+     * endpoint the mobile app depends on.
      */
     [
         'pattern' => '/app/(:any)',
         'action' => function ($any) {
-            $data['url'] = $any;
-            $data['day'] = date('Y-m-d');
+            try {
+                $data = [
+                    'url' => $any,
+                    'day' => date('Y-m-d'),
+                ];
 
-            if ($app_request = Db::first('app_requests', '*', ['url' => $data['url'], 'day' => $data['day']])) {
-                $data['requests'] = $app_request->requests();
-
-                return Db::update('app_requests', $data, ['url' => $data['url'], 'day' => $data['day']]);
-            } else {
-                $data['requests'] = 1;
-
-                return Db::insert('app_requests', $data);
+                if ($app_request = Db::first('app_requests', '*', $data)) {
+                    $data['requests'] = $app_request->requests() + 1;
+                    Db::update('app_requests', $data, [
+                        'url' => $data['url'],
+                        'day' => $data['day'],
+                    ]);
+                } else {
+                    $data['requests'] = 1;
+                    Db::insert('app_requests', $data);
+                }
+            } catch (\Throwable) {
+                // tracking is best-effort; never break the actual endpoint
             }
+
+            throw new NextRouteException();
         },
     ],
 
