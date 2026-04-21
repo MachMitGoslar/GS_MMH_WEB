@@ -15,13 +15,33 @@ use Kirby\Http\Remote;
 ?>
 <?php
 
+$date = date("Y-m-d H:i:s");
+
+$sign_array = [
+    "bergknappe",
+    "erzgaenger",
+    "fernhaendlerin",
+    "haendler",
+    "kaiser",
+    "kloserschuelerin",
+    "muellerin",
+    "rammelsberg",
+    "ratsherr",
+    "teichgraefin",
+    "weberin",
+    "zinngiesser"
+];
+
+$random_int = rand(0, 11);
+$random_sign = $sign_array[$random_int];
 
 $card = [
     'title' => 'Goslarer Horoskope',
     'description' => 'Deine Sterne über dem Rammelsberg – die tagesaktuellen Horoskope für alle zwölf Goslarer Sternzeichen.',
     'published_at' => $date,
-    'image_url' => url('assets/svg/machmit-logo.svg'),
+    'image_url' => url('assets/pngs/hk_' . $random_sign . ".png"),
     'call_to_action_url' => url('app/horoskope'),
 ];
 
 print json_encode($card, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
