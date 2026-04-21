@@ -99,7 +99,7 @@ if ($date) {
         .horoskope {
             max-width: 720px;
             margin: 0 auto;
-            padding: 2rem 1.75rem 2.5rem;
+            padding: 2rem 0.3rem 2.5rem;
             background:
                 linear-gradient(180deg, rgba(255, 248, 225, 0.85), rgba(244, 230, 200, 0.85));
             border: 1px solid var(--gold-deep);
@@ -229,7 +229,7 @@ if ($date) {
         .horoskope__title strong {
             font-family: "Cinzel", "Trajan Pro", serif;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: min(0.8em, 70vw) 1.2em ;
             line-height: 1.2;
             letter-spacing: 0.04em;
             color: var(--burgundy);
