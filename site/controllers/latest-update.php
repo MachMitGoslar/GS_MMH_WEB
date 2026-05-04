@@ -89,11 +89,11 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
 
     // Bild bestimmen
     if ($isNewsletter) {
-        $image_url = url('api/newsletter-cover/' . $update->slug() . '.svg');
+        $image_url = url('api/newsletter-cover/' . $update->slug() . '.jpg');
     } else {
         $project = $update->parent();
         $coverFile = $project->content()->get('cover')?->toFile();
-        $image_url = $coverFile ? $coverFile->url() : null;
+        $image_url = mmhApiJpegImageUrl($coverFile);
     }
 
     // 🔹 URL bestimmen
