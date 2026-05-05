@@ -207,7 +207,7 @@ return [
                 $dynamic = latestUpdateData();
 
                 if ($dynamic) {
-                    $dynamic['id'] = 1;
+                    $dynamic['id'] = 2;
                     unset($dynamic['widget_type']);
                 }
 
@@ -231,16 +231,16 @@ return [
                 };
 
                 return [
-                    $dynamic, // Slot 1 = Latest Update
-
                     [
-                        'id' => 2,
+                        'id' => 1,
                         'title' => 'Heute im MM!H',
                         'description' => 'Entdecke die heutigen Events im MachMit!Haus oder gelange zur Raumbuchung.',
                         'image_url' => $coverUrl($homePage),
                         'call_to_action_url' => $homePage?->url(),
                         'published_at' => $now,
                     ],
+
+                    $dynamic, // Slot 2 = Latest Update
 
                     [
                         'id' => 3,
