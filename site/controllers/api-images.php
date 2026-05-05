@@ -28,14 +28,59 @@ if (!function_exists('mmhApiJpegImageUrl')) {
 }
 
 if (!function_exists('mmhApiCoverJpegResponse')) {
+    function mmhApiPathAllowedByOpenBaseDir(string $path): bool
+    {
+        $openBaseDir = ini_get('open_basedir');
+
+        if (!$openBaseDir) {
+            return true;
+        }
+
+        $path = str_replace('\\', '/', $path);
+
+        foreach (explode(PATH_SEPARATOR, $openBaseDir) as $baseDir) {
+            $baseDir = trim($baseDir);
+
+            if ($baseDir === '') {
+                continue;
+            }
+
+            if ($baseDir === '.') {
+                $baseDir = getcwd() ?: $baseDir;
+            }
+
+            $baseDir = rtrim(str_replace('\\', '/', $baseDir), '/');
+
+            if ($path === $baseDir || str_starts_with($path, $baseDir . '/')) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function mmhApiSafeFileExists(string $path): bool
+    {
+        return mmhApiPathAllowedByOpenBaseDir($path) && is_file($path);
+    }
+
     function mmhApiFontPath(): ?string
     {
+        $publicRoot = dirname(__DIR__, 2) . '/public';
+
         $paths = [
+            $publicRoot . '/assets/fonts/NimbusSans-Bold.otf',
+            $publicRoot . '/assets/fonts/Arial.ttf',
             kirby()->root('index') . '/assets/fonts/NimbusSans-Bold.otf',
+            kirby()->root('index') . '/assets/fonts/Arial.ttf',
+            '/System/Library/Fonts/Supplemental/Arial.ttf',
+            '/usr/share/fonts/opentype/urw-base35/NimbusSans-Bold.otf',
+            '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
+            '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf',
         ];
 
         foreach ($paths as $path) {
-            if (is_file($path)) {
+            if (mmhApiSafeFileExists($path)) {
                 return $path;
             }
         }
