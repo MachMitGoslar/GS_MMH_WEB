@@ -31,11 +31,7 @@ if (!function_exists('mmhApiCoverJpegResponse')) {
     function mmhApiFontPath(): ?string
     {
         $paths = [
-            kirby()->root('index') . '/assets/fonts/Arial.ttf',
-            '/System/Library/Fonts/Supplemental/Arial.ttf',
-            '/usr/share/fonts/opentype/urw-base35/NimbusSans-Bold.otf',
-            '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
-            '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf',
+            kirby()->root('index') . '/assets/fonts/NimbusSans-Bold.otf',
         ];
 
         foreach ($paths as $path) {
