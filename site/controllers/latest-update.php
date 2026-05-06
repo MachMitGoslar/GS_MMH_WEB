@@ -89,7 +89,7 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
 
     // Bild bestimmen
     if ($isNewsletter) {
-        $image_url = url('api/newsletter-cover/' . $update->slug() . '.jpg');
+        $image_url = mmhApiCoverFileUrl('newsletter', $update->slug());
     } else {
         $project = $update->parent();
         $coverFile = $project->content()->get('cover')?->toFile();
