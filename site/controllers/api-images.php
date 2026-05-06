@@ -27,54 +27,74 @@ if (!function_exists('mmhApiJpegImageUrl')) {
     }
 }
 
-if (!function_exists('mmhApiCoverJpegResponse')) {
-    function mmhApiFontPath(): ?string
+if (!function_exists('mmhApiCoverMeta')) {
+    function mmhApiCoverMeta(string $kind, string $slug): ?array
     {
-        $paths = [
-            kirby()->root('index') . '/assets/fonts/Arial.ttf',
-            '/System/Library/Fonts/Supplemental/Arial.ttf',
-            '/usr/share/fonts/opentype/urw-base35/NimbusSans-Bold.otf',
-            '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
-            '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf',
-        ];
+        if ($kind === 'newsletter') {
+            $page = page('newsletter/' . $slug);
 
-        foreach ($paths as $path) {
-            if (is_file($path)) {
-                return $path;
-            }
+            return $page ? [
+                'kind' => $kind,
+                'slug' => $slug,
+                'label' => 'Newsletter',
+                'title' => $page->title()->value(),
+                'colors' => ['#5d4e37', '#6b5b47', '#4a3c28'],
+            ] : null;
+        }
+
+        if ($kind === 'notes') {
+            $page = page('notes/' . $slug);
+
+            return $page ? [
+                'kind' => $kind,
+                'slug' => $slug,
+                'label' => 'Tagebuch',
+                'title' => $page->title()->value(),
+                'colors' => ['#39556b', '#46677f', '#2d475a'],
+            ] : null;
+        }
+
+        if ($kind === 'app' && $slug === 'whatsapp-community') {
+            return [
+                'kind' => $kind,
+                'slug' => $slug,
+                'label' => 'WhatsApp Community',
+                'title' => 'Tritt unserer WhatsApp Community bei.',
+                'colors' => ['#245f53', '#1f514d', '#183d4f'],
+            ];
         }
 
         return null;
     }
 
-    function mmhApiHexColor($image, string $hex)
+    function mmhApiCoverFileUrl(string $kind, string $slug): string
     {
-        $hex = ltrim($hex, '#');
+        $routes = [
+            'newsletter' => 'newsletter-cover',
+            'notes' => 'notes-cover',
+            'app' => 'app-cover',
+        ];
 
-        return imagecolorallocate(
-            $image,
-            hexdec(substr($hex, 0, 2)),
-            hexdec(substr($hex, 2, 2)),
-            hexdec(substr($hex, 4, 2)),
-        );
+        return url('api/' . ($routes[$kind] ?? $kind . '-cover') . '/' . $slug . '.jpg');
     }
 
-    function mmhApiDrawCenteredText($image, string $text, int $size, int $y, $color, ?string $font): void
+    function mmhApiCoverSvgUrl(string $kind, string $slug): string
     {
-        if ($font && function_exists('imagettftext')) {
-            $box = imagettfbbox($size, 0, $font, $text);
-            $width = $box[2] - $box[0];
-            imagettftext($image, $size, 0, (int) ((imagesx($image) - $width) / 2), $y, $color, $font, $text);
+        $routes = [
+            'newsletter' => 'newsletter-cover',
+            'notes' => 'notes-cover',
+            'app' => 'app-cover',
+        ];
 
-            return;
-        }
-
-        $fontSize = 5;
-        $width = imagefontwidth($fontSize) * strlen($text);
-        imagestring($image, $fontSize, (int) ((imagesx($image) - $width) / 2), $y, $text, $color);
+        return url('api/' . ($routes[$kind] ?? $kind . '-cover') . '/' . $slug . '.svg');
     }
 
-    function mmhApiWrapText(string $text, int $size, ?string $font, int $maxWidth): array
+    function mmhApiXmlEscape(string $value): string
+    {
+        return htmlspecialchars($value, ENT_QUOTES | ENT_XML1, 'UTF-8');
+    }
+
+    function mmhApiWrapSvgText(string $text, int $maxLength = 42): array
     {
         $words = preg_split('/\s+/', trim($text)) ?: [];
         $lines = [];
@@ -83,14 +103,7 @@ if (!function_exists('mmhApiCoverJpegResponse')) {
         foreach ($words as $word) {
             $test = trim($line . ' ' . $word);
 
-            if ($font && function_exists('imagettfbbox')) {
-                $box = imagettfbbox($size, 0, $font, $test);
-                $width = $box[2] - $box[0];
-            } else {
-                $width = imagefontwidth(5) * strlen($test);
-            }
-
-            if ($width > $maxWidth && $line !== '') {
+            if ($line !== '' && mb_strlen($test) > $maxLength) {
                 $lines[] = $line;
                 $line = $word;
             } else {
@@ -105,90 +118,164 @@ if (!function_exists('mmhApiCoverJpegResponse')) {
         return array_slice($lines, 0, 2);
     }
 
-    function mmhApiDrawLogo($image): void
+    function mmhApiCoverFileSlug(string $kind, string $slug): string
     {
-        $logoPath = kirby()->root('index') . '/assets/generated/mmh-logo-white.png';
-
-        if (!is_file($logoPath) || !function_exists('imagecreatefrompng')) {
-            return;
-        }
-
-        $logo = imagecreatefrompng($logoPath);
-
-        if (!$logo) {
-            return;
-        }
-
-        imagealphablending($image, true);
-
-        $targetWidth = 280;
-        $targetHeight = (int) round(imagesy($logo) * ($targetWidth / imagesx($logo)));
-        $targetX = (int) round(imagesx($image) * 0.384);
-        $targetY = (int) round(imagesy($image) * 0.2);
-
-        imagecopyresampled(
-            $image,
-            $logo,
-            $targetX,
-            $targetY,
-            0,
-            0,
-            $targetWidth,
-            $targetHeight,
-            imagesx($logo),
-            imagesy($logo),
-        );
+        return preg_replace('/[^a-zA-Z0-9._-]+/', '-', $kind . '-' . $slug);
     }
 
-    function mmhApiCoverJpegResponse(string $label, string $title, array $colors): Kirby\Cms\Response
+    function mmhApiCoverJpegPath(string $kind, string $slug): string
     {
-        if (!extension_loaded('gd') || !function_exists('imagejpeg') || !function_exists('imagecreatetruecolor')) {
-            return new Kirby\Cms\Response('GD image support is required', 'text/plain', 500);
+        return dirname(__DIR__, 2) . '/public/media/api-covers/' . mmhApiCoverFileSlug($kind, $slug) . '.jpg';
+    }
+
+    function mmhApiCoverJpegHashPath(string $kind, string $slug): string
+    {
+        return dirname(__DIR__, 2) . '/public/media/api-covers/' . mmhApiCoverFileSlug($kind, $slug) . '.sha256';
+    }
+
+    function mmhApiCoverLogoDataUri(): ?string
+    {
+        $logo = dirname(__DIR__, 2) . '/public/assets/svg/RZ-RGB_MM!2_iv.svg';
+
+        if (!is_file($logo)) {
+            return null;
         }
 
-        $width = 1200;
-        $height = 630;
-        $image = imagecreatetruecolor($width, $height);
+        return 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($logo));
+    }
 
-        if (function_exists('imageantialias')) {
-            imageantialias($image, true);
+    function mmhApiCoverSvg(string $kind, string $slug): ?string
+    {
+        $meta = mmhApiCoverMeta($kind, $slug);
+        $logo = mmhApiCoverLogoDataUri();
+
+        if (!$meta || !$logo) {
+            return null;
         }
 
-        $start = sscanf(ltrim($colors[0], '#'), '%02x%02x%02x');
-        $middle = sscanf(ltrim($colors[1], '#'), '%02x%02x%02x');
-        $end = sscanf(ltrim($colors[2], '#'), '%02x%02x%02x');
+        $label = mmhApiXmlEscape($meta['label']);
+        $logo = mmhApiXmlEscape($logo);
+        $titleLines = mmhApiWrapSvgText($meta['title']);
+        $titleSvg = '';
+        $titleY = 500;
 
-        for ($y = 0; $y < $height; $y++) {
-            $ratio = $y / max(1, $height - 1);
-            $from = $ratio < 0.5 ? $start : $middle;
-            $to = $ratio < 0.5 ? $middle : $end;
-            $localRatio = $ratio < 0.5 ? $ratio * 2 : ($ratio - 0.5) * 2;
-            $color = imagecolorallocate(
-                $image,
-                (int) ($from[0] + ($to[0] - $from[0]) * $localRatio),
-                (int) ($from[1] + ($to[1] - $from[1]) * $localRatio),
-                (int) ($from[2] + ($to[2] - $from[2]) * $localRatio),
+        foreach ($titleLines as $line) {
+            $titleSvg .= '<text x="600" y="' . $titleY . '" text-anchor="middle" class="title">' . mmhApiXmlEscape($line) . '</text>';
+            $titleY += 38;
+        }
+
+        $colors = array_map('mmhApiXmlEscape', $meta['colors']);
+
+        $svg = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="{$label}">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="{$colors[0]}"/>
+      <stop offset="50%" stop-color="{$colors[1]}"/>
+      <stop offset="100%" stop-color="{$colors[2]}"/>
+    </linearGradient>
+    <style>
+      text {
+        font-family: Arial, Helvetica, sans-serif;
+        fill: #fff;
+      }
+
+      .label {
+        font-size: 60px;
+        font-weight: 700;
+      }
+
+      .title {
+        fill: #f4efe8;
+        font-size: 28px;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <image href="{$logo}" x="460" y="105" width="280" height="256" preserveAspectRatio="xMidYMid meet"/>
+  <text x="600" y="441" text-anchor="middle" class="label">{$label}</text>
+  {$titleSvg}
+</svg>
+SVG;
+
+        return $svg;
+    }
+
+    function mmhApiCoverSvgResponse(string $kind, string $slug): Kirby\Cms\Response
+    {
+        $svg = mmhApiCoverSvg($kind, $slug);
+
+        if (!$svg) {
+            return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+        }
+
+        return new Kirby\Cms\Response([
+            'body' => $svg,
+            'type' => 'image/svg+xml',
+            'headers' => [
+                'Cache-Control' => 'public, max-age=3600',
+            ],
+            'charset' => 'utf-8',
+        ]);
+    }
+
+    function mmhApiGenerateCoverJpeg(string $kind, string $slug, string $svg): bool
+    {
+        if (!class_exists(\Choowx\RasterizeSvg\Svg::class)) {
+            return false;
+        }
+
+        $target = mmhApiCoverJpegPath($kind, $slug);
+        $directory = dirname($target);
+
+        if (!is_dir($directory) && mkdir($directory, 0775, true) === false) {
+            return false;
+        }
+
+        try {
+            $jpeg = \Choowx\RasterizeSvg\Svg::make($svg)->toJpg();
+        } catch (Throwable) {
+            return false;
+        }
+
+        if (!is_string($jpeg) || substr($jpeg, 0, 3) !== "\xff\xd8\xff") {
+            return false;
+        }
+
+        if (file_put_contents($target, $jpeg, LOCK_EX) === false) {
+            return false;
+        }
+
+        file_put_contents(mmhApiCoverJpegHashPath($kind, $slug), hash('sha256', $svg), LOCK_EX);
+
+        return true;
+    }
+
+    function mmhApiCoverJpegResponse(string $kind, string $slug): Kirby\Cms\Response
+    {
+        $svg = mmhApiCoverSvg($kind, $slug);
+
+        if (!$svg) {
+            return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+        }
+
+        $file = mmhApiCoverJpegPath($kind, $slug);
+        $hashFile = mmhApiCoverJpegHashPath($kind, $slug);
+        $hash = hash('sha256', $svg);
+        $cached = is_file($file)
+            && is_file($hashFile)
+            && trim((string) file_get_contents($hashFile)) === $hash;
+
+        if (!$cached && !mmhApiGenerateCoverJpeg($kind, $slug, $svg)) {
+            return new Kirby\Cms\Response(
+                'Cover could not be rasterized. Check that node and sharp are installed.',
+                'text/plain',
+                500,
             );
-            imageline($image, 0, $y, $width, $y, $color);
         }
 
-        $white = mmhApiHexColor($image, '#ffffff');
-        $muted = mmhApiHexColor($image, '#f4efe8');
-        $font = mmhApiFontPath();
-
-        mmhApiDrawLogo($image);
-        mmhApiDrawCenteredText($image, $label, 60, (int) round($height * 0.7), $white, $font);
-
-        $lines = mmhApiWrapText($title, 26, $font, 900);
-        $lineY = (int) round($height * 0.8);
-        foreach ($lines as $line) {
-            mmhApiDrawCenteredText($image, $line, 28, $lineY, $muted, $font);
-            $lineY += 38;
-        }
-
-        ob_start();
-        imagejpeg($image, null, 88);
-        $jpeg = ob_get_clean();
+        $jpeg = file_get_contents($file);
 
         if (ob_get_level() > 0) {
             ob_clean();

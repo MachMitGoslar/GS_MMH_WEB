@@ -92,7 +92,7 @@ return [
                     return new Kirby\Cms\Response(
                         json_encode(['error' => 'Room not found']),
                         'application/json',
-                        404,
+                        44,
                     );
                 }
 
@@ -115,43 +115,41 @@ return [
             },
         ],
         /**
-         * Create Newsletter JPEG
+         * Create Newsletter Cover
          */
         [
         'pattern' => 'newsletter-cover/(:any).jpg',
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-
-            if (!$page = page('newsletter/' . $slug)) {
-                return new Kirby\Cms\Response('Not found', 'text/plain', 404);
-            }
-
-            return mmhApiCoverJpegResponse(
-                'Newsletter',
-                $page->title()->value(),
-                ['#5d4e37', '#6b5b47', '#4a3c28'],
-            );
+            return mmhApiCoverJpegResponse('newsletter', $slug);
+        },
+        ],
+        [
+        'pattern' => 'newsletter-cover/(:any).svg',
+        'method' => 'GET',
+        'auth' => false,
+        'action' => function ($slug) {
+            return mmhApiCoverSvgResponse('newsletter', $slug);
         },
         ],
         /**
-         * Create Notes JPEG
+         * Create Notes Cover
          */
         [
         'pattern' => 'notes-cover/(:any).jpg',
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-
-            if (!$page = page('notes/' . $slug)) {
-                return new Kirby\Cms\Response('Not found', 'text/plain', 404);
-            }
-
-            return mmhApiCoverJpegResponse(
-                'Tagebuch',
-                $page->title()->value(),
-                ['#39556b', '#46677f', '#2d475a'],
-            );
+            return mmhApiCoverJpegResponse('notes', $slug);
+        },
+        ],
+        [
+        'pattern' => 'notes-cover/(:any).svg',
+        'method' => 'GET',
+        'auth' => false,
+        'action' => function ($slug) {
+            return mmhApiCoverSvgResponse('notes', $slug);
         },
         ],
         [
@@ -159,19 +157,15 @@ return [
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-            $titles = [
-                'whatsapp-community' => ['WhatsApp Community', 'Tritt unserer WhatsApp Community bei.'],
-            ];
-
-            if (!isset($titles[$slug])) {
-                return new Kirby\Cms\Response('Not found', 'text/plain', 404);
-            }
-
-            return mmhApiCoverJpegResponse(
-                $titles[$slug][0],
-                $titles[$slug][1],
-                ['#245f53', '#1f514d', '#183d4f'],
-            );
+            return mmhApiCoverJpegResponse('app', $slug);
+        },
+        ],
+        [
+        'pattern' => 'app-cover/(:any).svg',
+        'method' => 'GET',
+        'auth' => false,
+        'action' => function ($slug) {
+            return mmhApiCoverSvgResponse('app', $slug);
         },
         ],
         /**
@@ -255,7 +249,7 @@ return [
                         'title' => 'Newsletter',
                         'description' => 'Entdecke unseren Newsletter.',
                         'image_url' => $latestNewsletter
-                            ? url('api/newsletter-cover/' . $latestNewsletter->slug() . '.jpg')
+                            ? mmhApiCoverFileUrl('newsletter', $latestNewsletter->slug())
                             : null,
                         'call_to_action_url' => $newsletterPage?->url(),
                         'published_at' => $now,
@@ -265,7 +259,7 @@ return [
                         'title' => 'Tagebuch',
                         'description' => 'Berichte aus unserem Alltag.',
                         'image_url' => $latestDiary
-                            ? url('api/notes-cover/' . $latestDiary->slug() . '.jpg')
+                            ? mmhApiCoverFileUrl('notes', $latestDiary->slug())
                             : null,
                         'call_to_action_url' => $diaryPage?->url(),
                         'published_at' => $now,
@@ -282,7 +276,7 @@ return [
                         'id' => 7,
                         'title' => 'WhatsApp Community',
                         'description' => 'Tritt unserer WhatsApp Community bei und bleibe immer auf dem Laufenden!',
-                        'image_url' => url('api/app-cover/whatsapp-community.jpg'),
+                        'image_url' => mmhApiCoverFileUrl('app', 'whatsapp-community'),
                         'call_to_action_url' => 'https://chat.whatsapp.com/IxjUee7gVOY3KfQhvdUsA3?mode=gi_t',
                     ],
                 ];
