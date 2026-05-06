@@ -22,7 +22,7 @@
  <ttl>1800</ttl>
 
  <?php foreach ($pages as $page) :
-        ?>
+     ?>
     <item>
         <title><?= $page->title() ?></title>
         <description><?= $page->headline() ?> </description>

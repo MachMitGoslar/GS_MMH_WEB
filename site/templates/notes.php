@@ -11,7 +11,7 @@
 <main class="main">
   <!-- Hero Section -->
   <section class="notes-hero">
-    <?php if ($cover = $page->cover()->toFile()) : ?>
+    <?php if ($cover = $page->cover()) : ?>
       <div class="notes-hero-image">
         <img src="<?= $cover->crop(1920, 600)->url() ?>"
              alt="<?= $page->title()->html() ?>"
