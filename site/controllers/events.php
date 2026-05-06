@@ -344,7 +344,7 @@ return function ($page) {
         }
 
         $isToday = $dateKey === $todayKey;
-        $isActive = $selectedDay !== '' ? $selectedDay === $dateKey : $isToday;
+        $isActive = $selectedDay !== '' && $selectedDay === $dateKey;
 
         $calendarDays[] = [
             'key' => $dateKey,

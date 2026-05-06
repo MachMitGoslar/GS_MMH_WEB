@@ -159,9 +159,7 @@
 
     dayChips.forEach(chip => {
       const chipDay = chip.dataset.dayKey || '';
-      const isActive = selectedDay
-        ? chipDay === selectedDay
-        : chipDay === todayKey;
+      const isActive = selectedDay !== '' && chipDay === selectedDay;
       chip.dataset.active = String(isActive);
       chip.dataset.type = isActive ? 'primary' : 'secondary';
     });
