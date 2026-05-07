@@ -18,13 +18,11 @@ return [
 
     'date.timezone' => 'Europe/Berlin',
 
-    // Google Calendar Integration (optional)
-    // To enable: Create a Google Cloud Service Account, download the JSON key,
-    // and set the path here. Share each room's calendar with the service account email.
-    'google' => [
-        'calendar' => [
-            'credentials' => null, // e.g., __DIR__ . '/google-service-account.json'
-        ],
+    // Nextcloud CalDAV integration for room bookings.
+    'nextcloud' => [
+        'calendar_url' => null,
+        'username' => null,
+        'password' => null,
     ],
 
     // Load custom API routes (higher priority)

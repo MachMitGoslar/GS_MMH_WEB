@@ -59,15 +59,15 @@ return [
                 $i = 0;
 
                 foreach ($roomsPage->children()->listed() as $room) {
-                    $resourceEmail = $room->nextcloud_resource_email()->value();
-                    if (!$resourceEmail) {
+                    $calendarUri = $room->nextcloud_calendar_uri()->or($room->nextcloud_resource_email())->value();
+                    if (!$calendarUri) {
                         continue;
                     }
                     $rooms[] = [
                         'slug' => $room->slug(),
                         'title' => $room->title()->value(),
                         'color' => $palette[$i % count($palette)],
-                        'slots' => ncRoomBusySlots($resourceEmail, $rangeStart, $rangeEnd, $includeTentative),
+                        'slots' => ncRoomBusySlots($calendarUri, $rangeStart, $rangeEnd, $includeTentative),
                     ];
                     $i++;
                 }
@@ -95,8 +95,8 @@ return [
                     );
                 }
 
-                $resourceEmail = $room->nextcloud_resource_email()->value();
-                if (!$resourceEmail || !$kirby->option('nextcloud.calendar_url')) {
+                $calendarUri = $room->nextcloud_calendar_uri()->or($room->nextcloud_resource_email())->value();
+                if (!$calendarUri || !$kirby->option('nextcloud.calendar_url')) {
                     return ['slots' => [], 'room' => $roomSlug];
                 }
 
@@ -108,7 +108,7 @@ return [
                 $rangeEnd->setTime(23, 59, 59);
 
                 require_once $kirby->root('snippets') . '/content-types/rooms/nextcloudCalendarIntegration.php';
-                $slots = ncRoomBusySlots($resourceEmail, $rangeStart, $rangeEnd, $includeTentative);
+                $slots = ncRoomBusySlots($calendarUri, $rangeStart, $rangeEnd, $includeTentative);
 
                 return ['slots' => $slots, 'room' => $roomSlug];
             },

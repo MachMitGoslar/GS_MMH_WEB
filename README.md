@@ -47,7 +47,7 @@ See [DEVELOPMENT_SETUP.md](DEVELOPMENT_SETUP.md) for detailed setup, debugging, 
 - **Team** -- Staff profiles with photos and roles
 
 ### Integrations
-- **Room Booking** -- Form submission, email notifications, optional Google Calendar sync
+- **Room Booking** -- Form submission, email notifications, optional Nextcloud CalDAV sync
 - **Ferienpass API** -- JSON endpoints for the MachMit mobile app
 - **Newsletter RSS** -- Feed at `/newsletter.xml`
 - **App Analytics** -- Request tracking to MariaDB for the mobile app
@@ -151,7 +151,7 @@ GS_MMH_WEB/
 |-----------------------------|--------------------------------------|-------------------------------------------------------|
 | `page.update:after`         | Project step saved                   | Syncs parent project status from `project_status_to`  |
 | `page.changeStatus:after`   | Newsletter/note published            | Auto-sets `published` date to today                   |
-| `page.changeStatus:after`   | Booking request status change        | Sends approval/denial email, creates Google Calendar event |
+| `page.changeStatus:after`   | Booking request status change        | Sends approval/denial email, creates Nextcloud calendar event |
 
 ## Plugins
 
@@ -221,17 +221,23 @@ public/assets/css/
 | `config.gs-mmh-web.ddev.site.php` | DDEV            |
 | `config.mmh.goslar.de.php`       | Production       |
 
-### Google Calendar (Optional)
+### Nextcloud Calendar (Optional)
 
-To enable Google Calendar integration for room bookings:
+To enable Nextcloud CalDAV integration for room bookings:
 
-1. Create a Google Cloud Service Account
-2. Download the JSON key to `site/config/google-service-account.json`
-3. Set the path in `config.php`:
+1. Create a dedicated Nextcloud user for bookings.
+2. Create one calendar per room.
+3. Set the CalDAV credentials in `config.php`:
    ```php
-   'google' => ['calendar' => ['credentials' => __DIR__ . '/google-service-account.json']]
+   'nextcloud' => [
+       'calendar_url' => 'https://nextcloud.example.org/remote.php/dav/calendars/booking-service',
+       'username' => 'booking-service',
+       'password' => 'app-password'
+   ]
    ```
-4. Share each room's Google Calendar with the service account email
+4. Set each room's "Nextcloud Kalender-URI" to the final calendar path segment, e.g. `empfangsraum`.
+
+For local DDEV testing, run `ddev restart` and then `ddev setup-nextcloud`.
 
 ## Development
 

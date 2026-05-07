@@ -99,7 +99,7 @@ tabs:
               overview_calendar_url:
                 label: Externe Kalender-URL
                 type: url
-                help: URL zu einem externen Kalender (z.B. Google Calendar) für die Kalenderübersicht
+                help: "Optional: URL zu einer externen oder öffentlichen Nextcloud-Kalenderübersicht"
 
       - width: 1/3
         sections:

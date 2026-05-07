@@ -6,6 +6,16 @@
 
 $pdfExport = $pdfExport
     ?? Kirby\Cms\App::instance()->request()->get('pdf') === '1';
+
+$mapboxToken = 'pk.eyJ1IjoicmFuZ2FyaWFuIiwiYSI6ImNrZGVxNzNhODI5MTcyenM4dGR5bnZhb3UifQ.7WvcNEBQJn9iV42IiyG8rQ';
+$mapLongitude = 10.429327;
+$mapLatitude = 51.906169;
+$mapStaticImageUrl = sprintf(
+    'https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-s+ff4d4f(%1$.6F,%2$.6F)/%1$.6F,%2$.6F,15,0/800x450@2x?access_token=%3$s',
+    $mapLongitude,
+    $mapLatitude,
+    rawurlencode($mapboxToken),
+);
 ?>
 <?php snippet('layout/head', slots: true); ?>
 
@@ -41,10 +51,17 @@ $pdfExport = $pdfExport
   .site-header,
   .site-footer,
   footer,
-  #map,
   script[src*='mapbox'],
   .mapboxgl-map {
     display: none !important;
+  }
+
+  .newsletter-static-map {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #c6c6c6;
+    border-radius: 8px;
   }
 
   .newsletter-cover {
@@ -601,12 +618,21 @@ $pdfExport = $pdfExport
       
       <div class="grid-item" data-span="1/2">
         <h3 class="font-title mb-3">Standort</h3>
-        <div id="map" class="mb-4"></div>
+        <?php if ($pdfExport === true) : ?>
+          <img
+            class="newsletter-static-map mb-4"
+            src="<?= esc($mapStaticImageUrl) ?>"
+            alt="Karte: MachMit!Haus, Markt 7, 38640 Goslar"
+          >
+        <?php else : ?>
+          <div id="map" class="mb-4"></div>
+        <?php endif ?>
         <p class="font-footnote">Markt 7, 38640 Goslar</p>
       </div>
     </section>
+    <?php if ($pdfExport !== true) : ?>
         <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoicmFuZ2FyaWFuIiwiYSI6ImNrZGVxNzNhODI5MTcyenM4dGR5bnZhb3UifQ.7WvcNEBQJn9iV42IiyG8rQ';
+            mapboxgl.accessToken = <?= json_encode($mapboxToken) ?>;
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/standard', // Use the standard style for the map
@@ -642,6 +668,7 @@ $pdfExport = $pdfExport
                 map.setFog({}); // Set the default atmosphere style
             });
         </script>
+    <?php endif ?>
 </main>
 
 <?php snippet('layout/footer'); ?>

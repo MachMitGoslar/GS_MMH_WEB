@@ -120,12 +120,11 @@ return [
                     // } catch (Exception $e) {
                     //     error_log('Booking approval email failed: ' . $e->getMessage());
                     // }
-                    // Create Google Calendar events if configured
-                    $calendarCredentials = $kirby->option('google.calendar.credentials');
-                    if ($calendarCredentials && file_exists($calendarCredentials)) {
+                    // Create Nextcloud calendar events if configured
+                    if ($kirby->option('nextcloud.calendar_url') && !$newPage->calendar_event_added()->toBool()) {
                         try {
-                            require_once $kirby->root('snippets') . '/content-types/rooms/googleCalendarIntegration.php';
-                            $calendarResults = createBookingCalendarEvents($newPage);
+                            require_once $kirby->root('snippets') . '/content-types/rooms/nextcloudCalendarIntegration.php';
+                            $calendarResults = ncCreateBookingCalendarEvents($newPage);
 
                             // Check if all events were created successfully
                             $allSuccess = true;
@@ -138,15 +137,15 @@ return [
 
                             // Update the calendar_event_added field
                             if ($allSuccess && !empty($calendarResults)) {
-                                // $newPage->update([
-                                //     'calendar_event_added' => true
-                                // ]);
+                                $newPage->update([
+                                    'calendar_event_added' => true,
+                                ]);
                             }
                         } catch (Exception $e) {
-                            error_log('Google Calendar integration failed: ' . $e->getMessage());
+                            error_log('Nextcloud Calendar integration failed: ' . $e->getMessage());
                         }
                     } else {
-                        error_log('Google Calendar credentials not configured or file not found.');
+                        error_log('Nextcloud Calendar not configured or event already created.');
                     }
                 }
 

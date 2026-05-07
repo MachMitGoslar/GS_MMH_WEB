@@ -290,20 +290,19 @@ tabs:
                 text: |
                   **Kalender-Integration**
 
-                  Verbinden Sie einen Google Calendar, um die Verfügbarkeit dieses Raumes anzuzeigen.
-                  Der Kalender wird öffentlich auf der Raumseite eingebettet.
+                  Verbinden Sie diesen Raum mit einem Nextcloud-Kalender. Beim Genehmigen einer Buchungsanfrage wird dort ein Termin erstellt.
 
-              google_calendar_id:
-                label: Google Calendar ID
+              nextcloud_calendar_uri:
+                label: Nextcloud Kalender-URI
                 type: text
-                placeholder: abc123@group.calendar.google.com
-                help: Die Calendar-ID aus den Google Calendar Einstellungen
+                placeholder: empfangsraum
+                help: Der Kalendername aus der CalDAV-URL, z.B. empfangsraum in /calendars/booking-service/empfangsraum/
 
               ical_url:
-                label: iCal Feed URL
+                label: Öffentliche iCal Feed URL
                 type: url
-                placeholder: https://calendar.google.com/calendar/ical/.../basic.ics
-                help: Öffentliche iCal-URL für den Kalender-Feed
+                placeholder: https://nextcloud.example.org/remote.php/dav/public-calendars/...
+                help: Optionaler öffentlicher Feed für externe Anzeigen
 
       - width: 1/2
         sections:
@@ -313,8 +312,8 @@ tabs:
               calendar_embed_url:
                 label: Kalender Embed-URL
                 type: url
-                placeholder: https://calendar.google.com/calendar/embed?src=...
-                help: URL zum Einbetten des Kalenders (iframe)
+                placeholder: https://nextcloud.example.org/apps/calendar/embed/...
+                help: "Optional: Nextcloud-Embed-URL, falls der Kalender öffentlich eingebettet werden soll"
 
               show_calendar:
                 label: Kalender anzeigen

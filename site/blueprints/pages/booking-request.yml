@@ -202,7 +202,7 @@ columns:
             text:
               - Nein
               - Ja
-            help: Wurde der Termin im Google Calendar eingetragen?
+            help: Wurde der Termin im Nextcloud-Kalender eingetragen?
 
       meta_section:
         type: fields

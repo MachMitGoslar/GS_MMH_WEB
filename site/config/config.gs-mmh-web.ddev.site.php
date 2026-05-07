@@ -29,10 +29,10 @@ return [
         'driver' => 'im',
         'bin' => '/usr/bin/convert',
     ],
-    'google' => [
-        'calendar' => [
-            'credentials' => __DIR__ . '/../../storage/calendar_key.json',
-        ],
+    'nextcloud' => [
+        'calendar_url' => 'http://nextcloud/remote.php/dav/calendars/booking-service',
+        'username' => 'booking-service',
+        'password' => 'booking-service',
     ],
     'db' => [
         'host' => 'db',
