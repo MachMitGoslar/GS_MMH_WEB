@@ -1,0 +1,54 @@
+title: Newsletter Modal
+icon: email
+
+options:
+  changeSlug: false
+  changeStatus: false
+  changeTemplate: false
+  delete: false
+  duplicate: false
+
+columns:
+  - width: 1
+    fields:
+      newsletterModalHeadline:
+        type: text
+        label: Modal Headline
+        placeholder: Newsletter abonnieren
+        default: Newsletter abonnieren
+      newsletterModalText:
+        type: textarea
+        label: Modal Text
+        buttons: false
+        placeholder: Erhalte Neuigkeiten aus dem MachMit!Haus direkt per E-Mail.
+        default: Erhalte Neuigkeiten aus dem MachMit!Haus direkt per E-Mail.
+      newsletterModalFirstNameLabel:
+        type: text
+        label: Label Vorname
+        placeholder: Vorname
+        default: Vorname
+        width: 1/3
+      newsletterModalLastNameLabel:
+        type: text
+        label: Label Nachname
+        placeholder: Nachname
+        default: Nachname
+        width: 1/3
+      newsletterModalEmailLabel:
+        type: text
+        label: Label E-Mail
+        placeholder: E-Mail-Adresse
+        default: E-Mail-Adresse
+        width: 1/3
+      newsletterModalPrivacyText:
+        type: textarea
+        label: Datenschutztext
+        buttons:
+          - link
+        placeholder: "Hiermit erkläre ich mich mit der Übermittlung, Speicherung und Verwendung meiner Daten einverstanden. Ich habe die (link: https://www.goslar.de/datenschutz text: Datenschutzinformationen) gelesen und akzeptiere diese."
+        default: "Hiermit erkläre ich mich mit der Übermittlung, Speicherung und Verwendung meiner Daten einverstanden. Ich habe die (link: https://www.goslar.de/datenschutz text: Datenschutzinformationen) gelesen und akzeptiere diese."
+      newsletterModalSubmitButtonText:
+        type: text
+        label: Button Text
+        placeholder: Anmelden
+        default: Anmelden

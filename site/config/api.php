@@ -31,6 +31,65 @@ return [
                 ];
             },
         ],
+        [
+            'pattern' => 'newsletter/subscribe',
+            'method' => 'POST',
+            'auth' => false,
+            'action' => function () {
+                if (!class_exists(\GsMmh\WebPlugin\NewsletterRecipients::class)) {
+                    require_once kirby()->root('plugins') . '/gs-mmh-web-plugin/NewsletterRecipients.php';
+                }
+
+                $request = kirby()->request();
+
+                if (trim((string) $request->get('website')) !== '') {
+                    return [
+                        'success' => true,
+                        'message' => 'Danke für deine Anmeldung.',
+                    ];
+                }
+
+                if ($request->get('privacy_accepted') !== '1') {
+                    return new Kirby\Cms\Response(
+                        json_encode([
+                            'success' => false,
+                            'message' => 'Bitte akzeptiere die Datenschutzinformationen.',
+                        ], JSON_UNESCAPED_UNICODE),
+                        'application/json',
+                        400,
+                    );
+                }
+
+                try {
+                    \GsMmh\WebPlugin\NewsletterRecipients::create([
+                        'first_name' => $request->get('first_name'),
+                        'last_name' => $request->get('last_name'),
+                        'email' => $request->get('email'),
+                    ]);
+                } catch (\Kirby\Exception\Exception $exception) {
+                    if (str_contains($exception->getMessage(), 'bereits eingetragen')) {
+                        return [
+                            'success' => true,
+                            'message' => 'Du bist bereits für den Newsletter angemeldet.',
+                        ];
+                    }
+
+                    return new Kirby\Cms\Response(
+                        json_encode([
+                            'success' => false,
+                            'message' => $exception->getMessage(),
+                        ], JSON_UNESCAPED_UNICODE),
+                        'application/json',
+                        400,
+                    );
+                }
+
+                return [
+                    'success' => true,
+                    'message' => 'Danke, du bist jetzt für den Newsletter angemeldet.',
+                ];
+            },
+        ],
         /**
          * All-Rooms Availability API
          */
@@ -112,6 +171,82 @@ return [
                 $slots = ncRoomBusySlots($resourceEmail, $rangeStart, $rangeEnd, $includeTentative);
 
                 return ['slots' => $slots, 'room' => $roomSlug];
+            },
+        ],
+        /**
+         * Download Newsletter MJML
+         */
+        [
+            'pattern' => 'newsletter/(:any).mjml',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function ($slug) {
+
+                if (!$page = page('newsletter/' . $slug)) {
+                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+                }
+
+                if ($page->intendedTemplate()->name() !== 'newsletter') {
+                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+                }
+
+                $content = snippet('content-types/newsletter/mjml', ['page' => $page], true);
+                $filename = preg_replace('/[^a-z0-9-]+/i', '-', $page->slug()) ?: 'newsletter';
+
+                return new Kirby\Cms\Response($content, 'text/plain', 200, [
+                    'Content-Disposition' => 'attachment; filename="' . strtolower($filename) . '.mjml"',
+                    'X-Content-Type-Options' => 'nosniff',
+                ]);
+            },
+        ],
+        /**
+         * Download compiled Newsletter HTML from the Panel
+         */
+        [
+            'pattern' => 'newsletter-html/(:all).html',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function ($panelId) {
+
+                $page = page(str_replace('+', '/', $panelId));
+
+                if (!$page || $page->intendedTemplate()->name() !== 'newsletter') {
+                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+                }
+
+                $content = mmhNewsletterHtml($page);
+                $filename = preg_replace('/[^a-z0-9-]+/i', '-', $page->slug()) ?: 'newsletter';
+
+                return new Kirby\Cms\Response($content, 'text/html', 200, [
+                    'Content-Disposition' => 'attachment; filename="' . strtolower($filename) . '.html"',
+                    'X-Content-Type-Options' => 'nosniff',
+                ]);
+            },
+        ],
+        /**
+         * Download compiled Newsletter HTML
+         */
+        [
+            'pattern' => 'newsletter/(:any).html',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function ($slug) {
+
+                if (!$page = page('newsletter/' . $slug)) {
+                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+                }
+
+                if ($page->intendedTemplate()->name() !== 'newsletter') {
+                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
+                }
+
+                $content = mmhNewsletterHtml($page);
+                $filename = preg_replace('/[^a-z0-9-]+/i', '-', $page->slug()) ?: 'newsletter';
+
+                return new Kirby\Cms\Response($content, 'text/html', 200, [
+                    'Content-Disposition' => 'attachment; filename="' . strtolower($filename) . '.html"',
+                    'X-Content-Type-Options' => 'nosniff',
+                ]);
             },
         ],
         /**
