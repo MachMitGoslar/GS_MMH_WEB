@@ -273,12 +273,12 @@ $dayNames = [
     <?php endif ?>
 
     <?php foreach (
-    [
-        'review_entries' => 'Rückblick',
-        'actual_entries' => 'Aktuelle Projekte',
-        'upcomming_entries' => 'Vorschau',
-        'news' => 'Nachrichten aus dem MachMit!Haus',
-    ] as $field => $label
+        [
+            'review_entries' => 'Rückblick',
+            'actual_entries' => 'Aktuelle Projekte',
+            'upcomming_entries' => 'Vorschau',
+            'news' => 'Nachrichten aus dem MachMit!Haus',
+        ] as $field => $label
 ) : ?>
       <?php if ($page->{$field}()->isNotEmpty()) : ?>
             <?= mmhNewsletterMjmlSpacer('22px') ?>

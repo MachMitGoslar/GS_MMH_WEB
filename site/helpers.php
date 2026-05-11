@@ -7,10 +7,10 @@
  * the MachMit!Haus website functionality.
  */
 
-use Kirby\Cms\Pages;
-use Kirby\Cms\Page;
-use Kirby\Cms\Site;
 use Kirby\Cms\App as KirbyApp;
+use Kirby\Cms\Page;
+use Kirby\Cms\Pages;
+use Kirby\Cms\Site;
 use Kirby\Exception\Exception;
 
 /**
@@ -176,7 +176,7 @@ function mmhNewsletterHtml(Page $page): string
 
     if ($code !== 0 || $html === false || trim($html) === '') {
         throw new Exception(
-            'MJML konnte nicht kompiliert werden: ' . implode("\n", $lines)
+            'MJML konnte nicht kompiliert werden: ' . implode("\n", $lines),
         );
     }
 

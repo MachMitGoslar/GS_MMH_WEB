@@ -7,10 +7,10 @@
 $modalPage = $site->find('newsletter-modal');
 $modalValue = static function (string $field, string $fallback) use ($modalPage, $site): string {
     if ($modalPage?->{$field}()->isNotEmpty() === true) {
-        return (string)$modalPage->{$field}();
+        return (string) $modalPage->{$field}();
     }
 
-    return (string)$site->{$field}()->or($fallback);
+    return (string) $site->{$field}()->or($fallback);
 };
 $modalHeadline = $modalValue('newsletterModalHeadline', 'Newsletter abonnieren');
 $modalText = $modalValue('newsletterModalText', 'Erhalte Neuigkeiten aus dem MachMit!Haus direkt per E-Mail.');
@@ -24,10 +24,10 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
 } elseif ($site->newsletterModalPrivacyText()->isNotEmpty() === true) {
     $privacyText = $site->newsletterModalPrivacyText()->kirbytextinline()->value();
 } else {
-    $privacyTextBefore = (string)$site->newsletterModalPrivacyTextBefore()->or('Hiermit erkläre ich mich mit der Übermittlung, Speicherung und Verwendung meiner Daten einverstanden. Ich habe die');
-    $privacyLinkText = (string)$site->newsletterModalPrivacyLinkText()->or('Datenschutzinformationen');
-    $privacyUrl = (string)$site->newsletterModalPrivacyUrl()->or('https://www.goslar.de/datenschutz');
-    $privacyTextAfter = (string)$site->newsletterModalPrivacyTextAfter()->or('gelesen und akzeptiere diese.');
+    $privacyTextBefore = (string) $site->newsletterModalPrivacyTextBefore()->or('Hiermit erkläre ich mich mit der Übermittlung, Speicherung und Verwendung meiner Daten einverstanden. Ich habe die');
+    $privacyLinkText = (string) $site->newsletterModalPrivacyLinkText()->or('Datenschutzinformationen');
+    $privacyUrl = (string) $site->newsletterModalPrivacyUrl()->or('https://www.goslar.de/datenschutz');
+    $privacyTextAfter = (string) $site->newsletterModalPrivacyTextAfter()->or('gelesen und akzeptiere diese.');
     $privacyText = esc($privacyTextBefore) . ' <a href="' . esc($privacyUrl, 'attr') . '" target="_blank" rel="noopener">' . esc($privacyLinkText) . '</a> ' . esc($privacyTextAfter);
 }
 ?>

@@ -21,34 +21,34 @@ $signs = $response['signs'] ?? [];
 // Unicode zodiac glyphs, keyed by the API `sign` field. Used as a
 // fallback when the image asset cannot be resolved.
 $glyphs = [
-    'aries'       => '♈',
-    'taurus'      => '♉',
-    'gemini'      => '♊',
-    'cancer'      => '♋',
-    'leo'         => '♌',
-    'virgo'       => '♍',
-    'libra'       => '♎',
-    'scorpio'     => '♏',
+    'aries' => '♈',
+    'taurus' => '♉',
+    'gemini' => '♊',
+    'cancer' => '♋',
+    'leo' => '♌',
+    'virgo' => '♍',
+    'libra' => '♎',
+    'scorpio' => '♏',
     'sagittarius' => '♐',
-    'capricorn'   => '♑',
-    'aquarius'    => '♒',
-    'pisces'      => '♓',
+    'capricorn' => '♑',
+    'aquarius' => '♒',
+    'pisces' => '♓',
 ];
 
 // Goslarer Sternzeichen → PNG asset (/public/assets/pngs/*.png).
 $images = [
-    'aries'       => 'hk_rammelberg.png',     // Röhrender Rammelsberg
-    'taurus'      => 'hk_bergknappe.png',     // Beharrlicher Bergknappe
-    'gemini'      => 'hk_haendler.png',       // Munterer Marktmensch
-    'cancer'      => 'hk_weberin.png',        // Behütende Brusttuchmacherin
-    'leo'         => 'hk_kaiser.png',         // Kühner Kaiser
-    'virgo'       => 'hk_kloserschuelerin.png', // Kluge Klosterschülerin
-    'libra'       => 'hk_ratsherr.png',       // Rationaler Ratsherr
-    'scorpio'     => 'hk_erzgaenger.png',     // Eigensinniger Erzgänger
+    'aries' => 'hk_rammelberg.png',     // Röhrender Rammelsberg
+    'taurus' => 'hk_bergknappe.png',     // Beharrlicher Bergknappe
+    'gemini' => 'hk_haendler.png',       // Munterer Marktmensch
+    'cancer' => 'hk_weberin.png',        // Behütende Brusttuchmacherin
+    'leo' => 'hk_kaiser.png',         // Kühner Kaiser
+    'virgo' => 'hk_kloserschuelerin.png', // Kluge Klosterschülerin
+    'libra' => 'hk_ratsherr.png',       // Rationaler Ratsherr
+    'scorpio' => 'hk_erzgaenger.png',     // Eigensinniger Erzgänger
     'sagittarius' => 'hk_fernhaendlerin.png', // Findige Fernhändlerin
-    'capricorn'   => 'hk_zinngiesser.png',    // Zuverlässiger Zinngießer
-    'aquarius'    => 'hk_muellerin.png',      // Mutige Müllerin
-    'pisces'      => 'hk_teichgraefin.png',   // Träumerische Teichgräfin
+    'capricorn' => 'hk_zinngiesser.png',    // Zuverlässiger Zinngießer
+    'aquarius' => 'hk_muellerin.png',      // Mutige Müllerin
+    'pisces' => 'hk_teichgraefin.png',   // Träumerische Teichgräfin
 ];
 
 $formattedDate = '';
@@ -331,7 +331,7 @@ if ($date) {
                         </span>
                         <span class="horoskope__title">
                             <strong><?= Escape::html($goslar) ?></strong>
-                            <!-- <span><?= Escape::html($german) ?> --> <?= $span ?  Escape::html($span) : '' ?></span> 
+                            <!-- <span><?= Escape::html($german) ?> --> <?= $span ? Escape::html($span) : '' ?></span> 
                         </span>
                     </summary>
                     <p class="horoskope__text"><?= Escape::html($text) ?></p>

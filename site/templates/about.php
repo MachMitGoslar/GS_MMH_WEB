@@ -17,18 +17,18 @@
 
     </div>
     <?php foreach ($page->layout()->toLayouts() as $layout) : ?>
-      <?php if (!$contentIsVisible($layout)) {
-          continue;
-      } ?>
+        <?php if (!$contentIsVisible($layout)) {
+            continue;
+        } ?>
       <div class="grid content">
 
         <?php foreach ($layout->columns() as $column) : ?>
         <div class="grid-item" data-span="<?=$column->width()?>">
 
             <?php foreach ($column->blocks() as $block) : ?>
-            <?php if (!$contentIsVisible($block)) {
-                continue;
-            } ?>
+                <?php if (!$contentIsVisible($block)) {
+                    continue;
+                } ?>
             <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
                 <?= $block ?>
             </div>
