@@ -3,7 +3,9 @@
 /**
 * @var Kirby\Cms\Site $site
 * @var Kirby\Cms\Page $page
+* @var bool|null $showTeaser
 */
+$showTeaser = $showTeaser ?? true;
 $modalPage = $site->find('newsletter-modal');
 $modalValue = static function (string $field, string $fallback) use ($modalPage, $site): string {
     if ($modalPage?->{$field}()->isNotEmpty() === true) {
@@ -31,6 +33,7 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
     $privacyText = esc($privacyTextBefore) . ' <a href="' . esc($privacyUrl, 'attr') . '" target="_blank" rel="noopener">' . esc($privacyLinkText) . '</a> ' . esc($privacyTextAfter);
 }
 ?>
+<?php if ($showTeaser === true) : ?>
 <div class="c-newsletter-teaser grid-item" data-span="1/2">
   <div class="mb-5">
     <h2 class="font-title2 color-fg-light mb-3"><?=$site->newsletterTeaserHeadline()?></h2>
@@ -41,6 +44,7 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
     <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regualr" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal"><?=$site->newsletterTeaserButtonText()?></button>
   </div>
 </div>
+<?php endif ?>
 
 <div class="newsletter-subscribe-modal" id="newsletter-subscribe-modal" aria-hidden="true">
   <div class="newsletter-subscribe-backdrop" data-newsletter-subscribe-close></div>
