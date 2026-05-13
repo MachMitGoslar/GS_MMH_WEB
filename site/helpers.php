@@ -144,7 +144,7 @@ function mmhAbsoluteUrl(string $url): string
 /**
  * Compiles the newsletter MJML snippet to the final email HTML.
  */
-function mmhNewsletterHtml(Page $page): string
+function mmhNewsletterHtml(Page $page, array $data = []): string
 {
     $compiler = dirname(__DIR__) . '/node_modules/.bin/mjml';
 
@@ -152,7 +152,7 @@ function mmhNewsletterHtml(Page $page): string
         throw new Exception('MJML ist nicht installiert. Bitte `npm install` ausführen.');
     }
 
-    $mjml = snippet('content-types/newsletter/mjml', ['page' => $page], true);
+    $mjml = snippet('content-types/newsletter/mjml', ['page' => $page] + $data, true);
     $tmp = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR)
         . DIRECTORY_SEPARATOR
         . 'mmh-newsletter-' . bin2hex(random_bytes(8));

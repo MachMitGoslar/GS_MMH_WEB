@@ -17,7 +17,7 @@ tabs:
       # Since the error page's blueprint is set to `read: false`, it wouldn't show up here even if you added the error blueprint to the templates list
       pages:
         type: pages
-        query: site.children.filterBy("slug", "not in", ["signage", "project-archive", "contact", "impressum", "forms", "components", "newsletter", "newsletter-modal", "rooms"])
+        query: site.children.filterBy("slug", "not in", ["signage", "project-archive", "contact", "impressum", "forms", "components", "newsletter", "newsletter-abmelden", "newsletter-modal", "rooms"])
         create:
           - default
           - projects

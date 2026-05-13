@@ -1,0 +1,31 @@
+title: Newsletter Abmeldung
+icon: cancel
+
+options:
+  changeSlug: false
+  changeStatus: false
+  changeTemplate: false
+  delete: false
+  duplicate: false
+
+columns:
+  - width: 1
+    fields:
+      cover:
+        extends: fields/cover
+        label: Hero-Bild
+        help: Titelbild für die Abmelde-Seite
+      headline:
+        type: text
+        label: Headline
+        default: Newsletter abmelden
+      intro:
+        type: textarea
+        label: Einleitung
+        buttons: false
+        default: Hier kannst du dich vom MachMit!Haus Newsletter abmelden.
+      successText:
+        type: textarea
+        label: Erfolgsmeldung
+        buttons: false
+        default: Du wurdest erfolgreich vom Newsletter abgemeldet.

@@ -4,6 +4,7 @@
  * MJML export for a newsletter page.
  *
  * @var \Kirby\Cms\Page $page
+ * @var string|null $unsubscribeUrl
  */
 
 if (!function_exists('mmhNewsletterMjmlText')) {
@@ -115,6 +116,7 @@ $dayNames = [
     'thursday' => 'Do',
     'friday' => 'Fr',
 ];
+$unsubscribeUrl = $unsubscribeUrl ?? mmhAbsoluteUrl('newsletter-abmelden');
 
 ?>
 <mjml>
@@ -308,7 +310,8 @@ $dayNames = [
         <mj-text font-size="13px" line-height="1.6" color="#6f6f6e" padding="0">
           MachMit!Haus Goslar<br />
           Markt 7, 38640 Goslar<br />
-          <a href="mailto:machmit@goslar.de">machmit@goslar.de</a> | <a href="https://machmit.goslar.de">machmit.goslar.de</a>
+          <a href="mailto:machmit@goslar.de">machmit@goslar.de</a> | <a href="https://machmit.goslar.de">machmit.goslar.de</a><br /><br />
+          Vom Newsletter <a href="<?= esc($unsubscribeUrl, 'attr') ?>">Abmelden</a>
         </mj-text>
       </mj-column>
     </mj-section>
