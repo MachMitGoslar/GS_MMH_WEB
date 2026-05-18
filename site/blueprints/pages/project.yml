@@ -49,7 +49,8 @@ columns:
           - abgeschlossen
       is_external:
         type: toggle
-        label: Externes Projekt
+        label: Community-Projekt
+        help: Wird von Ehrenamtlichen oder der Community durchgeführt. Das MachMit!Haus unterstützt z. B. mit Räumen oder beim Start.
         text:
           - Nein
           - Ja
