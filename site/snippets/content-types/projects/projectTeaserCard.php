@@ -11,8 +11,13 @@
   </div>
   <div class="content">
     <div class="statusheader">
-    <?= snippet('content-types/projects/statusBadge', ['status' => $project->project_status()]) ?>
-    <time><?=date('d.m.Y')?></time>
+      <div class="status-badges">
+        <?= snippet('content-types/projects/statusBadge', ['status' => $project->project_status()]) ?>
+        <?php if ($project->is_external()->toBool()) : ?>
+          <div class="status-badge status-badge--external mb-2">extern</div>
+        <?php endif; ?>
+      </div>
+      <time><?=date('d.m.Y')?></time>
     </div>
 
     <h3 class="font-headline"><?=$project->title()?></h3>

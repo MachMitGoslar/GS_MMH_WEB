@@ -23,6 +23,13 @@
     & .statusheader {
       display: flex;
       justify-content: space-between;
+      gap: 0.75rem;
+
+      & .status-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.375rem;
+      }
 
       & .status-badge {
         --color-project-planning: var(--color-cornflower-1000);
@@ -38,6 +45,10 @@
         border-radius: 4px;
         background: var(--color-fg-brand-primary);
         color: var(--color-white);
+
+        &.status-badge--external {
+          background-color: var(--color-violaceous-greti-1200);
+        }
 
         &[data-color='preparing'] {
           background-color: var(--color-project-preparing);
