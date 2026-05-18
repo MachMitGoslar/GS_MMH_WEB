@@ -133,7 +133,7 @@ if (!function_exists('mmhApiCoverMeta')) {
         return dirname(__DIR__, 2) . '/public/media/api-covers/' . mmhApiCoverFileSlug($kind, $slug) . '.sha256';
     }
 
-    function mmhApiCoverLogoDataUri(): ?string
+    function mmhApiCoverLogoSvg(): ?string
     {
         $logo = dirname(__DIR__, 2) . '/public/assets/svg/RZ-RGB_MM!2_iv.svg';
 
@@ -141,65 +141,184 @@ if (!function_exists('mmhApiCoverMeta')) {
             return null;
         }
 
-        return 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($logo));
+        $document = new DOMDocument();
+
+        if (!$document->load($logo)) {
+            return null;
+        }
+
+        $logoSvg = $document->documentElement;
+
+        if (!$logoSvg || strtolower($logoSvg->tagName) !== 'svg') {
+            return null;
+        }
+
+        $viewBox = preg_split('/[\s,]+/', trim($logoSvg->getAttribute('viewBox'))) ?: [];
+
+        if (count($viewBox) !== 4) {
+            return null;
+        }
+
+        [, , $viewBoxWidth, $viewBoxHeight] = array_map('floatval', $viewBox);
+
+        if ($viewBoxWidth <= 0 || $viewBoxHeight <= 0) {
+            return null;
+        }
+
+        $scale = min(280 / $viewBoxWidth, 256 / $viewBoxHeight);
+        $x = 460 + ((280 - ($viewBoxWidth * $scale)) / 2);
+        $y = 105 + ((256 - ($viewBoxHeight * $scale)) / 2);
+
+        foreach ($document->getElementsByTagName('*') as $element) {
+            if (!$element instanceof DOMElement) {
+                continue;
+            }
+
+            $class = $element->getAttribute('class');
+
+            if ($class === 'st0') {
+                $element->setAttribute('fill', '#ffffff');
+            } elseif ($class === 'st1') {
+                $element->setAttribute('fill', '#b09c40');
+            }
+
+            $element->removeAttribute('class');
+        }
+
+        $logoContent = '';
+
+        foreach ($logoSvg->childNodes as $child) {
+            if ($child instanceof DOMElement && strtolower($child->tagName) === 'defs') {
+                continue;
+            }
+
+            $logoContent .= $document->saveXML($child);
+        }
+
+        return sprintf(
+            '<g transform="translate(%s %s) scale(%s)">%s</g>',
+            rtrim(rtrim(sprintf('%.4F', $x), '0'), '.'),
+            rtrim(rtrim(sprintf('%.4F', $y), '0'), '.'),
+            rtrim(rtrim(sprintf('%.6F', $scale), '0'), '.'),
+            $logoContent,
+        );
     }
 
-    function mmhApiCoverSvg(string $kind, string $slug): ?string
+    function mmhApiCoverJpegHash(string $svg): string
+    {
+        return hash('sha256', $svg . '|imagick-composited-gradient-v1');
+    }
+
+    function mmhApiCoverSvg(string $kind, string $slug, bool $includeBackground = true): ?string
     {
         $meta = mmhApiCoverMeta($kind, $slug);
-        $logo = mmhApiCoverLogoDataUri();
+        $logo = mmhApiCoverLogoSvg();
 
         if (!$meta || !$logo) {
             return null;
         }
 
         $label = mmhApiXmlEscape($meta['label']);
-        $logo = mmhApiXmlEscape($logo);
         $titleLines = mmhApiWrapSvgText($meta['title']);
         $titleSvg = '';
         $titleY = 500;
 
         foreach ($titleLines as $line) {
-            $titleSvg .= '<text x="600" y="' . $titleY . '" text-anchor="middle" class="title">' . mmhApiXmlEscape($line) . '</text>';
+            $titleSvg .= '<text x="600" y="' . $titleY . '" text-anchor="middle"'
+                . ' font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700"'
+                . ' fill="#f4efe8">'
+                . mmhApiXmlEscape($line)
+                . '</text>';
             $titleY += 38;
         }
 
         $colors = array_map('mmhApiXmlEscape', $meta['colors']);
-
-        $svg = <<<SVG
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="{$label}">
+        $background = $includeBackground ? <<<SVG
   <defs>
     <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="{$colors[0]}"/>
       <stop offset="50%" stop-color="{$colors[1]}"/>
       <stop offset="100%" stop-color="{$colors[2]}"/>
     </linearGradient>
-    <style>
-      text {
-        font-family: Arial, Helvetica, sans-serif;
-        fill: #fff;
-      }
-
-      .label {
-        font-size: 60px;
-        font-weight: 700;
-      }
-
-      .title {
-        fill: #f4efe8;
-        font-size: 28px;
-        font-weight: 700;
-      }
-    </style>
   </defs>
   <rect width="1200" height="630" fill="url(#background)"/>
-  <image href="{$logo}" x="460" y="105" width="280" height="256" preserveAspectRatio="xMidYMid meet"/>
-  <text x="600" y="441" text-anchor="middle" class="label">{$label}</text>
+SVG : '';
+
+        $svg = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"
+  role="img" aria-label="{$label}">
+  {$background}
+  {$logo}
+  <text x="600" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
+    font-size="60" font-weight="700" fill="#ffffff">{$label}</text>
   {$titleSvg}
 </svg>
 SVG;
 
         return $svg;
+    }
+
+    function mmhApiHexToRgb(string $hex): ?array
+    {
+        $hex = ltrim($hex, '#');
+
+        if (!preg_match('/^[a-fA-F0-9]{6}$/', $hex)) {
+            return null;
+        }
+
+        return [
+            hexdec(substr($hex, 0, 2)),
+            hexdec(substr($hex, 2, 2)),
+            hexdec(substr($hex, 4, 2)),
+        ];
+    }
+
+    function mmhApiMixRgb(array $from, array $to, float $amount): array
+    {
+        $amount = max(0, min(1, $amount));
+
+        return [
+            (int) round($from[0] + (($to[0] - $from[0]) * $amount)),
+            (int) round($from[1] + (($to[1] - $from[1]) * $amount)),
+            (int) round($from[2] + (($to[2] - $from[2]) * $amount)),
+        ];
+    }
+
+    function mmhApiRgbColor(array $rgb): string
+    {
+        return sprintf('rgb(%d,%d,%d)', $rgb[0], $rgb[1], $rgb[2]);
+    }
+
+    function mmhApiCoverGradientImage(array $colors): ?Imagick
+    {
+        $start = mmhApiHexToRgb((string) ($colors[0] ?? ''));
+        $middle = mmhApiHexToRgb((string) ($colors[1] ?? ''));
+        $end = mmhApiHexToRgb((string) ($colors[2] ?? ''));
+
+        if (!$start || !$middle || !$end) {
+            return null;
+        }
+
+        $image = new Imagick();
+        $image->newImage(1200, 630, new ImagickPixel('#000000'), 'png');
+        $image->setImageColorspace(Imagick::COLORSPACE_SRGB);
+
+        $iterator = $image->getPixelIterator();
+
+        foreach ($iterator as $y => $pixels) {
+            foreach ($pixels as $x => $pixel) {
+                $offset = (($x / 1199) + ($y / 629)) / 2;
+                $rgb = $offset <= 0.5
+                    ? mmhApiMixRgb($start, $middle, $offset * 2)
+                    : mmhApiMixRgb($middle, $end, ($offset - 0.5) * 2);
+
+                $pixel->setColor(mmhApiRgbColor($rgb));
+            }
+
+            $iterator->syncIterator();
+        }
+
+        return $image;
     }
 
     function mmhApiCoverSvgResponse(string $kind, string $slug): Kirby\Cms\Response
@@ -220,9 +339,57 @@ SVG;
         ]);
     }
 
+    function mmhApiSvgToJpeg(string $svg, array $colors): ?string
+    {
+        if (!class_exists('Imagick')) {
+            return null;
+        }
+
+        try {
+            $image = mmhApiCoverGradientImage($colors);
+
+            if (!$image) {
+                return null;
+            }
+
+            $overlay = new Imagick();
+            $overlay->setResolution(144, 144);
+            $overlay->setBackgroundColor(new ImagickPixel('transparent'));
+            $overlay->readImageBlob($svg);
+            $overlay->setImageBackgroundColor(new ImagickPixel('transparent'));
+            $overlay = $overlay->mergeImageLayers(Imagick::LAYERMETHOD_MERGE);
+
+            if ($overlay->getImageWidth() !== 1200 || $overlay->getImageHeight() !== 630) {
+                $overlay->resizeImage(1200, 630, Imagick::FILTER_LANCZOS, 1, true);
+                $overlay->extentImage(1200, 630, 0, 0);
+            }
+
+            $image->compositeImage($overlay, Imagick::COMPOSITE_OVER, 0, 0);
+            $image->setImageFormat('jpeg');
+            $image->setImageCompressionQuality(88);
+
+            return $image->getImagesBlob();
+        } catch (Throwable) {
+            return null;
+        } finally {
+            if (isset($overlay) && $overlay instanceof Imagick) {
+                $overlay->clear();
+                $overlay->destroy();
+            }
+
+            if (isset($image) && $image instanceof Imagick) {
+                $image->clear();
+                $image->destroy();
+            }
+        }
+    }
+
     function mmhApiGenerateCoverJpeg(string $kind, string $slug, string $svg): bool
     {
-        if (!class_exists(\Choowx\RasterizeSvg\Svg::class)) {
+        $meta = mmhApiCoverMeta($kind, $slug);
+        $foregroundSvg = mmhApiCoverSvg($kind, $slug, false);
+
+        if (!$meta || !$foregroundSvg) {
             return false;
         }
 
@@ -233,21 +400,33 @@ SVG;
             return false;
         }
 
-        try {
-            $jpeg = \Choowx\RasterizeSvg\Svg::make($svg)->toJpg();
-        } catch (Throwable) {
+        $temporaryTarget = tempnam($directory, 'cover-');
+
+        if ($temporaryTarget === false) {
             return false;
         }
+
+        $jpeg = mmhApiSvgToJpeg($foregroundSvg, $meta['colors']);
 
         if (!is_string($jpeg) || substr($jpeg, 0, 3) !== "\xff\xd8\xff") {
+            @unlink($temporaryTarget);
+
             return false;
         }
 
-        if (file_put_contents($target, $jpeg, LOCK_EX) === false) {
+        if (file_put_contents($temporaryTarget, $jpeg, LOCK_EX) === false) {
+            @unlink($temporaryTarget);
+
             return false;
         }
 
-        file_put_contents(mmhApiCoverJpegHashPath($kind, $slug), hash('sha256', $svg), LOCK_EX);
+        if (!rename($temporaryTarget, $target)) {
+            @unlink($temporaryTarget);
+
+            return false;
+        }
+
+        file_put_contents(mmhApiCoverJpegHashPath($kind, $slug), mmhApiCoverJpegHash($svg), LOCK_EX);
 
         return true;
     }
@@ -262,14 +441,14 @@ SVG;
 
         $file = mmhApiCoverJpegPath($kind, $slug);
         $hashFile = mmhApiCoverJpegHashPath($kind, $slug);
-        $hash = hash('sha256', $svg);
+        $hash = mmhApiCoverJpegHash($svg);
         $cached = is_file($file)
             && is_file($hashFile)
             && trim((string) file_get_contents($hashFile)) === $hash;
 
         if (!$cached && !mmhApiGenerateCoverJpeg($kind, $slug, $svg)) {
             return new Kirby\Cms\Response(
-                'Cover could not be rasterized. Check that node and sharp are installed.',
+                'Cover could not be rasterized. Check that the Imagick PHP extension is installed.',
                 'text/plain',
                 500,
             );
