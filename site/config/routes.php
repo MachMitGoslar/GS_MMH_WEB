@@ -100,7 +100,8 @@ return [
     [
         'pattern' => '/app/ferienpass.json',
         'action' => function () {
-            $content = snippet('content-types/ferienpass/event_random', [], true);
+            $query = get('data') ?: 74; // default to program 74 if no query provided
+            $content = snippet('content-types/ferienpass/event_random', ['query' => $query], true);
 
             return new Response($content, 'application/json');
         },
@@ -113,7 +114,9 @@ return [
     [
         'pattern' => '/app/ferienpass_index.json',
         'action' => function () {
-            $content = snippet('content-types/ferienpass/events', [], true);
+            print('hallto');
+            $query = get('data') ?: 74; // default to program 74 if no query provided
+            $content = snippet('content-types/ferienpass/events', ['query' => $query], true);
 
             return new Response($content, 'application/json');
         },
