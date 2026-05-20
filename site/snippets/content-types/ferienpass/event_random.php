@@ -41,8 +41,8 @@ $event = $events[$rand];
 $json_event['title'] = $event['name'];
 $json_event['description'] = '<strong>' . $event['name'] . '</strong> - ' . $event['description'];
 $json_event['published_at'] = $event['start'];
-$json_event['image_url'] = 'https://jugend.goslar.de/fileadmin/_processed_/6/8/csm_osterferien26_e6518bc454.png';
-$json_event['call_to_action_url'] = 'https://goslar.feripro.de/anmeldung/' . $program_id . '/veranstaltungen/' . $event['event_id'];
+$json_event['image_url'] = 'https://jugend.goslar.de/fileadmin/user_upload/website/jugendpflege/goslar_app/anriss.png';
+$json_event['call_to_action_url'] = 'https://mmh.goslar.de/app/ferienpass_index.json?data=' . $program_id;
 print json_encode($json_event, JSON_UNESCAPED_SLASHES);
 
 ?>
