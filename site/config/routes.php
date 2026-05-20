@@ -134,7 +134,6 @@ HTML, 'text/html');
     [
         'pattern' => '/app/ferienpass_index.json',
         'action' => function () {
-            print('hallto');
             $query = get('data') ?: 74; // default to program 74 if no query provided
             $content = snippet('content-types/ferienpass/events', ['query' => $query], true);
 
