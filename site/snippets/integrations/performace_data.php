@@ -45,7 +45,7 @@ for ($i = 0; $i < 5; $i++) {
         foreach ($values['days'] as $day) {
             echo($day . ',');
         }
-        ?>],
+?>],
       datasets: [
         <?php foreach ($values['urls'] as $url => $value) : ?>
           { label: "<?= $url ?>",
