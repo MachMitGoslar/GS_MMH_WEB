@@ -1,8 +1,8 @@
 ## Beschreibung
 
-<!-- Was wurde geaendert und warum? -->
+<!-- Was wurde geändert und warum? -->
 
-## Art der Aenderung
+## Art der Änderung
 
 - [ ] Bug Fix
 - [ ] Neues Feature
@@ -15,7 +15,7 @@
 
 - [ ] Startseite
 - [ ] Projekte
-- [ ] Raeume / Buchung
+- [ ] Räume / Buchung
 - [ ] Newsletter
 - [ ] Veranstaltungen
 - [ ] Team
@@ -36,7 +36,7 @@
 
 ## Screenshots
 
-<!-- Falls visuelle Aenderungen: Vorher/Nachher Screenshots einfuegen -->
+<!-- Falls visuelle Änderungen: Vorher/Nachher Screenshots einfügen -->
 
 ## Verwandtes Issue
 

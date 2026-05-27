@@ -13,7 +13,7 @@ body:
     attributes:
       label: Beschreibung
       description: Was ist passiert?
-      placeholder: Beschreibe den Fehler so genau wie moeglich.
+      placeholder: Beschreibe den Fehler so genau wie möglich.
     validations:
       required: true
 
@@ -21,7 +21,7 @@ body:
     id: expected
     attributes:
       label: Erwartetes Verhalten
-      description: Was haettest du stattdessen erwartet?
+      description: Was hättest du stattdessen erwartet?
       placeholder: Beschreibe, was eigentlich passieren sollte.
     validations:
       required: true
@@ -43,14 +43,14 @@ body:
     id: screenshots
     attributes:
       label: Screenshots
-      description: Falls moeglich, fuege Screenshots hinzu.
+      description: Falls möglich, füge Screenshots hinzu.
     validations:
       required: false
 
   - type: dropdown
     id: device
     attributes:
-      label: Geraet
+      label: Gerät
       options:
         - Desktop
         - Tablet
@@ -79,12 +79,16 @@ body:
       options:
         - Startseite
         - Projekte
-        - Raeume / Buchung
+        - Räume / Buchung
         - Newsletter
         - Veranstaltungen
         - Team
         - Blog / Notizen
         - Panel (Verwaltung)
+        - Design / Layout
+        - Performance
+        - APP Integration
+        - API / Backend
         - Andere
     validations:
       required: false
@@ -92,7 +96,7 @@ body:
   - type: textarea
     id: context
     attributes:
-      label: Zusaetzlicher Kontext
-      description: Gibt es weitere Informationen, die hilfreich sein koennten?
+      label: Zusätzlicher Kontext
+      description: Gibt es weitere Informationen, die hilfreich sein könnten?
     validations:
       required: false
