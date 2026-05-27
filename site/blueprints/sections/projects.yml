@@ -4,7 +4,7 @@
 # More about pages sections: https://getkirby.com/docs/reference/panel/sections/pages
 type: pages
 label: Projekte
-template: project
+templates: project
 size: small
 info: false
 empty: Bisher keine Projekte

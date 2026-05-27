@@ -24,10 +24,10 @@ tabs:
           projects:
             type: pages
             label: Projekte
-            query: page.children.filterBy("project_status", "!=", "abgeschlossen")
+            query: page.childrenAndDrafts.filterBy("project_status", "!=", "abgeschlossen")
             status: all
-            template: project
-            create: true
+            templates: project
+            create: project
             sortable: true
 
   settings:
@@ -74,8 +74,8 @@ tabs:
           archive_projects:
             extends: sections/projects
             label: Archivierte Projekte
-            query: site.find("project-archive").children.merge(site.find("projects").children).filterBy("project_status", "abgeschlossen")
+            query: site.find("project-archive").childrenAndDrafts.merge(site.find("projects").childrenAndDrafts).filterBy("project_status", "abgeschlossen")
             status: all
-            template: project
-            create: true
+            templates: project
+            create: project
             sortable: true
