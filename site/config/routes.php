@@ -10,7 +10,24 @@ use Kirby\Cms\Response;
 use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
 
+require_once __DIR__ . '/../controllers/events-api.php';
+
 return [
+    [
+        'pattern' => 'events.json',
+        'method' => 'GET',
+        'action' => function () {
+            $payload = json_encode(
+                mmhEventsApiPayload(),
+                JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
+            );
+
+            return new Response(
+                $payload,
+                'application/json',
+            );
+        },
+    ],
     [
         'pattern' => 'ehrentag-goslar',
         'action' => function () {
@@ -24,7 +41,10 @@ return [
 </head>
 <body>
     <div data-engagement-plattform data-engagement-plattform-integration-key="vzPpwKUyog"></div>
-<script type="text/javascript" src="https://freiwilligendatenbank.aktion-mensch.de/app/engagementplattform-loader-angebotswidget.js"></script>
+	<script
+	    type="text/javascript"
+	    src="https://freiwilligendatenbank.aktion-mensch.de/app/engagementplattform-loader-angebotswidget.js"
+	></script>
 </body>
 </html>
 HTML, 'text/html');
