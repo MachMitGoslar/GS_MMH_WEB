@@ -71,8 +71,6 @@ columns:
           - cta
           - form
 
-      form: dreamform/fields/form
-
       team:
         type: pages
         label: Team
