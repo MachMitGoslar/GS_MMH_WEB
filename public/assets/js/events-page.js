@@ -7,7 +7,9 @@
   }
 
   const payload = JSON.parse(eventsDataEl.textContent || '{}');
-  const allEvents = Array.isArray(payload.events) ? payload.events : [];
+  const apiUrl = payload.apiUrl || '/api/events';
+  let pageEvents = Array.isArray(payload.events) ? payload.events : [];
+  let eventsError = payload.error || '';
   const todayKey = payload.today || '';
   let selectedDay = payload.selectedDay || eventsPage.dataset.selectedDay || '';
   let calendarMonth = selectedDay || todayKey;
@@ -26,6 +28,11 @@
   const pagination = eventsPage.querySelector('[data-events-pagination]');
   const paginationPrev = eventsPage.querySelector('[data-pagination-prev]');
   const paginationNext = eventsPage.querySelector('[data-pagination-next]');
+  let paginationState = {
+    hasPrev: currentPage > 1,
+    hasNext: Boolean(paginationNext && !paginationNext.hidden),
+    total: null,
+  };
   const modal = eventsPage.querySelector('.events-calendar-modal');
   const openButton = eventsPage.querySelector('[data-calendar-open]');
   const closeButton = eventsPage.querySelector('[data-calendar-close]');
@@ -57,30 +64,6 @@
       .replaceAll('"', '&quot;')
       .replaceAll("'", '&#39;');
 
-  const stripToCategorySlug = value =>
-    String(value || '')
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-
-  const eventMatchesCategory = event => {
-    if (activeCategory === 'all') return true;
-    if (activeCategory === 'free') return event.is_free === true;
-    return (event.categories || [])
-      .map(stripToCategorySlug)
-      .includes(activeCategory);
-  };
-
-  const getFilteredEvents = () => {
-    return allEvents.filter(event => {
-      if (!eventMatchesCategory(event)) return false;
-      if (selectedDay && event.date_key !== selectedDay) return false;
-      return true;
-    });
-  };
-
   const formatSelectedTitle = dayKey => {
     if (!dayKey) return defaultTitle;
     const date = new Date(`${dayKey}T12:00:00`);
@@ -109,8 +92,8 @@
     emptyState.className = 'events-empty-state';
     emptyState.setAttribute('data-events-empty', '');
     emptyState.innerHTML = [
-      '<h3 class="font-headline mb-2">Keine passenden Termine gefunden</h3>',
-      '<p class="font-body mb-3">Passe Suchbegriff, Datum oder Kategorie an, um wieder mehr Veranstaltungen zu sehen.</p>',
+      '<h3 class="font-headline mb-2" data-events-empty-title>Keine passenden Termine gefunden</h3>',
+      '<p class="font-body mb-3" data-events-empty-message>Passe Suchbegriff, Datum oder Kategorie an, um wieder mehr Veranstaltungen zu sehen.</p>',
     ].join('');
 
     resultsList?.insertAdjacentElement('afterend', emptyState);
@@ -133,6 +116,34 @@
 
   const updateHistory = () => {
     window.history.replaceState({}, '', buildPageHref(currentPage));
+  };
+
+  const buildApiUrl = page => {
+    const url = new URL(apiUrl, window.location.origin);
+    const keyword = new URL(window.location.href).searchParams.get('keyword') || '';
+
+    url.searchParams.set('page', String(page));
+    url.searchParams.set('per_page', String(pageSize));
+
+    if (keyword) url.searchParams.set('keyword', keyword);
+    else url.searchParams.delete('keyword');
+
+    if (selectedDay) url.searchParams.set('day', selectedDay);
+    else url.searchParams.delete('day');
+
+    if (activeCategory && activeCategory !== 'all')
+      url.searchParams.set('category', activeCategory);
+    else url.searchParams.delete('category');
+
+    return url;
+  };
+
+  const getResultsCountLabel = () => {
+    if (Number.isInteger(paginationState.total) && paginationState.total > 0) {
+      return `${paginationState.total} Ergebnisse`;
+    }
+
+    return `${pageEvents.length}${paginationState.hasNext ? '+' : ''} Ergebnisse`;
   };
 
   const syncChipStates = () => {
@@ -168,45 +179,79 @@
   const renderResults = () => {
     if (!resultsList || !resultsCount || !resultsTitle) return;
 
-    const filtered = getFilteredEvents();
-    const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-    currentPage = selectedDay ? 1 : Math.min(currentPage, totalPages);
-    const offset = (currentPage - 1) * pageSize;
-    const visibleEvents = filtered.slice(offset, offset + pageSize);
-
-    resultsCount.textContent = `${filtered.length} Ergebnisse`;
+    resultsCount.textContent = getResultsCountLabel();
     resultsTitle.textContent = formatSelectedTitle(selectedDay);
 
-    if (filtered.length > 0) {
-      resultsList.innerHTML = visibleEvents.map(renderEvent).join('');
+    if (pageEvents.length > 0) {
+      resultsList.innerHTML = pageEvents.map(renderEvent).join('');
       resultsList.hidden = false;
       const emptyState = eventsPage.querySelector('[data-events-empty]');
       if (emptyState) emptyState.hidden = true;
     } else {
       resultsList.innerHTML = '';
       resultsList.hidden = true;
-      ensureEmptyState().hidden = false;
+      const emptyState = ensureEmptyState();
+      const emptyTitle = emptyState.querySelector('[data-events-empty-title]');
+      const emptyMessage = emptyState.querySelector('[data-events-empty-message]');
+
+      if (eventsError) {
+        if (emptyTitle) emptyTitle.textContent = 'Termine konnten nicht geladen werden';
+        if (emptyMessage)
+          emptyMessage.textContent = `Die Oveda-Schnittstelle meldet gerade: ${eventsError}.`;
+      } else {
+        if (emptyTitle) emptyTitle.textContent = 'Keine passenden Termine gefunden';
+        if (emptyMessage)
+          emptyMessage.textContent =
+            'Passe Suchbegriff, Datum oder Kategorie an, um wieder mehr Veranstaltungen zu sehen.';
+      }
+
+      emptyState.hidden = false;
     }
 
     if (pagination) {
-      const shouldShowPagination = selectedDay === '' && totalPages > 1;
+      const shouldShowPagination =
+        selectedDay === '' && (paginationState.hasPrev || paginationState.hasNext);
       pagination.hidden = !shouldShowPagination;
       pagination.style.display = shouldShowPagination ? '' : 'none';
 
       if (paginationPrev) {
-        const hasPrev = shouldShowPagination && currentPage > 1;
+        const hasPrev = shouldShowPagination && paginationState.hasPrev;
         paginationPrev.hidden = !hasPrev;
         if (hasPrev) paginationPrev.href = buildPageHref(currentPage - 1);
       }
 
       if (paginationNext) {
-        const hasNext = shouldShowPagination && currentPage < totalPages;
+        const hasNext = shouldShowPagination && paginationState.hasNext;
         paginationNext.hidden = !hasNext;
         if (hasNext) paginationNext.href = buildPageHref(currentPage + 1);
       }
     }
 
     syncChipStates();
+  };
+
+  const loadResults = async page => {
+    const response = await fetch(buildApiUrl(page), {
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Events API failed with ${response.status}`);
+    }
+
+    const data = await response.json();
+    pageEvents = Array.isArray(data.events) ? data.events : [];
+    eventsError = data.error || '';
+    paginationState = {
+      hasPrev: Boolean(data.pagination?.has_prev),
+      hasNext: Boolean(data.pagination?.has_next),
+      total: Number.isInteger(data.pagination?.total)
+        ? data.pagination.total
+        : null,
+    };
+    currentPage = Math.max(1, Number.parseInt(data.pagination?.page || page, 10));
+    renderResults();
+    updateHistory();
   };
 
   const buildCalendarGrid = baseDateString => {
@@ -232,9 +277,7 @@
       const date = new Date(gridStart);
       date.setDate(gridStart.getDate() + i);
       const dayKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-      const hasEvents = allEvents.some(
-        event => event.date_key === dayKey && eventMatchesCategory(event)
-      );
+      const hasEvents = pageEvents.some(event => event.date_key === dayKey);
       const isCurrentMonth = date.getMonth() === monthStart.getMonth();
       const isSelected = selectedDay
         ? selectedDay === dayKey
@@ -301,9 +344,7 @@
       selectedDay = dayLink.dataset.dayKey || '';
       calendarMonth = selectedDay || calendarMonth;
       currentPage = 1;
-      renderResults();
-      buildCalendarGrid(calendarMonth);
-      updateHistory();
+      loadResults(1).then(() => buildCalendarGrid(calendarMonth));
       setModalOpen(false);
     }
   });
@@ -313,8 +354,7 @@
       event.preventDefault();
       selectedDay = chip.dataset.dayKey || '';
       currentPage = 1;
-      renderResults();
-      updateHistory();
+      loadResults(1);
     });
   });
 
@@ -324,9 +364,9 @@
       activeCategory = pill.dataset.categorySlug || 'all';
       eventsPage.dataset.activeCategory = activeCategory;
       currentPage = 1;
-      renderResults();
-      buildCalendarGrid(calendarMonth || selectedDay || todayKey);
-      updateHistory();
+      loadResults(1).then(() =>
+        buildCalendarGrid(calendarMonth || selectedDay || todayKey)
+      );
     });
   });
 
@@ -347,31 +387,27 @@
 
       eventsPage.dataset.activeCategory = activeCategory;
       currentPage = 1;
-      renderResults();
-      buildCalendarGrid(calendarMonth || selectedDay || todayKey);
-      updateHistory();
+      loadResults(1).then(() =>
+        buildCalendarGrid(calendarMonth || selectedDay || todayKey)
+      );
     });
   });
 
   paginationPrev?.addEventListener('click', event => {
     if (paginationPrev.hidden || currentPage <= 1) return;
     event.preventDefault();
-    currentPage -= 1;
-    renderResults();
-    updateHistory();
+    loadResults(currentPage - 1);
   });
 
   paginationNext?.addEventListener('click', event => {
     if (paginationNext.hidden) return;
     event.preventDefault();
-    currentPage += 1;
-    renderResults();
-    updateHistory();
+    loadResults(currentPage + 1);
   });
 
-  if (selectedDay) {
+  loadResults(currentPage).catch(() => {
+    eventsError = 'Events API nicht erreichbar';
+    pageEvents = [];
     renderResults();
-  } else {
-    syncChipStates();
-  }
+  });
 })();

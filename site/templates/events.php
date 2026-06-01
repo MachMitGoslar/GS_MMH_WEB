@@ -131,6 +131,8 @@
             </div>
 
             <script type="application/json" id="events-page-data"><?= json_encode([
+                'apiUrl' => url('events.json'),
+                'error' => $eventsError,
                 'events' => $clientEvents,
                 'today' => $todayKey,
                 'selectedDay' => $selectedDay,
@@ -153,21 +155,24 @@
                 <p class="font-subheadline events-results-head__count" data-results-count><?= $totalResults ?> Ergebnisse</p>
             </div>
 
-            <?php if ($events !== []) : ?>
-                <ul class="grid events-grid mb-4" data-events-results>
-                    <?php foreach ($events as $event) : ?>
-                        <?php snippet('content-types/events/eventsListItem', ['event' => $event, 'variant' => 'event-list']) ?>
-                    <?php endforeach ?>
-                </ul>
-            <?php else : ?>
-                <div class="events-empty-state" data-events-empty>
-                    <h3 class="font-headline mb-2">Keine passenden Termine gefunden</h3>
-                    <p class="font-body mb-3">Passe Suchbegriff, Datum oder Kategorie an, um wieder mehr Veranstaltungen zu sehen.</p>
-                    <a class="gs-c-btn" data-type="secondary" data-size="small" href="<?= $buildUrl(['keyword' => null, 'category' => null, 'day' => null, 'page' => null]) ?>">Filter zurücksetzen</a>
-                </div>
-            <?php endif ?>
+            <ul class="grid events-grid mb-4" data-events-results<?= $events === [] ? ' hidden' : '' ?>>
+                <?php foreach ($events as $event) : ?>
+                    <?php snippet('content-types/events/eventsListItem', ['event' => $event, 'variant' => 'event-list']) ?>
+                <?php endforeach ?>
+            </ul>
+            <div class="events-empty-state" data-events-empty<?= $events !== [] ? ' hidden' : '' ?>>
+                <h3 class="font-headline mb-2" data-events-empty-title><?= $eventsError ? 'Termine konnten nicht geladen werden' : 'Termine werden geladen' ?></h3>
+                <p class="font-body mb-3" data-events-empty-message>
+                    <?php if ($eventsError) : ?>
+                        Die Oveda-Schnittstelle meldet gerade: <?= esc($eventsError) ?>.
+                    <?php else : ?>
+                        Die Veranstaltungen werden über die API geladen.
+                    <?php endif ?>
+                </p>
+                <a class="gs-c-btn" data-type="secondary" data-size="small" href="<?= $buildUrl(['keyword' => null, 'category' => null, 'day' => null, 'page' => null]) ?>">Filter zurücksetzen</a>
+            </div>
 
-            <div class="pagination events-pagination" data-events-pagination<?= ($selectedDay !== '' || $totalResults <= 12) ? ' hidden' : '' ?>>
+            <div class="pagination events-pagination" data-events-pagination<?= (!$pagination['has_prev'] && !$pagination['has_next']) ? ' hidden' : '' ?>>
                 <a
                     href="<?= $pagination['prev_url'] ?? $buildUrl(['page' => 1]) ?>"
                     class="gs-c-btn"

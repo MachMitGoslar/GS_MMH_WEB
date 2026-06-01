@@ -13,6 +13,7 @@ return [
     'panel' => [
         'install' => false,
     ],
+    'cache.oveda' => true,
     'db' => [
         'host' => getenv('MMH_DB_Host') ?: 'localhost',
         'database' => getenv('MMH_DB_Database') ?: 'admin_mmh',
