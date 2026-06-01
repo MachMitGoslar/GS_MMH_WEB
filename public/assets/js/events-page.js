@@ -28,6 +28,7 @@
   const pagination = eventsPage.querySelector('[data-events-pagination]');
   const paginationPrev = eventsPage.querySelector('[data-pagination-prev]');
   const paginationNext = eventsPage.querySelector('[data-pagination-next]');
+  const filtersRow = eventsPage.querySelector('.events-filter-row');
   let paginationState = {
     hasPrev: currentPage > 1,
     hasNext: Boolean(paginationNext && !paginationNext.hidden),
@@ -39,7 +40,7 @@
   const titleNode = eventsPage.querySelector('[data-calendar-title]');
   const daysNode = eventsPage.querySelector('[data-calendar-days]');
   const dayChips = Array.from(eventsPage.querySelectorAll('.events-day-chip'));
-  const filterPills = Array.from(
+  let filterPills = Array.from(
     eventsPage.querySelectorAll('[data-category-slug]')
   );
   const summaryChips = Array.from(
@@ -114,6 +115,21 @@
     return `${url.pathname}${url.search}`;
   };
 
+  const buildCategoryHref = category => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('page');
+    url.searchParams.delete('calendar');
+    url.searchParams.delete('calendar_month');
+
+    if (category && category !== 'all') url.searchParams.set('category', category);
+    else url.searchParams.delete('category');
+
+    if (selectedDay) url.searchParams.set('day', selectedDay);
+    else url.searchParams.delete('day');
+
+    return `${url.pathname}${url.search}`;
+  };
+
   const updateHistory = () => {
     window.history.replaceState({}, '', buildPageHref(currentPage));
   };
@@ -144,6 +160,48 @@
     }
 
     return `${pageEvents.length}${paginationState.hasNext ? '+' : ''} Ergebnisse`;
+  };
+
+  const renderSummary = summary => {
+    if (!Array.isArray(summary)) return;
+
+    summaryChips.forEach(chip => {
+      const label = chip.dataset.summaryChip || '';
+      const item = summary.find(entry => entry.label === label);
+      const countNode = chip.querySelector('.events-toolbar-chip__count');
+
+      if (item && countNode) {
+        countNode.textContent = String(item.count ?? 0);
+      }
+    });
+  };
+
+  const renderFilters = filters => {
+    if (!filtersRow || !Array.isArray(filters)) return;
+
+    filtersRow.innerHTML = filters
+      .map(filter => {
+        const slug = filter.slug || 'all';
+        const isActive = slug === activeCategory;
+
+        return `
+          <a
+            class="events-filter-pill gs-c-btn"
+            data-active="${isActive}"
+            data-category-slug="${escapeHtml(slug)}"
+            data-type="${isActive ? 'primary' : 'secondary'}"
+            data-size="small"
+            data-style="pill"
+            href="${escapeHtml(buildCategoryHref(slug))}"
+          >
+            <span>${escapeHtml(filter.label || slug)}</span>
+            <span class="events-filter-pill__count">${escapeHtml(filter.count ?? 0)}</span>
+          </a>
+        `;
+      })
+      .join('');
+
+    filterPills = Array.from(eventsPage.querySelectorAll('[data-category-slug]'));
   };
 
   const syncChipStates = () => {
@@ -242,6 +300,8 @@
     const data = await response.json();
     pageEvents = Array.isArray(data.events) ? data.events : [];
     eventsError = data.error || '';
+    renderSummary(data.summary);
+    renderFilters(data.filters);
     paginationState = {
       hasPrev: Boolean(data.pagination?.has_prev),
       hasNext: Boolean(data.pagination?.has_next),
@@ -358,16 +418,20 @@
     });
   });
 
-  filterPills.forEach(pill => {
-    pill.addEventListener('click', event => {
-      event.preventDefault();
-      activeCategory = pill.dataset.categorySlug || 'all';
-      eventsPage.dataset.activeCategory = activeCategory;
-      currentPage = 1;
-      loadResults(1).then(() =>
-        buildCalendarGrid(calendarMonth || selectedDay || todayKey)
-      );
-    });
+  filtersRow?.addEventListener('click', event => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const pill = target.closest('[data-category-slug]');
+    if (!(pill instanceof HTMLElement)) return;
+
+    event.preventDefault();
+    activeCategory = pill.dataset.categorySlug || 'all';
+    eventsPage.dataset.activeCategory = activeCategory;
+    currentPage = 1;
+    loadResults(1).then(() =>
+      buildCalendarGrid(calendarMonth || selectedDay || todayKey)
+    );
   });
 
   summaryChips.forEach(chip => {

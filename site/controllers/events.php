@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/events-api.php';
-
 return function ($page) {
     $today = new DateTimeImmutable('today');
     $todayKey = $today->format('Y-m-d');
@@ -137,7 +135,6 @@ return function ($page) {
             'weekday' => $weekdayShort[(int) $date->format('w')],
             'day' => $date->format('j'),
             'month' => $monthShort[(int) $date->format('n')],
-            'count' => 0,
             'is_today' => $dateKey === $todayKey,
             'is_active' => $selectedDay !== '' && $selectedDay === $dateKey,
             'url' => $buildUrl(['day' => $dateKey, 'page' => null]),

@@ -49,6 +49,54 @@ function mmhOvedaEventDatePage(
 /**
  * @return array{
  *   items: array,
+ *   total: int,
+ *   complete: bool,
+ *   error: string|null
+ * }
+ */
+function mmhOvedaEventDateOverview(string $dateFrom, string $searchKeyword = ''): array
+{
+    $items = [];
+    $total = 0;
+    $complete = true;
+    $error = null;
+
+    for ($pageNumber = 1; $pageNumber <= 20; $pageNumber++) {
+        $page = mmhOvedaEventDatePage($dateFrom, $pageNumber, $searchKeyword, 50);
+
+        if ($pageNumber === 1) {
+            $total = $page['total'] ?? 0;
+        }
+
+        if ($page['error'] !== null) {
+            $error = $page['error'];
+            $complete = false;
+
+            break;
+        }
+
+        $items = array_merge($items, $page['items']);
+
+        if ($page['has_next'] === false) {
+            break;
+        }
+
+        if ($pageNumber === 20) {
+            $complete = false;
+        }
+    }
+
+    return [
+        'items' => $items,
+        'total' => $total > 0 ? $total : count($items),
+        'complete' => $complete,
+        'error' => $error,
+    ];
+}
+
+/**
+ * @return array{
+ *   items: array,
  *   has_next: bool,
  *   total: int|null,
  *   page: int,
@@ -146,16 +194,6 @@ function mmhNormalizeOvedaEvent(array $event, string|null $todayKey = null): arr
         11 => 'Nov',
         12 => 'Dez',
     ];
-    $weekdayLong = [
-        1 => 'Montag',
-        2 => 'Dienstag',
-        3 => 'Mittwoch',
-        4 => 'Donnerstag',
-        5 => 'Freitag',
-        6 => 'Samstag',
-        7 => 'Sonntag',
-    ];
-
     $todayKey ??= date('Y-m-d');
     $start = isset($event['start']) ? new DateTimeImmutable((string) $event['start']) : new DateTimeImmutable();
     $end = !empty($event['end']) ? new DateTimeImmutable((string) $event['end']) : null;
@@ -183,7 +221,6 @@ function mmhNormalizeOvedaEvent(array $event, string|null $todayKey = null): arr
         'date_key' => $start->format('Y-m-d'),
         'date_badge_day' => $start->format('d'),
         'date_badge_month' => $monthShort[(int) $start->format('n')],
-        'weekday_label' => $weekdayLong[(int) $start->format('N')],
         'time_label' => ($event['allday'] ?? false)
             ? 'Ganztägig'
             : $start->format('H:i') . ($end ? ' - ' . $end->format('H:i') : ''),
@@ -259,6 +296,82 @@ function mmhOvedaEventClientPayload(array $event): array
     ];
 }
 
+/**
+ * @return array{
+ *   summary: array<int, array{label: string, count: int}>,
+ *   filters: array<int, array{slug: string, label: string, count: int}>
+ * }
+ */
+function mmhOvedaEventMeta(array $events, int $total): array
+{
+    $todayKey = (new DateTimeImmutable('today'))->format('Y-m-d');
+    $todayCount = 0;
+    $freeCount = 0;
+    $categories = [];
+
+    foreach ($events as $event) {
+        if ($event['date_key'] === $todayKey) {
+            $todayCount++;
+        }
+
+        if ($event['is_free'] === true) {
+            $freeCount++;
+        }
+
+        foreach ($event['categories'] as $category) {
+            $slug = mmhOvedaCategorySlug($category);
+
+            if ($slug === '') {
+                continue;
+            }
+
+            $categories[$slug] ??= [
+                'slug' => $slug,
+                'label' => $category,
+                'count' => 0,
+            ];
+            $categories[$slug]['count']++;
+        }
+    }
+
+    usort(
+        $categories,
+        static fn (array $a, array $b): int => $b['count'] <=> $a['count'] ?: strcmp($a['label'], $b['label']),
+    );
+
+    return [
+        'summary' => [
+            [
+                'label' => 'Alle Events',
+                'count' => $total,
+            ],
+            [
+                'label' => 'Heute',
+                'count' => $todayCount,
+            ],
+            [
+                'label' => 'Kostenlos',
+                'count' => $freeCount,
+            ],
+        ],
+        'filters' => array_values(array_merge(
+            [
+                [
+                    'slug' => 'all',
+                    'label' => 'Alle',
+                    'count' => $total,
+                ],
+                [
+                    'slug' => 'free',
+                    'label' => 'Kostenlos',
+                    'count' => $freeCount,
+                ],
+            ],
+            $categories,
+        )),
+    ];
+}
+
 function mmhEventsApiPayload(): array
 {
     $todayKey = (new DateTimeImmutable('today'))->format('Y-m-d');
@@ -277,8 +390,12 @@ function mmhEventsApiPayload(): array
 
     $dateFrom = $selectedDay !== '' ? $selectedDay : $todayKey;
     $apiPage = $selectedDay !== '' ? 1 : $page;
-    $eventPage = mmhOvedaEventDatePage($dateFrom, $apiPage, $keyword, $perPage);
+    $apiPerPage = $selectedDay !== '' ? 50 : $perPage;
+    $eventPage = mmhOvedaEventDatePage($dateFrom, $apiPage, $keyword, $apiPerPage);
     $events = mmhNormalizeOvedaEvents($eventPage['items'], $todayKey);
+    $overview = mmhOvedaEventDateOverview($todayKey, $keyword);
+    $overviewEvents = mmhNormalizeOvedaEvents($overview['items'], $todayKey);
+    $meta = mmhOvedaEventMeta($overviewEvents, $overview['total']);
 
     if ($selectedDay !== '') {
         $events = array_values(array_filter(
@@ -287,20 +404,18 @@ function mmhEventsApiPayload(): array
         ));
     }
 
-    $categorySlugs = [];
-    foreach ($events as $event) {
-        $categorySlugs = array_merge(
-            $categorySlugs,
-            array_map('mmhOvedaCategorySlug', $event['categories']),
-        );
-    }
+    $availableFilterSlugs = array_column($meta['filters'], 'slug');
 
     if (
         $activeCategory !== 'all' &&
         $activeCategory !== 'free' &&
-        in_array($activeCategory, $categorySlugs, true) === false
+        in_array($activeCategory, $availableFilterSlugs, true) === false
     ) {
         $activeCategory = 'all';
+    }
+
+    if ($selectedDay === '' && $activeCategory !== 'all') {
+        $events = $overviewEvents;
     }
 
     $events = array_values(array_filter(
@@ -322,17 +437,33 @@ function mmhEventsApiPayload(): array
         },
     ));
 
+    $filteredTotal = count($events);
+
+    if ($selectedDay === '' && $activeCategory !== 'all') {
+        $offset = ($page - 1) * $perPage;
+        $events = array_slice($events, $offset, $perPage);
+    }
+
+    $paginationTotal = $selectedDay !== '' || $activeCategory !== 'all'
+        ? $filteredTotal
+        : $eventPage['total'];
+
     return [
         'events' => array_map('mmhOvedaEventClientPayload', $events),
         'pagination' => [
             'page' => $page,
             'per_page' => $perPage,
             'has_prev' => $selectedDay === '' && $page > 1,
-            'has_next' => $selectedDay === ''
-                && $activeCategory === 'all'
-                && $eventPage['has_next'] === true,
-            'total' => $eventPage['total'],
+            'has_next' => $selectedDay === '' && (
+                $activeCategory === 'all'
+                    ? $eventPage['has_next'] === true
+                    : $page * $perPage < $filteredTotal
+            ),
+            'total' => $paginationTotal,
         ],
+        'summary' => $meta['summary'],
+        'filters' => $meta['filters'],
+        'meta_complete' => $overview['complete'],
         'error' => $eventPage['error'],
         'rate_limit' => $eventPage['rate_limit'],
     ];
