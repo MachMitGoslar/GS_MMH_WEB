@@ -2,6 +2,7 @@
 
 /**
  * Newsletter Template - Redesigned to match PDF layout
+ * @var $page \Kirby\Cms\Page
  */
 
 ?>
@@ -230,73 +231,43 @@
     <?php endif ?>
 
 
+
     <!-- Reviews Section -->
     <?php if ($page->review_entries() && $page->review_entries()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Rückblicke</h2>
           <ul class="grid newsletter-grid mb-4">
-            <?php foreach ($page->review_entries()->toStructure() as $review) : ?>
-              <li class="c-projectUpdateTeaser-card">
-                <?php if ($review->image()->isNotEmpty() && $imageFile = $review->image()->toFile()) : ?>
-                  <div>
-                    <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $review->headline() ?>">
-                  </div>
-                <?php endif ?>
-                <div class="content">
-                  <div class="statusheader mb-2">
-                    <div class="status-badge">📖 Rückblick</div>
-                  </div>
-                  <h3 class="font-headline font-line-height-narrow mb-2"><?= $review->headline() ?></h3>
-                  <?php if ($review->subheadline()->isNotEmpty()) : ?>
-                    <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $review->subheadline() ?></h4>
-                  <?php endif ?>
-                  <p class="font-body"><?= $review->content_text() ? $review->content_text()->excerpt(100) : '' ?></p>
-                  <?php if ($review->date()->isNotEmpty()) : ?>
-                    <p class="font-footnote mt-2"><?= $review->date()->toDate('d.m.Y') ?></p>
-                  <?php endif ?>
-                </div>
-              </li>
+            <?php foreach ($page->review_entries()->toStructure() as $entry) : ?>
+              <?php snippet('content-types/newsletter/newsletterEntryCard', [
+                  'entry' => $entry,
+                  'badge' => '📖 Rückblick',
+                  'footerText' => $entry->date()->isNotEmpty() ? $entry->date()->toDate('d.m.Y') : null,
+              ]) ?>
             <?php endforeach ?>
           </ul>
         </div>
       </section>
     <?php endif ?>
+
     <!-- Current Projects Section -->
     <?php if ($page->actual_entries() && $page->actual_entries()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Aktuelle Projekte</h2>
           <ul class="grid newsletter-grid mb-4">
-            <?php foreach ($page->actual_entries()->toStructure() as $project) : ?>
-              <li class="c-projectUpdateTeaser-card">
-                <?php if ($project->image()->isNotEmpty() && $imageFile = $project->image()->toFile()) : ?>
-                  <div>
-                    <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $project->headline() ?>">
-                  </div>
-                <?php endif ?>
-                <div class="content">
-                  <div class="statusheader mb-2">
-                    <div class="status-badge" data-color="active">🚀 Aktuell</div>
-                  </div>
-                  <h3 class="font-headline font-line-height-narrow mb-2"><?= $project->headline() ?></h3>
-                  <?php if ($project->subheadline()->isNotEmpty()) : ?>
-                    <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $project->subheadline() ?></h4>
-                  <?php endif ?>
-                  <p class="font-body"><?= $project->content_text() ? $project->content_text()->excerpt(100) : '' ?></p>
-                  <?php if ($project->location()->isNotEmpty()) : ?>
-                    <p class="font-footnote mt-2">📍 <?= $project->location() ?></p>
-                  <?php endif ?>
-                </div>
-              </li>
+            <?php foreach ($page->actual_entries()->toStructure() as $entry) : ?>
+              <?php snippet('content-types/newsletter/newsletterEntryCard', [
+                  'entry' => $entry,
+                  'badge' => '🚀 Aktuell',
+                  'badgeColor' => 'active',
+                  'footerText' => $entry->location()->isNotEmpty() ? '📍 ' . $entry->location() : null,
+              ]) ?>
             <?php endforeach ?>
           </ul>
         </div>
       </section>
     <?php endif ?>
-
-
-
 
 
     <!-- Previews Section -->
@@ -304,30 +275,16 @@
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Vorschau</h2>
-          <div class="grid newsletter-grid mb-4">
-            <?php foreach ($page->upcomming_entries()->toStructure() as $preview) : ?>
-              <div class="grid-item c-projectUpdateTeaser-card" data-span="1/1@s 1/2@m 1/3@l">
-                <?php if ($preview->image()->isNotEmpty() && $imageFile = $preview->image()->toFile()) : ?>
-                  <div>
-                    <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $preview->headline() ?>">
-                  </div>
-                <?php endif ?>
-                <div class="content">
-                  <div class="statusheader mb-2">
-                    <div class="status-badge" data-color="planning">🔮 Vorschau</div>
-                  </div>
-                  <h3 class="font-headline font-line-height-narrow mb-2"><?= $preview->headline() ?></h3>
-                  <?php if ($preview->subheadline()->isNotEmpty()) : ?>
-                    <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $preview->subheadline() ?></h4>
-                  <?php endif ?>
-                  <p class="font-body"><?= $preview->content_text() ? $preview->content_text()->excerpt(100) : '' ?></p>
-                  <?php if ($preview->date()->isNotEmpty()) : ?>
-                    <p class="font-footnote mt-2">📅 <?= $preview->date()->toDate('d.m.Y') ?></p>
-                  <?php endif ?>
-                </div>
-              </div>
+          <ul class="grid newsletter-grid mb-4">
+            <?php foreach ($page->upcomming_entries()->toStructure() as $entry) : ?>
+              <?php snippet('content-types/newsletter/newsletterEntryCard', [
+                  'entry' => $entry,
+                  'badge' => '🔮 Vorschau',
+                  'badgeColor' => 'planning',
+                  'footerText' => $entry->date()->isNotEmpty() ? '📅 ' . $entry->date()->toDate('d.m.Y') : null,
+              ]) ?>
             <?php endforeach ?>
-          </div>
+          </ul>
         </div>
       </section>
     <?php endif ?>
@@ -337,30 +294,14 @@
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Nachrichten aus dem MachMit!Haus</h2>
-          <div class="grid newsletter-grid mb-4">
-            <?php foreach ($page->news()->toStructure() as $newsItem) : ?>
-              <div class="grid-item c-projectUpdateTeaser-card" data-span="1/1@s 1/2@m 1/3@l">
-                <?php if ($newsItem->image()->isNotEmpty() && $imageFile = $newsItem->image()->toFile()) : ?>
-                  <div>
-                    <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $newsItem->headline() ?>">
-                  </div>
-                <?php endif ?>
-                <div class="content">
-                  <div class="statusheader mb-2">
-                    <div class="status-badge">📰 Nachrichten</div>
-                  </div>
-                  <h3 class="font-headline font-line-height-narrow mb-2"><?= $newsItem->headline() ?></h3>
-                  <?php if ($newsItem->subheadline()->isNotEmpty()) : ?>
-                    <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $newsItem->subheadline() ?></h4>
-                  <?php endif ?>
-                  <p class="font-body"><?= $newsItem->content_text() ? $newsItem->content_text()->excerpt(100) : '' ?></p>
-                  <?php if ($newsItem->link()->isNotEmpty()) : ?>
-                    <a href="<?= $newsItem->link() ?>" class="gs-c-btn mt-3" data-type="secondary" data-size="small" target="_blank">🔗 Weiterlesen</a>
-                  <?php endif ?>
-                </div>
-              </div>
+          <ul class="grid newsletter-grid mb-4">
+            <?php foreach ($page->news()->toStructure() as $entry) : ?>
+              <?php snippet('content-types/newsletter/newsletterEntryCard', [
+                  'entry' => $entry,
+                  'badge' => '📰 Nachrichten',
+              ]) ?>
             <?php endforeach ?>
-          </div>
+          </ul>
         </div>
       </section>
     <?php endif ?>
