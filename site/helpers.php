@@ -48,7 +48,7 @@ function getArchivedProjects(Site $site)
 {
     return $site->page('projects')
         ?->children()
-        ->filterBy('project_status', 'abgeschlossen');
+        ->filter(fn ($project) => $project->effectiveProjectStatus() === 'abgeschlossen');
 }
 
 /**

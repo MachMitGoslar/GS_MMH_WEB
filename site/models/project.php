@@ -26,7 +26,45 @@ class ProjectPage extends Page
 
     public function project_steps(): Kirby\Cms\Pages
     {
-        return $this->children()->sortBy('project_start_date', 'desc');
+        return $this->children()->sortBy(
+            fn ($step) => $this->projectStepTimestamp($step),
+            'desc',
+        );
+    }
+
+    public function latestProjectStep(): Kirby\Cms\Page|null
+    {
+        return $this->project_steps()
+            ->listed()
+            ->filter(fn ($step) => $step->project_status_to()->isNotEmpty())
+            ->first();
+    }
+
+    public function effectiveProjectStatus(): string
+    {
+        $status = trim((string) $this->project_status()->value());
+        if ($status !== '') {
+            return $status;
+        }
+
+        $latestStep = $this->latestProjectStep();
+
+        return $latestStep
+            ? trim((string) $latestStep->project_status_to()->value())
+            : '';
+    }
+
+    protected function projectStepTimestamp(Kirby\Cms\Page $step): int
+    {
+        $date = $step->project_start_date()->value();
+        if ($date === '') {
+            return 0;
+        }
+
+        $time = $step->project_start_time()->or('00:00')->value();
+        $timestamp = strtotime($date . ' ' . $time);
+
+        return $timestamp === false ? 0 : $timestamp;
     }
 
     public function panel(): PanelPage

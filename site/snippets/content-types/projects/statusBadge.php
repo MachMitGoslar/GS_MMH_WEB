@@ -5,6 +5,7 @@
  *
 */
 
+$status = trim((string) $status);
 $color = getProjectStatusColor($status);
 
 ?>

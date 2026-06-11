@@ -41,6 +41,7 @@ columns:
       project_status:
         type: select
         label: Projektzustand
+        help: Kann manuell gesetzt werden. Wird automatisch auf den neuesten veröffentlichten Projektschritt aktualisiert.
         options:
           - in Planung
           - in Vorbereitung
