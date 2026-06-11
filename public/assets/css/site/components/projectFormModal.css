@@ -1,90 +1,19 @@
-.project-form-modal[hidden] {
-  display: none;
-}
-
 .project-form-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: grid;
-  place-items: center;
-  padding: clamp(1rem, 4vw, 3rem);
+  --modal-width: min(90vw, 48rem);
+  --modal-border-radius: 1.5rem;
+  --modal-close-bg: var(--color-ripe-mango-700);
+  --modal-close-bg-hover: var(--color-ripe-mango-300);
+  --modal-close-color: var(--color-ripe-mango-1400);
 }
 
-.project-form-modal__backdrop {
-  position: absolute;
-  inset: 0;
-  border: 0;
-  background: rgb(0 0 0 / 55%);
-  cursor: pointer;
-}
-
-.project-form-modal__dialog {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 48rem);
-  max-height: min(100%, 48rem);
-  overflow: auto;
-  border-radius: 1.5rem;
-  background: var(--color-white);
+.project-form-modal .gs-c-modal__body {
   padding: clamp(1.5rem, 4vw, 3rem);
-  box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 20%);
-}
-
-.project-form-modal__close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 2.5rem;
-  padding: 0.5rem 0.875rem;
-  border: 1px solid rgb(0 0 0 / 10%);
-  border-radius: 999px;
-  background: var(--color-white);
-  color: var(--color-fg-default);
-  font: inherit;
-  font-weight: 700;
-  line-height: 1;
-  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 10%);
-  cursor: pointer;
-  transition: background-color 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    transform 160ms ease;
-}
-
-.project-form-modal__close:hover,
-.project-form-modal__close:focus-visible {
-  border-color: transparent;
-  background: var(--color-bg-brand-primary);
-  box-shadow: 0 0.35rem 1.25rem rgb(0 0 0 / 16%);
-}
-
-.project-form-modal__close:focus-visible {
-  outline: 2px solid var(--color-bg-brand-primary);
-  outline-offset: 3px;
-}
-
-.project-form-modal__close:active {
-  transform: translateY(1px);
 }
 
 .project-form-modal__title {
-  margin: 0 8rem 1.5rem 0;
+  margin: 0 0 1.5rem;
 }
 
 .has-project-form-modal {
   overflow: hidden;
-}
-
-@media (max-width: 36rem) {
-  .project-form-modal__dialog {
-    padding-top: 4.5rem;
-  }
-
-  .project-form-modal__title {
-    margin-right: 0;
-  }
 }
