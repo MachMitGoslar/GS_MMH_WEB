@@ -50,10 +50,10 @@ function mmhNewsletterPrepareSelfContainedNewsletter(string $html): string
     $html = preg_replace('/<link\b[^>]*api\.mapbox\.com\/mapbox-gl-js[^>]*>/i', '', $html) ?? $html;
     $html = preg_replace('/<script\b[^>]*api\.mapbox\.com\/mapbox-gl-js[^>]*><\/script>/i', '', $html) ?? $html;
     $html = preg_replace('/<script\b[^>]*>\s*mapboxgl\.accessToken\s*=.*?<\/script>/is', '', $html) ?? $html;
-    $html = str_replace('/assets/svg/RZ-RGB_MM!2_iv.svg', '/assets/generated/mmh-logo-mail.png', $html);
+    $html = str_replace('/assets/svg/RZ-RGB_MM!2_iv.svg', '/assets/generated/mmh-logo-white.png', $html);
     $html = preg_replace(
-        '/<img class="newsletter-logo" src="\/assets\/generated\/mmh-logo-mail\.png" alt="MachMit!Haus Logo">/i',
-        '<img class="newsletter-logo" src="/assets/generated/mmh-logo-mail.png" alt="MachMit!Haus Logo" width="180" height="180">',
+        '/<img class="newsletter-logo" src="\/assets\/generated\/mmh-logo-white\.png" alt="MachMit!Haus Logo">/i',
+        '<img class="newsletter-logo" src="/assets/generated/mmh-logo-white.png" alt="MachMit!Haus Logo" width="180" height="180">',
         $html,
         1,
     ) ?? $html;
@@ -654,8 +654,62 @@ function mmhNewsletterInlineCriticalEmailStyles(string $html): string
         'newsletter-date',
         'color:#fbc62e !important;text-align:center;font-size:24px;line-height:1.2;font-weight:700;margin:0;',
     );
+    $html = mmhNewsletterAppendInlineStyleToClass(
+        $html,
+        'author-name',
+        'color:#ffffff !important;',
+    );
+    $html = mmhNewsletterAppendInlineStyleToClass(
+        $html,
+        'author-role',
+        'color:#dddddd !important;',
+    );
+    $html = mmhNewsletterAppendInlineStyleToClass(
+        $html,
+        'newsletter-author-message',
+        'color:#ffffff !important;',
+    );
+    $html = mmhNewsletterInlineAuthorMessageText($html);
+    $html = mmhNewsletterNormalizeAuthorAvatar($html);
 
     return mmhNewsletterInlineTimelineImageTags($html);
+}
+
+function mmhNewsletterInlineAuthorMessageText(string $html): string
+{
+    return preg_replace_callback(
+        '/(<div\b[^>]*\bclass=(["\'])(?=[^"\']*\bnewsletter-author-message\b)[^"\']*\2[^>]*>)(.*?)(<\/div>)/is',
+        static function (array $matches): string {
+            $content = preg_replace_callback(
+                '/<p\b([^>]*)>/i',
+                static fn (array $paragraph): string => '<p' . mmhNewsletterAppendStyleAttribute(
+                    $paragraph[1],
+                    'color:#ffffff !important;font-size:16px;line-height:1.55;',
+                ) . '>',
+                $matches[3],
+            ) ?? $matches[3];
+
+            return $matches[1] . $content . $matches[4];
+        },
+        $html,
+    ) ?? $html;
+}
+
+function mmhNewsletterNormalizeAuthorAvatar(string $html): string
+{
+    return preg_replace_callback(
+        '/<img\b([^>]*\bclass=(["\'])(?=[^"\']*\bauthor-avatar\b)[^"\']*\2[^>]*)>/i',
+        static function (array $matches): string {
+            $attributes = preg_replace('/\s(?:width|height)=(["\']).*?\1/i', '', $matches[1]) ?? $matches[1];
+            $attributes = mmhNewsletterAppendStyleAttribute(
+                $attributes,
+                'display:block;width:64px !important;max-width:64px !important;height:64px !important;object-fit:cover;border-radius:50% !important;',
+            );
+
+            return '<img' . $attributes . ' width="64" height="64">';
+        },
+        $html,
+    ) ?? $html;
 }
 
 function mmhNewsletterInlineTimelineImageTags(string $html): string
@@ -751,7 +805,7 @@ function mmhNewsletterNormalizePublicPath(string $url, string $basePath): string
 
 function mmhNewsletterDataUriForPublicPath(string $path): ?string
 {
-    if ($path === '/assets/generated/mmh-logo-mail.png') {
+    if ($path === '/assets/generated/mmh-logo-white.png') {
         return null;
     }
 
