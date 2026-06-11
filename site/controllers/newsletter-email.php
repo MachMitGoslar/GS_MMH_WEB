@@ -598,6 +598,8 @@ function mmhNewsletterInlineCriticalEmailStyles(string $html): string
         'author-name' => 'display:block;color:#ffffff;font-size:20px;line-height:1.25;font-weight:700;margin:0 0 4px;',
         'author-role' => 'display:block;color:#dddddd;font-size:13px;line-height:1.3;margin:0;',
         'newsletter-author-message' => 'display:block;color:#ffffff;font-size:16px;line-height:1.55;margin:0;',
+        'c-newsletter-teaser' => 'display:block;width:100%;background:#4a4a4a;color:#ffffff;border-radius:16px;padding:28px;margin:0 0 24px;box-sizing:border-box;',
+        'color-fg-light' => 'color:#ffffff !important;',
         'weekly-calendar' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-radius:16px;padding:24px;box-sizing:border-box;box-shadow:0 2px 8px rgba(0,0,0,.08);',
         'calendar-grid' => 'display:block;width:100%;',
         'calendar-day' => 'display:block;width:100%;margin:0 0 18px;',
@@ -670,6 +672,7 @@ function mmhNewsletterInlineCriticalEmailStyles(string $html): string
         'color:#ffffff !important;',
     );
     $html = mmhNewsletterInlineAuthorMessageText($html);
+    $html = mmhNewsletterInlineClosingText($html);
     $html = mmhNewsletterNormalizeAuthorAvatar($html);
 
     return mmhNewsletterInlineTimelineImageTags($html);
@@ -685,6 +688,26 @@ function mmhNewsletterInlineAuthorMessageText(string $html): string
                 static fn (array $paragraph): string => '<p' . mmhNewsletterAppendStyleAttribute(
                     $paragraph[1],
                     'color:#ffffff !important;font-size:16px;line-height:1.55;',
+                ) . '>',
+                $matches[3],
+            ) ?? $matches[3];
+
+            return $matches[1] . $content . $matches[4];
+        },
+        $html,
+    ) ?? $html;
+}
+
+function mmhNewsletterInlineClosingText(string $html): string
+{
+    return preg_replace_callback(
+        '/(<div\b[^>]*\bclass=(["\'])(?=[^"\']*\bfont-body\b)(?=[^"\']*\bcolor-fg-light\b)[^"\']*\2[^>]*>)(.*?)(<\/div>)/is',
+        static function (array $matches): string {
+            $content = preg_replace_callback(
+                '/<(p|a|h[1-6]|strong|em)\b([^>]*)>/i',
+                static fn (array $element): string => '<' . $element[1] . mmhNewsletterAppendStyleAttribute(
+                    $element[2],
+                    'color:#ffffff !important;',
                 ) . '>',
                 $matches[3],
             ) ?? $matches[3];
