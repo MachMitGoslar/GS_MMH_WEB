@@ -56,3 +56,10 @@ tabs:
             type: pages
             status: listed
             template: newsletter
+
+  recipients:
+    label: Empfänger
+    icon: users
+    sections:
+      newsletterRecipients:
+        type: newsletter-recipients

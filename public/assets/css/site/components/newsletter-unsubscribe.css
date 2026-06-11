@@ -1,0 +1,32 @@
+.newsletter-unsubscribe {
+  padding: var(--size-10, 4rem) 0 var(--size-12, 6rem);
+}
+
+.newsletter-unsubscribe__content {
+  max-width: 48rem;
+}
+
+.newsletter-unsubscribe__form {
+  margin-top: var(--size-6, 1.5rem);
+}
+
+.newsletter-unsubscribe__notice {
+  margin: 0 0 var(--size-6, 1.5rem);
+  padding: var(--size-4, 1rem) var(--size-5, 1.25rem);
+  border-radius: 0.5rem;
+  font-weight: var(--font-weight-semiBold, 600);
+}
+
+.newsletter-unsubscribe__notice[data-type='success'] {
+  background: #e6f3ef;
+  color: #245f53;
+}
+
+.newsletter-unsubscribe__notice[data-type='error'] {
+  background: #fdeceb;
+  color: #b3261e;
+}
+
+.newsletter-unsubscribe__intro {
+  max-width: 42rem;
+}

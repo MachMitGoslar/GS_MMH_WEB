@@ -7,6 +7,7 @@
 
 // Load site helper functions
 require_once __DIR__ . '/../helpers.php';
+require_once __DIR__ . '/../controllers/newsletter-email.php';
 
 return [
     'debug' => true,

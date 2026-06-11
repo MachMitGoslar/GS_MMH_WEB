@@ -89,14 +89,15 @@
           Bleiben Sie auf dem Laufenden über unsere Projekte, Veranstaltungen und Neuigkeiten. 
           Unser Newsletter erscheint regelmäßig mit spannenden Einblicken in unsere Arbeit.
         </p>
-        <a href="mailto:machmit@goslar.de?subject=Newsletter abonnieren" 
-           class="gs-c-btn gs-c-btn--primary">
+        <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regular" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal">
           Jetzt abonnieren
-        </a>
+        </button>
       </div>
     </div>
     
   </section>
+
+  <?= snippet('content-types/newsletter/newsletterTeaser', ['showTeaser' => false]) ?>
 
 </main>
 
