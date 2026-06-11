@@ -310,6 +310,27 @@ return [
         },
         ],
         /**
+         * Ehrentag Goslar widget entry for Goslar App
+         */
+        [
+            'pattern' => 'ehrentag-goslar',
+            'method' => 'GET',
+            'auth' => false,
+            'action' => function () {
+                $page = page('ehrentag-goslar');
+                $timestamp = $page ? $page->modified()->toTimestamp() : time();
+
+                return [
+                    'title' => 'Ehrentag - der deutschlandweite Mitmachtag',
+                    'description' => 'Finde Aktionen rundum Goslar.  ',
+                    'image_url' => url('assets/pngs/ehrenamt-goslar.png'),
+                    'call_to_action_url' => $page?->url() ?? url('ehrentag-goslar'),
+                    'published_at' => date('Y-m-d\TH:i', $timestamp),
+                    'widget_type' => null,
+                ];
+            },
+        ],
+        /**
              * Latest Update for Goslar App Kachel
              */
         [
