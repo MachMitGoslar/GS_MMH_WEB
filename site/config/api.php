@@ -174,33 +174,7 @@ return [
             },
         ],
         /**
-         * Download Newsletter MJML
-         */
-        [
-            'pattern' => 'newsletter/(:any).mjml',
-            'method' => 'GET',
-            'auth' => false,
-            'action' => function ($slug) {
-
-                if (!$page = page('newsletter/' . $slug)) {
-                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
-                }
-
-                if ($page->intendedTemplate()->name() !== 'newsletter') {
-                    return new Kirby\Cms\Response('Not found', 'text/plain', 404);
-                }
-
-                $content = snippet('content-types/newsletter/mjml', ['page' => $page], true);
-                $filename = preg_replace('/[^a-z0-9-]+/i', '-', $page->slug()) ?: 'newsletter';
-
-                return new Kirby\Cms\Response($content, 'text/plain', 200, [
-                    'Content-Disposition' => 'attachment; filename="' . strtolower($filename) . '.mjml"',
-                    'X-Content-Type-Options' => 'nosniff',
-                ]);
-            },
-        ],
-        /**
-         * Download compiled Newsletter HTML from the Panel
+         * Download rendered mobile Newsletter HTML from the Panel
          */
         [
             'pattern' => 'newsletter-html/(:all).html',
@@ -214,7 +188,7 @@ return [
                     return new Kirby\Cms\Response('Not found', 'text/plain', 404);
                 }
 
-                $content = mmhNewsletterHtml($page);
+                $content = mmhNewsletterMobileHtml($page);
                 $filename = preg_replace('/[^a-z0-9-]+/i', '-', $page->slug()) ?: 'newsletter';
 
                 return new Kirby\Cms\Response($content, 'text/html', 200, [
@@ -224,7 +198,7 @@ return [
             },
         ],
         /**
-         * Download compiled Newsletter HTML
+         * Download rendered mobile Newsletter HTML
          */
         [
             'pattern' => 'newsletter/(:any).html',
@@ -240,7 +214,7 @@ return [
                     return new Kirby\Cms\Response('Not found', 'text/plain', 404);
                 }
 
-                $content = mmhNewsletterHtml($page);
+                $content = mmhNewsletterMobileHtml($page);
                 $filename = preg_replace('/[^a-z0-9-]+/i', '-', $page->slug()) ?: 'newsletter';
 
                 return new Kirby\Cms\Response($content, 'text/html', 200, [
