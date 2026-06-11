@@ -148,6 +148,8 @@
   </section>
   <section>
   </section>
+  <?php snippet('content-types/projects/formModals') ?>
+  <?= js('assets/js/project-form-modal.js?version=' . filemtime(kirby()->root('index') . '/assets/js/project-form-modal.js')) ?>
 <?php if ($teamMembers->isNotEmpty()) : ?>
 <script>
   document.addEventListener('DOMContentLoaded', () => {

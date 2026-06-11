@@ -57,13 +57,13 @@ $hasActions  = $entryLink || $entryMailto;
 <?php if ($hasMore) : ?>
 <dialog
   id="<?= $modalId ?>"
-  class="newsletter-entry-modal"
+  class="gs-c-modal newsletter-entry-modal"
   onclick="if(event.target===this)this.close()"
 >
-  <button class="newsletter-entry-modal__close" onclick="this.closest('dialog').close()" aria-label="Schließen">✕</button>
-  <div class="newsletter-entry-modal__body" onclick="event.stopPropagation()">
+  <button class="gs-c-modal__close" onclick="this.closest('dialog').close()" aria-label="Schließen">✕</button>
+  <div class="gs-c-modal__body" onclick="event.stopPropagation()">
     <?php if (isset($imageFile) && $imageFile) : ?>
-      <img class="newsletter-entry-modal__hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>">
+      <img class="gs-c-modal__hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>">
     <?php endif ?>
     <div class="statusheader mb-3">
       <div class="status-badge"<?= $badgeColor ? ' data-color="' . $badgeColor . '"' : '' ?>><?= $badge ?></div>

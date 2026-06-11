@@ -1,0 +1,70 @@
+/* Base modal component — works on native <dialog> elements.
+   Customize via CSS custom properties on the modifier class. */
+
+.gs-c-modal {
+  --modal-width: min(90vw, 40rem);
+  --modal-border-radius: 1rem;
+  --modal-close-bg: rgb(200 200 200 / 90%);
+  --modal-close-bg-hover: rgb(0 0 0 / 35%);
+  --modal-close-color: var(--color-dead-pixel-1300);
+
+  inset: 0;
+  margin: auto;
+  width: var(--modal-width);
+  max-height: min(90vh, 90dvh);
+  padding: 0;
+  border: none;
+  border-radius: var(--modal-border-radius);
+  box-shadow: 0 25px 50px rgb(0 0 0 / 40%);
+  overflow-y: auto;
+}
+
+.gs-c-modal::backdrop {
+  background: rgb(0 0 0 / 55%);
+  backdrop-filter: blur(4px);
+}
+
+.gs-c-modal__close {
+  position: sticky;
+  top: 0.75rem;
+  z-index: 1;
+  margin: 0.75rem 0.75rem 0 auto;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--modal-close-bg);
+  color: var(--modal-close-color);
+  border: none;
+  border-radius: 50%;
+  font-size: 0.875rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+
+.gs-c-modal__close:hover {
+  background: var(--modal-close-bg-hover);
+}
+
+.gs-c-modal__close:focus-visible,
+.gs-c-modal__close:focus {
+  outline: none;
+}
+
+.gs-c-modal__body {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.gs-c-modal__body:not(:has(.gs-c-modal__hero)) {
+  padding-top: 1.25rem;
+}
+
+.gs-c-modal__hero {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  margin-bottom: 1.25rem;
+}

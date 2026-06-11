@@ -33,7 +33,7 @@
                 </div>
               <?php endif ?>
               <h4 class="project-step-timeline-title"><?= $project_step->title()->html() ?></h4>
-              <div class="project-step-timeline-text"><?= $project_step->description()->html() ?></div>
+              <div class="project-step-timeline-text"><?= $project_step->description() ?></div>
             </div>
           </div>
         </div>
