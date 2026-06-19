@@ -36,9 +36,9 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
 <?php if ($showTeaser === true) : ?>
 <div class="c-newsletter-teaser grid-item" data-span="1/2">
   <div class="mb-5">
-    <h2 class="font-title2 color-fg-light mb-3"><?=$site->newsletterTeaserHeadline()?></h2>
-    <p class="font-subheadline color-fg-light mb-3"><?=$site->newsletterTeaserSubheadline()?></p>
-    <p class="font-body color-fg-light"><?=$site->newsletterTeaserText()?></p>
+    <h2 class="font-title2 color-fg-light mb-3"><?= $site->newsletterTeaserHeadline() ?></h2>
+    <p class="font-subheadline color-fg-light mb-3"><?= $site->newsletterTeaserSubheadline() ?></p>
+    <p class="font-body color-fg-light"><?= $site->newsletterTeaserText() ?></p>
   </div>
   <div>
     <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regualr" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal"><?=$site->newsletterTeaserButtonText()?></button>
