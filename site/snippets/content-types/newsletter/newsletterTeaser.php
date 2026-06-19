@@ -1,11 +1,10 @@
 <?php
 
 /**
- * @var Kirby\Cms\Site $site
- * @var Kirby\Cms\Page $page
+* @var Kirby\Cms\Site $site
+* @var Kirby\Cms\Page $page
 * @var bool|null $showTeaser
 */
-
 $showTeaser = $showTeaser ?? true;
 $modalPage = $site->find('newsletter-modal');
 $modalValue = static function (string $field, string $fallback) use ($modalPage, $site): string {
@@ -21,8 +20,6 @@ $firstNameLabel = $modalValue('newsletterModalFirstNameLabel', 'Vorname');
 $lastNameLabel = $modalValue('newsletterModalLastNameLabel', 'Nachname');
 $emailLabel = $modalValue('newsletterModalEmailLabel', 'E-Mail-Adresse');
 $submitButtonText = $modalValue('newsletterModalSubmitButtonText', 'Anmelden');
-$modalId = 'newsletter-subscribe-modal';
-$titleId  = $modalId . '-title';
 
 if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
     $privacyText = $modalPage->newsletterModalPrivacyText()->kirbytextinline()->value();
@@ -35,8 +32,8 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
     $privacyTextAfter = (string) $site->newsletterModalPrivacyTextAfter()->or('gelesen und akzeptiere diese.');
     $privacyText = esc($privacyTextBefore) . ' <a href="' . esc($privacyUrl, 'attr') . '" target="_blank" rel="noopener">' . esc($privacyLinkText) . '</a> ' . esc($privacyTextAfter);
 }
-
 ?>
+<?php if ($showTeaser === true) : ?>
 <div class="c-newsletter-teaser grid-item" data-span="1/2">
   <div class="mb-5">
     <h2 class="font-title2 color-fg-light mb-3"><?= $site->newsletterTeaserHeadline() ?></h2>
@@ -44,116 +41,120 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
     <p class="font-body color-fg-light"><?= $site->newsletterTeaserText() ?></p>
   </div>
   <div>
-    <button
-      class="gs-c-btn"
-      data-type="primary"
-      data-size="regular"
-      data-style="pill"
-      onclick="document.getElementById('<?= $modalId ?>').showModal()"
-    ><?= $site->newsletterTeaserButtonText() ?></button>
+    <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regualr" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal"><?=$site->newsletterTeaserButtonText()?></button>
   </div>
 </div>
+<?php endif ?>
 
-<?php snippet('shared/modal', [
-    'id'        => $modalId,
-    'modifier'  => 'newsletter-subscribe-modal',
-    'ariaLabel' => $titleId,
+<div class="newsletter-subscribe-modal" id="newsletter-subscribe-modal" aria-hidden="true">
+  <div class="newsletter-subscribe-backdrop" data-newsletter-subscribe-close></div>
+  <section class="newsletter-subscribe-dialog" role="dialog" aria-modal="true" aria-labelledby="newsletter-subscribe-title">
+    <button class="newsletter-subscribe-close" type="button" aria-label="Schließen" data-newsletter-subscribe-close>&times;</button>
+    <h2 class="font-title mb-2" id="newsletter-subscribe-title"><?= esc($modalHeadline) ?></h2>
+    <p class="font-body mb-3"><?= esc($modalText) ?></p>
 
-    'slotTitle' => function () use ($titleId, $modalHeadline, $modalText) {
-        ?>
-        <h2 class="font-headline font-line-height-narrow" id="<?= $titleId ?>"><?= esc($modalHeadline) ?></h2>
-        <p class="font-body mt-2"><?= esc($modalText) ?></p>
-        <?php
-    },
+    <form class="dreamform newsletter-subscribe-form" action="<?= url('api/newsletter/subscribe') ?>" method="post">
+      <div class="newsletter-subscribe-honeypot" aria-hidden="true">
+        <label for="newsletter-subscribe-website">Website</label>
+        <input id="newsletter-subscribe-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
 
-    'slotContent' => function () use ($modalId, $firstNameLabel, $lastNameLabel, $emailLabel, $privacyText) {
-        ?>
-        <form
-          class="newsletter-subscribe-form"
-          id="<?= $modalId ?>-form"
-          novalidate
-        >
-          <div class="newsletter-subscribe-form__fields">
-            <div class="dreamform-field">
-              <label class="dreamform-label" for="<?= $modalId ?>-first-name"><?= esc($firstNameLabel) ?> <span class="dreamform-required" aria-hidden="true">*</span></label>
-              <input class="dreamform-input" type="text" id="<?= $modalId ?>-first-name" name="first_name" required autocomplete="given-name">
-            </div>
-            <div class="dreamform-field">
-              <label class="dreamform-label" for="<?= $modalId ?>-last-name"><?= esc($lastNameLabel) ?> <span class="dreamform-required" aria-hidden="true">*</span></label>
-              <input class="dreamform-input" type="text" id="<?= $modalId ?>-last-name" name="last_name" required autocomplete="family-name">
-            </div>
-            <div class="dreamform-field">
-              <label class="dreamform-label" for="<?= $modalId ?>-email"><?= esc($emailLabel) ?> <span class="dreamform-required" aria-hidden="true">*</span></label>
-              <input class="dreamform-input" type="email" id="<?= $modalId ?>-email" name="email" required autocomplete="email">
-            </div>
-            <div class="dreamform-field">
-              <label class="dreamform-checkbox">
-                <input type="checkbox" name="consent" required>
-                <span><?= $privacyText ?></span>
-              </label>
-            </div>
-          </div>
-          <div class="newsletter-subscribe-form__feedback font-footnote mt-3" role="alert" aria-live="polite" hidden></div>
-        </form>
-        <?php
-    },
+      <div class="dreamform-field-group newsletter-subscribe-field-group">
+        <div class="dreamform-field">
+          <label class="dreamform-label" for="newsletter-subscribe-first-name"><?= esc($firstNameLabel) ?> <em>*</em></label>
+          <input class="dreamform-input" id="newsletter-subscribe-first-name" name="first_name" type="text" autocomplete="given-name" required>
+        </div>
+        <div class="dreamform-field">
+          <label class="dreamform-label" for="newsletter-subscribe-last-name"><?= esc($lastNameLabel) ?> <em>*</em></label>
+          <input class="dreamform-input" id="newsletter-subscribe-last-name" name="last_name" type="text" autocomplete="family-name" required>
+        </div>
+      </div>
 
-    'slotFooter' => function () use ($modalId, $submitButtonText) {
-        ?>
-        <button type="button" id="<?= $modalId ?>-cancel" class="gs-c-btn" data-type="secondary" data-size="small" onclick="this.closest('dialog').close()">Abbrechen</button>
-        <button type="submit" form="<?= $modalId ?>-form" class="gs-c-btn" data-type="primary" data-size="small" data-style="pill"><?= esc($submitButtonText) ?></button>
-        <?php
-    },
-]) ?>
+      <div class="dreamform-field-group newsletter-subscribe-field-group">
+        <div class="dreamform-field newsletter-subscribe-full">
+          <label class="dreamform-label" for="newsletter-subscribe-email"><?= esc($emailLabel) ?> <em>*</em></label>
+          <input class="dreamform-input" id="newsletter-subscribe-email" name="email" type="email" autocomplete="email" required>
+        </div>
+      </div>
+
+      <div class="dreamform-field newsletter-subscribe-consent-section">
+        <div class="dreamform-checkbox">
+          <input id="newsletter-subscribe-privacy" name="privacy_accepted" type="checkbox" value="1" required>
+          <label for="newsletter-subscribe-privacy"><?= $privacyText ?></label>
+        </div>
+      </div>
+
+      <p class="newsletter-subscribe-feedback" role="status" aria-live="polite"></p>
+
+      <div class="newsletter-subscribe-actions">
+        <button class="gs-c-btn" data-type="primary" data-size="regular" data-style="pill" type="submit"><?= esc($submitButtonText) ?></button>
+      </div>
+    </form>
+  </section>
+</div>
 
 <script>
-(function () {
-  const form = document.getElementById('<?= $modalId ?>-form');
-  if (!form) return;
+  (() => {
+    const modal = document.getElementById('newsletter-subscribe-modal');
+    if (!modal) return;
 
-  form.addEventListener('submit', async function (event) {
-    event.preventDefault();
+    const openButton = document.querySelector('.newsletter-subscribe-open');
+    const closeButtons = modal.querySelectorAll('[data-newsletter-subscribe-close]');
+    const form = modal.querySelector('.newsletter-subscribe-form');
+    const feedback = modal.querySelector('.newsletter-subscribe-feedback');
+    const firstInput = modal.querySelector('input[name="first_name"]');
 
-    const submitBtn = document.querySelector('[form="<?= $modalId ?>-form"][type="submit"]');
-    const cancelBtn = document.getElementById('<?= $modalId ?>-cancel');
-    const feedback  = form.querySelector('.newsletter-subscribe-form__feedback');
+    const openModal = () => {
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('newsletter-subscribe-is-open');
+      window.setTimeout(() => firstInput?.focus(), 20);
+    };
 
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
+    const closeModal = () => {
+      modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('newsletter-subscribe-is-open');
+      openButton?.focus();
+    };
 
-    submitBtn.disabled = true;
-    feedback.hidden = true;
-
-    try {
-      const data = new FormData(form);
-      const response = await fetch('/newsletter-anmelden.json', {
-        method: 'POST',
-        body: new URLSearchParams(data),
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      });
-
-      const result = await response.json();
-
-      feedback.textContent = result.message;
-      feedback.dataset.success = result.success ? 'true' : 'false';
-      feedback.hidden = false;
-
-      if (result.success) {
-        form.reset();
-        submitBtn.disabled = true;
-        cancelBtn.innerHTML = "Fertig";
-      } else {
-        submitBtn.disabled = false;
-        cancelBtn.innerHTML = 'Schließen';
+    openButton?.addEventListener('click', openModal);
+    closeButtons.forEach(button => button.addEventListener('click', closeModal));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+        closeModal();
       }
-    } catch {
-      feedback.textContent = 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.';
-      feedback.dataset.success = 'false';
-      feedback.hidden = false;
-      submitBtn.disabled = false;
-    }
-  });
-}());
+    });
+
+    form?.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      feedback.textContent = '';
+      feedback.dataset.type = '';
+      submitButton.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            Accept: 'application/json',
+          },
+        });
+        const result = await response.json();
+
+        feedback.textContent = result.message || 'Danke für deine Anmeldung.';
+        feedback.dataset.type = result.success ? 'success' : 'error';
+
+        if (result.success) {
+          form.reset();
+          window.setTimeout(closeModal, 1400);
+        }
+      } catch (error) {
+        feedback.textContent = 'Die Anmeldung konnte nicht gesendet werden. Bitte versuche es später erneut.';
+        feedback.dataset.type = 'error';
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  })();
 </script>
