@@ -7,7 +7,9 @@
 }
 
 .project-form-modal .gs-c-modal__body {
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding-inline: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  /* padding-top is inherited from gs-c-modal:not(.gs-c-modal--has-hero): 3.5rem */
 }
 
 .project-form-modal__title {

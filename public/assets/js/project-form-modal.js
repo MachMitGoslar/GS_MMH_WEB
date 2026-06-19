@@ -2,16 +2,6 @@
   const modalIdFromFormId = formId => `form-modal-${String(formId || '').replace(/[^a-zA-Z0-9_-]+/g, '-')}`;
   let previousFocus = null;
 
-  const closeModal = dialog => {
-    if (!dialog) return;
-    dialog.close();
-    document.documentElement.classList.remove('has-project-form-modal');
-    if (previousFocus && typeof previousFocus.focus === 'function') {
-      previousFocus.focus();
-    }
-    previousFocus = null;
-  };
-
   const openModal = dialog => {
     previousFocus = document.activeElement;
     dialog.showModal();
@@ -20,6 +10,18 @@
     const focusTarget = dialog.querySelector('input, select, textarea, button, a');
     if (focusTarget) focusTarget.focus();
   };
+
+  // Use native close event for cleanup — fires regardless of how the dialog closes
+  // (button onclick, ESC key, backdrop click, or dialog.close() call)
+  document.querySelectorAll('.project-form-modal').forEach(dialog => {
+    dialog.addEventListener('close', () => {
+      document.documentElement.classList.remove('has-project-form-modal');
+      if (previousFocus && typeof previousFocus.focus === 'function') {
+        previousFocus.focus();
+      }
+      previousFocus = null;
+    });
+  });
 
   document.addEventListener('click', event => {
     const trigger = event.target.closest('[data-form-modal-trigger]');
@@ -31,30 +33,6 @@
       if (!dialog) return;
       event.preventDefault();
       openModal(dialog);
-      return;
-    }
-
-    if (event.target.closest('[data-form-modal-close]')) {
-      event.preventDefault();
-      const dialog = event.target.closest('dialog');
-      closeModal(dialog);
-      return;
-    }
-
-    // backdrop click (click lands directly on <dialog>)
-    const dialog = event.target.closest('[data-form-modal-root] dialog');
-    if (dialog && event.target === dialog) {
-      closeModal(dialog);
-    }
-  });
-
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
-      const dialog = document.querySelector('.project-form-modal[open]');
-      if (dialog) {
-        event.preventDefault();
-        closeModal(dialog);
-      }
     }
   });
 })();
