@@ -13,11 +13,11 @@
 @import url('./components/teamMemberCard.css');
 @import url('./components/eventsList.css');
 @import url('./components/newsletter.css');
-@import url('./components/newsletterTeaserCard.css');
 @import url('./components/newsletter-item.css');
 @import url('./components/blog.css');
 @import url('./components/notes.css');
 @import url('./components/projectTeamStrip.css');
+@import url('./components/projectFormModal.css');
 @import url('./components/rooms.css');
 
 #project-description .project-layout-grid {

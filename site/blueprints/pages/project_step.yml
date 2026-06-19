@@ -55,9 +55,57 @@ columns:
         placeholder: "{{ page.title }}"
         help: Leave empty to use the title as headline
         type: writer
+        marks:
+          - bold
+          - italic
+          - underline
+          - strike
+          - link
+          - email
+          - button
+          - badge
+          - highlight
+          - footnote
+        toolbar:
+          inline: true
+          marks:
+            - bold
+            - italic
+            - underline
+            - strike
+            - link
+            - email
+            - button
+            - badge
+            - highlight
+            - footnote
       description:
         label: Beschreibung
-        type: textarea
+        type: writer
+        marks:
+          - bold
+          - italic
+          - underline
+          - strike
+          - link
+          - email
+          - button
+          - badge
+          - highlight
+          - footnote
+        toolbar:
+          inline: true
+          marks:
+            - bold
+            - italic
+            - underline
+            - strike
+            - link
+            - email
+            - button
+            - badge
+            - highlight
+            - footnote
       tags:
         type: tags
         label: Tags

@@ -679,6 +679,15 @@
   border-top: 1px solid var(--color-dead-pixel-400);
 }
 
+/* Newsletter signup teaser (used in footer/sidebar) */
+.c-newsletter-teaser {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--color-dead-pixel-1300);
+  padding: 2rem;
+}
+
 /* Map */
 #map {
   height: 200px;

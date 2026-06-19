@@ -11,22 +11,6 @@ use Kirby\Cms\Page;
 
 return [
     /**
-     * Auto-update parent project status when project_step is updated
-     *
-     * When a project step sets a new status, automatically update
-     * the parent project's status to match.
-     */
-    'page.update:after' => function (Page $newPage, Page $oldPage) {
-        if ($oldPage->intendedTemplate()->name() == 'project_step') {
-            if ($newPage->project_status_to()->isNotEmpty() && ($newPage->project_status_to() != $newPage->parent()->project_status())) {
-                $newPage->parent()->update([
-                    'project_status' => $newPage->project_status_to(),
-                ]);
-            }
-        }
-    },
-
-    /**
      * Auto-set publish date when content is first published
      *
      * Automatically sets the publish date for newsletters and notes

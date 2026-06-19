@@ -6,11 +6,52 @@
  * Define custom routes for the MachMit!Haus website
  */
 
+use GsMmh\WebPlugin\NewsletterRecipients;
 use Kirby\Cms\Response;
 use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
 
+require_once __DIR__ . '/../controllers/events-api.php';
+
 return [
+    [
+        'pattern' => 'events.json',
+        'method' => 'GET',
+        'action' => function () {
+            $payload = json_encode(
+                mmhEventsApiPayload(),
+                JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
+            );
+
+            return new Response(
+                $payload,
+                'application/json',
+            );
+        },
+    ],
+    [
+        'pattern' => 'ehrentag-goslar',
+        'action' => function () {
+            return new Response(<<<HTML
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ehrenamt Goslar</title>
+</head>
+<body>
+    <div data-engagement-plattform data-engagement-plattform-integration-key="vzPpwKUyog"></div>
+	<script
+	    type="text/javascript"
+	    src="https://freiwilligendatenbank.aktion-mensch.de/app/engagementplattform-loader-angebotswidget.js"
+	></script>
+</body>
+</html>
+HTML, 'text/html');
+        },
+    ],
+
     /**
      * Newsletter RSS Feed
      * Provides an RSS feed of published newsletters
@@ -100,7 +141,8 @@ return [
     [
         'pattern' => '/app/ferienpass.json',
         'action' => function () {
-            $content = snippet('content-types/ferienpass/event_random', [], true);
+            $query = get('data') ?: 74; // default to program 74 if no query provided
+            $content = snippet('content-types/ferienpass/event_random', ['query' => $query], true);
 
             return new Response($content, 'application/json');
         },
@@ -113,9 +155,39 @@ return [
     [
         'pattern' => '/app/ferienpass_index.json',
         'action' => function () {
-            $content = snippet('content-types/ferienpass/events', [], true);
+            $query = get('data') ?: 74; // default to program 74 if no query provided
+            $content = snippet('content-types/ferienpass/events', ['query' => $query], true);
 
             return new Response($content, 'application/json');
+        },
+    ],
+
+    /**
+     * Newsletter Subscription
+     * Adds a new subscriber to the newsletter_recipients table
+     */
+    [
+        'pattern' => 'newsletter-anmelden.json',
+        'method' => 'POST',
+        'action' => function () {
+            try {
+                NewsletterRecipients::create([
+                    'first_name' => kirby()->request()->get('first_name'),
+                    'last_name'  => kirby()->request()->get('last_name'),
+                    'email'      => kirby()->request()->get('email'),
+                ]);
+
+                return new Response(
+                    json_encode(['success' => true, 'message' => 'Danke! Du wirst ab sofort über unsere Neuigkeiten informiert.'], JSON_UNESCAPED_UNICODE),
+                    'application/json',
+                );
+            } catch (\Throwable $e) {
+                return new Response(
+                    json_encode(['success' => false, 'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE),
+                    'application/json',
+                    400,
+                );
+            }
         },
     ],
 

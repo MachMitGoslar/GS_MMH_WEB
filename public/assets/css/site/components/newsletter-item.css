@@ -1,7 +1,7 @@
 /* Newsletter Teaser Card Component Styles */
 
 .c-newsletterTeaserCard {
-  grid-column: span 4;
+  grid-column: auto;
   display: flex;
   padding-bottom: 2rem;
   flex-direction: column;
@@ -25,6 +25,10 @@
 .c-newsletterTeaserCard .content {
   padding: 0 1rem;
   width: 100%;
+}
+
+.c-newsletterTeaserCard:not(:has(.hero)) .content {
+  padding-top: 1.25rem;
 }
 
 /* Status Header */
@@ -110,38 +114,6 @@
   margin-top: auto;
 }
 
-/* Grid layouts */
-.newsletter-grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.newsletter-grid--2cols {
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-  .newsletter-grid--2cols {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.newsletter-grid--3cols {
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-  .newsletter-grid--3cols {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .newsletter-grid--3cols {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 /* Featured newsletter item */
 .c-newsletterTeaserCard.newsletter-item--featured {
   border-color: var(--color-cornflower-300);
@@ -151,6 +123,63 @@
 .c-newsletterTeaserCard.newsletter-item--featured .newsletter-badge {
   background: var(--color-cornflower-600);
   box-shadow: 0 2px 4px rgb(59 130 246 / 20%);
+}
+
+/* Subscription modal */
+.newsletter-subscribe-modal {
+  --modal-width: min(90vw, 36rem);
+  --modal-border-radius: 1rem;
+}
+
+.newsletter-subscribe-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.newsletter-subscribe-form__feedback {
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.newsletter-subscribe-form__feedback[data-success="true"] {
+  background: rgb(16 185 129 / 12%);
+  color: #065f46;
+}
+
+.newsletter-subscribe-form__feedback[data-success="false"] {
+  background: rgb(239 68 68 / 10%);
+  color: #991b1b;
+}
+
+/* Entry modal — base styles via gs-c-modal, only overrides here */
+.newsletter-entry-modal {
+  --modal-width: min(90vw, 680px);
+  --modal-border-radius: 0.75rem;
+}
+
+.newsletter-entry-modal__text {
+  line-height: 1.7;
+  color: var(--color-dead-pixel-1300);
+
+  & p {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.newsletter-entry-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Footer meta (links/email) sits on the left; close button on the right via gs-c-modal__footer */
+.newsletter-entry-modal__footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Mobile responsive adjustments */

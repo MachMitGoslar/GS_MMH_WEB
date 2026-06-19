@@ -11,7 +11,7 @@
   </div>
   <div class="content">
     <div class="statusheader">
-    <?= snippet('content-types/projects/statusBadge', ['status' => $project->project_status()]) ?>
+    <?= snippet('content-types/projects/statusBadge', ['status' => $project->effectiveProjectStatus()]) ?>
     <time><?=date('d.m.Y')?></time>
     </div>
 

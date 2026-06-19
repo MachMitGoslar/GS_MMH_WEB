@@ -7,6 +7,7 @@
 
 // Load site helper functions
 require_once __DIR__ . '/../helpers.php';
+require_once __DIR__ . '/../controllers/newsletter-email.php';
 
 return [
     'debug' => true,
@@ -17,6 +18,8 @@ return [
     ],
 
     'date.timezone' => 'Europe/Berlin',
+
+    'cache.oveda' => true,
 
     // Google Calendar Integration (optional)
     // To enable: Create a Google Cloud Service Account, download the JSON key,

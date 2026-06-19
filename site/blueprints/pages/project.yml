@@ -8,6 +8,7 @@ icon: image
 # More about page status: https://getkirby.com/docs/reference/panel/blueprints/page#statuses
 status:
   draft: true
+  unlisted: true
   listed: true
 
 # Define the form layout with two columns
@@ -26,7 +27,9 @@ columns:
     fields:
       # If you need the same field in multiple locations, you can define them once and reuse whereever needed.
       # Here we use a files field defined in `/site/blueprints/field/cover.yml`
-      cover: fields/cover
+      cover:
+        extends: fields/cover
+        required: true
       headline:
         type: text
         label: Titel
@@ -38,6 +41,7 @@ columns:
       project_status:
         type: select
         label: Projektzustand
+        help: Kann manuell gesetzt werden. Wird automatisch auf den neuesten veröffentlichten Projektschritt aktualisiert.
         options:
           - in Planung
           - in Vorbereitung
@@ -68,8 +72,6 @@ columns:
           - cta
           - form
 
-      form: dreamform/fields/form
-
       team:
         type: pages
         label: Team
@@ -95,4 +97,3 @@ columns:
          - project_step
        empty: Noch keine Projektschritte angelegt
        sortBy: project_start_date asc
-
