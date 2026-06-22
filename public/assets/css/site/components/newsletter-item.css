@@ -3,6 +3,7 @@
 .c-newsletterTeaserCard {
   grid-column: auto;
   display: flex;
+  min-width: 0;
   padding-bottom: 2rem;
   flex-direction: column;
   align-items: flex-start;
@@ -23,6 +24,7 @@
 }
 
 .c-newsletterTeaserCard .content {
+  min-width: 0;
   padding: 0 1rem;
   width: 100%;
 }
@@ -101,6 +103,12 @@
 .c-newsletterTeaserCard h3 {
   transition: color 0.2s ease;
   color: var(--color-gray-900);
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .c-newsletterTeaserCard p {
@@ -143,12 +151,12 @@
   font-weight: var(--font-weight-medium);
 }
 
-.newsletter-subscribe-form__feedback[data-success="true"] {
+.newsletter-subscribe-form__feedback[data-success='true'] {
   background: rgb(16 185 129 / 12%);
   color: #065f46;
 }
 
-.newsletter-subscribe-form__feedback[data-success="false"] {
+.newsletter-subscribe-form__feedback[data-success='false'] {
   background: rgb(239 68 68 / 10%);
   color: #991b1b;
 }
