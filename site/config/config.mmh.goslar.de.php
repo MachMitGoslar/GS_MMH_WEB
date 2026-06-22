@@ -8,21 +8,60 @@
  * All config options: https://getkirby.com/docs/reference/system/options
  */
 
+require_once __DIR__ . '/../plugins/kirby3-dotenv/global.php';
+loadenv();
+
 return [
-    'debug' => true,
+    'debug' => false,
     'panel' => [
         'install' => false,
+        'vue' => [
+            'compiler' => false,
+        ],
     ],
     'cache.oveda' => true,
     'db' => [
-        'host' => getenv('MMH_DB_Host') ?: 'localhost',
-        'database' => getenv('MMH_DB_Database') ?: 'admin_mmh',
-        'user' => getenv('MMH_DB_User') ?: 'admin_mmh',
-        'password' => getenv('MMH_DB_Password') ?: '147bwl4_Q',
+        'host' => env('MMH_DB_Host'),
+        'database' => env('MMH_DB_Database'),
+        'user' => env('MMH_DB_User'),
+        'password' => env('MMH_DB_Password'),
     ],
     'thumbs' => [
         'driver' => 'im',
         'bin' => '/usr/bin/convert',
     ],
+    'content' => [
+        'salt' => env('CONTENT_SALT'),
+    ],
+    'tobimori.dreamform' => [
+        'storeSubmissions' => true,
+        'log' => true,
+        'email' => [
+            'from' => env('EMAIL_FROM'),
+            'name' => env('EMAIL_NAME'),
+        ],
+        'guards' => [
+            // activated guards
+            'available' => [
+                'honeypot',
+                'ratelimit',
+            ],
+
+            // Honeypot settings
+            'honeypot.availableFields' => [
+                'website',
+                'email',
+                'name',
+                'url',
+                'birthdate',
+            ],
+
+            // RateLimit settings
+            'ratelimit' => [
+                'limit' => 10,   // maximum of 10 requests
+                'interval' => 3,  // in 3 minutes
+            ],
+        ],
+    ]
 
 ];
