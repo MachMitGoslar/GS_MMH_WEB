@@ -38,7 +38,7 @@
       <div class="grid-item" data-span="1/1">
         <h2 class="font-titleL mb-6">Alle Newsletter-Ausgaben</h2>
         
-        <ul class="grid content">
+        <div class="newsletter-overview-grid">
           <?php
             $newsletters = $page->children()->listed();
         // Sort by publish_date, then fallback to published date, modified date, or folder number
@@ -69,7 +69,7 @@
             'class' => $index === 0 ? 'newsletter-item--featured' : '',
               ]) ?>
           <?php endforeach ?>
-        </ul>
+        </div>
       </div>
     <?php else : ?>
       <div class="grid-item" data-span="1/1">
