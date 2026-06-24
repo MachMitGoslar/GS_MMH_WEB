@@ -610,8 +610,12 @@ function mmhNewsletterInlineCriticalEmailStyles(string $html): string
         'events-list' => 'display:block;width:100%;list-style:none;margin:0;padding:0;',
         'eventsListItem' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-left:4px solid #d69a00;border-radius:12px;padding:18px;margin:0 0 16px;box-sizing:border-box;box-shadow:0 2px 8px rgba(0,0,0,.06);',
         'newsletter-grid' => 'display:block;width:100%;list-style:none;margin:0;padding:0;',
+        'c-newsletterTeaserCard' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-radius:12px;overflow:hidden;margin:0 0 28px;padding:0 0 24px;box-sizing:border-box;',
         'c-projectUpdateTeaser-card' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-radius:12px;overflow:hidden;margin:0 0 20px;box-sizing:border-box;box-shadow:0 2px 8px rgba(0,0,0,.08);',
+        'newsletter-entry-card__hero' => 'display:block;width:100%;overflow:hidden;background:#f3f4f6;',
+        'newsletter-entry-card__hero--contain' => 'display:block;width:100%;height:257px;text-align:center;background:#f3f4f6;',
         'hero' => 'display:block;width:100%;height:auto;max-width:100%;',
+        'hero--contain' => 'display:block;width:auto;max-width:42%;height:257px;max-height:257px;margin:0 auto;object-fit:contain;object-position:center;background:transparent;',
         'statusheader' => 'display:block;margin:0 0 10px;',
         'status-badge' => 'display:inline-block;background:#fbc62e;color:#1f1f1f;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700;line-height:1.2;',
         'timeline-container' => 'display:block;width:100%;border-left:2px solid #fbc62e;margin:0 0 0 18px;padding:0 0 0 28px;box-sizing:border-box;position:relative;',
@@ -646,6 +650,11 @@ function mmhNewsletterInlineCriticalEmailStyles(string $html): string
         $html = mmhNewsletterAppendInlineStyleToTag($html, $tag, $style);
     }
 
+    $html = mmhNewsletterAppendInlineStyleToClass(
+        $html,
+        'hero--contain',
+        'width:auto !important;max-width:42% !important;height:257px !important;max-height:257px !important;margin:0 auto !important;object-fit:contain !important;object-position:center !important;background:transparent;',
+    );
     $html = mmhNewsletterAppendInlineStyleToClass(
         $html,
         'newsletter-title',

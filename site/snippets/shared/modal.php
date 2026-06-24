@@ -7,6 +7,7 @@
  * @var string|null                     $modifier     extra CSS class (e.g. 'newsletter-entry-modal')
  * @var \Kirby\Cms\File|string|null     $hero         hero image — File object or URL string
  * @var string|null                     $heroAlt      alt text for hero image
+ * @var string|null                     $heroFocus    CSS object-position value
  * @var string|null                     $ariaLabel    aria-labelledby value (ID of a title element inside a slot)
  * @var callable|null                   $slotTitle    title section slot
  * @var callable|null                   $slotContent  main body content slot
@@ -15,6 +16,7 @@
 
 $modifier   = $modifier  ?? '';
 $heroAlt    = $heroAlt   ?? '';
+$heroFocus = $heroFocus ?? null;
 $ariaLabel  = $ariaLabel ?? null;
 $slotTitle  = $slotTitle  ?? null;
 $slotContent = $slotContent ?? null;
@@ -23,6 +25,7 @@ $slotFooter = $slotFooter ?? null;
 $heroUrl = null;
 if (!empty($hero)) {
     $heroUrl = is_string($hero) ? $hero : $hero->url();
+    $heroFocus = $heroFocus ?: (is_string($hero) ? null : $hero->focus()->value());
 }
 
 $classes = trim('gs-c-modal ' . $modifier . ($heroUrl ? ' gs-c-modal--has-hero' : ''));
@@ -39,7 +42,12 @@ $classes = trim('gs-c-modal ' . $modifier . ($heroUrl ? ' gs-c-modal--has-hero' 
   </div>
 
   <?php if ($heroUrl): ?>
-    <img class="gs-c-modal__hero" src="<?= esc($heroUrl, 'attr') ?>" alt="<?= esc($heroAlt, 'attr') ?>">
+    <img
+      class="gs-c-modal__hero"
+      src="<?= esc($heroUrl, 'attr') ?>"
+      alt="<?= esc($heroAlt, 'attr') ?>"
+      <?= $heroFocus ? 'style="object-position:' . esc($heroFocus, 'attr') . '"' : '' ?>
+    >
   <?php endif ?>
 
   <div class="gs-c-modal__body" onclick="event.stopPropagation()">

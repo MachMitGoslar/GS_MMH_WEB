@@ -82,7 +82,9 @@ if ($timeLabel === '') {
 
         <div class="eventsListItem__meta">
           <div>
-            <p class="eventsListItem__meta-line"><?= esc($timeLabel) ?><?php if ($location !== '') : ?> · <?= esc(Str::short($location, 34, '…')) ?><?php endif ?></p>
+            <p class="eventsListItem__meta-line"><?= esc($timeLabel) ?><?php if ($location !== '') :
+                ?> · <?= esc(Str::short($location, 34, '…')) ?><?php
+            endif ?></p>
             <h3 class="font-subheadline"><?= esc(Str::short($title, 68, '…')) ?></h3>
             <?php if ($description !== '') : ?>
               <p class="eventsListItem__description"><?= esc(Str::short($description, 110, '…')) ?></p>
@@ -96,8 +98,8 @@ if ($timeLabel === '') {
       </div>
     </a>
   <?php else : ?>
-    <?php
-      $date = strtotime((string) ($eventData['start'] ?? $start->format(DATE_ATOM)));
+      <?php
+        $date = strtotime((string) ($eventData['start'] ?? $start->format(DATE_ATOM)));
       $displayTitle = $variant === 'event-list' ? $title : Str::short($title, 50, '…');
       ?>
     <a href="<?= esc($url) ?>" target="_blank" rel="noopener noreferrer">

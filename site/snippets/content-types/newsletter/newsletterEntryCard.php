@@ -20,12 +20,20 @@ $entryMailto = $entry->mailto()->isNotEmpty() ? $entry->mailto()->value() : null
 $hasActions  = $entryLink || $entryMailto;
 
 $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
+$isSvg = $imageFile ? $imageFile->extension() === 'svg' : false;
+$imageHero = $imageFile && !$isSvg ? $imageFile->crop(1200, 514) : $imageFile;
+$imageFocus = $imageFile ? ($imageFile->focus()->value() ?: null) : null;
 
 ?>
 <li class="c-newsletterTeaserCard">
   <?php if ($imageFile) : ?>
-    <div>
-      <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>">
+    <div class="newsletter-entry-card__hero<?= $isSvg ? ' newsletter-entry-card__hero--contain' : '' ?>">
+      <img
+        class="hero<?= $isSvg ? ' hero--contain' : '' ?>"
+        src="<?= $imageHero->url() ?>"
+        alt="<?= esc($entry->headline()->value(), 'attr') ?>"
+        <?= $imageFocus ? 'style="object-position:' . esc($imageFocus, 'attr') . '"' : '' ?>
+      >
     </div>
   <?php endif ?>
   <div class="content">

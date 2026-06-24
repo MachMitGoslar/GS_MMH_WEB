@@ -173,8 +173,8 @@ HTML, 'text/html');
             try {
                 NewsletterRecipients::create([
                     'first_name' => kirby()->request()->get('first_name'),
-                    'last_name'  => kirby()->request()->get('last_name'),
-                    'email'      => kirby()->request()->get('email'),
+                    'last_name' => kirby()->request()->get('last_name'),
+                    'email' => kirby()->request()->get('email'),
                 ]);
 
                 return new Response(

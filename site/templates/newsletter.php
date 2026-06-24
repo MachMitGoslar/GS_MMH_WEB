@@ -239,11 +239,11 @@
           <h2 class="font-title mb-4">Rückblicke</h2>
           <ul class="grid newsletter-grid mb-4">
             <?php foreach ($page->review_entries()->toStructure() as $entry) : ?>
-              <?php snippet('content-types/newsletter/newsletterEntryCard', [
-                  'entry' => $entry,
-                  'badge' => '📖 Rückblick',
-                  'footerText' => $entry->date()->isNotEmpty() ? $entry->date()->toDate('d.m.Y') : null,
-              ]) ?>
+                <?php snippet('content-types/newsletter/newsletterEntryCard', [
+      'entry' => $entry,
+      'badge' => '📖 Rückblick',
+      'footerText' => $entry->date()->isNotEmpty() ? $entry->date()->toDate('d.m.Y') : null,
+  ]) ?>
             <?php endforeach ?>
           </ul>
         </div>
@@ -257,12 +257,12 @@
           <h2 class="font-title mb-4">Aktuelle Projekte</h2>
           <ul class="grid newsletter-grid mb-4">
             <?php foreach ($page->actual_entries()->toStructure() as $entry) : ?>
-              <?php snippet('content-types/newsletter/newsletterEntryCard', [
-                  'entry' => $entry,
-                  'badge' => '🚀 Aktuell',
-                  'badgeColor' => 'active',
-                  'footerText' => $entry->location()->isNotEmpty() ? '📍 ' . $entry->location() : null,
-              ]) ?>
+                <?php snippet('content-types/newsletter/newsletterEntryCard', [
+      'entry' => $entry,
+      'badge' => '🚀 Aktuell',
+      'badgeColor' => 'active',
+      'footerText' => $entry->location()->isNotEmpty() ? '📍 ' . $entry->location() : null,
+  ]) ?>
             <?php endforeach ?>
           </ul>
         </div>
@@ -277,12 +277,12 @@
           <h2 class="font-title mb-4">Vorschau</h2>
           <ul class="grid newsletter-grid mb-4">
             <?php foreach ($page->upcomming_entries()->toStructure() as $entry) : ?>
-              <?php snippet('content-types/newsletter/newsletterEntryCard', [
-                  'entry' => $entry,
-                  'badge' => '🔮 Vorschau',
-                  'badgeColor' => 'planning',
-                  'footerText' => $entry->date()->isNotEmpty() ? '📅 ' . $entry->date()->toDate('d.m.Y') : null,
-              ]) ?>
+                <?php snippet('content-types/newsletter/newsletterEntryCard', [
+      'entry' => $entry,
+      'badge' => '🔮 Vorschau',
+      'badgeColor' => 'planning',
+      'footerText' => $entry->date()->isNotEmpty() ? '📅 ' . $entry->date()->toDate('d.m.Y') : null,
+  ]) ?>
             <?php endforeach ?>
           </ul>
         </div>
@@ -296,10 +296,10 @@
           <h2 class="font-title mb-4">Nachrichten aus dem MachMit!Haus</h2>
           <ul class="grid newsletter-grid mb-4">
             <?php foreach ($page->news()->toStructure() as $entry) : ?>
-              <?php snippet('content-types/newsletter/newsletterEntryCard', [
-                  'entry' => $entry,
-                  'badge' => '📰 Nachrichten',
-              ]) ?>
+                <?php snippet('content-types/newsletter/newsletterEntryCard', [
+      'entry' => $entry,
+      'badge' => '📰 Nachrichten',
+  ]) ?>
             <?php endforeach ?>
           </ul>
         </div>
