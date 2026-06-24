@@ -13,7 +13,7 @@
   <section class="notes-hero">
     <?php if ($cover = $page->cover()) : ?>
       <div class="notes-hero-image">
-        <img src="<?= $cover->crop(1920, 600)->url() ?>"
+        <img src="<?= $cover->crop(1920, 600, 'focus')->url() ?>"
              alt="<?= $page->title()->html() ?>"
              loading="eager">
         <div class="notes-hero-overlay"></div>

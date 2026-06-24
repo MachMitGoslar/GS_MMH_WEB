@@ -15,7 +15,7 @@ if (!function_exists('mmhApiJpegImageUrl')) {
             return $file->thumb([
                 'width' => 1200,
                 'height' => 630,
-                'crop' => true,
+                'crop' => 'focus',
                 'format' => 'jpg',
                 'quality' => 88,
             ])->url();

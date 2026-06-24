@@ -30,7 +30,7 @@ if ($heroImage && !$heroImage->exists()) {
 <article class="c-newsletterTeaserCard <?= $class ?>">
   <div>
     <?php if ($heroImage && $heroImage->isNotEmpty()) : ?>
-        <?php $url = $heroImage->crop(800, 400)->url(); ?>
+        <?php $url = $heroImage->crop(800, 400, 'focus')->url(); ?>
       <img class="hero" src="<?= $url ?>" alt="<?= $newsletter->title()->html() ?>" loading="lazy">
     <?php else : ?>
       <img class="hero" src="https://picsum.photos/800/400?random=newsletter" alt="<?= $newsletter->title()->html() ?>" loading="lazy">

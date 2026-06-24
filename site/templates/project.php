@@ -86,7 +86,7 @@
               <a href="<?= $member->url() ?>" class="project-team-member" title="<?= $member->title()->html() ?>">
                 <span class="project-team-avatar">
                   <?php if ($memberImage = $member->cover()) : ?>
-                    <img src="<?= $memberImage->crop(160, 160)->url() ?>" alt="<?= $member->title()->html() ?>">
+                    <img src="<?= $memberImage->crop(160, 160, 'focus')->url() ?>" alt="<?= $member->title()->html() ?>">
                   <?php else : ?>
                     <span class="project-team-placeholder">
                       <?= strtoupper(substr($member->title()->value(), 0, 1)) ?>

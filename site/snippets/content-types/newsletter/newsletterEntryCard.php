@@ -23,7 +23,7 @@ $hasActions  = $entryLink || $entryMailto;
 <li class="c-newsletterTeaserCard">
   <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()) : ?>
     <div>
-      <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>">
+      <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>" style="object-position: <?= $imageFile->focus()->isNotEmpty() ? $imageFile->focus() : '50% 50%' ?>"  >
     </div>
   <?php endif ?>
   <div class="content">

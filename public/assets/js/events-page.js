@@ -121,7 +121,8 @@
     url.searchParams.delete('calendar');
     url.searchParams.delete('calendar_month');
 
-    if (category && category !== 'all') url.searchParams.set('category', category);
+    if (category && category !== 'all')
+      url.searchParams.set('category', category);
     else url.searchParams.delete('category');
 
     if (selectedDay) url.searchParams.set('day', selectedDay);
@@ -136,7 +137,8 @@
 
   const buildApiUrl = page => {
     const url = new URL(apiUrl, window.location.origin);
-    const keyword = new URL(window.location.href).searchParams.get('keyword') || '';
+    const keyword =
+      new URL(window.location.href).searchParams.get('keyword') || '';
 
     url.searchParams.set('page', String(page));
     url.searchParams.set('per_page', String(pageSize));
@@ -201,7 +203,9 @@
       })
       .join('');
 
-    filterPills = Array.from(eventsPage.querySelectorAll('[data-category-slug]'));
+    filterPills = Array.from(
+      eventsPage.querySelectorAll('[data-category-slug]')
+    );
   };
 
   const syncChipStates = () => {
@@ -250,14 +254,18 @@
       resultsList.hidden = true;
       const emptyState = ensureEmptyState();
       const emptyTitle = emptyState.querySelector('[data-events-empty-title]');
-      const emptyMessage = emptyState.querySelector('[data-events-empty-message]');
+      const emptyMessage = emptyState.querySelector(
+        '[data-events-empty-message]'
+      );
 
       if (eventsError) {
-        if (emptyTitle) emptyTitle.textContent = 'Termine konnten nicht geladen werden';
+        if (emptyTitle)
+          emptyTitle.textContent = 'Termine konnten nicht geladen werden';
         if (emptyMessage)
           emptyMessage.textContent = `Die Oveda-Schnittstelle meldet gerade: ${eventsError}.`;
       } else {
-        if (emptyTitle) emptyTitle.textContent = 'Keine passenden Termine gefunden';
+        if (emptyTitle)
+          emptyTitle.textContent = 'Keine passenden Termine gefunden';
         if (emptyMessage)
           emptyMessage.textContent =
             'Passe Suchbegriff, Datum oder Kategorie an, um wieder mehr Veranstaltungen zu sehen.';
@@ -268,7 +276,8 @@
 
     if (pagination) {
       const shouldShowPagination =
-        selectedDay === '' && (paginationState.hasPrev || paginationState.hasNext);
+        selectedDay === '' &&
+        (paginationState.hasPrev || paginationState.hasNext);
       pagination.hidden = !shouldShowPagination;
       pagination.style.display = shouldShowPagination ? '' : 'none';
 
@@ -309,7 +318,10 @@
         ? data.pagination.total
         : null,
     };
-    currentPage = Math.max(1, Number.parseInt(data.pagination?.page || page, 10));
+    currentPage = Math.max(
+      1,
+      Number.parseInt(data.pagination?.page || page, 10)
+    );
     renderResults();
     updateHistory();
   };

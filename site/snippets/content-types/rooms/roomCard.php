@@ -12,7 +12,7 @@
     <!-- Image -->
     <div class="room-card-image-wrapper">
       <?php if ($cover = $room->cover()) : ?>
-        <img src="<?= $cover->crop(600, 400)->url() ?>"
+        <img src="<?= $cover->crop(600, 400, 'focus')->url() ?>"
              alt="<?= $room->title()->html() ?>"
              class="room-card-image"
              loading="lazy">

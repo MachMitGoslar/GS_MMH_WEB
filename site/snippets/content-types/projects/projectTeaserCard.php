@@ -7,7 +7,8 @@
 ?>
 <li class="c-projectTeaserCard">
   <div>
-    <img class="hero" src=" <?=$project->cover()->url() ?: print('https://picsum.photos/1600/800?random=2') ?> " />
+    <?php $projectCover = $project->cover(); ?>
+    <img class="hero" src="<?= $projectCover->url() ?: 'https://picsum.photos/1600/800?random=2' ?>"<?= $projectCover && $projectCover->focus()->isNotEmpty() ? ' style="object-position: ' . $projectCover->focus() . '"' : '' ?> />
   </div>
   <div class="content">
     <div class="statusheader">

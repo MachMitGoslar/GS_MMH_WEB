@@ -37,7 +37,7 @@
         <div class="newsletter-author-content">
           <div class="newsletter-author-profile">
             <?php if ($authorImage = $author->cover()) : ?>
-              <img src="<?= $authorImage->url() ?>" alt="<?= $author->title() ?>" class="author-avatar">
+              <img src="<?= $authorImage->url() ?>" alt="<?= $author->title() ?>" class="author-avatar"<?= $authorImage->focus()->isNotEmpty() ? ' style="object-position: ' . $authorImage->focus() . '"' : '' ?>>
             <?php endif ?>
             <div class="author-info">
               <h3 class="font-headline author-name"><?= $author->title() ?></h3>
