@@ -9,10 +9,11 @@
 
 $featured = $featured ?? false;
 $authors = $note->author()->toPages();
+$cover = $note->cover();
 ?>
 
-<article class="note-card <?= $featured ? 'note-card--featured' : '' ?>">
-  <?php if ($featured && ($cover = $note->cover())) : ?>
+<article class="note-card <?= $featured ? 'note-card--featured' : '' ?><?= !$cover ? ' note-card--no-image' : '' ?>">
+  <?php if ($featured && $cover) : ?>
     <!-- Featured Card with Large Image -->
     <div class="note-card-featured">
       <div class="note-card-image-wrapper">
@@ -70,8 +71,8 @@ $authors = $note->author()->toPages();
     </div>
   <?php else : ?>
     <!-- Regular Card -->
-    <div class="note-card-image-wrapper">
-      <?php if ($cover = $note->cover()) : ?>
+    <div class="note-card-image-wrapper <?= $cover ? 'note-card-image-wrapper--has-image' : 'note-card-image-wrapper--no-image' ?>">
+      <?php if ($cover) : ?>
         <a href="<?= $note->url() ?>" class="note-card-image-link">
           <img src="<?= $cover->crop(600, 400)->url() ?>"
                alt="<?= $note->title()->html() ?>"
