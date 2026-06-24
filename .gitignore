@@ -84,7 +84,8 @@ vendor/
 /storage/calendar_key.json
 
 .env
-.env.local
+.env.*
+!.env.example
 figma-tokens.json
 
 # ===============================
