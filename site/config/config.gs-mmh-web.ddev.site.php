@@ -1,10 +1,11 @@
 <?php
-
 /**
  * This config file is for local ddev usage
  * usually you'd like to turn off debugging on the /config.php file and activate it for local or development sites
  * same foes for installing the panel (creating accounts)
  */
+require_once __DIR__ . '/../plugins/kirby3-dotenv/global.php';
+loadenv();
 
 return [
     'debug' => true,
@@ -12,10 +13,10 @@ return [
         'install' => true,
     ],
     'db' => [
-        'host' => 'db:3306',
-        'database' => 'db',
-        'user' => 'db',
-        'password' => 'db',
+        'host' => getenv('DB_HOST'),
+        'database' => getenv('DB_DATABASE'),
+        'user' => getenv('DB_USER'),
+        'password' => getenv('DB_PASSWORD'),
     ],
     'cache' => [
         'pages' => [
@@ -34,31 +35,28 @@ return [
             'credentials' => __DIR__ . '/../../storage/calendar_key.json',
         ],
     ],
-    'db' => [
-        'host' => 'db',
-        'database' => 'db',
-        'user' => 'db',
-        'password' => 'db',
-    ],
     'email' => [
         'transport' => [
-            'type' => 'smtp',
-            'host' => 'localhost',   // SMTP-Host im Container
-            'port' => 1025,           // SMTP-Port
-            'security' => false,
-            'auth' => false,
-            'username' => 'noreply@gs-mmh-web.ddev.site',
-            'password' => 'Passwort123!',
+            'type' => getenv('EMAIL_TYPE', 'smtp'), // Transporttyp aus .env.local
+            'host' => getenv('EMAIL_HOST', 'localhost'),   // SMTP-Host aus .env.local
+            'port' => getenv('EMAIL_PORT', 1025), // SMTP-Port aus .env.local, Standard 1025 für MailHog
+            'security' => getenv('EMAIL_SECURITY', false), // Sicherheit aus .env.local
+            'auth' => getenv('EMAIL_AUTH', false), // Authentifizierung aus .env.local
+            'username' => getenv('EMAIL_USERNAME', 'user'), // Benutzername aus .env.local
+            'password' => getenv('EMAIL_PASSWORD', 'password'), // Passwort aus .env.local
         ],
         'from' => 'noreply@gs-mmh-web.ddev.site',
     ],
+    'bnomei.dotenv.environment' => function () {
+        return 'local';
+    },
     // Settings for the DreamForm plugin
     'tobimori.dreamform' => [
         'storeSubmissions' => true,
         'log' => true,
         'email' => [
-            'from' => 'noreply@gs-mmh-web.ddev.site',
-            'name' => 'MachMit!Haus',
+            'from' => env('EMAIL_FROM'),
+            'name' => env('EMAIL_NAME'),
         ],
         'guards' => [
             // activated guards
@@ -83,4 +81,5 @@ return [
             ],
         ],
     ],
+    //"Kirby\Http\Cookie::$key" => env('COOKIE_KEY'),
 ];
