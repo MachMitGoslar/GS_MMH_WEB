@@ -62,6 +62,6 @@ return [
                 'interval' => 3,  // in 3 minutes
             ],
         ],
-    ]
+    ],
 
 ];

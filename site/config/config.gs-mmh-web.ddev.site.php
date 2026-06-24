@@ -8,78 +8,82 @@ require_once __DIR__ . '/../plugins/kirby3-dotenv/global.php';
 loadenv();
 
 return [
-    'debug' => true,
-    'panel' => [
-        'install' => true,
-    ],
-    'db' => [
-        'host' => getenv('DB_HOST'),
-        'database' => getenv('DB_DATABASE'),
-        'user' => getenv('DB_USER'),
-        'password' => getenv('DB_PASSWORD'),
-    ],
-    'cache' => [
-        'pages' => [
-            'active' => false,
-        ],
-        'assets' => [
-            'active' => true,
-        ],
-    ],
-    'thumbs' => [
-        'driver' => 'im',
-        'bin' => '/usr/bin/convert',
-    ],
-    'google' => [
-        'calendar' => [
-            'credentials' => __DIR__ . '/../../storage/calendar_key.json',
-        ],
-    ],
-    'email' => [
-        'transport' => [
-            'type' => getenv('EMAIL_TYPE', 'smtp'), // Transporttyp aus .env.local
-            'host' => getenv('EMAIL_HOST', 'localhost'),   // SMTP-Host aus .env.local
-            'port' => getenv('EMAIL_PORT', 1025), // SMTP-Port aus .env.local, Standard 1025 für MailHog
-            'security' => getenv('EMAIL_SECURITY', false), // Sicherheit aus .env.local
-            'auth' => getenv('EMAIL_AUTH', false), // Authentifizierung aus .env.local
-            'username' => getenv('EMAIL_USERNAME', 'user'), // Benutzername aus .env.local
-            'password' => getenv('EMAIL_PASSWORD', 'password'), // Passwort aus .env.local
-        ],
-        'from' => 'noreply@gs-mmh-web.ddev.site',
-    ],
-    'bnomei.dotenv.environment' => function () {
-        return 'local';
-    },
-    // Settings for the DreamForm plugin
-    'tobimori.dreamform' => [
-        'storeSubmissions' => true,
-        'log' => true,
-        'email' => [
-            'from' => env('EMAIL_FROM'),
-            'name' => env('EMAIL_NAME'),
-        ],
-        'guards' => [
-            // activated guards
-            'available' => [
-                'honeypot',
-                'ratelimit',
+    'ready' => function () {
+        return [
+            'debug' => true,
+            'panel' => [
+                'install' => true,
             ],
+            'db' => [
+                'host' => getenv('MMH_DB_HOST'),
+                'database' => getenv('MMH_DB_DATABASE'),
+                'user' => getenv('MMH_DB_USER'),
+                'password' => getenv('MMH_DB_PASSWORD'),
+            ],
+            'cache' => [
+                'pages' => [
+                    'active' => false,
+                ],
+                'assets' => [
+                    'active' => true,
+                ],
+            ],
+            'thumbs' => [
+                'driver' => 'im',
+                'bin' => '/usr/bin/convert',
+            ],
+            'google' => [
+                'calendar' => [
+                    'credentials' => __DIR__ . '/../../storage/calendar_key.json',
+                ],
+            ],
+            'email' => [
+                'transport' => [
+                    'type' => env('EMAIL_TYPE'), // Transporttyp aus .env.local
+                    'host' => env('EMAIL_HOST'),   // SMTP-Host aus .env.local
+                    'port' => env('EMAIL_PORT'), // SMTP-Port aus .env.local, Standard 1025 für MailHog
+                    'security' => env('EMAIL_SECURITY'), // Sicherheit aus .env.local
+                    'auth' => env('EMAIL_AUTH'), // Authentifizierung aus .env.local
+                    'username' => env('EMAIL_USERNAME'), // Benutzername aus .env.local
+                    'password' => env('EMAIL_PASSWORD') // Passwort aus .env.local
+                ],
+                'from' => 'noreply@gs-mmh-web.ddev.site',
+            ],
+            'bnomei.dotenv.environment' => function () {
+                return 'local';
+            },
+            // Settings for the DreamForm plugin
+            'tobimori.dreamform' => [
+                'storeSubmissions' => true,
+                'log' => true,
+                'email' => [
+                    'from' => env('EMAIL_FROM'),
+                    'name' => env('EMAIL_NAME'),
+                ],
+                'guards' => [
+                    // activated guards
+                    'available' => [
+                        'honeypot',
+                        'ratelimit',
+                    ],
 
-            // Honeypot settings
-            'honeypot.availableFields' => [
-                'website',
-                'email',
-                'name',
-                'url',
-                'birthdate',
-            ],
+                    // Honeypot settings
+                    'honeypot.availableFields' => [
+                        'website',
+                        'email',
+                        'name',
+                        'url',
+                        'birthdate',
+                    ],
 
-            // RateLimit settings
-            'ratelimit' => [
-                'limit' => 10,   // maximum of 10 requests
-                'interval' => 3,  // in 3 minutes
+                    // RateLimit settings
+                    'ratelimit' => [
+                        'limit' => 10,   // maximum of 10 requests
+                        'interval' => 3,  // in 3 minutes
+                    ],
+                ],
             ],
-        ],
-    ],
-    //"Kirby\Http\Cookie::$key" => env('COOKIE_KEY'),
+            //"Kirby\Http\Cookie::$key" => env('COOKIE_KEY'),
+        ];
+    }
 ];
