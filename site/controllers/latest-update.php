@@ -54,9 +54,24 @@ function latestUpdateTimestamp($p): int
         return $ts;
     }
 
-    $ts = $p->modified()->toTimestamp();
+    return latestUpdateTimestampValue($p->modified());
+}
 
-    return $ts;
+function latestUpdateTimestampValue($value): int
+{
+    if (is_int($value)) {
+        return $value;
+    }
+
+    if (is_numeric($value)) {
+        return (int) $value;
+    }
+
+    if (is_object($value) && method_exists($value, 'toTimestamp')) {
+        return (int) $value->toTimestamp();
+    }
+
+    return time();
 }
 
 /**

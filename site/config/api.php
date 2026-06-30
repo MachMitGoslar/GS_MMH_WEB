@@ -286,7 +286,7 @@ return [
             'auth' => false,
             'action' => function () {
                 $page = page('ehrentag-goslar');
-                $timestamp = $page ? $page->modified()->toTimestamp() : time();
+                $timestamp = $page ? latestUpdateTimestampValue($page->modified()) : time();
 
                 return [
                     'title' => 'Ehrentag - der deutschlandweite Mitmachtag',
@@ -328,7 +328,9 @@ return [
             'action' => function () {
 
                 // get updates dynamically
-                $dynamic = latestUpdateData();
+                $latestUpdate = latestUpdate();
+                $isLatestNewsletter = $latestUpdate?->intendedTemplate()->name() === 'newsletter';
+                $dynamic = latestUpdateToArray($latestUpdate);
 
                 if ($dynamic) {
                     $dynamic['id'] = 2;
@@ -354,7 +356,7 @@ return [
                     return mmhApiJpegImageUrl($coverFile);
                 };
 
-                return [
+                $highlights = [
                     [
                         'id' => 1,
                         'title' => 'Heute im MM!H',
@@ -374,7 +376,10 @@ return [
                         'call_to_action_url' => $projectsPage?->url(),
                         'published_at' => $now,
                     ],
-                    [
+                ];
+
+                if (!$isLatestNewsletter) {
+                    $highlights[] = [
                         'id' => 4,
                         'title' => 'Newsletter',
                         'description' => 'Entdecke unseren Newsletter.',
@@ -383,33 +388,36 @@ return [
                             : null,
                         'call_to_action_url' => $newsletterPage?->url(),
                         'published_at' => $now,
-                    ],
-                    [
-                        'id' => 5,
-                        'title' => 'Tagebuch',
-                        'description' => 'Berichte aus unserem Alltag.',
-                        'image_url' => $latestDiary
-                            ? mmhApiCoverFileUrl('notes', $latestDiary->slug())
-                            : null,
-                        'call_to_action_url' => $diaryPage?->url(),
-                        'published_at' => $now,
-                    ],
-                    [
-                        'id' => 6,
-                        'title' => 'Über uns',
-                        'description' => 'Verschaffe dir einen Überblick!',
-                        'image_url' => $coverUrl($aboutPage),
-                        'call_to_action_url' => $aboutPage?->url(),
-                        'published_at' => $now,
-                    ],
-                    [
-                        'id' => 7,
-                        'title' => 'WhatsApp Community',
-                        'description' => 'Tritt unserer WhatsApp Community bei und bleibe immer auf dem Laufenden!',
-                        'image_url' => mmhApiCoverFileUrl('app', 'whatsapp-community'),
-                        'call_to_action_url' => 'https://chat.whatsapp.com/IxjUee7gVOY3KfQhvdUsA3?mode=gi_t',
-                    ],
+                    ];
+                }
+
+                $highlights[] = [
+                    'id' => 5,
+                    'title' => 'Tagebuch',
+                    'description' => 'Berichte aus unserem Alltag.',
+                    'image_url' => $latestDiary
+                        ? mmhApiCoverFileUrl('notes', $latestDiary->slug())
+                        : null,
+                    'call_to_action_url' => $diaryPage?->url(),
+                    'published_at' => $now,
                 ];
+                $highlights[] = [
+                    'id' => 6,
+                    'title' => 'Über uns',
+                    'description' => 'Verschaffe dir einen Überblick!',
+                    'image_url' => $coverUrl($aboutPage),
+                    'call_to_action_url' => $aboutPage?->url(),
+                    'published_at' => $now,
+                ];
+                $highlights[] = [
+                    'id' => 7,
+                    'title' => 'WhatsApp Community',
+                    'description' => 'Tritt unserer WhatsApp Community bei und bleibe immer auf dem Laufenden!',
+                    'image_url' => mmhApiCoverFileUrl('app', 'whatsapp-community'),
+                    'call_to_action_url' => 'https://chat.whatsapp.com/IxjUee7gVOY3KfQhvdUsA3?mode=gi_t',
+                ];
+
+                return $highlights;
             },
         ],
     ],
