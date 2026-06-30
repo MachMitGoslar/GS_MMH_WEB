@@ -1,0 +1,97 @@
+/* Base modal component — works on native <dialog> elements.
+   Customize per-variant via CSS custom properties on the modifier class. */
+
+.gs-c-modal {
+  --modal-width: min(90vw, 40rem);
+  --modal-border-radius: 1rem;
+  --modal-close-bg: rgb(200 200 200 / 90%);
+  --modal-close-bg-hover: rgb(0 0 0 / 35%);
+  --modal-close-color: var(--color-dead-pixel-1300);
+
+  inset: 0;
+  margin: auto;
+  width: var(--modal-width);
+  max-height: min(90vh, 90dvh);
+  padding: 0;
+  border: none;
+  border-radius: var(--modal-border-radius);
+  box-shadow: 0 25px 50px rgb(0 0 0 / 40%);
+  overflow-y: auto;
+}
+
+.gs-c-modal::backdrop {
+  background: rgb(0 0 0 / 55%);
+  backdrop-filter: blur(4px);
+}
+
+/* Sticky zero-height bar — keeps close button visible during scroll
+   and visually overlays the hero image when present */
+.gs-c-modal__close-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 0;
+  overflow: visible;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gs-c-modal__close {
+  position: relative;
+  top: 0.75rem;
+  margin-inline-end: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--modal-close-bg);
+  color: var(--modal-close-color);
+  border: none;
+  border-radius: 50%;
+  font-size: 0.875rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+
+.gs-c-modal__close:hover {
+  background: var(--modal-close-bg-hover);
+}
+
+.gs-c-modal__close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Hero: full-bleed at top, rounded upper corners matching the dialog */
+.gs-c-modal__hero {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: var(--modal-border-radius) var(--modal-border-radius) 0 0;
+}
+
+/* Body: no top padding — hero provides the visual separation */
+.gs-c-modal__body {
+  padding: 0 1.5rem 1.5rem;
+}
+
+/* No hero: push content below the close button area
+   (close-bar is height:0, so without a hero the button overlaps body content) */
+.gs-c-modal:not(.gs-c-modal--has-hero) .gs-c-modal__body {
+  padding-top: 3.5rem;
+}
+
+/* Footer: standardized action row with separator */
+.gs-c-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid rgb(0 0 0 / 10%);
+}

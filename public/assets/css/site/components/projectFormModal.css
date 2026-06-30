@@ -1,0 +1,21 @@
+.project-form-modal {
+  --modal-width: min(90vw, 48rem);
+  --modal-border-radius: 1.5rem;
+  --modal-close-bg: var(--color-ripe-mango-700);
+  --modal-close-bg-hover: var(--color-ripe-mango-300);
+  --modal-close-color: var(--color-ripe-mango-1400);
+}
+
+.project-form-modal .gs-c-modal__body {
+  padding-inline: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  /* padding-top is inherited from gs-c-modal:not(.gs-c-modal--has-hero): 3.5rem */
+}
+
+.project-form-modal__title {
+  margin: 0 0 1.5rem;
+}
+
+.has-project-form-modal {
+  overflow: hidden;
+}

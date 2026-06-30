@@ -3,6 +3,7 @@
 .c-newsletterTeaserCard {
   grid-column: auto;
   display: flex;
+  min-width: 0;
   padding-bottom: 2rem;
   flex-direction: column;
   align-items: flex-start;
@@ -23,6 +24,7 @@
 }
 
 .c-newsletterTeaserCard .content {
+  min-width: 0;
   padding: 0 1rem;
   width: 100%;
 }
@@ -101,6 +103,12 @@
 .c-newsletterTeaserCard h3 {
   transition: color 0.2s ease;
   color: var(--color-gray-900);
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .c-newsletterTeaserCard p {
@@ -125,63 +133,38 @@
   box-shadow: 0 2px 4px rgb(59 130 246 / 20%);
 }
 
-/* Entry modal */
-.newsletter-entry-modal {
-  inset: 0;
-  margin: auto;
-  width: min(90vw, 680px);
-  max-height: min(90vh, 90dvh);
-  padding: 0;
-  border: none;
-  border-radius: 0.75rem;
-  box-shadow: 0 25px 50px rgb(0 0 0 / 40%);
-  overflow-y: auto;
+/* Subscription modal */
+.newsletter-subscribe-modal {
+  --modal-width: min(90vw, 36rem);
+  --modal-border-radius: 1rem;
 }
 
-.newsletter-entry-modal::backdrop {
-  background: rgb(0 0 0 / 55%);
-  backdrop-filter: blur(4px);
-}
-
-.newsletter-entry-modal__close {
-  position: sticky;
-  top: 0.75rem;
-  z-index: 1;
-  margin: 0.75rem 0.75rem 0 auto;
-  width: 2rem;
-  height: 2rem;
+.newsletter-subscribe-form__fields {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgb(200 200 200 / 90%);
-  color: var(--color-dead-pixel-1300);
-  border: none;
-  border-radius: 50%;
-  font-size: 0.875rem;
-  cursor: pointer;
-  line-height: 1;
-  transition: background 0.2s ease;
-
-  &:hover {
-    background: rgb(0 0 0 / 35%);
-  }
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.newsletter-entry-modal__body {
-  padding: 0 1.5rem 1.5rem;
-
-  &:not(:has(.newsletter-entry-modal__hero)) {
-    padding-top: 1.25rem;
-  }
-}
-
-.newsletter-entry-modal__hero {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
+.newsletter-subscribe-form__feedback {
+  padding: 0.625rem 0.875rem;
   border-radius: 0.5rem;
-  margin-bottom: 1.25rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.newsletter-subscribe-form__feedback[data-success='true'] {
+  background: rgb(16 185 129 / 12%);
+  color: #065f46;
+}
+
+.newsletter-subscribe-form__feedback[data-success='false'] {
+  background: rgb(239 68 68 / 10%);
+  color: #991b1b;
+}
+
+/* Entry modal — base styles via gs-c-modal, only overrides here */
+.newsletter-entry-modal {
+  --modal-width: min(90vw, 680px);
+  --modal-border-radius: 0.75rem;
 }
 
 .newsletter-entry-modal__text {
@@ -199,20 +182,12 @@
   gap: 0.5rem;
 }
 
+/* Footer meta (links/email) sits on the left; close button on the right via gs-c-modal__footer */
 .newsletter-entry-modal__footer-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-}
-
-.newsletter-entry-modal__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgb(0 0 0 / 10%);
 }
 
 /* Mobile responsive adjustments */

@@ -6,6 +6,7 @@
  * Define custom routes for the MachMit!Haus website
  */
 
+use GsMmh\WebPlugin\NewsletterRecipients;
 use Kirby\Cms\Response;
 use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
@@ -158,6 +159,35 @@ HTML, 'text/html');
             $content = snippet('content-types/ferienpass/events', ['query' => $query], true);
 
             return new Response($content, 'application/json');
+        },
+    ],
+
+    /**
+     * Newsletter Subscription
+     * Adds a new subscriber to the newsletter_recipients table
+     */
+    [
+        'pattern' => 'newsletter-anmelden.json',
+        'method' => 'POST',
+        'action' => function () {
+            try {
+                NewsletterRecipients::create([
+                    'first_name' => kirby()->request()->get('first_name'),
+                    'last_name'  => kirby()->request()->get('last_name'),
+                    'email'      => kirby()->request()->get('email'),
+                ]);
+
+                return new Response(
+                    json_encode(['success' => true, 'message' => 'Danke! Du wirst ab sofort über unsere Neuigkeiten informiert.'], JSON_UNESCAPED_UNICODE),
+                    'application/json',
+                );
+            } catch (\Throwable $e) {
+                return new Response(
+                    json_encode(['success' => false, 'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE),
+                    'application/json',
+                    400,
+                );
+            }
         },
     ],
 

@@ -10,11 +10,11 @@
     "format": "npm run format:js && npm run format:css && npm run format:php",
     "format:js": "prettier --write \"**/*.{js,ts,json}\"",
     "format:css": "prettier --write \"**/*.{css,scss}\"",
-    "format:php": "composer run format",
+    "format:php": "ddev exec composer run format",
     "lint": "npm run lint:js && npm run lint:css && npm run lint:php",
     "lint:js": "eslint -c eslint.config.js --fix",
     "lint:css": "stylelint \"**/*.{css,scss}\" --fix",
-    "lint:php": "composer run lint",
+    "lint:php": "ddev exec composer run lint",
     "pre-commit": "npm run format && npm run lint",
     "prepare": "husky install"
   },
@@ -33,20 +33,21 @@
   },
   "homepage": "https://github.com/rangarius/GS_MMH_WEB#readme",
   "dependencies": {
-    "autoprefixer": "^10.4.19"
+    "autoprefixer": "^10.4.19",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "browser-sync": "^3.0.2",
     "concurrently": "^8.2.2",
-    "kirbyup": "^3.2.1",
-    "prettier": "^3.1.1",
     "eslint": "^8.55.0",
-    "@eslint/js": "^9.0.0",
-    "stylelint": "^14.16.1",
-    "stylelint-config-standard": "^29.0.0",
-    "stylelint-config-prettier": "^9.0.5",
     "husky": "^8.0.3",
-    "lint-staged": "^15.2.0"
+    "kirbyup": "^3.2.1",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "stylelint": "^14.16.1",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-standard": "^29.0.0"
   },
   "lint-staged": {
     "site/!(plugins)/*.{js,ts}": [
@@ -59,9 +60,6 @@
     "public/**/*.{css,scss}": [
       "npx prettier --write",
       "npx stylelint --fix --allow-empty-input"
-    ],
-    "site/!(plugins)/*.php": [
-      "php -d memory_limit=512M ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff"
     ]
   }
 }

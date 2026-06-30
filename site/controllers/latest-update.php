@@ -54,9 +54,24 @@ function latestUpdateTimestamp($p): int
         return $ts;
     }
 
-    $ts = $p->modified()->toTimestamp();
+    return latestUpdateTimestampValue($p->modified());
+}
 
-    return $ts;
+function latestUpdateTimestampValue($value): int
+{
+    if (is_int($value)) {
+        return $value;
+    }
+
+    if (is_numeric($value)) {
+        return (int) $value;
+    }
+
+    if (is_object($value) && method_exists($value, 'toTimestamp')) {
+        return (int) $value->toTimestamp();
+    }
+
+    return time();
 }
 
 /**
@@ -89,7 +104,7 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
 
     // Bild bestimmen
     if ($isNewsletter) {
-        $image_url = url('api/newsletter-cover/' . $update->slug() . '.jpg');
+        $image_url = mmhApiCoverFileUrl('newsletter', $update->slug());
     } else {
         $project = $update->parent();
         $coverFile = $project->content()->get('cover')?->toFile();
