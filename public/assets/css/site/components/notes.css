@@ -102,6 +102,7 @@
    ========================================================================== */
 
 .note-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: var(--color-bg-primary, #fff);
@@ -149,6 +150,16 @@
   display: flex;
   align-items: center;
   z-index: 2;
+}
+
+.note-card--no-image .note-card-image-wrapper {
+  position: static;
+}
+
+.note-card--no-image .note-card-authors {
+  top: var(--spacing-3, 1rem);
+  bottom: auto;
+  transform: none;
 }
 
 .note-card-author {
@@ -204,6 +215,11 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+.note-card--no-image .note-card-content {
+  padding-top: var(--spacing-5, 2rem);
+  padding-right: calc(var(--spacing-3, 1rem) + 48px);
 }
 
 .note-card-meta {
