@@ -57,7 +57,7 @@ $allRooms = $roomsPage->children()->listed();
     <div class="grid-item" data-span="1/1">
       <?php if ($cover = $page->cover()->toFile()) : ?>
         <div class="room-main-image">
-          <img src="<?= $cover->crop(1200, 600)->url() ?>"
+          <img src="<?= $cover->crop(1200, 600, 'focus')->url() ?>"
                alt="<?= $page->title()->html() ?>"
                loading="eager">
         </div>
@@ -68,7 +68,7 @@ $allRooms = $roomsPage->children()->listed();
         <div class="room-gallery">
             <?php foreach ($gallery as $image) : ?>
             <a href="<?= $image->url() ?>" class="room-gallery-item" data-lightbox="room-gallery">
-              <img src="<?= $image->crop(300, 200)->url() ?>"
+              <img src="<?= $image->crop(300, 200, 'focus')->url() ?>"
                    alt="<?= $image->alt()->or($page->title()) ?>"
                    loading="lazy">
             </a>
@@ -201,7 +201,7 @@ $allRooms = $roomsPage->children()->listed();
               <li class="other-room-item">
                 <a href="<?= $otherRoom->url() ?>" class="other-room-link">
                   <?php if ($otherCover = $otherRoom->cover()->toFile()) : ?>
-                    <img src="<?= $otherCover->crop(80, 60)->url() ?>"
+                    <img src="<?= $otherCover->crop(80, 60, 'focus')->url() ?>"
                          alt="<?= $otherRoom->title()->html() ?>"
                          class="other-room-thumb">
                   <?php endif ?>

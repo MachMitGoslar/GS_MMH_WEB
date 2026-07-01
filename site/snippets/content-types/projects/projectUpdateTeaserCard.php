@@ -9,7 +9,8 @@
 
 <li class="c-projectUpdateTeaser-card">
   <div >
-    <img class="hero" src="<?=$project->cover()->url()?>">
+    <?php $projectUpdateCover = $project->cover(); ?>
+    <img class="hero" src="<?= $projectUpdateCover->url() ?>"<?= $projectUpdateCover && $projectUpdateCover->focus()->isNotEmpty() ? ' style="object-position: ' . $projectUpdateCover->focus() . '"' : '' ?>>
   </div>
   <div class="content">
     <?= snippet('content-types/projects/statusheader', compact('project_step')) ?>

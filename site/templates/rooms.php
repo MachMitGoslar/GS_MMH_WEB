@@ -15,7 +15,7 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
   <section class="rooms-hero">
     <?php if ($page->cover() && $cover = $page->cover()->toFile()) : ?>
       <div class="rooms-hero-image">
-        <img src="<?= $cover->crop(1920, 600)->url() ?>"
+        <img src="<?= $cover->crop(1920, 600, 'focus')->url() ?>"
           alt="<?= $page->title()->html() ?>"
           loading="eager">
         <div class="rooms-hero-overlay"></div>

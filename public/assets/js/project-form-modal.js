@@ -7,7 +7,9 @@
     dialog.showModal();
     document.documentElement.classList.add('has-project-form-modal');
 
-    const focusTarget = dialog.querySelector('input, select, textarea, button, a');
+    const focusTarget = dialog.querySelector(
+      'input, select, textarea, button, a'
+    );
     if (focusTarget) focusTarget.focus();
   };
 
@@ -28,7 +30,9 @@
     if (trigger) {
       const href = trigger.getAttribute('href') || '';
       const formId = trigger.getAttribute('data-form-modal-trigger') || '';
-      const modalId = href.startsWith('#') ? href.slice(1) : modalIdFromFormId(formId);
+      const modalId = href.startsWith('#')
+        ? href.slice(1)
+        : modalIdFromFormId(formId);
       const dialog = document.getElementById(modalId);
       if (!dialog) return;
       event.preventDefault();

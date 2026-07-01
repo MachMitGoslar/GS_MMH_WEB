@@ -21,8 +21,14 @@ $slotContent = $slotContent ?? null;
 $slotFooter = $slotFooter ?? null;
 
 $heroUrl = null;
+$heroFocus = null;
 if (!empty($hero)) {
-    $heroUrl = is_string($hero) ? $hero : $hero->url();
+    if (is_string($hero)) {
+        $heroUrl = $hero;
+    } else {
+        $heroUrl = $hero->url();
+        $heroFocus = $hero->focus()->isNotEmpty() ? (string) $hero->focus() : null;
+    }
 }
 
 $classes = trim('gs-c-modal ' . $modifier . ($heroUrl ? ' gs-c-modal--has-hero' : ''));
@@ -39,7 +45,7 @@ $classes = trim('gs-c-modal ' . $modifier . ($heroUrl ? ' gs-c-modal--has-hero' 
   </div>
 
   <?php if ($heroUrl): ?>
-    <img class="gs-c-modal__hero" src="<?= esc($heroUrl, 'attr') ?>" alt="<?= esc($heroAlt, 'attr') ?>">
+    <img class="gs-c-modal__hero" src="<?= esc($heroUrl, 'attr') ?>" alt="<?= esc($heroAlt, 'attr') ?>"<?= $heroFocus ? ' style="object-position: ' . esc($heroFocus, 'attr') . '"' : '' ?>>
   <?php endif ?>
 
   <div class="gs-c-modal__body" onclick="event.stopPropagation()">

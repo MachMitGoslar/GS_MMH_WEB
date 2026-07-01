@@ -9,7 +9,7 @@
     <a href="<?= $teamMember->url() ?>" >
   <div class="profile-image">
     <?php if ($teamMember->cover() && $teamMember->cover()->toFile()) : ?>
-      <img src="<?= $teamMember->cover()->crop(200, 200)->url() ?>" 
+      <img src="<?= $teamMember->cover()->crop(200, 200, 'focus')->url() ?>"
            alt="<?= $teamMember->name()->html() ?>" 
            loading="lazy">
     <?php else : ?>

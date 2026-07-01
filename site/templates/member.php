@@ -25,7 +25,7 @@
           <div class="contact-profile-section">
             <div class="profile-image-large">
               <?php if ($page->cover() && $page->cover()->toFile()) : ?>
-                <img src="<?= $page->cover()->crop(300, 300)->url() ?>"
+                <img src="<?= $page->cover()->crop(300, 300, 'focus')->url() ?>"
                      alt="<?= $page->name()->html() ?>"
                      loading="eager">
               <?php else : ?>

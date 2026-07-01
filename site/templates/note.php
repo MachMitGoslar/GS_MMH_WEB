@@ -18,7 +18,7 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
     <?php if ($cover = $page->cover()) : ?>
       <section class="note-hero">
         <div class="note-hero-image">
-          <img src="<?= $cover->crop(1920, 800)->url() ?>"
+          <img src="<?= $cover->crop(1920, 800, 'focus')->url() ?>"
             alt="<?= $page->title()->html() ?>"
             loading="eager">
           <div class="note-hero-overlay"></div>
@@ -82,7 +82,7 @@ if ($authors->count() > 0) :
               <a href="<?= $author->url() ?>" class="author-card">
                 <div class="author-avatar">
                   <?php if ($authorImage = $author->cover()) : ?>
-                    <img src="<?= $authorImage->crop(80, 80)->url() ?>" alt="<?= $author->title()->html() ?>">
+                    <img src="<?= $authorImage->crop(80, 80, 'focus')->url() ?>" alt="<?= $author->title()->html() ?>">
                   <?php else : ?>
                     <div class="placeholder-avatar">
                       <span><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>

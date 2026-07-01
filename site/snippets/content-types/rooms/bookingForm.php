@@ -35,7 +35,7 @@ $maxDate = date('Y-m-d', strtotime("+{$maxFuture} days"));
                  class="room-checkbox">
           <span class="room-checkbox-content">
             <?php if ($cover = $room->cover()) : ?>
-              <img src="<?= $cover->crop(120, 80)->url() ?>" alt="<?= $room->title()->html() ?>" class="room-checkbox-image">
+              <img src="<?= $cover->crop(120, 80, 'focus')->url() ?>" alt="<?= $room->title()->html() ?>" class="room-checkbox-image">
             <?php endif ?>
             <span class="room-checkbox-info">
               <span class="room-checkbox-title font-body"><?= $room->title()->html() ?></span>

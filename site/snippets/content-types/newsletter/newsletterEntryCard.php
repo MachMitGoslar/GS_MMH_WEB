@@ -25,7 +25,7 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
 <li class="c-newsletterTeaserCard">
   <?php if ($imageFile) : ?>
     <div>
-      <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>">
+      <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>" style="object-position: <?= $imageFile->focus()->isNotEmpty() ? $imageFile->focus() : '50% 50%' ?>"  >
     </div>
   <?php endif ?>
   <div class="content">

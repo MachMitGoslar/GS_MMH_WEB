@@ -18,7 +18,7 @@ $cover = $note->cover();
     <div class="note-card-featured">
       <div class="note-card-image-wrapper">
         <a href="<?= $note->url() ?>" class="note-card-image-link">
-          <img src="<?= $cover->crop(1200, 500)->url() ?>"
+          <img src="<?= $cover->crop(1200, 500, 'focus')->url() ?>"
                alt="<?= $note->title()->html() ?>"
                class="note-card-image"
                loading="lazy">
@@ -30,7 +30,7 @@ $cover = $note->cover();
             <?php foreach ($authors->limit(2) as $author) : ?>
               <a href="<?= $author->url() ?>" class="note-card-author" title="<?= $author->title()->html() ?>">
                 <?php if ($authorImage = $author->cover()) : ?>
-                  <img src="<?= $authorImage->crop(48, 48)->url() ?>" alt="<?= $author->title()->html() ?>">
+                  <img src="<?= $authorImage->crop(48, 48, 'focus')->url() ?>" alt="<?= $author->title()->html() ?>">
                 <?php else : ?>
                   <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
                 <?php endif ?>
@@ -74,7 +74,7 @@ $cover = $note->cover();
     <div class="note-card-image-wrapper <?= $cover ? 'note-card-image-wrapper--has-image' : 'note-card-image-wrapper--no-image' ?>">
       <?php if ($cover) : ?>
         <a href="<?= $note->url() ?>" class="note-card-image-link">
-          <img src="<?= $cover->crop(600, 400)->url() ?>"
+          <img src="<?= $cover->crop(600, 400, 'focus')->url() ?>"
                alt="<?= $note->title()->html() ?>"
                class="note-card-image"
                loading="lazy">
@@ -86,7 +86,7 @@ $cover = $note->cover();
             <?php foreach ($authors->limit(2) as $author) : ?>
             <a href="<?= $author->url() ?>" class="note-card-author" title="<?= $author->title()->html() ?>">
                 <?php if ($authorImage = $author->cover()) : ?>
-                <img src="<?= $authorImage->crop(40, 40)->url() ?>" alt="<?= $author->title()->html() ?>">
+                <img src="<?= $authorImage->crop(40, 40, 'focus')->url() ?>" alt="<?= $author->title()->html() ?>">
                 <?php else : ?>
                 <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
                 <?php endif ?>
