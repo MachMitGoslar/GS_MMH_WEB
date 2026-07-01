@@ -45,17 +45,17 @@
         $sortedNewsletters = $newsletters->sortBy(function ($newsletter) {
             // Primary: use publish_date field if available
             if ($newsletter->publish_date()->isNotEmpty()) {
-                return $newsletter->publish_date()->toTimestamp();
+                return mmhTimestampValue($newsletter->publish_date());
             }
             // Secondary: use published date if available
             $published = $newsletter->published();
             if ($published && !$published->isEmpty()) {
-                return $published->toTimestamp();
+                return mmhTimestampValue($published);
             }
             // Tertiary: use modified date
             $modified = $newsletter->modified();
             if ($modified) {
-                return $modified->toTimestamp();
+                return mmhTimestampValue($modified);
             }
 
             // Final fallback: reverse folder number for manual ordering

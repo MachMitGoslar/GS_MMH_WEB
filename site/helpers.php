@@ -51,6 +51,25 @@ function getArchivedProjects(Site $site)
         ->filter(fn ($project) => $project->effectiveProjectStatus() === 'abgeschlossen');
 }
 
+if (!function_exists('mmhTimestampValue')) {
+    function mmhTimestampValue($value): int
+    {
+        if (is_int($value)) {
+            return $value;
+        }
+
+        if (is_numeric($value)) {
+            return (int) $value;
+        }
+
+        if (is_object($value) && method_exists($value, 'toTimestamp')) {
+            return (int) $value->toTimestamp();
+        }
+
+        return time();
+    }
+}
+
 /**
  * Returns whether timed content should be visible in the current request.
  *

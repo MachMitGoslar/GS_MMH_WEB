@@ -18,6 +18,7 @@ if ($newsletter->publish_date()->isNotEmpty()) {
 } else {
     $publishDate = $newsletter->modified();
 }
+$publishTimestamp = mmhTimestampValue($publishDate);
 
 // Get the first image from the newsletter, or use a fallback
 $heroImage = $newsletter->cover();
@@ -27,7 +28,7 @@ if ($heroImage && !$heroImage->exists()) {
 }
 ?>
 
-<article class="c-newsletterTeaserCard <?= $class ?>">
+<li class="c-newsletterTeaserCard grid-item <?= $class ?>" data-span="1/4">
   <div>
     <?php if ($heroImage && $heroImage->isNotEmpty()) : ?>
         <?php $url = $heroImage->crop(800, 400, 'focus')->url(); ?>
@@ -43,8 +44,8 @@ if ($heroImage && !$heroImage->exists()) {
         <span class="newsletter-badge-icon">📧</span>
         <span class="newsletter-badge-text">Newsletter</span>
       </div>
-      <time class="font-footnote" datetime="<?= $publishDate->toDate('Y-m-d') ?>">
-        <?= $publishDate->toDate('d.m.Y') ?>
+      <time class="font-footnote" datetime="<?= date('Y-m-d', $publishTimestamp) ?>">
+        <?= date('d.m.Y', $publishTimestamp) ?>
       </time>
     </div>
 
@@ -60,4 +61,4 @@ if ($heroImage && !$heroImage->exists()) {
       Newsletter lesen
     </a>
   </div>
-</article>
+</li>
