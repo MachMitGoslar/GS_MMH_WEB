@@ -38,24 +38,24 @@
       <div class="grid-item" data-span="1/1">
         <h2 class="font-titleL mb-6">Alle Newsletter-Ausgaben</h2>
         
-        <div class="newsletter-overview-grid">
+        <ul class="grid content">
           <?php
             $newsletters = $page->children()->listed();
         // Sort by publish_date, then fallback to published date, modified date, or folder number
         $sortedNewsletters = $newsletters->sortBy(function ($newsletter) {
             // Primary: use publish_date field if available
             if ($newsletter->publish_date()->isNotEmpty()) {
-                return $newsletter->publish_date()->toTimestamp();
+                return mmhTimestampValue($newsletter->publish_date());
             }
             // Secondary: use published date if available
             $published = $newsletter->published();
             if ($published && !$published->isEmpty()) {
-                return $published->toTimestamp();
+                return mmhTimestampValue($published);
             }
             // Tertiary: use modified date
             $modified = $newsletter->modified();
             if ($modified) {
-                return $modified->toTimestamp();
+                return mmhTimestampValue($modified);
             }
 
             // Final fallback: reverse folder number for manual ordering
@@ -69,7 +69,7 @@
             'class' => $index === 0 ? 'newsletter-item--featured' : '',
               ]) ?>
           <?php endforeach ?>
-        </div>
+        </ul>
       </div>
     <?php else : ?>
       <div class="grid-item" data-span="1/1">

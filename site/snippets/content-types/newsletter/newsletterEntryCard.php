@@ -22,7 +22,7 @@ $hasActions  = $entryLink || $entryMailto;
 $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
 
 ?>
-<li class="c-newsletterTeaserCard">
+<li class="c-newsletterTeaserCard grid-item" data-span="1/3">
   <?php if ($imageFile) : ?>
     <div>
       <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>">

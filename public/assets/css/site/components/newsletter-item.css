@@ -1,24 +1,5 @@
 /* Newsletter Teaser Card Component Styles */
 
-.newsletter-overview-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--size-6, 1.5rem);
-  width: 100%;
-}
-
-@media (width >= 768px) {
-  .newsletter-overview-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (width >= 1040px) {
-  .newsletter-overview-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
 .c-newsletterTeaserCard {
   grid-column: auto;
   display: flex;

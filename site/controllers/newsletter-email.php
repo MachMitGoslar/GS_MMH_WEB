@@ -610,6 +610,7 @@ function mmhNewsletterInlineCriticalEmailStyles(string $html): string
         'events-list' => 'display:block;width:100%;list-style:none;margin:0;padding:0;',
         'eventsListItem' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-left:4px solid #d69a00;border-radius:12px;padding:18px;margin:0 0 16px;box-sizing:border-box;box-shadow:0 2px 8px rgba(0,0,0,.06);',
         'newsletter-grid' => 'display:block;width:100%;list-style:none;margin:0;padding:0;',
+        'c-newsletterTeaserCard' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-radius:12px;overflow:hidden;margin:0 0 28px;padding:0 0 24px;box-sizing:border-box;',
         'c-projectUpdateTeaser-card' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-radius:12px;overflow:hidden;margin:0 0 20px;box-sizing:border-box;box-shadow:0 2px 8px rgba(0,0,0,.08);',
         'hero' => 'display:block;width:100%;height:auto;max-width:100%;',
         'statusheader' => 'display:block;margin:0 0 10px;',

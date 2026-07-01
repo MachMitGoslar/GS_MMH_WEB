@@ -167,10 +167,11 @@
 /* Newsletter Grid */
 .newsletter-grid {
   gap: var(--size-6);
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
   @media (width < 768px) {
-    grid-template-columns: 1fr;
     gap: var(--size-4);
   }
 }
