@@ -97,11 +97,16 @@ if ($timeLabel === '') {
     </a>
   <?php else : ?>
     <?php
-      $date = strtotime((string) ($eventData['start'] ?? $start->format(DATE_ATOM)));
       $displayTitle = $variant === 'event-list' ? $title : Str::short($title, 50, '…');
+      $listTimeLabel = trim((string) ($event['list_time_label'] ?? ''));
+      if ($listTimeLabel === '') {
+          $listTimeLabel = ($eventData['allday'] ?? false)
+              ? $start->format('d.m.Y') . ', ganztägig'
+              : $start->format('d.m.Y, H:i') . ' Uhr';
+      }
       ?>
     <a href="<?= esc($url) ?>" target="_blank" rel="noopener noreferrer">
-      <time class="font-footnote mb-2"><?= date('d.m.Y, H:i', $date) ?> Uhr</time>
+      <time class="font-footnote mb-2"><?= esc($listTimeLabel) ?></time>
       <h3 class="font-subheadline mb-2"><?= esc($displayTitle) ?></h3>
       <p class="font-body mb-2"><?= Str::short($description, 120, '…') ?></p>
     </a>
