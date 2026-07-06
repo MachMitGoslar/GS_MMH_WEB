@@ -109,3 +109,5 @@ figma-tokens.json
 !/content/forms/*/*.php
 !/content/forms/*/*.md
 
+### Config & Settings ! No credentials or sensitive data should be committed to Git!
+/site/config/config.mmh.goslar.de.php
