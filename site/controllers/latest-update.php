@@ -128,11 +128,10 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
 
     if ($isNewsletter) {
         $description = $title;
-        $title = 'Newsletter';
     }
 
     return [
-        'title' => $title,
+        'title' => 'MachMit!Haus',
         'description' => $description,
         'image_url' => $image_url,
         'call_to_action_url' => $call_to_action_url,
