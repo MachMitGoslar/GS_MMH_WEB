@@ -51,8 +51,8 @@
                     <?php if ($archivePage && !$page->show_archive()->toBool()) : ?>
                         <li class="c-projectTeaserCard">
 
-                            <div>
-                                <img class="hero" src="https://picsum.photos/1600/800?random=2">
+                            <div class="hero-wrapper">
+                                <?php snippet('utilities/imagePlaceholder') ?>
                             </div>
 
 

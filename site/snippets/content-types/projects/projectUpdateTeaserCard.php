@@ -5,12 +5,16 @@
 * @var \Kirby\Cms\Page $page
 */
 
+$projectUpdateCover = $project->cover();
 ?>
 
 <li class="c-projectUpdateTeaser-card">
-  <div >
-    <?php $projectUpdateCover = $project->cover(); ?>
-    <img class="hero" src="<?= $projectUpdateCover->url() ?>"<?= $projectUpdateCover && $projectUpdateCover->focus()->isNotEmpty() ? ' style="object-position: ' . $projectUpdateCover->focus() . '"' : '' ?>>
+  <div class="hero-wrapper">
+    <?php if ($projectUpdateCover) : ?>
+      <img class="hero" src="<?= $projectUpdateCover->url() ?>"<?= $projectUpdateCover->focus()->isNotEmpty() ? ' style="object-position: ' . $projectUpdateCover->focus() . '"' : '' ?> alt="<?= $projectUpdateCover->alt() ?>">
+    <?php else : ?>
+        <?php snippet('utilities/imagePlaceholder') ?>
+    <?php endif; ?>
   </div>
   <div class="content">
     <?= snippet('content-types/projects/statusheader', compact('project_step')) ?>

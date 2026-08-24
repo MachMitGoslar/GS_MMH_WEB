@@ -1,0 +1,54 @@
+/* Divider Block */
+
+.c-divider {
+  --_color: var(--color-dead-pixel-300);
+  --_thickness: 1px;
+  --_style: solid;
+  --_spacing: 1.5rem;
+
+  width: 100%;
+  height: 0;
+  border: 0;
+  border-top: var(--_thickness) var(--_style) var(--_color);
+  margin-block: var(--_spacing);
+}
+
+/* Line style */
+
+.c-divider[data-line-style='dashed'] {
+  --_style: dashed;
+}
+
+.c-divider[data-line-style='dotted'] {
+  --_style: dotted;
+}
+
+/* Thickness */
+
+.c-divider[data-thickness='regular'] {
+  --_thickness: 2px;
+}
+
+.c-divider[data-thickness='thick'] {
+  --_thickness: 4px;
+}
+
+/* Color */
+
+.c-divider[data-color='dark'] {
+  --_color: var(--color-dead-pixel-1200);
+}
+
+.c-divider[data-color='brand'] {
+  --_color: var(--color-fg-brand-primary);
+}
+
+/* Spacing */
+
+.c-divider[data-spacing='small'] {
+  --_spacing: 0.75rem;
+}
+
+.c-divider[data-spacing='large'] {
+  --_spacing: 3rem;
+}

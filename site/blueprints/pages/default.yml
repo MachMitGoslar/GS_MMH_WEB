@@ -55,6 +55,7 @@ tabs:
                   - download
                   - table
                   - faq
+                  - divider
                 settings:
                   fields:
                     publish_date:

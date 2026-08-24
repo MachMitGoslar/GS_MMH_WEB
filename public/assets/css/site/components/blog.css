@@ -115,16 +115,22 @@
 :root {
 }
 
+/* Cards in one layout row grow to the same height */
+.grid-item:has(> .c-blog-card) {
+  align-content: stretch;
+}
+
 .c-blog-card {
   display: flex;
   padding-bottom: 2rem;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   flex-shrink: 0;
   border-radius: 0.5rem;
   border: 1px solid rgb(0 0 0 / 10%);
   background: #fff;
   overflow: hidden;
+  height: 100%;
 
   /* Hero */
 
@@ -151,8 +157,25 @@
   & .content {
     padding: 0 1rem;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 
     & .heading {
+      padding-top: 1rem;
+
+      & a {
+        color: inherit;
+      }
+
+      & a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    /* Footer button sticks to the bottom edge so buttons line up across a row */
+    & .card-footer {
+      margin-top: auto;
       padding-top: 1rem;
     }
 

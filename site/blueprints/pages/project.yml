@@ -71,6 +71,7 @@ columns:
           - testimonial
           - cta
           - form
+          - divider
 
       team:
         type: pages
