@@ -11,3 +11,6 @@
 [submodule "site/plugins/git-content"]
 	path = site/plugins/git-content
 	url = https://github.com/thathoff/kirby-git-content.git
+[submodule "site/plugins/gs-mmh-signage-plugin"]
+	path = site/plugins/gs-mmh-signage-plugin
+	url = https://github.com/MachMitGoslar/GS_MMH_SIGNAGE_PLUGIN
