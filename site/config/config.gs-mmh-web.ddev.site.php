@@ -15,10 +15,10 @@ return [
                 'install' => true,
             ],
             'db' => [
-                'host' => "db",
-                'database' => "mmh_dev_db",
-                'user' => "mmh_dev_user",
-                'password' => "mmh_dev_user",
+                'host' => "db:3306",
+                'database' => "db",
+                'user' => "db",
+                'password' => "db"
             ],
             'cache' => [
                 'pages' => [
@@ -39,13 +39,13 @@ return [
             ],
             'email' => [
                 'transport' => [
-                    'type' => 'smtp', // Transporttyp aus .env.local
+                    'type' => 'sendmail', // Transporttyp aus .env.local
                     'host' => 'localhost',   // SMTP-Host aus .env.local
                     'port' => 1025, // SMTP-Port aus .env.local, Standard 1025 für MailHog
-                    'security' => null, // Sicherheit aus .env.local
-                    'auth' => null, // Authentifizierung aus .env.local
-                    'username' => null, // Benutzername aus .env.local
-                    'password' => null // Passwort aus .env.local
+                    'security' => '', // Sicherheit aus .env.local
+                    'auth' =>'', // Authentifizierung aus .env.local
+                    'username' => 'machmit', // Benutzername aus .env.local
+                    'password' => 'test' // Passwort aus .env.local
                 ],
                 'from' => 'noreply@gs-mmh-web.ddev.site',
             ],
@@ -57,8 +57,8 @@ return [
                 'storeSubmissions' => true,
                 'log' => true,
                 'email' => [
-                    'from' => 'no-reply@gs-mmh-web.ddev.site',
-                    'name' => 'MachMit!Website',
+                    'from' =>   "machmit@goslar.de",
+                    'name' =>"MachMit!Website",
                 ],
                 'guards' => [
                     // activated guards
