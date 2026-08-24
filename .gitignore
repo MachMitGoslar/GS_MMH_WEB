@@ -65,8 +65,8 @@ vendor/
 /site/plugins/*
 !/site/plugins/gs-mmh-web-plugin
 !/site/plugins/gs-mmh-web-plugin/*
-!/site/plugins/gs-mmh-signage
-!/site/plugins/gs-mmh-signage/*
+!/site/plugins/gs-mmh-signage-plugin
+!/site/plugins/gs-mmh-signage-plugin/*
 /kirby/*
 /content/
 

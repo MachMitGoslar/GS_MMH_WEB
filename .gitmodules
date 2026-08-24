@@ -1,7 +1,3 @@
-[submodule "kirby"]
-	path = kirby
-	url = https://github.com/getkirby/kirby.git
-	branch = release/5.2.1
 [submodule "content"]
 	path = content
 	url = https://github.com/MachMitGoslar/web_content
@@ -11,6 +7,6 @@
 [submodule "site/plugins/git-content"]
 	path = site/plugins/git-content
 	url = https://github.com/thathoff/kirby-git-content.git
-[submodule "site/plugins/gs-mmh-signage"]
-	path = site/plugins/gs-mmh-signage
+[submodule "site/plugins/gs-mmh-signage-plugin"]
+	path = site/plugins/gs-mmh-signage-plugin
 	url = https://github.com/MachMitGoslar/GS_MMH_SIGNAGE_PLUGIN
