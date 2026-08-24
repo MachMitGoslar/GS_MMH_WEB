@@ -12,17 +12,21 @@ $authors = $note->author()->toPages();
 $cover = $note->cover();
 ?>
 
-<article class="note-card <?= $featured ? 'note-card--featured' : '' ?><?= !$cover ? ' note-card--no-image' : '' ?>">
-  <?php if ($featured && $cover) : ?>
+<article class="note-card <?= $featured ? 'note-card--featured' : '' ?>">
+  <?php if ($featured) : ?>
     <!-- Featured Card with Large Image -->
     <div class="note-card-featured">
       <div class="note-card-image-wrapper">
         <a href="<?= $note->url() ?>" class="note-card-image-link">
-          <img src="<?= $cover->crop(1200, 500)->url() ?>"
-               alt="<?= $note->title()->html() ?>"
-               class="note-card-image"
-               loading="lazy">
-          <div class="note-card-overlay"></div>
+          <?php if ($cover) : ?>
+            <img src="<?= $cover->crop(1200, 500)->url() ?>"
+                 alt="<?= $note->title()->html() ?>"
+                 class="note-card-image"
+                 loading="lazy">
+            <div class="note-card-overlay"></div>
+          <?php else : ?>
+              <?php snippet('utilities/imagePlaceholder', ['class' => 'note-card-image']) ?>
+          <?php endif ?>
         </a>
         <!-- Authors on image border (right side) -->
         <?php if ($authors->count() > 0) : ?>
@@ -71,15 +75,17 @@ $cover = $note->cover();
     </div>
   <?php else : ?>
     <!-- Regular Card -->
-    <div class="note-card-image-wrapper <?= $cover ? 'note-card-image-wrapper--has-image' : 'note-card-image-wrapper--no-image' ?>">
-      <?php if ($cover) : ?>
-        <a href="<?= $note->url() ?>" class="note-card-image-link">
+    <div class="note-card-image-wrapper note-card-image-wrapper--has-image">
+      <a href="<?= $note->url() ?>" class="note-card-image-link">
+        <?php if ($cover) : ?>
           <img src="<?= $cover->crop(600, 400)->url() ?>"
                alt="<?= $note->title()->html() ?>"
                class="note-card-image"
                loading="lazy">
-        </a>
-      <?php endif ?>
+        <?php else : ?>
+            <?php snippet('utilities/imagePlaceholder', ['class' => 'note-card-image']) ?>
+        <?php endif ?>
+      </a>
       <!-- Authors on image border (right side) -->
       <?php if ($authors->count() > 0) : ?>
         <div class="note-card-authors">

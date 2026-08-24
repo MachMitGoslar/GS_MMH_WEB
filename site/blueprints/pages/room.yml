@@ -86,6 +86,13 @@ tabs:
                         extends: fields/blockPublishDate
                       end_date:
                         extends: fields/blockEndDate
+                  divider:
+                    extends: blocks/divider
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
                 help: Detaillierte Beschreibung des Raumes
 
           gallery_section:

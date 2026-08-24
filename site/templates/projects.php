@@ -43,7 +43,7 @@
             <section class="grid-item" data-span="1/1">
                 <ul class="grid mb-4">
 
-                    <?php foreach ($activeProjects as $project) : ?>
+                    <?php foreach ($activeProjects->sort('last_modified', 'desc') as $project) : ?>
                         <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
                     <?php endforeach; ?>
 
@@ -51,8 +51,8 @@
                     <?php if ($archivePage && !$page->show_archive()->toBool()) : ?>
                         <li class="c-projectTeaserCard">
 
-                            <div>
-                                <img class="hero" src="https://picsum.photos/1600/800?random=2">
+                            <div class="hero-wrapper">
+                                <?php snippet('utilities/imagePlaceholder') ?>
                             </div>
 
 

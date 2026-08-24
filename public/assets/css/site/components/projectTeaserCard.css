@@ -6,7 +6,7 @@
   display: flex;
   padding-bottom: 0;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 1rem;
   flex-shrink: 0;
   border-radius: 0.5rem;
@@ -14,10 +14,20 @@
   background: #fff;
   overflow: hidden;
   contain: content;
+  height: 100%;
 
   & .content {
-    padding: 0 1rem;
+    padding: 0 1rem 1rem;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    /* Call to action stays on the bottom edge so buttons line up across a row */
+    & .gs-c-btn {
+      margin-top: auto;
+      align-self: flex-start;
+    }
 
     /* Status Header */
     & .statusheader {
@@ -63,23 +73,24 @@
   }
 
   /* Hero */
-  & .hero {
+  & .hero-wrapper {
     --aspected-ration: 24/9;
 
     display: block;
     width: 100%;
     aspect-ratio: var(--aspected-ration);
-    object-fit: cover;
-    background: transparent;
+    overflow: hidden;
 
     @media (width > 489px) {
       --aspected-ration: 21/9;
     }
-    @media (width > 767px) {
-    }
-    @media (width > 1039px) {
-    }
-    @media (width > 1439px) {
-    }
+  }
+
+  & .hero {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: transparent;
   }
 }

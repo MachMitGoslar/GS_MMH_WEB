@@ -1,4 +1,6 @@
 <?php
+
+use PHPMailer\PHPMailer\SMTP;
 /**
  * This config file is for local ddev usage
  * usually you'd like to turn off debugging on the /config.php file and activate it for local or development sites

@@ -122,6 +122,13 @@ tabs:
                         extends: fields/blockPublishDate
                       end_date:
                         extends: fields/blockEndDate
+                  divider:
+                    extends: blocks/divider
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
                 help: Der Hauptinhalt des Tagebucheintrags
                 
       - width: 1/3
