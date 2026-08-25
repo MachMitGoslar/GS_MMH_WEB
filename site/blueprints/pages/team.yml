@@ -10,34 +10,40 @@ options:
 
 # Here we extend two sections which are defined in `/site/blueprints/sections/albums.yml`
 # They differ in their page status and the headline.
-columns:
-  - width: 2/3
-    sections:
-      fields:
-        type: fields
-        fields:
-          cover: fields/cover
-          headline:
-            type: text
-            placeholder: site.title
-            #required: true
-          subheadline:
-            type: text
-  - width: 1/3
-    sections:
-      staff:
-        extends: sections/roles
-        query: site.find("team").children.filterBy('teams', 'staff', ',')
-        label: Hauptamt
-      volunteers:
-        extends: sections/roles
-        query: site.find("team").children.filterBy('teams', 'volunteer', ',')
-        label: Ehrenamt
-      partners:
-        extends: sections/roles
-        query: site.find("team").children.filterBy('teams', 'partner', ',')
-        label: Partner
-      issuers:
-        extends: sections/roles
-        query: site.find("team").children.filterBy('teams', 'issuer', ',')
-        label: Auftraggeber
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    columns:
+      - width: 2/3
+        sections:
+          fields:
+            type: fields
+            fields:
+              cover: fields/cover
+              headline:
+                type: text
+                placeholder: site.title
+                #required: true
+              subheadline:
+                type: text
+      - width: 1/3
+        sections:
+          staff:
+            extends: sections/roles
+            query: site.find("team").children.filterBy('teams', 'staff', ',')
+            label: Hauptamt
+          volunteers:
+            extends: sections/roles
+            query: site.find("team").children.filterBy('teams', 'volunteer', ',')
+            label: Ehrenamt
+          partners:
+            extends: sections/roles
+            query: site.find("team").children.filterBy('teams', 'partner', ',')
+            label: Partner
+          issuers:
+            extends: sections/roles
+            query: site.find("team").children.filterBy('teams', 'issuer', ',')
+            label: Auftraggeber
+
+  seo: tabs/seo

@@ -97,3 +97,5 @@ tabs:
                 label: Enddatum
                 type: date
                 time: true
+
+  seo: tabs/seo

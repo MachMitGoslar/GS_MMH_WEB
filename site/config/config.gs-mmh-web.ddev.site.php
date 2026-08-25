@@ -10,9 +10,10 @@ use PHPMailer\PHPMailer\SMTP;
 return [
     'ready' => function () {
         return [
-            'debug' => true,
+            'debug' => false,
             'panel' => [
                 'install' => true,
+                'vue.compiler' => false
             ],
             'db' => [
                 'host' => "db:3306",

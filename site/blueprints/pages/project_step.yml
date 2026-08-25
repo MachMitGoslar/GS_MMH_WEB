@@ -16,98 +16,104 @@ status:
 # More about different types of sections: https://getkirby.com/docs/reference/panel/sections
 # More about columns: https://getkirby.com/docs/guide/blueprints/layout#defining-columns
 
-columns: 
-  - width: 2/3
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    columns: 
+      - width: 2/3
 
-    fields:
+        fields:
 
-      project_start_date:
-        label: Projektstart
-        type: date
-        width: 1/2
-        required: true
-      project_start_time:
-        label: Startzeit
-        type: time
-        width: 1/2
-      project_status_from:
-        type: select
-        label: Projektzustand von
-        options:
-          - in Planung
-          - in Vorbereitung
-          - aktiv
-          - in Auswertung
-          - abgeschlossen
-        width: 1/2
-      project_status_to:
-        type: select
-        label: Projektzustand zu
-        options:
-          - in Planung
-          - in Vorbereitung
-          - aktiv
-          - in Auswertung
-          - abgeschlossen
-        width: 1/2
-      headline:
-        label: Anriss
-        placeholder: "{{ page.title }}"
-        help: Leave empty to use the title as headline
-        type: writer
-        marks:
-          - bold
-          - italic
-          - underline
-          - strike
-          - link
-          - email
-          - button
-          - badge
-          - highlight
-          - footnote
-        toolbar:
-          inline: true
-          marks:
-            - bold
-            - italic
-            - underline
-            - strike
-            - link
-            - email
-            - button
-            - badge
-            - highlight
-            - footnote
-      description:
-        label: Beschreibung
-        type: writer
-        marks:
-          - bold
-          - italic
-          - underline
-          - strike
-          - link
-          - email
-          - button
-          - badge
-          - highlight
-          - footnote
-        toolbar:
-          inline: true
-          marks:
-            - bold
-            - italic
-            - underline
-            - strike
-            - link
-            - email
-            - button
-            - badge
-            - highlight
-            - footnote
-      tags:
-        type: tags
-        label: Tags
-    empty: Noch keine Projektschritte angelegt
-    sortBy: project_start_date asc
+          project_start_date:
+            label: Projektstart
+            type: date
+            width: 1/2
+            required: true
+          project_start_time:
+            label: Startzeit
+            type: time
+            width: 1/2
+          project_status_from:
+            type: select
+            label: Projektzustand von
+            options:
+              - in Planung
+              - in Vorbereitung
+              - aktiv
+              - in Auswertung
+              - abgeschlossen
+            width: 1/2
+          project_status_to:
+            type: select
+            label: Projektzustand zu
+            options:
+              - in Planung
+              - in Vorbereitung
+              - aktiv
+              - in Auswertung
+              - abgeschlossen
+            width: 1/2
+          headline:
+            label: Anriss
+            placeholder: "{{ page.title }}"
+            help: Leave empty to use the title as headline
+            type: writer
+            marks:
+              - bold
+              - italic
+              - underline
+              - strike
+              - link
+              - email
+              - button
+              - badge
+              - highlight
+              - footnote
+            toolbar:
+              inline: true
+              marks:
+                - bold
+                - italic
+                - underline
+                - strike
+                - link
+                - email
+                - button
+                - badge
+                - highlight
+                - footnote
+          description:
+            label: Beschreibung
+            type: writer
+            marks:
+              - bold
+              - italic
+              - underline
+              - strike
+              - link
+              - email
+              - button
+              - badge
+              - highlight
+              - footnote
+            toolbar:
+              inline: true
+              marks:
+                - bold
+                - italic
+                - underline
+                - strike
+                - link
+                - email
+                - button
+                - badge
+                - highlight
+                - footnote
+          tags:
+            type: tags
+            label: Tags
+        empty: Noch keine Projektschritte angelegt
+        sortBy: project_start_date asc
+
+  seo: tabs/seo

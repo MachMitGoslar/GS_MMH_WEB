@@ -261,3 +261,5 @@ tabs:
                 text:
                   - Deaktiviert
                   - Aktiviert
+
+  seo: tabs/seo

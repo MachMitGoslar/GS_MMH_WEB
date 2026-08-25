@@ -6,157 +6,163 @@ options:
   delete: false
   duplicate: false
 
-columns:
-  - width: 2/3
-    sections:
-      content:
-        type: fields
-        fields:
-          intro:
-            label: Einleitung
-            type: textarea
-            size: small
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    columns:
+      - width: 2/3
+        sections:
+          content:
+            type: fields
+            fields:
+              intro:
+                label: Einleitung
+                type: textarea
+                size: small
 
-          email:
-            label: E-Mail
-            type: email
+              email:
+                label: E-Mail
+                type: email
 
-          phone:
-            label: Telefonnummer
-            type: tel
+              phone:
+                label: Telefonnummer
+                type: tel
 
-          website:
-            label: Website
-            type: url
+              website:
+                label: Website
+                type: url
 
-          address:
-            label: Adresse
-            type: textarea
-            size: small
+              address:
+                label: Adresse
+                type: textarea
+                size: small
 
-          social:
-            label: Social Media Handle
-            type: text
+              social:
+                label: Social Media Handle
+                type: text
 
 
-          text:
-            label: Zusätzliche Inhalte
-            type: blocks
-            fieldsets:
-              heading:
-                extends: blocks/heading
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
               text:
-                extends: blocks/text
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              image:
-                extends: blocks/image
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              gallery:
-                extends: blocks/gallery
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              video:
-                extends: blocks/video
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              box:
-                extends: blocks/box
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              faq:
-                extends: blocks/faq
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              card:
-                extends: blocks/card
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              testimonial:
-                extends: blocks/testimonial
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              cta:
-                extends: blocks/cta
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              download:
-                extends: blocks/download
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              form:
-                extends: blocks/form
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              table:
-                extends: blocks/table
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
-              divider:
-                extends: blocks/divider
-                fields:
-                  publish_date:
-                    extends: fields/blockPublishDate
-                  end_date:
-                    extends: fields/blockEndDate
+                label: Zusätzliche Inhalte
+                type: blocks
+                fieldsets:
+                  heading:
+                    extends: blocks/heading
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  text:
+                    extends: blocks/text
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  image:
+                    extends: blocks/image
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  gallery:
+                    extends: blocks/gallery
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  video:
+                    extends: blocks/video
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  box:
+                    extends: blocks/box
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  faq:
+                    extends: blocks/faq
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  card:
+                    extends: blocks/card
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  testimonial:
+                    extends: blocks/testimonial
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  cta:
+                    extends: blocks/cta
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  download:
+                    extends: blocks/download
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  form:
+                    extends: blocks/form
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  table:
+                    extends: blocks/table
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
+                  divider:
+                    extends: blocks/divider
+                    fields:
+                      publish_date:
+                        extends: fields/blockPublishDate
+                      end_date:
+                        extends: fields/blockEndDate
 
-  - width: 1/3
-    sections:
-      map:
-        type: fields
-        fields:
-          lat:
-            label: Latitude
-            type: number
-            step: 0.000001
+      - width: 1/3
+        sections:
+          map:
+            type: fields
+            fields:
+              lat:
+                label: Latitude
+                type: number
+                step: 0.000001
 
-          lng:
-            label: Longitude
-            type: number
-            step: 0.000001
+              lng:
+                label: Longitude
+                type: number
+                step: 0.000001
 
-          mapbox_token:
-            label: Mapbox Access Token
-            type: text
+              mapbox_token:
+                label: Mapbox Access Token
+                type: text
+
+  seo: tabs/seo

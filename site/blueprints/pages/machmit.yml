@@ -1,5 +1,11 @@
 title: Machmit
 icon: home
 
-fields:
-  blogEntry: fields/BlogEntry
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    fields:
+      blogEntry: fields/BlogEntry
+
+  seo: tabs/seo

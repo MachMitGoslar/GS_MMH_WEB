@@ -10,27 +10,33 @@ icon: home
 options:
   changeStatus: false
 
-columns:
-  - width: 1
-    fields:
-      cover:
-        extends: fields/cover
-  - width: 1/2
-    fields:
-      wellcomeHeadline:
-        type: text
-      wellcomeText:
-        type: textarea
-  - width: 1/2
-    fields:
-      info:
-        type: info
-        text: Den Newsletter Teaser kannst du <a href="/panel/site?tab=newsletter" target="_blank">hier</a> anpassen.
-  - width: 1
-    fields:
-      oveda:
-        extends: fields/oveda
-  - width: 1
-    fields:
-      blocks:
-        extends: fields/blocks
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    columns:
+      - width: 1
+        fields:
+          cover:
+            extends: fields/cover
+      - width: 1/2
+        fields:
+          wellcomeHeadline:
+            type: text
+          wellcomeText:
+            type: textarea
+      - width: 1/2
+        fields:
+          info:
+            type: info
+            text: Den Newsletter Teaser kannst du <a href="/panel/site?tab=newsletter" target="_blank">hier</a> anpassen.
+      - width: 1
+        fields:
+          oveda:
+            extends: fields/oveda
+      - width: 1
+        fields:
+          blocks:
+            extends: fields/blocks
+
+  seo: tabs/seo
