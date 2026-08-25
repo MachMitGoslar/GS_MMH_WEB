@@ -46,6 +46,14 @@ See [DEVELOPMENT_SETUP.md](DEVELOPMENT_SETUP.md) for detailed setup, debugging, 
 - **Notes/Blog** -- Articles with rich block-based content
 - **Team** -- Staff profiles with photos and roles
 
+### SEO & Social Embedding
+- Per-page "SEO & Teilen" tab: title, description, sharing image, indexing switch
+- Open Graph and Twitter card tags with images cropped to 1200 x 630 (focus-point aware)
+- schema.org structured data (`NGO`, `WebSite`, `WebPage`/`Article`, `ImageObject`)
+- `sitemap.xml` and `robots.txt`, both honouring the per-page indexing setting
+- Live link preview inside the panel
+- Provided by `gs-mmh-web-plugin`; see its [README](site/plugins/gs-mmh-web-plugin/README.md#seo--social-embedding)
+
 ### Integrations
 - **Room Booking** -- Form submission, email notifications, optional Google Calendar sync
 - **Ferienpass API** -- JSON endpoints for the MachMit mobile app
@@ -73,6 +81,7 @@ GS_MMH_WEB/
 │   │   │   ├── design-system/  # Tokens, components, layout
 │   │   │   └── site/           # Page-specific styles
 │   │   ├── js/                 # Lightbox, etc.
+│   │   ├── pngs/               # Raster assets incl. og-default.png
 │   │   └── svg/                # Icons and logos
 │   └── index.php               # Application entry point
 ├── site/
@@ -87,6 +96,7 @@ GS_MMH_WEB/
 │   ├── controllers/            # Page controllers
 │   ├── snippets/
 │   │   ├── layout/             # head, header, footer, mainLayout
+│   │   │                       # (SEO meta comes from the web plugin)
 │   │   ├── sections/           # hero
 │   │   ├── blocks/             # download, gallery, searchbar, line
 │   │   ├── content-types/      # Domain-specific snippets
@@ -97,7 +107,7 @@ GS_MMH_WEB/
 │   │   │   ├── notes/          # Note cards
 │   │   │   └── team/           # Member galleries
 │   │   ├── integrations/       # Performance tracking
-│   │   └── utilities/          # Shared content cards
+│   │   └── utilities/          # Shared content cards, image placeholder
 │   ├── templates/              # 19 page templates
 │   ├── plugins/                # Kirby plugins
 │   └── helpers.php             # Global helper functions
@@ -138,6 +148,8 @@ GS_MMH_WEB/
 
 | Pattern                      | Method | Response | Description                          |
 |------------------------------|--------|----------|--------------------------------------|
+| `sitemap.xml`                | GET    | XML      | Sitemap of all indexable pages       |
+| `robots.txt`                 | GET    | Text     | Crawler rules, references the sitemap|
 | `newsletter.xml`             | GET    | XML      | Newsletter RSS feed                  |
 | `/app/(:any)`                | GET    | JSON     | Mobile app request tracker           |
 | `/app/ferienpass.json`       | GET    | JSON     | Random Ferienpass event              |
@@ -157,7 +169,7 @@ GS_MMH_WEB/
 
 | Plugin              | Description                                        |
 |---------------------|----------------------------------------------------|
-| `gs-mmh-web-plugin` | Main custom plugin: blocks, writer marks, routes, hooks (git submodule, see its [README](site/plugins/gs-mmh-web-plugin/README.md)) |
+| `gs-mmh-web-plugin` | Main custom plugin: blocks, writer marks, SEO/social metadata, routes, hooks (git submodule, see its [README](site/plugins/gs-mmh-web-plugin/README.md)) |
 | `gs-mmh-signage`    | Digital signage screen management                  |
 | `git-content`       | Automatic git versioning of content changes        |
 | `kirby-dreamform`   | Form builder and submission handler (v2.1)         |
