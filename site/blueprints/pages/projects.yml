@@ -79,3 +79,5 @@ tabs:
             templates: project
             create: project
             sortable: true
+
+  seo: tabs/seo

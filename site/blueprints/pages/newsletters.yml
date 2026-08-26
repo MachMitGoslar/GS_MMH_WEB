@@ -63,3 +63,5 @@ tabs:
     sections:
       newsletterRecipients:
         type: newsletter-recipients
+
+  seo: tabs/seo

@@ -188,29 +188,7 @@ tabs:
       settings_fields:
         type: fields
         fields:
-          # SEO and meta fields
-          seo_title:
-            label: SEO Titel
-            type: text
-            placeholder: "{{ page.title }}"
-            help: Titel für Suchmaschinen (falls abweichend)
-            width: 1/2
-            
-          seo_description:
-            label: SEO Beschreibung
-            type: textarea
-            maxlength: 160
-            help: Kurze Beschreibung für Suchmaschinen
-            width: 1/2
-            
-          # Social sharing image
-          social_image:
-            label: Social Media Bild
-            type: files
-            max: 1
-            help: Bild für Social Media Sharing (falls abweichend vom Titelbild)
-            layout: list
-            
+          # SEO fields live in the shared "SEO & Teilen" tab
           # Visibility settings
           featured:
             label: Hervorheben
@@ -223,3 +201,5 @@ tabs:
             label: Interne Notizen
             type: textarea
             help: Interne Notizen oder Kommentare (nicht öffentlich sichtbar)
+
+  seo: tabs/seo

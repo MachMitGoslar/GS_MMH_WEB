@@ -339,3 +339,5 @@ tabs:
         layout: cards
         size: small
         uploads: true
+
+  seo: tabs/seo

@@ -109,3 +109,5 @@ tabs:
                 label: URL
                 type: url
                 width: 1/2
+
+  seo: tabs/seo

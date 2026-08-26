@@ -80,3 +80,5 @@ tabs:
       closingsInfos:
         label: Abschlusstexte
         type: textarea
+
+  seo: tabs/seo

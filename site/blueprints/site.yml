@@ -134,3 +134,38 @@ tabs:
         parent: site.find("forms")
         template: form
         status: draft
+
+  seo:
+    label: SEO & Teilen
+    icon: search
+    columns:
+      main:
+        width: 2/3
+        sections:
+          defaults:
+            type: fields
+            label: Standardwerte
+            fields:
+              seo_description:
+                label: Standard-Beschreibung
+                type: textarea
+                maxlength: 160
+                counter: true
+                buttons: false
+                help: Wird verwendet, wenn eine Seite keine eigene Beschreibung hat und auch aus dem Inhalt keine erzeugt werden kann.
+              social_image:
+                label: Standard-Bild für Link-Vorschau
+                type: files
+                max: 1
+                layout: cards
+                image:
+                  ratio: 1200/630
+                  cover: true
+                uploads:
+                  template: image
+                help: Wird verwendet, wenn eine Seite weder ein eigenes Social-Bild noch ein Titelbild hat. Ohne Angabe greift das gebrandete Standardbild.
+              twitter_handle:
+                label: X / Twitter Handle
+                type: text
+                placeholder: "@machmitgoslar"
+                help: Optional. Wird als twitter:site in der Link-Vorschau ausgegeben.
