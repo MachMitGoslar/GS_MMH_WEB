@@ -32,7 +32,7 @@
 - [ ] Änderungen sind lokal getestet
 - [ ] Desktop und Mobil geprüft
 - [ ] Keine Konsolenfehler im Browser
-- [ ] Panel-Funktionen sind nicht beeintraechtigt
+- [ ] Panel-Funktionen sind nicht beeinträchtigt
 
 ## Screenshots
 
