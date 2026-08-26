@@ -1,6 +1,7 @@
 <?php
 
 use PHPMailer\PHPMailer\SMTP;
+
 /**
  * This config file is for local ddev usage
  * usually you'd like to turn off debugging on the /config.php file and activate it for local or development sites
@@ -13,13 +14,13 @@ return [
             'debug' => false,
             'panel' => [
                 'install' => true,
-                'vue.compiler' => false
+                'vue.compiler' => false,
             ],
             'db' => [
-                'host' => "db:3306",
-                'database' => "db",
-                'user' => "db",
-                'password' => "db"
+                'host' => 'db:3306',
+                'database' => 'db',
+                'user' => 'db',
+                'password' => 'db',
             ],
             'cache' => [
                 'pages' => [
@@ -44,9 +45,9 @@ return [
                     'host' => 'localhost',   // SMTP-Host aus .env.local
                     'port' => 1025, // SMTP-Port aus .env.local, Standard 1025 für MailHog
                     'security' => '', // Sicherheit aus .env.local
-                    'auth' =>'', // Authentifizierung aus .env.local
+                    'auth' => '', // Authentifizierung aus .env.local
                     'username' => 'machmit', // Benutzername aus .env.local
-                    'password' => 'test' // Passwort aus .env.local
+                    'password' => 'test', // Passwort aus .env.local
                 ],
                 'from' => 'noreply@gs-mmh-web.ddev.site',
             ],
@@ -58,8 +59,8 @@ return [
                 'storeSubmissions' => true,
                 'log' => true,
                 'email' => [
-                    'from' =>   "machmit@goslar.de",
-                    'name' =>"MachMit!Website",
+                    'from' => 'machmit@goslar.de',
+                    'name' => 'MachMit!Website',
                 ],
                 'guards' => [
                     // activated guards
@@ -86,5 +87,5 @@ return [
             ],
             //"Kirby\Http\Cookie::$key" => env('COOKIE_KEY'),
         ];
-    }
+    },
 ];

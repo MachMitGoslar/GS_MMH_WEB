@@ -47,8 +47,8 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
 <?php endif ?>
 
 <?php snippet('shared/modal', [
-    'id'        => 'newsletter-subscribe-modal',
-    'modifier'  => 'newsletter-subscribe-modal',
+    'id' => 'newsletter-subscribe-modal',
+    'modifier' => 'newsletter-subscribe-modal',
     'ariaLabel' => 'newsletter-subscribe-title',
 
     'slotTitle' => function () use ($modalHeadline, $modalText) {

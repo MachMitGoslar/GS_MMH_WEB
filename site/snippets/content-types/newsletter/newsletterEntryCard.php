@@ -10,14 +10,14 @@
 $badgeColor = $badgeColor ?? null;
 $footerText = $footerText ?? null;
 
-$rawText      = $entry->content_text() ? trim($entry->content_text()->value()) : '';
+$rawText = $entry->content_text() ? trim($entry->content_text()->value()) : '';
 $excerptLimit = 180;
-$hasMore      = mb_strlen(strip_tags($rawText)) > $excerptLimit;
-$modalId      = 'nl-modal-' . uniqid();
+$hasMore = mb_strlen(strip_tags($rawText)) > $excerptLimit;
+$modalId = 'nl-modal-' . uniqid();
 
-$entryLink   = $entry->link()->isNotEmpty()   ? $entry->link()->value()   : null;
+$entryLink = $entry->link()->isNotEmpty() ? $entry->link()->value() : null;
 $entryMailto = $entry->mailto()->isNotEmpty() ? $entry->mailto()->value() : null;
-$hasActions  = $entryLink || $entryMailto;
+$hasActions = $entryLink || $entryMailto;
 
 $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
 
@@ -60,10 +60,10 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
     $titleId = $modalId . '-title';
 
     snippet('shared/modal', [
-        'id'        => $modalId,
-        'modifier'  => 'newsletter-entry-modal',
-        'hero'      => $imageFile,
-        'heroAlt'   => $entry->headline()->value(),
+        'id' => $modalId,
+        'modifier' => 'newsletter-entry-modal',
+        'hero' => $imageFile,
+        'heroAlt' => $entry->headline()->value(),
         'ariaLabel' => $titleId,
 
         'slotTitle' => function () use ($entry, $badge, $badgeColor, $titleId) {

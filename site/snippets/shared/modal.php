@@ -13,10 +13,10 @@
  * @var callable|null                   $slotFooter   footer / actions slot
  */
 
-$modifier   = $modifier  ?? '';
-$heroAlt    = $heroAlt   ?? '';
-$ariaLabel  = $ariaLabel ?? null;
-$slotTitle  = $slotTitle  ?? null;
+$modifier = $modifier ?? '';
+$heroAlt = $heroAlt ?? '';
+$ariaLabel = $ariaLabel ?? null;
+$slotTitle = $slotTitle ?? null;
 $slotContent = $slotContent ?? null;
 $slotFooter = $slotFooter ?? null;
 

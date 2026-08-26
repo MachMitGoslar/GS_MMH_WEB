@@ -1,0 +1,442 @@
+.c-event {
+  --event-gap: 1.5rem;
+  --event-radius: 0.75rem;
+  --event-border: 1px solid rgb(0 0 0 / 10%);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--event-gap);
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.c-event__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  font-size: var(--typo-size-80);
+  padding-top: 20px;
+  color: var(--color-dead-pixel-1200);
+
+  &:hover {
+    color: var(--color-fg-brand-primary);
+  }
+}
+
+/* Header -- a div on purpose: the global `header` rule in layout/header.css
+   forces height: 3rem, overflow: hidden and position: sticky */
+
+.c-event__header {
+  display: grid;
+  gap: var(--event-gap);
+  grid-template-columns: 1fr;
+
+  @media (width > 767px) {
+    grid-template-columns: 3fr 2fr;
+    align-items: end;
+  }
+}
+
+.c-event__media {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: var(--event-radius);
+  background: var(--color-ripe-mango-200);
+}
+
+.c-event__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.c-event__dateBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 3.5rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 0.5rem;
+  background: var(--color-white);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+
+  & span {
+    font-size: var(--typo-size-70);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-fg-brand-primary);
+  }
+
+  & strong {
+    font-size: var(--typo-size-200);
+    line-height: 1.1;
+  }
+}
+
+.c-event__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.c-event__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.c-event__pill {
+  display: inline-flex;
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  background: var(--color-dead-pixel-100);
+  font-size: var(--typo-size-70);
+  font-weight: var(--font-weight-semiBold);
+  color: var(--color-dead-pixel-1300);
+}
+
+.c-event__pill--accent {
+  background: var(--color-fg-brand-primary);
+  color: var(--color-white);
+}
+
+.c-event__pill--free {
+  background: var(--color-ripe-mango-200);
+  color: var(--color-ripe-mango-1400);
+}
+
+.c-event__title {
+  margin: 0;
+}
+
+.c-event__when {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--typo-size-100);
+  color: var(--color-dead-pixel-1200);
+}
+
+/* Notices */
+
+.c-event__notices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.c-event__notice {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--event-radius);
+  font-size: var(--typo-size-90);
+  background: var(--color-dead-pixel-100);
+  color: var(--color-dead-pixel-1300);
+
+  &[data-tone='critical'] {
+    background: #fdecec;
+    color: #8a1f1f;
+  }
+
+  &[data-tone='warning'] {
+    background: var(--color-ripe-mango-200);
+    color: var(--color-ripe-mango-1400);
+  }
+}
+
+.c-event[data-cancelled='true'] .c-event__title {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+/* Body layout */
+
+.c-event__body {
+  display: grid;
+  gap: var(--event-gap);
+  grid-template-columns: 1fr;
+
+  @media (width > 1039px) {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
+}
+
+.c-event__main,
+.c-event__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--event-gap);
+}
+
+/* Glance row -- fact grid plus map, three columns from tablet up */
+
+.c-event__glance {
+  display: grid;
+  gap: var(--event-gap);
+  grid-template-columns: 1fr;
+
+  @media (width > 767px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Fact grid -- icons first */
+
+.c-event__facts {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  align-content: start;
+  padding: 1.25rem;
+  border: var(--event-border);
+  border-radius: var(--event-radius);
+  background: var(--color-white);
+
+  @media (width > 489px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (width > 767px) {
+    grid-column: span 2;
+  }
+}
+
+/* Without a map the facts use the full row */
+.c-event__glance[data-has-map='false'] .c-event__facts {
+  @media (width > 767px) {
+    grid-column: span 3;
+  }
+}
+
+.c-event__map {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.c-event__mapCanvas {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border: var(--event-border);
+  border-radius: var(--event-radius);
+  overflow: hidden;
+  background: var(--color-dead-pixel-100);
+
+  /* Next to the facts the map fills the row instead of keeping its ratio */
+  @media (width > 767px) {
+    flex: 1;
+    aspect-ratio: auto;
+    min-height: 14rem;
+  }
+}
+
+.c-event__mapLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  align-self: flex-start;
+  font-size: var(--typo-size-80);
+  color: var(--color-fg-brand-primary);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.c-event__fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.c-event__factIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--color-fg-brand-primary);
+  color: var(--color-white);
+}
+
+.c-event__factBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.c-event__factLabel {
+  font-size: var(--typo-size-70);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-dead-pixel-1100);
+}
+
+.c-event__factValue {
+  font-size: var(--typo-size-90);
+  line-height: var(--typo-line-height-regular);
+  overflow-wrap: anywhere;
+}
+
+.c-event__factLink,
+.c-event__cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  font-size: var(--typo-size-80);
+  color: var(--color-fg-brand-primary);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Sections */
+
+.c-event__section h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.c-event__description {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.c-event__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.c-event__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.625rem;
+  border: var(--event-border);
+  border-radius: 999px;
+  font-size: var(--typo-size-70);
+  color: var(--color-dead-pixel-1200);
+}
+
+.c-event__dates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.c-event__date {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.625rem 0.875rem;
+  border: var(--event-border);
+  border-radius: 0.5rem;
+  background: var(--color-white);
+  font-size: var(--typo-size-90);
+
+  &:hover {
+    border-color: var(--color-fg-brand-primary);
+  }
+}
+
+.c-event__dateTime {
+  color: var(--color-dead-pixel-1100);
+  white-space: nowrap;
+}
+
+/* Aside cards */
+
+.c-event__card {
+  padding: 1.25rem;
+  border: var(--event-border);
+  border-radius: var(--event-radius);
+  background: var(--color-white);
+
+  & h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.c-event__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  & .gs-c-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+.c-event__address {
+  display: flex;
+  flex-direction: column;
+  font-style: normal;
+  font-size: var(--typo-size-90);
+  line-height: var(--typo-line-height-regular);
+}
+
+.c-event__organizer {
+  font-size: var(--typo-size-90);
+  font-weight: var(--font-weight-semiBold);
+}
+
+.c-event__organizerMeta {
+  font-size: var(--typo-size-80);
+  color: var(--color-dead-pixel-1100);
+}
+
+.c-event__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: 0.75rem;
+
+  & a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--typo-size-90);
+    overflow-wrap: anywhere;
+
+    &:hover {
+      color: var(--color-fg-brand-primary);
+    }
+  }
+}
+
+.c-event__source {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: var(--typo-size-70);
+  color: var(--color-dead-pixel-1100);
+
+  & a {
+    text-decoration: underline;
+  }
+
+  & svg {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+}
