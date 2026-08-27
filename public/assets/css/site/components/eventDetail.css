@@ -114,14 +114,6 @@
   margin: 0;
 }
 
-.c-event__when {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: var(--typo-size-100);
-  color: var(--color-dead-pixel-1200);
-}
-
 /* Notices */
 
 .c-event__notices {
@@ -260,6 +252,7 @@
 .c-event__factIcon {
   display: flex;
   align-items: center;
+  align-self: center;
   justify-content: center;
   flex-shrink: 0;
   width: 2.25rem;

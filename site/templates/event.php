@@ -156,12 +156,8 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
           <?php endforeach ?>
         </div>
 
-        <h1 class="font-title c-event__title"><?= esc($detail['title']) ?></h1>
+        <h1 class="font-titleXXL c-event__title"><?= esc($detail['title']) ?></h1>
 
-        <p class="c-event__when">
-          <?php snippet('content-types/events/eventIcon', ['icon' => 'calendar', 'size' => 18]) ?>
-          <span><?= esc($detail['date_label']) ?> · <?= esc($detail['time_label']) ?></span>
-        </p>
       </div>
     </div>
 
@@ -288,52 +284,7 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
           </div>
         </div>
 
-        <?php if ($detail['address_lines'] !== []) : ?>
-          <div class="c-event__card">
-            <h2 class="font-subheadline mb-2">
-              <?php snippet('content-types/events/eventIcon', ['icon' => 'map-pin', 'size' => 18]) ?>
-              Veranstaltungsort
-            </h2>
-            <address class="c-event__address">
-              <?php foreach ($detail['address_lines'] as $line) : ?>
-                <span><?= esc($line) ?></span>
-              <?php endforeach ?>
-            </address>
-            <?php if ($detail['maps_url'] !== null) : ?>
-              <a class="c-event__cardLink" href="<?= esc($detail['maps_url']) ?>" target="_blank" rel="noopener noreferrer">
-                <span>Route planen</span>
-                <?php snippet('content-types/events/eventIcon', ['icon' => 'external-link', 'size' => 14]) ?>
-              </a>
-            <?php endif ?>
-          </div>
-        <?php endif ?>
-
-        <?php if ($organizer['name'] !== '' || $contacts !== []) : ?>
-          <div class="c-event__card">
-            <h2 class="font-subheadline mb-2">
-              <?php snippet('content-types/events/eventIcon', ['icon' => 'user', 'size' => 18]) ?>
-              Veranstalter
-            </h2>
-            <?php if ($organizer['name'] !== '') : ?>
-              <p class="c-event__organizer"><?= esc($organizer['name']) ?></p>
-            <?php endif ?>
-            <?php if ($organization['name'] !== '' && $organization['name'] !== $organizer['name']) : ?>
-              <p class="c-event__organizerMeta"><?= esc($organization['name']) ?></p>
-            <?php endif ?>
-            <?php if ($contacts !== []) : ?>
-              <ul class="c-event__contacts">
-                <?php foreach ($contacts as $contact) : ?>
-                  <li>
-                    <a href="<?= esc($contact['href']) ?>"<?= str_starts_with($contact['href'], 'http') ? ' target="_blank" rel="noopener noreferrer"' : '' ?>>
-                      <?php snippet('content-types/events/eventIcon', ['icon' => $contact['icon'], 'size' => 16]) ?>
-                      <span><?= esc($contact['label']) ?></span>
-                    </a>
-                  </li>
-                <?php endforeach ?>
-              </ul>
-            <?php endif ?>
-          </div>
-        <?php endif ?>
+      
 
         <p class="c-event__source">
           <?php snippet('content-types/events/eventIcon', ['icon' => 'info', 'size' => 14]) ?>
