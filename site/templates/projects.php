@@ -40,13 +40,58 @@
     <section class="grid content mb-7">
 
         <?php if ($page->show_active()->toBool()) : ?>
-            <section class="grid-item" data-span="1/1">
+            <section class="grid-item projects-listing" data-span="1/1">
+
+                <?php if (count($topicFilters) > 1) : ?>
+                    <div class="projects-filter-row mb-5">
+                        <a
+                            class="projects-filter-pill gs-c-btn"
+                            data-active="<?= $activeTopic === null ? 'true' : 'false' ?>"
+                            data-type="<?= $activeTopic === null ? 'primary' : 'secondary' ?>"
+                            data-size="small"
+                            data-style="pill"
+                            href="<?= $page->url() ?>"
+                        >
+                            <span>Alle Themen</span>
+                            <span class="projects-filter-pill__count"><?= $activeProjects->count() ?></span>
+                        </a>
+                        <?php foreach ($topicFilters as $slug => $filter) : ?>
+                            <a
+                                class="projects-filter-pill gs-c-btn"
+                                data-active="<?= $filter['isActive'] ? 'true' : 'false' ?>"
+                                data-topic-slug="<?= esc($slug) ?>"
+                                data-type="<?= $filter['isActive'] ? 'primary' : 'secondary' ?>"
+                                data-size="small"
+                                data-style="pill"
+                                href="<?= $filter['url'] ?>"
+                            >
+                                <span><?= esc($filter['label']) ?></span>
+                                <span class="projects-filter-pill__count"><?= $filter['count'] ?></span>
+                            </a>
+                        <?php endforeach ?>
+                    </div>
+                <?php endif ?>
+
+                <?php $themeRoot = $site->find('themen'); ?>
+                <?php foreach ($groupedProjects as $slug => $group) : ?>
+                    <?php $themePage = $themeRoot
+                        ? $themeRoot->children()->listed()->findBy('topic', $slug)
+                        : null; ?>
+                    <h2 id="<?= esc($slug) ?>" class="font-title2 section-title">
+                        <?php if ($themePage) : ?>
+                            <a href="<?= $themePage->url() ?>"><?= esc($group['label']) ?></a>
+                        <?php else : ?>
+                            <?= esc($group['label']) ?>
+                        <?php endif ?>
+                    </h2>
+                    <ul class="grid mb-6">
+                        <?php foreach ($group['projects'] as $project) : ?>
+                            <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endforeach ?>
+
                 <ul class="grid mb-4">
-
-                    <?php foreach ($activeProjects->sort('last_modified', 'desc') as $project) : ?>
-                        <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
-                    <?php endforeach; ?>
-
 
                     <?php if ($archivePage && !$page->show_archive()->toBool()) : ?>
                         <li class="c-projectTeaserCard">

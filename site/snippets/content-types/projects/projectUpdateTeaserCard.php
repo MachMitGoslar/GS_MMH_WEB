@@ -5,7 +5,8 @@
 * @var \Kirby\Cms\Page $page
 */
 
-$projectUpdateCover = $project->cover();
+// Prefer the step's own image, fall back to the parent project's cover
+$projectUpdateCover = $project_step->content()->get('image')->toFile() ?? $project->cover();
 ?>
 
 <li class="c-projectUpdateTeaser-card">

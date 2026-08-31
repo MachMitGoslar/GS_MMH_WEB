@@ -67,6 +67,60 @@ class ProjectPage extends Page
         return $timestamp === false ? 0 : $timestamp;
     }
 
+    /**
+     * Date of the newest project step, for sorting project listings.
+     * Replaces the former sort on the non-existent `last_modified` field.
+     */
+    public function latestStepDate(): int
+    {
+        $newest = 0;
+        foreach ($this->children() as $step) {
+            $newest = max($newest, $this->projectStepTimestamp($step));
+        }
+
+        return $newest;
+    }
+
+    /**
+     * All topic slugs this project belongs to: the primary one first,
+     * then any secondary topics.
+     */
+    public function topicSlugs(): array
+    {
+        $slugs = [];
+        if ($primary = trim((string) $this->topic()->value())) {
+            $slugs[] = $primary;
+        }
+        foreach ($this->topics_secondary()->split(',') as $slug) {
+            if (($slug = trim($slug)) !== '' && !in_array($slug, $slugs, true)) {
+                $slugs[] = $slug;
+            }
+        }
+
+        return $slugs;
+    }
+
+    /**
+     * The Themenfeld pages this project belongs to, in assignment order.
+     * Empty when content/themen/ does not exist yet.
+     */
+    public function themePages(): Kirby\Cms\Pages
+    {
+        $root = $this->site()->find('themen');
+
+        if (!$root) {
+            return new Kirby\Cms\Pages([]);
+        }
+
+        $slugs = $this->topicSlugs();
+        $themes = $root->children()->listed()
+            ->filter(fn ($theme) => in_array($theme->topic()->value(), $slugs, true));
+
+        return $themes->sortBy(
+            fn ($theme) => array_search($theme->topic()->value(), $slugs, true),
+        );
+    }
+
     public function panel(): PanelPage
     {
         return new ProjectPanelPage($this);

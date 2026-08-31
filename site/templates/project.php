@@ -80,6 +80,19 @@
           <?= $page->subheadline() ?>
         </h2>
 
+        <?php $themePages = $page->themePages(); ?>
+        <?php if ($themePages->isNotEmpty()) : ?>
+          <p class="project-topics" aria-label="Themenfelder">
+            <?php foreach ($themePages as $theme) : ?>
+              <a href="<?= $theme->url() ?>"
+                 class="project-topic-chip gs-c-btn"
+                 data-type="secondary"
+                 data-size="small"
+                 data-style="pill"><?= $theme->title()->html() ?></a>
+            <?php endforeach ?>
+          </p>
+        <?php endif ?>
+
         <?php if ($teamMembers->isNotEmpty()) : ?>
           <div class="project-team-strip<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?>" aria-label="Projektteam"<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
             <?php foreach ($teamMembers as $member) : ?>

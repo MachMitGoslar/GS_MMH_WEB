@@ -1,0 +1,58 @@
+/* Themenfeld-Gruppierung und Filter auf der Projektübersicht */
+
+.projects-listing .section-title {
+  margin-bottom: var(--spacing-4, 1.5rem);
+  padding-bottom: var(--spacing-2, 0.5rem);
+  border-bottom: 2px solid var(--color-primary, #000);
+  scroll-margin-top: 6rem;
+}
+
+/* Abstand zwischen zwei Themenblöcken, aber nicht über dem ersten */
+.projects-listing .section-title:not(:first-child) {
+  margin-top: var(--spacing-6, 3rem);
+}
+
+.projects-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.projects-filter-row .projects-filter-pill {
+  flex: 0 0 auto;
+  gap: 0.6rem;
+}
+
+.projects-filter-pill:hover {
+  transform: translateY(-2px);
+}
+
+.projects-filter-pill__count {
+  font-weight: 700;
+}
+
+@media (width <= 489px) {
+  .projects-filter-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-block: 0.25rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .projects-filter-row::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Themenfeld-Chips auf der Projektdetailseite */
+.project-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 1rem 0;
+}
+
+.project-topic-chip:hover {
+  transform: translateY(-2px);
+}

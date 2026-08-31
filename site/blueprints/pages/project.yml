@@ -52,6 +52,33 @@ tabs:
               - aktiv
               - in Auswertung
               - abgeschlossen
+          topic:
+            type: select
+            label: Hauptthema
+            help: Bestimmt, unter welchem Themenfeld das Projekt in der Übersicht einsortiert wird.
+            required: true
+            width: 1/2
+            options:
+              digitale-stadt: Digitale Stadt
+              teilhabe: Teilhabe & Barrierefreiheit
+              klima: Klima & Nachhaltigkeit
+              ehrenamt: Ehrenamt & Engagement
+              demokratie: Demokratie & Beteiligung
+              kultur: Kunst, Kultur & Begegnung
+              haus: Das MachMit!Haus
+          topics_secondary:
+            type: tags
+            label: Weitere Themen
+            help: Optional. Das Projekt erscheint zusätzlich unter diesen Themenfeldern.
+            width: 1/2
+            options:
+              digitale-stadt: Digitale Stadt
+              teilhabe: Teilhabe & Barrierefreiheit
+              klima: Klima & Nachhaltigkeit
+              ehrenamt: Ehrenamt & Engagement
+              demokratie: Demokratie & Beteiligung
+              kultur: Kunst, Kultur & Begegnung
+              haus: Das MachMit!Haus
           text:
             type: layout
             size: huge

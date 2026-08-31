@@ -32,6 +32,12 @@
                     endif ?>
                 </div>
               <?php endif ?>
+              <?php if ($stepImage = $project_step->content()->get('image')->toFile()) :
+                  ?>
+                <figure class="project-step-timeline-image">
+                  <img src="<?= $stepImage->crop(640, 360)->url() ?>" alt="<?= $stepImage->alt()->or($project_step->title())->esc() ?>" loading="lazy" style="object-position: <?= $stepImage->focus()->isNotEmpty() ? $stepImage->focus() : '50% 50%' ?>">
+                </figure>
+              <?php endif ?>
               <h4 class="project-step-timeline-title"><?= $project_step->title()->html() ?></h4>
               <div class="project-step-timeline-text"><?= $project_step->description() ?></div>
             </div>

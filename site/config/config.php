@@ -19,6 +19,19 @@ return [
 
     'date.timezone' => 'Europe/Berlin',
 
+    // Themenfelder der Projekte. Slug => Label.
+    // Muss mit den Optionen von `topic` / `topics_secondary`
+    // in site/blueprints/pages/project.yml übereinstimmen.
+    'mmh.topics' => [
+        'digitale-stadt' => 'Digitale Stadt',
+        'teilhabe' => 'Teilhabe & Barrierefreiheit',
+        'klima' => 'Klima & Nachhaltigkeit',
+        'ehrenamt' => 'Ehrenamt & Engagement',
+        'demokratie' => 'Demokratie & Beteiligung',
+        'kultur' => 'Kunst, Kultur & Begegnung',
+        'haus' => 'Das MachMit!Haus',
+    ],
+
     'cache.oveda' => true,
 
     // Google Calendar Integration (optional)

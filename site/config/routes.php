@@ -14,7 +14,51 @@ use Kirby\Http\Exceptions\NextRouteException;
 require_once __DIR__ . '/../controllers/events-api.php';
 require_once __DIR__ . '/../controllers/oveda-event.php';
 
+/**
+ * Projekte, die bei der thematischen Verdichtung in einem anderen Projekt
+ * aufgegangen sind. Alter Slug => neuer Pfad inklusive Kapitel-Anker.
+ */
+const MMH_MERGED_PROJECTS = [
+    'altstadtlauf' => 'projects/gastveranstaltungen#kapitel-altstadtlauf',
+    'bettergs' => 'projects/digitale-ideen-prototypen#kapitel-bettergs',
+    'black-and-white-kaffee' => 'project-archive/machmit-bruch#kapitel-black-and-white-kaffee',
+    'burgerexpedition' => 'projects/jugendangebote#kapitel-burgerexpedition',
+    'community-geschichte' => 'projects/mottowochen-ausstellungen#kapitel-community-geschichte',
+    'digitale-ideen-fur-goslar' => 'projects/digitale-ideen-prototypen#kapitel-digitale-ideen-fur-goslar',
+    'earth-hour-2026' => 'projects/wir-fuers-klima#kapitel-earth-hour-2026',
+    'ehrentag-grundgesetz' => 'project-archive/burgerworkshop#kapitel-ehrentag-grundgesetz',
+    'gosland-yard' => 'project-archive/mmh-feiert-geburtstag#kapitel-gosland-yard',
+    'goslar-fairtrade-town' => 'projects/nachhaltig-leben#kapitel-goslar-fairtrade-town',
+    'kleidertauschboerse' => 'projects/nachhaltig-leben#kapitel-kleidertauschboerse',
+    'kommunaler-praeventionstag' => 'projects/hochwasser#kapitel-kommunaler-praeventionstag',
+    'machmit-digitalcafe' => 'projects/wasapp#kapitel-machmit-digitalcafe',
+    'machmitwald-christmas-challenge' => 'projects/machmitwald#kapitel-machmitwald-christmas-challenge',
+    'mein-buntes-goslar' => 'projects/burgerkunst-mein-buntes-goslar#kapitel-mein-buntes-goslar',
+    'reparaturrat-goslar' => 'projects/nachhaltig-leben#kapitel-reparaturrat-goslar',
+    'so-ist-tet' => 'projects/interkulturelle-begegnungen#kapitel-so-ist-tet',
+    'spotlight-buergergespraech' => 'project-archive/burgerworkshop#kapitel-spotlight-buergergespraech',
+    'tag-der-druckkunst' => 'projects/mottowochen-ausstellungen#kapitel-tag-der-druckkunst',
+    'unsichtbare-behinderungen' => 'projects/machmit-goslar-barrierefrei#kapitel-unsichtbare-behinderungen',
+    'walderlebnispfad-fritzi' => 'projects/digitale-ideen-prototypen#kapitel-walderlebnispfad-fritzi',
+    'zukunftsfest' => 'projects/wir-fuers-klima#kapitel-zukunftsfest',
+];
+
 return [
+
+    /**
+     * 301 für zusammengeführte Projekte. Greift unter beiden Wurzeln,
+     * weil Projekte je nach Status unter projects/ oder project-archive/ lagen.
+     */
+    [
+        'pattern' => ['projects/(:any)', 'project-archive/(:any)'],
+        'action' => function (string $slug) {
+            if (isset(MMH_MERGED_PROJECTS[$slug])) {
+                go(MMH_MERGED_PROJECTS[$slug], 301);
+            }
+
+            throw new NextRouteException();
+        },
+    ],
     [
         // iCalendar download for a single Oveda event date
         'pattern' => 'events/(:num).ics',

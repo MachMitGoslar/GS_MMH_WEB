@@ -54,6 +54,13 @@ tabs:
               - in Auswertung
               - abgeschlossen
             width: 1/2
+          image:
+            label: Bild
+            type: files
+            query: page.images
+            multiple: false
+            uploads:
+              template: image
           headline:
             label: Anriss
             placeholder: "{{ page.title }}"
