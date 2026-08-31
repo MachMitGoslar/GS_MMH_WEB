@@ -13,16 +13,18 @@ if (!isset($teamMembers) || $teamMembers->count() === 0) {
 
 <section class="c-teamGallery">
   <?php if (isset($title)) : ?>
-    <h2 class="section-title"><?= $title ?></h2>
+    <h2 class="section-title font-title2"><?= $title ?></h2>
   <?php endif ?>
   
   <?php if (isset($subtitle)) : ?>
-    <p class="section-subtitle"><?= $subtitle ?></p>
+    <p class="section-subtitle font-subheadline"><?= $subtitle ?></p>
   <?php endif ?>
   
-  <div class="team-grid">
+  <div class="team-grid ">
     <?php foreach ($teamMembers as $member) : ?>
         <?= snippet('content-types/team/teamMemberCard', ['teamMember' => $member]) ?>
     <?php endforeach ?>
   </div>
+
+  <div class="c-divider"></div>
 </section>
