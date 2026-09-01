@@ -1,5 +1,6 @@
 (() => {
-  const modalIdFromFormId = formId => `form-modal-${String(formId || '').replace(/[^a-zA-Z0-9_-]+/g, '-')}`;
+  const modalIdFromFormId = formId =>
+    `form-modal-${String(formId || '').replace(/[^a-zA-Z0-9_-]+/g, '-')}`;
   let previousFocus = null;
 
   const openModal = dialog => {

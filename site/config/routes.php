@@ -12,8 +12,60 @@ use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
 
 require_once __DIR__ . '/../controllers/events-api.php';
+require_once __DIR__ . '/../controllers/oveda-event.php';
 
 return [
+    [
+        // iCalendar download for a single Oveda event date
+        'pattern' => 'events/(:num).ics',
+        'method' => 'GET',
+        'action' => function (string $eventDateId) {
+            $detail = mmhOvedaEventDetail((int) $eventDateId);
+
+            if ($detail === null) {
+                throw new NextRouteException();
+            }
+
+            return new Response(mmhOvedaEventIcs($detail), 'text/calendar', 200, [
+                'Content-Disposition' => 'attachment; filename="veranstaltung-' . $detail['id'] . '.ics"',
+            ]);
+        },
+    ],
+    [
+        // Detail view for a single Oveda event date
+        'pattern' => 'events/(:num)',
+        'method' => 'GET',
+        'action' => function (string $eventDateId) {
+            $detail = mmhOvedaEventDetail((int) $eventDateId);
+
+            if ($detail === null) {
+                throw new NextRouteException();
+            }
+
+            $parent = site()->find('events');
+
+            $page = Kirby\Cms\Page::factory([
+                'slug' => (string) $detail['id'],
+                'template' => 'event',
+                'model' => 'event',
+                'parent' => $parent,
+                'num' => null,
+                'content' => [
+                    'title' => $detail['title'],
+                    'headline' => $detail['title'],
+                    'seo_description' => Kirby\Toolkit\Str::excerpt(
+                        strip_tags($detail['description']),
+                        160,
+                        false,
+                    ),
+                    'social_image_url' => $detail['photo']['url'] ?? '',
+                    'robots' => $detail['is_past'] ? 'noindex' : 'index',
+                ],
+            ]);
+
+            return $page->render(['detail' => $detail]);
+        },
+    ],
     [
         'pattern' => 'events.json',
         'method' => 'GET',
@@ -173,8 +225,8 @@ HTML, 'text/html');
             try {
                 NewsletterRecipients::create([
                     'first_name' => kirby()->request()->get('first_name'),
-                    'last_name'  => kirby()->request()->get('last_name'),
-                    'email'      => kirby()->request()->get('email'),
+                    'last_name' => kirby()->request()->get('last_name'),
+                    'email' => kirby()->request()->get('email'),
                 ]);
 
                 return new Response(

@@ -56,6 +56,8 @@ See [DEVELOPMENT_SETUP.md](DEVELOPMENT_SETUP.md) for detailed setup, debugging, 
 
 ### Integrations
 - **Room Booking** -- Form submission, email notifications, optional Google Calendar sync
+- **Oveda Events** -- Search, calendar and detail views built on the Oveda API; the
+  index links to the site's own detail pages instead of oveda.de
 - **Ferienpass API** -- JSON endpoints for the MachMit mobile app
 - **Newsletter RSS** -- Feed at `/newsletter.xml`
 - **App Analytics** -- Request tracking to MariaDB for the mobile app
@@ -129,6 +131,7 @@ GS_MMH_WEB/
 | `about`          | About MachMit!Haus                               |
 | `contact`        | Contact form (DreamForm)                         |
 | `events`         | Event calendar and listings                      |
+| `event`          | Detail view for a single Oveda event date (virtual page, no content folder) |
 | `projects`       | Projects archive with status filtering           |
 | `project`        | Single project with timeline                     |
 | `project_step`   | Project milestone / update                       |
@@ -148,6 +151,8 @@ GS_MMH_WEB/
 
 | Pattern                      | Method | Response | Description                          |
 |------------------------------|--------|----------|--------------------------------------|
+| `events/(:num)`              | GET    | HTML     | Event detail view (Oveda event date) |
+| `events/(:num).ics`          | GET    | iCal     | Calendar download for one event date |
 | `sitemap.xml`                | GET    | XML      | Sitemap of all indexable pages       |
 | `robots.txt`                 | GET    | Text     | Crawler rules, references the sitemap|
 | `newsletter.xml`             | GET    | XML      | Newsletter RSS feed                  |

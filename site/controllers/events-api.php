@@ -213,7 +213,8 @@ function mmhNormalizeOvedaEvent(array $event, string|null $todayKey = null): arr
 
     return [
         'id' => $event['id'] ?? null,
-        'url' => 'https://oveda.de/eventdate/' . ($event['id'] ?? ''),
+        'url' => url('events/' . ($event['id'] ?? '')),
+        'source_url' => 'https://oveda.de/eventdate/' . ($event['id'] ?? ''),
         'title' => trim((string) ($eventData['name'] ?? 'Termin')),
         'description' => trim(strip_tags((string) ($eventData['description'] ?? ''))),
         'start' => $start,

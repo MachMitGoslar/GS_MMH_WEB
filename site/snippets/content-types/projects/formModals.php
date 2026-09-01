@@ -78,18 +78,18 @@ $formAttr = [
 ?>
 <div class="project-form-modals" data-form-modal-root>
   <?php foreach ($forms as $form) :
-      $modalId  = 'form-modal-' . preg_replace('/[^a-zA-Z0-9_-]+/', '-', $form->id());
-      $titleId  = $modalId . '-title';
+      $modalId = 'form-modal-' . preg_replace('/[^a-zA-Z0-9_-]+/', '-', $form->id());
+      $titleId = $modalId . '-title';
       $mergedAttr = A::merge($formAttr, [
           'form' => [
-              'class'            => 'dreamform project-form-modal__form',
+              'class' => 'dreamform project-form-modal__form',
               'data-form-modal-form' => $form->id(),
           ],
       ]);
 
       snippet('shared/modal', [
-          'id'        => $modalId,
-          'modifier'  => 'project-form-modal',
+          'id' => $modalId,
+          'modifier' => 'project-form-modal',
           'ariaLabel' => $titleId,
 
           'slotTitle' => function () use ($form, $titleId) {

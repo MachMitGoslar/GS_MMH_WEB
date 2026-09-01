@@ -18,7 +18,7 @@ $start = $startValue instanceof DateTimeInterface
     : new DateTimeImmutable((string) ($startValue ?? 'now'));
 $title = trim((string) ($event['title'] ?? ($source['name'] ?? 'Termin')));
 $description = trim(strip_tags((string) ($event['description'] ?? ($source['description'] ?? ''))));
-$url = (string) ($event['url'] ?? ('https://oveda.de/eventdate/' . ($eventData['id'] ?? '')));
+$url = (string) ($event['url'] ?? url('events/' . ($eventData['id'] ?? '')));
 $categories = $event['categories'] ?? [];
 
 if ($categories === []) {
@@ -65,7 +65,7 @@ if ($timeLabel === '') {
 ?>
 <li class="eventsListItem">
   <?php if ($variant === 'card') : ?>
-    <a class="eventsListItem__link" href="<?= esc($url) ?>" target="_blank" rel="noopener noreferrer">
+    <a class="eventsListItem__link" href="<?= esc($url) ?>">
       <div
         class="eventsListItem__media"
         <?= $photo ? 'style="background-image:url(\'' . esc($photo) . '\')"' : '' ?>
@@ -105,7 +105,7 @@ if ($timeLabel === '') {
               : $start->format('d.m.Y, H:i') . ' Uhr';
       }
       ?>
-    <a href="<?= esc($url) ?>" target="_blank" rel="noopener noreferrer">
+    <a href="<?= esc($url) ?>">
       <time class="font-footnote mb-2"><?= esc($listTimeLabel) ?></time>
       <h3 class="font-subheadline mb-2"><?= esc($displayTitle) ?></h3>
       <p class="font-body mb-2"><?= Str::short($description, 120, '…') ?></p>

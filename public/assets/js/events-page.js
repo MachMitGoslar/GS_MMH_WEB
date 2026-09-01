@@ -76,7 +76,7 @@
   const renderEvent = event => {
     return `
       <li class="eventsListItem">
-        <a href="${escapeHtml(event.url)}" target="_blank" rel="noopener noreferrer">
+        <a href="${escapeHtml(event.url)}">
           <time class="font-footnote mb-2">${escapeHtml(event.list_time_label)}</time>
           <h3 class="font-subheadline mb-2">${escapeHtml(event.title)}</h3>
           <p class="font-body mb-2">${escapeHtml(event.description)}</p>

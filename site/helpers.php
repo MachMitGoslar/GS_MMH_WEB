@@ -10,6 +10,7 @@
 use Kirby\Cms\App as KirbyApp;
 use Kirby\Cms\Pages;
 use Kirby\Cms\Site;
+use Kirby\Filesystem\Dir;
 
 /**
  * Get the color class name for a project status
@@ -121,4 +122,33 @@ function isTimedContentVisible(object $content): bool
     }
 
     return true;
+}
+
+/**
+ * Cache-busting version for the CSS bundle.
+ *
+ * `index.css` only pulls in other files via @import, so its own mtime does
+ * not change when a component stylesheet is edited — returning visitors keep
+ * the stale bundle. Using the newest mtime of the whole tree fixes that.
+ */
+function mmhStylesheetVersion(): int
+{
+    static $version = null;
+
+    if ($version !== null) {
+        return $version;
+    }
+
+    $root = kirby()->root('index') . '/assets/css';
+    $version = 0;
+
+    foreach (Dir::index($root, true) as $entry) {
+        $path = $root . '/' . $entry;
+
+        if (is_file($path) === true) {
+            $version = max($version, (int) filemtime($path));
+        }
+    }
+
+    return $version;
 }
