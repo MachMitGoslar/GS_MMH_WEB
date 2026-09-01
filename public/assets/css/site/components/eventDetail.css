@@ -66,7 +66,7 @@
   box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
 
   & span {
-    font-size: var(--typo-size-70);
+    font-size: var(--typo-size-80);
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--color-fg-brand-primary);
@@ -95,7 +95,7 @@
   padding: 0.125rem 0.625rem;
   border-radius: 999px;
   background: var(--color-dead-pixel-100);
-  font-size: var(--typo-size-70);
+  font-size: var(--typo-size-80);
   font-weight: var(--font-weight-semiBold);
   color: var(--color-dead-pixel-1300);
 }
@@ -267,10 +267,11 @@
   flex-direction: column;
   gap: 0.125rem;
   min-width: 0;
+  align-self: center;
 }
 
 .c-event__factLabel {
-  font-size: var(--typo-size-70);
+  font-size: var(--typo-size-80);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--color-dead-pixel-1100);
@@ -322,7 +323,7 @@
   padding: 0.125rem 0.625rem;
   border: var(--event-border);
   border-radius: 999px;
-  font-size: var(--typo-size-70);
+  font-size: var(--typo-size-80);
   color: var(--color-dead-pixel-1200);
 }
 
@@ -421,7 +422,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  font-size: var(--typo-size-70);
+  font-size: var(--typo-size-80);
   color: var(--color-dead-pixel-1100);
 
   & a {

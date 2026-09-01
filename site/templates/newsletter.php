@@ -20,7 +20,7 @@
 
 <?php snippet('layout/header'); ?>
 
-<main class="main">
+<main class="main main--newsletter">
   <!-- Newsletter Hero Section -->
   <section class="newsletter-cover">
     <div class="newsletter-cover-content">
@@ -97,7 +97,7 @@
                 <div class="calendar-events">
                   <?php if (!empty($calendar[$day])) : ?>
                         <?php foreach ($calendar[$day] as $event) : ?>
-                      <div class="calendar-event mb-2 p-2 bg-gray-100 rounded">
+                      <div class="calendar-event mb-2">
                         <div class="font-footnote event-time"><?= $event->start_time()->toDate('H:i', $fallback = null) ?></div>
                         <div class="font-body event-title"><?= $event->activity() ?></div>
                             <?php if ($event->location() && $event->location()->isNotEmpty()) : ?>
@@ -163,10 +163,10 @@
                     </time>
                     <h4 class="font-subheadline mb-1"><?= $event->event_name() ?></h4>
                     <?php if ($event->event_description()->isNotEmpty()) : ?>
-                      <p class="font-body mb-1"><?= $event->event_description() ?></p>
+                      <p class="font-footnote mb-1"><?= $event->event_description() ?></p>
                     <?php endif ?>
                     <?php if ($event->event_location()->isNotEmpty()) : ?>
-                      <p class="font-footnote text-gray-600">📍 <?= $event->event_location() ?></p>
+                      <p class="font-footnote">📍 <?= $event->event_location() ?></p>
                     <?php endif ?>
                   </li>
                 <?php endforeach; ?>

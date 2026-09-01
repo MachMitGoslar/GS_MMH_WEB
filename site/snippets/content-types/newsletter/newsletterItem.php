@@ -54,7 +54,7 @@ if ($heroImage && !$heroImage->exists()) {
     </a>
     
     <?php if ($newsletter->greeting_text()->isNotEmpty()) : ?>
-      <p class="font-body"><?= $newsletter->greeting_text()->excerpt(120) ?></p>
+      <p class="font-footnote"><?= $newsletter->greeting_text()->excerpt(120) ?></p>
     <?php endif ?>
     
     <a href="<?= $newsletter->url() ?>" class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill">

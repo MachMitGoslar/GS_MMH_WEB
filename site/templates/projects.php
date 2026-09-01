@@ -23,7 +23,7 @@
         </h1>
 
         <?php if ($page->subheadline()->isNotEmpty()) : ?>
-            <p class="grid-item font-copyL" data-span="1/1">
+            <p class="grid-item font-body" data-span="1/1">
                 <?= $page->subheadline() ?>
             </p>
         <?php endif; ?>
@@ -102,7 +102,7 @@
 
 
                             <div class="content">
-                                <h3 class="font-headline"><?= $archivePage->title() ?></h3>
+                                <h3 class="font-headline font-line-height-narrow"><?= $archivePage->title() ?></h3>
 
                                 <?php if ($archivePage->subheadline()->isNotEmpty()) : ?>
                                     <p class="font-footnote mb-3">

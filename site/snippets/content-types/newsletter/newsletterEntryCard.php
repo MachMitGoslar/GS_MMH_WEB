@@ -36,7 +36,7 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
     <?php if ($entry->subheadline()->isNotEmpty()) : ?>
       <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $entry->subheadline() ?></h4>
     <?php endif ?>
-    <p class="font-body"><?= $hasMore ? $entry->content_text()->excerpt($excerptLimit) : $rawText ?></p>
+    <p class="font-footnote"><?= $hasMore ? $entry->content_text()->excerpt($excerptLimit) : $rawText ?></p>
     <?php if ($footerText) : ?>
       <p class="font-footnote mt-2"><?= $footerText ?></p>
     <?php endif ?>

@@ -18,7 +18,7 @@ $countAll = $theme->projects()->count();
     <?php endif; ?>
   </div>
   <div class="content">
-    <h3 class="font-headline"><?= $theme->headline()->or($theme->title()) ?></h3>
+    <h3 class="font-headline font-line-height-narrow"><?= $theme->headline()->or($theme->title()) ?></h3>
 
     <?php if ($theme->subheadline()->isNotEmpty()) : ?>
       <p class="font-footnote mb-3"><?= $theme->subheadline() ?></p>

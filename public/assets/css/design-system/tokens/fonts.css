@@ -15,7 +15,7 @@
   --typo-size-900: 3.5rem; /* 56px */
   --typo-size-1000: 4rem; /* 64px */
   --typo-line-height-narrow: 120%;
-  --typo-line-height-regular: 140%;
+  --typo-line-height-regular: 130%;
   --typo-line-height-wide: 160%;
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -170,7 +170,7 @@ html {
   --size-2px: 2px;
   --size-1: 0.25rem; /* 4px */
   --size-2: 0.5rem; /* 8px */
-  --size-3: 0.75px; /* 12px */
+  --size-3: 0.75rem; /* 12px */
   --size-4: 1rem;
   --size-5: 1.5rem;
   --size-6: 2rem;
@@ -209,36 +209,35 @@ h6,
 
 h6,
 .h6 {
-  font-size: var(--text-size-200);
+  font-size: var(--typo-size-200);
 }
 
 h5,
 .h5 {
-  font-size: var(--text-size-300);
+  font-size: var(--typo-size-300);
 }
 
 h4,
 .h4 {
-  font-size: var(--text-size-400);
+  font-size: var(--typo-size-400);
 }
 
 h3,
 .h3 {
-  font-size: var(--text-size-500);
+  font-size: var(--typo-size-500);
 }
 
 h2,
 .h2 {
-  font-size: var(--text-size-600);
+  font-size: var(--typo-size-600);
 }
 
 h1,
 .h1 {
-  font-size: var(--text-size-700);
+  font-size: var(--typo-size-700);
 }
 
 html {
   font-family: var(--font-family-sans);
-  line-height: var(--line-height-1);
-  overflow: hidden;
+  line-height: var(--typo-line-height-regular);
 }

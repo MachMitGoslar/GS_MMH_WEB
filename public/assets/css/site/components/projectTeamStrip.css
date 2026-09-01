@@ -295,7 +295,8 @@
 
   .project-team-strip.is-floating.is-expanded .project-team-member,
   .project-team-strip.is-floating:focus-within .project-team-member {
-    order: var(--expanded-order);
+    /* wird in site/templates/project.php per JS gesetzt */
+    order: var(--expanded-order, 0);
     margin-right: 0;
     right: 0;
   }

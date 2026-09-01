@@ -49,6 +49,11 @@
       display: flex;
       justify-content: space-between;
 
+      /* gleiche Datumsfarbe wie in Newsletter- und Tagebuch-Karte */
+      & time {
+        color: var(--color-fg-muted);
+      }
+
       & .status-badge {
         --color-project-planning: var(--color-cornflower-1000);
         --color-project-preparing: var(--color-cornflower-1300);

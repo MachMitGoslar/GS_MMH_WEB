@@ -22,7 +22,7 @@
         </h1>
 
         <?php if ($page->subheadline()->isNotEmpty()) : ?>
-            <p class="grid-item font-copyL" data-span="1/1">
+            <p class="grid-item font-body" data-span="1/1">
                 <?= $page->subheadline() ?>
             </p>
         <?php endif; ?>

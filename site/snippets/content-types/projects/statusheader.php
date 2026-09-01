@@ -25,5 +25,5 @@ $to = $project_step->project_status_to();
       <?php endif ?>
       </div>
 
-      <time class="font-caption"><?=$project_step->project_start_date()->toDate('d.m.Y', $fallback = null) ?: 'test'?></time>
+      <time class="font-footnote"><?=$project_step->project_start_date()->toDate('d.m.Y', $fallback = null) ?: 'test'?></time>
 </div>

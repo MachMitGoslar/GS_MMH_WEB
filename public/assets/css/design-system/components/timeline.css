@@ -700,7 +700,7 @@ img {
 .timeline-container--constrained .timeline-image img {
   width: 100%;
   height: auto;
-  border-radius: var(--border-radius-m);
+  border-radius: var(--border-radius-4);
 }
 
 .timeline-container--constrained .timeline-connector {
@@ -972,13 +972,13 @@ img {
 .project-step-timeline-title {
   margin: 0.5rem 0;
   color: var(--color-fg-emphasis);
-  font-size: var(--typo-size-110);
-  line-height: var(--typo-line-height-110);
+  font-size: var(--typo-size-200);
+  line-height: var(--typo-line-height-narrow);
 }
 
 .project-step-timeline-text {
   color: var(--color-fg-default);
-  line-height: var(--typo-line-height-110);
+  line-height: var(--typo-line-height-regular);
   font-size: var(--typo-size-100);
 }
 
