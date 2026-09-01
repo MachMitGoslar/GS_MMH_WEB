@@ -6,6 +6,8 @@
 */
 
 $projectUpdateCover = $project->cover();
+$projectStartDate = $project_step->project_start_date()->toDate('Y-m-d', null);
+$showOutlook = $projectStartDate !== null && $projectStartDate > date('Y-m-d');
 ?>
 
 <li class="c-projectUpdateTeaser-card">
@@ -15,6 +17,9 @@ $projectUpdateCover = $project->cover();
     <?php else : ?>
         <?php snippet('utilities/imagePlaceholder') ?>
     <?php endif; ?>
+    <?php if ($showOutlook === true) : ?>
+      <div class="outlook-badge">Ausblick</div>
+    <?php endif ?>
   </div>
   <div class="content">
     <?= snippet('content-types/projects/statusheader', compact('project_step')) ?>
