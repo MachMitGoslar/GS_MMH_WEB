@@ -128,7 +128,13 @@ function mmhOvedaEventDetail(int $eventDateId): array|null
         return null;
     }
 
-    $timezone = new DateTimeZone(date_default_timezone_get());
+    /**
+     * QUICK FIX: Take into Account the differing timezone from production hosting
+     * should be:
+     * $timezone = new DateTimeZone(date_default_timezone_get());
+     */
+    $timezone = new DateTimeZone("Europe/Berlin");
+    
     $start = new DateTimeImmutable((string) ($eventDate['start'] ?? 'now'));
     $start = $start->setTimezone($timezone);
     $end = empty($eventDate['end'])
