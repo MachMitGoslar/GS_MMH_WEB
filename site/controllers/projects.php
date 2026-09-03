@@ -101,4 +101,5 @@ return function ($site, $page, $kirby) {
         'topicFilters' => $topicFilters,
         'activeTopic' => $activeTopic,
     ];
+
 };

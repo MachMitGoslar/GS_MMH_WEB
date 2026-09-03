@@ -41,7 +41,7 @@ $classes = trim('gs-c-modal ' . $modifier . ($heroUrl ? ' gs-c-modal--has-hero' 
   onclick="if(event.target===this)this.close()"
 >
   <div class="gs-c-modal__close-bar">
-    <button class="gs-c-modal__close" type="button" onclick="this.closest('dialog').close()" aria-label="Schließen">✕</button>
+    <button class="gs-c-modal__close" type="button" onclick="this.closest('dialog').close()" aria-label="Schließen"><?php snippet('utilities/icon', ['name' => 'x']) ?></button>
   </div>
 
   <?php if ($heroUrl): ?>

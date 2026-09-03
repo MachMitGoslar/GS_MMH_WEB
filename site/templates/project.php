@@ -1,4 +1,6 @@
 <?php
+
+use Kirby\Cms\Block;
 /**
 * @var \Kirby\Cms\Site $site
 * @var \Kirby\Cms\Page $page
@@ -135,6 +137,7 @@
                         continue;
                     } ?>
                 <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+
                     <?= $block ?>
                 </div>
                 <?php endforeach ?>
@@ -148,7 +151,37 @@
         <section>
             <?php snippet('dreamform/forms', ['page' => $page]) ?>
         </section>
+
+        <section class="project-update-gallery">
+          <?php if (count($page->projectUpdatePictures()) > 0) : ?>
+            <h2> Bilder aus dem Projekt </h2>
+            
+          <?php 
+             $block = new Kirby\Cms\Block(
+              [
+                  'type' => 'gallery',
+                  'content' => [
+                    'images' => $page->projectUpdatePictures(),
+                    'caption' => 'Bilder aus dem Projekt',
+                    'crop' => '600x600',
+                    'ratio' => '4:3'
+                  ]
+              ]
+             );
+
+
+             
+             print snippet('blocks/gallery', ['block' => $block]);
+            
+          ?>
+          <?php endif ?>
+  
+
+        </section>
+
     </div>
+
+    
 
 
 

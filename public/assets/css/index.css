@@ -26,17 +26,25 @@
   margin: 0 auto 1rem;
   padding: 0 var(--padding-lr);
   @media (width > 489px) {
-    --padding-lr: 1rem;
+    & {
+      --padding-lr: 1rem;
+    }
   }
   @media (width > 767px) {
-    --padding-lr: 2rem;
+    & {
+      --padding-lr: 2rem;
+    }
   }
   @media (width > 1039px) {
-    --padding-lr: 2rem;
+    & {
+      --padding-lr: 2rem;
+    }
   }
   @media (width > 1439px) {
-    --max-width: 83rem;
-    --padding-lr: 0;
+    & {
+      --max-width: 83rem;
+      --padding-lr: 0;
+    }
   }
 }
 

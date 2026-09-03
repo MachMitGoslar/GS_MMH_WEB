@@ -15,7 +15,10 @@
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
 
+use Kirby\Content\Content;
+use Kirby\Panel\Field;
 use Kirby\Panel\Page as PanelPage;
+use Kirby\Toolkit\Str;
 
 class ProjectPage extends Page
 {
@@ -30,6 +33,16 @@ class ProjectPage extends Page
             fn ($step) => $this->projectStepTimestamp($step),
             'desc',
         );
+    }
+
+    public function projectUpdatePictures(): Array
+    {
+        $steps = $this->project_steps();
+        $pictures = [];
+        foreach($steps as $image) {
+                $pictures[] = Str::ltrim($image->content()->image()->toString(), '- ');
+        }
+        return $pictures;
     }
 
     public function latestProjectStep(): Kirby\Cms\Page|null

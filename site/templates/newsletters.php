@@ -82,18 +82,19 @@
     <?php endif ?>
 
     <!-- Newsletter Subscription CTA -->
+     <?php if ($page->cta_text()->isNotEmpty() || $page->cta_button_text()->isNotEmpty()) : ?>
     <div class="grid-item mt-7" data-span="1/1">
       <div class="newsletter-cta">
         <h3 class="font-title mb-4">Newsletter abonnieren</h3>
         <p class="font-body newsletter-cta__text mb-6">
-          Bleiben Sie auf dem Laufenden über unsere Projekte, Veranstaltungen und Neuigkeiten. 
-          Unser Newsletter erscheint regelmäßig mit spannenden Einblicken in unsere Arbeit.
+          <?= $page->cta_text() ?>
         </p>
         <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regular" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal">
-          Jetzt abonnieren
+          <?= $page->cta_button_text() ?>
         </button>
       </div>
     </div>
+    <?php endif ?>
     
   </section>
 

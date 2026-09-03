@@ -18,7 +18,8 @@
              loading="lazy">
       <?php else : ?>
         <div class="room-card-placeholder">
-          <span>🏠</span>
+          <?php snippet('utilities/icon', ['name' => 'home']) ?>
+
         </div>
       <?php endif ?>
 
@@ -28,7 +29,7 @@
           <?= $room->capacity()->or('–') ?> Pers.
         </span>
         <?php if ($room->accessible()->toBool()) : ?>
-          <span class="room-card-badge badge-accessible">♿</span>
+          <span class="room-card-badge badge-accessible"><?php snippet('utilities/icon', ['name' => 'accessibility', 'size' => 16, 'label' => 'Barrierefrei']) ?></span>
         <?php endif ?>
       </div>
     </div>

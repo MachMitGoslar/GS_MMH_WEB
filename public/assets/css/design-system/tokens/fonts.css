@@ -48,7 +48,9 @@ html {
   line-height: var(--typo-line-height-narrow);
   font-weight: var(--font-weight-bold);
   @media (width < 490px) {
-    font-size: var(--typo-size-700);
+    & {
+      font-size: var(--typo-size-700);
+    }
   }
 }
 

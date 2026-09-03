@@ -890,7 +890,6 @@ img {
   font-weight: var(--font-weight-regular);
   text-align: right;
   white-space: nowrap;
-  background: var(--color-bg-default);
   padding: 0;
   border-radius: 0;
   border: 0;

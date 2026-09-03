@@ -87,7 +87,9 @@
     overflow: hidden;
 
     @media (width > 489px) {
-      --aspected-ration: 21/9;
+      & {
+        --aspected-ration: 21/9;
+      }
     }
   }
 

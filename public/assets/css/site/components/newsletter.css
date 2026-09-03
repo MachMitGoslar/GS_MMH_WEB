@@ -26,8 +26,10 @@
   margin-right: calc(-50vw + 50%);
 
   @media (width < 768px) {
-    min-block-size: 60vh;
-    padding: calc(var(--size-9) + 160px) 0 var(--size-9) 0;
+    & {
+      min-block-size: 60vh;
+      padding: calc(var(--size-9) + 160px) 0 var(--size-9) 0;
+    }
   }
 }
 
@@ -100,8 +102,10 @@
   align-items: start;
 
   @media (width < 768px) {
-    grid-template-columns: 1fr;
-    gap: var(--size-6);
+    & {
+      grid-template-columns: 1fr;
+      gap: var(--size-6);
+    }
   }
 }
 
@@ -112,10 +116,12 @@
   text-align: center;
 
   @media (width < 768px) {
-    flex-direction: row;
-    align-items: center;
-    text-align: left;
-    gap: var(--size-4);
+    & {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      gap: var(--size-4);
+    }
   }
 }
 
@@ -131,15 +137,19 @@
   flex-shrink: 0;
 
   @media (width < 768px) {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 0;
+    & {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0;
+    }
   }
 }
 
 .author-info {
   @media (width < 768px) {
-    flex: 1;
+    & {
+      flex: 1;
+    }
   }
 }
 
@@ -170,7 +180,9 @@
   padding: 0;
 
   @media (width < 768px) {
-    gap: var(--size-4);
+    & {
+      gap: var(--size-4);
+    }
   }
 }
 
@@ -190,8 +202,10 @@
   gap: var(--size-6);
 
   @media (width < 768px) {
-    grid-template-columns: 1fr;
-    gap: var(--size-4);
+    & {
+      grid-template-columns: 1fr;
+      gap: var(--size-4);
+    }
   }
 }
 
@@ -268,12 +282,16 @@
   gap: var(--size-4);
 
   @media (width >= 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--size-6);
+    & {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--size-6);
+    }
   }
 
   @media (width >= 1200px) {
-    grid-template-columns: repeat(3, 1fr);
+    & {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
 
@@ -284,8 +302,10 @@
   gap: var(--size-8);
 
   @media (width >= 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--size-10);
+    & {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--size-10);
+    }
   }
 }
 
@@ -333,8 +353,10 @@
   z-index: 0;
 
   @media (width < 1024px) {
-    width: 2px;
-    z-index: 0;
+    & {
+      width: 2px;
+      z-index: 0;
+    }
   }
 }
 
@@ -346,16 +368,20 @@
   min-height: 200px;
 
   @media (width >= 1024px) {
-    margin-bottom: var(--size-1);
-    min-height: 150px;
+    & {
+      margin-bottom: var(--size-1);
+      min-height: 150px;
+    }
   }
 
   @media (width < 1024px) {
-    flex-direction: column;
-    align-items: center;
-    min-height: auto;
-    margin: var(--size-10) 0;
-    padding: 0 var(--size-4);
+    & {
+      flex-direction: column;
+      align-items: center;
+      min-height: auto;
+      margin: var(--size-10) 0;
+      padding: 0 var(--size-4);
+    }
   }
 }
 
@@ -364,12 +390,14 @@
   text-align: right;
 
   @media (width < 1024px) {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    max-width: 600px;
-    position: relative;
+    & {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+    }
   }
 }
 
@@ -378,13 +406,15 @@
   margin-right: calc(50% + 80px);
 
   @media (width < 1024px) {
-    order: 2;
-    margin-right: 0;
-    margin-left: 0;
-    flex: 1;
-    margin-top: 0;
-    position: relative;
-    z-index: 2;
+    & {
+      order: 2;
+      margin-right: 0;
+      margin-left: 0;
+      flex: 1;
+      margin-top: 0;
+      position: relative;
+      z-index: 2;
+    }
   }
 }
 
@@ -394,12 +424,14 @@
   right: calc(50% + 15px);
 
   @media (width < 1024px) {
-    order: 1;
-    position: absolute;
-    right: 67%;
-    top: 0;
-    transform: translateY(-50%);
-    z-index: 3;
+    & {
+      order: 1;
+      position: absolute;
+      right: 67%;
+      top: 0;
+      transform: translateY(-50%);
+      z-index: 3;
+    }
   }
 }
 
@@ -408,12 +440,14 @@
   text-align: left;
 
   @media (width < 1024px) {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    max-width: 600px;
-    position: relative;
+    & {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+    }
   }
 }
 
@@ -422,13 +456,15 @@
   margin-left: calc(50% + 80px);
 
   @media (width < 1024px) {
-    order: 1;
-    margin-left: 0;
-    margin-right: 0;
-    flex: 1;
-    margin-top: 0;
-    position: relative;
-    z-index: 2;
+    & {
+      order: 1;
+      margin-left: 0;
+      margin-right: 0;
+      flex: 1;
+      margin-top: 0;
+      position: relative;
+      z-index: 2;
+    }
   }
 }
 
@@ -438,12 +474,14 @@
   left: calc(50% + 15px);
 
   @media (width < 1024px) {
-    order: 2;
-    position: absolute;
-    left: 67%;
-    top: 0;
-    transform: translateY(-50%);
-    z-index: 3;
+    & {
+      order: 2;
+      position: absolute;
+      left: 67%;
+      top: 0;
+      transform: translateY(-50%);
+      z-index: 3;
+    }
   }
 }
 
@@ -465,12 +503,14 @@
   position: relative;
 
   @media (width < 1024px) {
-    max-width: none;
-    background: var(--color-white);
-    border: 1px solid var(--color-dead-pixel-300);
-    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
-    padding: var(--size-6) var(--size-5) var(--size-5) var(--size-5);
-    border-radius: var(--border-radius-4);
+    & {
+      max-width: none;
+      background: var(--color-white);
+      border: 1px solid var(--color-dead-pixel-300);
+      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+      padding: var(--size-6) var(--size-5) var(--size-5) var(--size-5);
+      border-radius: var(--border-radius-4);
+    }
   }
 }
 
@@ -481,10 +521,12 @@
   height: 120px;
 
   @media (width < 768px) {
-    width: 100px;
-    height: 100px;
-    z-index: 2;
-    margin-bottom: -40px;
+    & {
+      width: 100px;
+      height: 100px;
+      z-index: 2;
+      margin-bottom: -40px;
+    }
   }
 }
 
@@ -512,13 +554,15 @@
   z-index: 3;
 
   @media (width < 1024px) {
-    width: 24px;
-    height: 24px;
-    border: 3px solid var(--color-white);
-    top: 0;
+    & {
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--color-white);
+      top: 0;
 
-    /* transform: translateX(-50%); */
-    z-index: 4;
+      /* transform: translateX(-50%); */
+      z-index: 4;
+    }
   }
 }
 

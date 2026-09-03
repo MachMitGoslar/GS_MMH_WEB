@@ -41,7 +41,7 @@ if ($heroImage && !$heroImage->exists()) {
   <div class="content">
     <div class="statusheader">
       <div class="newsletter-badge">
-        <span class="newsletter-badge-icon">📧</span>
+        <span class="newsletter-badge-icon"><?php snippet('utilities/icon', ['name' => 'mail', 'size' => 14]) ?></span>
         <span class="newsletter-badge-text">Newsletter</span>
       </div>
       <time class="font-footnote" datetime="<?= date('Y-m-d', $publishTimestamp) ?>">
