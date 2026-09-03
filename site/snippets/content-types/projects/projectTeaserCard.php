@@ -24,6 +24,14 @@ $projectCover = $project->cover();
     <h3 class="font-headline font-line-height-narrow"><?=$project->title()?></h3>
     <p class="font-footnote mb-3"><?=$project->subheadline()?></p>
     <!-- <p class="font-body"><?=$project->text()->excerpt()?></p> -->
+    <?php $projectTags = $project->tagList(); ?>
+    <?php if (!empty($projectTags)) : ?>
+      <p class="project-teaser-tags">
+        <?php foreach ($projectTags as $tag) : ?>
+          <a href="<?= $site->find('projects')?->url() . '?tag=' . urlencode($tag) ?>" class="project-teaser-tag"><?= esc($tag) ?></a>
+        <?php endforeach ?>
+      </p>
+    <?php endif ?>
     <a href="<?=$project?>" class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill">Zum Projekt</a>
   </div>
 </li>

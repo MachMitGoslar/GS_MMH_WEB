@@ -43,14 +43,16 @@
             <section class="grid-item projects-listing" data-span="1/1">
 
                 <?php if (count($topicFilters) > 1) : ?>
-                    <div class="projects-filter-row mb-5">
+                                            <span class="projects-filter-heading"> Nach Themen </h6>
+
+                    <div class="projects-filter-row mb-3">
                         <a
                             class="projects-filter-pill gs-c-btn"
                             data-active="<?= $activeTopic === null ? 'true' : 'false' ?>"
                             data-type="<?= $activeTopic === null ? 'primary' : 'secondary' ?>"
                             data-size="small"
                             data-style="pill"
-                            href="<?= $page->url() ?>"
+                            href="<?= $topicResetUrl ?>"
                         >
                             <span>Alle Themen</span>
                             <span class="projects-filter-pill__count"><?= $activeProjects->count() ?></span>
@@ -72,6 +74,27 @@
                     </div>
                 <?php endif ?>
 
+                <?php if (!empty($tagFilters)) : ?>
+                                                                <span class="projects-filter-heading"> Nach Schlagworten </h6>
+
+                    <div class="projects-filter-row mb-5" aria-label="Nach Tag filtern">
+
+                        <?php foreach ($tagFilters as $tag => $filter) : ?>
+                            <a
+                                class="projects-filter-pill projects-filter-pill--tag gs-c-btn"
+                                data-active="<?= $filter['isActive'] ? 'true' : 'false' ?>"
+                                data-type="<?= $filter['isActive'] ? 'primary' : 'secondary' ?>"
+                                data-style="pill"
+                                href="<?= $filter['url'] ?>"
+                            ><?= esc($filter['label']) ?></a>
+                        <?php endforeach ?>
+                    </div>
+                <?php endif ?>
+
+                <?php if (empty($groupedProjects) && $tagQuery !== '') : ?>
+                    <p class="font-body mb-6">Keine Projekte mit diesem Tag gefunden.</p>
+                <?php endif ?>
+
                 <?php $themeRoot = $site->find('themen'); ?>
                 <?php foreach ($groupedProjects as $slug => $group) : ?>
                     <?php $themePage = $themeRoot
@@ -88,12 +111,7 @@
                         <?php foreach ($group['projects'] as $project) : ?>
                             <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
                         <?php endforeach ?>
-                    </ul>
-                <?php endforeach ?>
-
-                <ul class="grid mb-4">
-
-                    <?php if ($archivePage && !$page->show_archive()->toBool()) : ?>
+                        <?php if ($archivePage && !$page->show_archive()->toBool()) : ?>
                         <li class="c-projectTeaserCard">
 
                             <div class="hero-wrapper">
@@ -121,8 +139,11 @@
 
                         </li>
                     <?php endif; ?>
+                    </ul>
+                    
+                <?php endforeach ?>
 
-                </ul>
+                
             </section>
         <?php endif; ?>
 

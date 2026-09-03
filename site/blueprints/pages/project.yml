@@ -66,19 +66,16 @@ tabs:
               demokratie: Demokratie & Beteiligung
               kultur: Kunst, Kultur & Begegnung
               haus: Das MachMit!Haus
-          topics_secondary:
+          tags:
             type: tags
-            label: Weitere Themen
-            help: Optional. Das Projekt erscheint zusätzlich unter diesen Themenfeldern.
+            label: Tags
+            help: >-
+              Vorschläge stammen aus der gemeinsamen Tagliste aller Projekte.
+              Neue Tags können frei ergänzt werden.
             width: 1/2
             options:
-              digitale-stadt: Digitale Stadt
-              teilhabe: Teilhabe & Barrierefreiheit
-              klima: Klima & Nachhaltigkeit
-              ehrenamt: Ehrenamt & Engagement
-              demokratie: Demokratie & Beteiligung
-              kultur: Kunst, Kultur & Begegnung
-              haus: Das MachMit!Haus
+              type: query
+              query: kirby.collection("project-tags")
           text:
             type: layout
             size: huge

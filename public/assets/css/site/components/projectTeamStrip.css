@@ -283,7 +283,7 @@
     box-sizing: border-box;
     border-radius: 999px;
     border: 2px solid var(--color-fg-brand-primary);
-    background: transparent;
+    background: #fff;
     box-shadow: none;
     color: var(--color-white);
   }

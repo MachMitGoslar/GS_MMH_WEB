@@ -95,43 +95,38 @@ class ProjectPage extends Page
     }
 
     /**
-     * All topic slugs this project belongs to: the primary one first,
-     * then any secondary topics.
+     * The topic slug this project belongs to, or '' when unset.
      */
-    public function topicSlugs(): array
+    public function topicSlug(): string
     {
-        $slugs = [];
-        if ($primary = trim((string) $this->topic()->value())) {
-            $slugs[] = $primary;
-        }
-        foreach ($this->topics_secondary()->split(',') as $slug) {
-            if (($slug = trim($slug)) !== '' && !in_array($slug, $slugs, true)) {
-                $slugs[] = $slug;
-            }
-        }
-
-        return $slugs;
+        return trim((string) $this->topic()->value());
     }
 
     /**
-     * The Themenfeld pages this project belongs to, in assignment order.
-     * Empty when content/themen/ does not exist yet.
+     * This project's tags, from the shared tag list in
+     * `site/collections/project-tags.php`.
+     */
+    public function tagList(): array
+    {
+        return $this->tags()->split(',');
+    }
+
+    /**
+     * The Themenfeld page this project belongs to, wrapped in a Pages
+     * collection for template compatibility. Empty when content/themen/
+     * does not exist yet or the project has no topic.
      */
     public function themePages(): Kirby\Cms\Pages
     {
         $root = $this->site()->find('themen');
+        $slug = $this->topicSlug();
 
-        if (!$root) {
+        if (!$root || $slug === '') {
             return new Kirby\Cms\Pages([]);
         }
 
-        $slugs = $this->topicSlugs();
-        $themes = $root->children()->listed()
-            ->filter(fn ($theme) => in_array($theme->topic()->value(), $slugs, true));
-
-        return $themes->sortBy(
-            fn ($theme) => array_search($theme->topic()->value(), $slugs, true),
-        );
+        return $root->children()->listed()
+            ->filter(fn ($theme) => $theme->topic()->value() === $slug);
     }
 
     public function panel(): PanelPage

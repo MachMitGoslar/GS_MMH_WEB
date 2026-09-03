@@ -914,6 +914,7 @@ img {
 
   display: inline-flex;
   align-items: center;
+  gap: 0.375rem;
   font-size: var(--typo-size-80);
   padding: 0.375rem 0.75rem;
   border-radius: var(--border-radius-pill);
@@ -922,6 +923,12 @@ img {
   background: var(--color-fg-brand-primary);
   color: var(--color-white);
   white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Change badge (Anfangs- zu Endzustand): ein Badge, Farbverlauf per Inline-Style
+   aus den obigen --color-project-* Tokens, Pfeil erbt die weiße Textfarbe. */
+.project-step-timeline-status-pills .status-badge--change svg {
   flex-shrink: 0;
 }
 
@@ -943,13 +950,6 @@ img {
 
 .project-step-timeline-status-pills .status-badge[data-color='done'] {
   background-color: var(--color-project-done);
-}
-
-.project-step-timeline-status-arrow {
-  color: var(--color-fg-default);
-  width: 16px;
-  height: 12px;
-  flex-shrink: 0;
 }
 
 .project-step-timeline-image {

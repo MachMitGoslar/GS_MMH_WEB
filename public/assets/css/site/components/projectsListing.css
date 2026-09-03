@@ -18,6 +18,11 @@
   gap: 0.75rem;
 }
 
+.projects-filter-heading {
+  font-size: var(--typo-size-80);
+  font-weight: var(--font-weight-bold);
+}
+
 .projects-filter-row .projects-filter-pill {
   flex: 0 0 auto;
   gap: 0.6rem;
@@ -55,4 +60,58 @@
 
 .project-topic-chip:hover {
   transform: translateY(-2px);
+}
+
+/* Tag-Chips auf der Projektdetailseite: eigenes, dezenteres Aussehen als
+   die Themenfeld-Chips, damit "Hauptthema" vs. "Tags" auf einen Blick
+   unterscheidbar bleiben. */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 0.5rem 0;
+}
+
+.project-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--color-dead-pixel-400);
+  border-radius: var(--border-radius-pill, 999px);
+  color: var(--color-fg-muted);
+  font-size: var(--typo-size-80);
+  font-weight: var(--font-weight-semiBold);
+  transition: transform 0.2s ease,
+    border-color 0.2s ease;
+
+  &::before {
+    content: '#';
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-fg-brand-primary);
+  }
+}
+
+/* Tag-Pills auf der Projektübersicht: gleiche Filter-Mechanik wie die
+   Themenfeld-Pills, aber bewusst kleiner/unauffälliger, damit die Themen die
+   primäre Navigation bleiben und die Tags als Verfeinerung danebenstehen. */
+.projects-filter-pill--tag {
+  --_height: 1.5rem;
+  --_font-size: 0.6875rem;
+  --_font-weight: 500;
+  --_padding-horizontal: 0.625rem;
+  --_padding-vertical: 0.25rem;
+
+  opacity: 0.8;
+
+  &::before {
+    content: '#';
+  }
+
+  &:hover,
+  &[data-active='true'] {
+    opacity: 1;
+  }
 }

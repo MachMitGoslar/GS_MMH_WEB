@@ -4,7 +4,7 @@
  * A "Themenfeld" — a topic landing page that gathers the projects assigned to
  * it. Projects are NOT children of this page: they keep living under
  * `projects/` and `project-archive/` and reference the topic by slug through
- * their `topic` / `topics_secondary` fields. This page only queries them.
+ * their `topic` field. This page only queries them.
  */
 class ThemePage extends Page
 {
@@ -14,8 +14,7 @@ class ThemePage extends Page
     }
 
     /**
-     * All projects in this topic — primary assignment first, then the ones that
-     * list it as a secondary topic. Newest project step first.
+     * All projects assigned to this topic, newest project step first.
      */
     public function projects(): Kirby\Cms\Pages
     {
@@ -33,7 +32,7 @@ class ThemePage extends Page
         }
 
         return $all
-            ->filter(fn ($project) => in_array($slug, $project->topicSlugs(), true))
+            ->filter(fn ($project) => $project->topicSlug() === $slug)
             ->sortBy(fn ($project) => $project->latestStepDate(), 'desc');
     }
 

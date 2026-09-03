@@ -141,7 +141,6 @@
     width: 100%;
     aspect-ratio: var(--aspected-ration);
     object-fit: cover;
-    background: red;
 
     @media (width > 489px) {
       & {

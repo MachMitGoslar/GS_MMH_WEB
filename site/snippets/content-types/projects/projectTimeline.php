@@ -14,22 +14,10 @@
               <?php if ($project_step->project_status_from()->isNotEmpty() || $project_step->project_status_to()->isNotEmpty()) :
                   ?>
                 <div class="project-step-timeline-status-pills">
-                    <?php if ($project_step->project_status_from()->isNotEmpty()) :
-                        ?>
-                        <?= snippet('content-types/projects/statusBadge', ['status' => $project_step->project_status_from()]) ?>
-                        <?php
-                    endif ?>
-                    <?php if ($project_step->project_status_from()->isNotEmpty() && $project_step->project_status_to()->isNotEmpty()) :
-                        ?>
-                    <svg class="project-step-timeline-status-arrow" width="16" height="12" viewBox="0 0 16 12" fill="none">
-                      <path d="M10 2L14 6L10 10M14 6H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <?php endif ?>
-                    <?php if ($project_step->project_status_to()->isNotEmpty()) :
-                        ?>
-                        <?= snippet('content-types/projects/statusBadge', ['status' => $project_step->project_status_to()]) ?>
-                        <?php
-                    endif ?>
+                    <?= snippet('content-types/projects/stepStatusBadge', [
+                        'from' => $project_step->project_status_from()->value(),
+                        'to' => $project_step->project_status_to()->value(),
+                    ]) ?>
                 </div>
               <?php endif ?>
 

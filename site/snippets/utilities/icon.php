@@ -18,9 +18,9 @@
  * @var string|null $label  Accessible name; omit for purely decorative icons
  */
 
-$size = $size ?? 20;
+$size ??= 20;
 $class = trim('gs-c-icon ' . ($class ?? ''));
-$label = $label ?? null;
+$label ??= null;
 
 $icons = [
     // Communication

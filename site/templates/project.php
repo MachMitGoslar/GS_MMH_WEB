@@ -95,6 +95,17 @@ use Kirby\Cms\Block;
           </p>
         <?php endif ?>
 
+        <?php $projectTags = $page->tagList(); ?>
+        <?php if (!empty($projectTags)) : ?>
+          <?php $projectsPage = $site->find('projects'); ?>
+          <p class="project-tags" aria-label="Tags">
+            <?php foreach ($projectTags as $tag) : ?>
+              <a href="<?= $projectsPage ? $projectsPage->url() . '?tag=' . urlencode($tag) : '#' ?>"
+                 class="project-tag-chip"><?= esc($tag) ?></a>
+            <?php endforeach ?>
+          </p>
+        <?php endif ?>
+
         <?php if ($teamMembers->isNotEmpty()) : ?>
           <div class="project-team-strip<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?>" aria-label="Projektteam"<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
             <?php foreach ($teamMembers as $member) : ?>

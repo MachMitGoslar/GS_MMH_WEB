@@ -20,7 +20,7 @@ return [
     'date.timezone' => 'Europe/Berlin',
 
     // Themenfelder der Projekte. Slug => Label.
-    // Muss mit den Optionen von `topic` / `topics_secondary`
+    // Muss mit den Optionen von `topic`
     // in site/blueprints/pages/project.yml übereinstimmen.
     'mmh.topics' => [
         'digitale-stadt' => 'Digitale Stadt',
