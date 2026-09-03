@@ -253,12 +253,12 @@ $maxDate = date('Y-m-d', strtotime("+{$maxFuture} days"));
 <!-- Form Feedback -->
 <div class="booking-form-feedback" id="booking-feedback" style="display: none;">
   <div class="feedback-success" id="feedback-success">
-    <h3 class="font-headline">✅ Anfrage erfolgreich gesendet!</h3>
+    <h3 class="font-headline gs-c-icon-text"><?php snippet('utilities/icon', ['name' => 'check-circle']) ?> Anfrage erfolgreich gesendet!</h3>
     <p class="font-body">Vielen Dank für Ihre Buchungsanfrage. Sie erhalten in Kürze eine Bestätigung per E-Mail.</p>
     <p class="font-body">Wir werden Ihre Anfrage schnellstmöglich bearbeiten und uns bei Ihnen melden.</p>
   </div>
   <div class="feedback-error" id="feedback-error">
-    <h3 class="font-headline">❌ Fehler beim Senden</h3>
+    <h3 class="font-headline gs-c-icon-text"><?php snippet('utilities/icon', ['name' => 'x-circle']) ?> Fehler beim Senden</h3>
     <p class="font-body" id="error-message">Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.</p>
   </div>
 </div>

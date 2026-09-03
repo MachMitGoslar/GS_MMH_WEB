@@ -14,7 +14,35 @@ use Kirby\Http\Exceptions\NextRouteException;
 require_once __DIR__ . '/../controllers/events-api.php';
 require_once __DIR__ . '/../controllers/oveda-event.php';
 
+/**
+ * Projekte, die als echte Dublette in einem anderen Projekt aufgegangen sind.
+ * Alter Slug => neuer Pfad inklusive Kapitel-Anker.
+ *
+ * Thematisch verwandte, aber eigenstaendige Projekte werden hier bewusst NICHT
+ * gefuehrt: sie haben eigene Seiten und werden ueber das Themenfeld gruppiert.
+ */
+const MMH_MERGED_PROJECTS = [
+    'machmitwald-christmas-challenge' => 'projects/machmitwald#kapitel-machmitwald-christmas-challenge',
+    'mein-buntes-goslar' => 'projects/burgerkunst-mein-buntes-goslar#kapitel-mein-buntes-goslar',
+    'so-ist-tet' => 'projects/interkulturelle-begegnungen#kapitel-so-ist-tet',
+];
+
 return [
+
+    /**
+     * 301 für zusammengeführte Projekte. Greift unter beiden Wurzeln,
+     * weil Projekte je nach Status unter projects/ oder project-archive/ lagen.
+     */
+    [
+        'pattern' => ['projects/(:any)', 'project-archive/(:any)'],
+        'action' => function (string $slug) {
+            if (isset(MMH_MERGED_PROJECTS[$slug])) {
+                go(MMH_MERGED_PROJECTS[$slug], 301);
+            }
+
+            throw new NextRouteException();
+        },
+    ],
     [
         // iCalendar download for a single Oveda event date
         'pattern' => 'events/(:num).ics',

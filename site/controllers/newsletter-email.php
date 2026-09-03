@@ -9,6 +9,7 @@ function mmhNewsletterMobileHtml(Page $page, array $data = []): string
 {
     $html = $page->render();
     $html = mmhNewsletterRemoveSiteChrome($html);
+    $html = mmhNewsletterReplaceIconsWithEmoji($html);
     $html = mmhNewsletterPrepareSelfContainedNewsletter($html);
     $html = mmhNewsletterNormalizeTimelineMarkup($html);
     $html = mmhNewsletterConvertHeroToEmailTable($html);
@@ -35,6 +36,56 @@ function mmhNewsletterMobileHtml(Page $page, array $data = []): string
     }
 
     return $html;
+}
+
+/**
+ * Swaps the site's inline svg icons back out for emoji.
+ *
+ * The website uses `snippets/utilities/icon.php` so the icons follow the design
+ * tokens. That does not survive the trip into a mailbox: Gmail strips <svg>
+ * entirely and the Word rendering engine behind Outlook for Windows cannot draw
+ * it either, so the icon would silently disappear. An emoji is drawn by the
+ * reader's own system and therefore renders in every client.
+ *
+ * An icon without an entry here is dropped rather than replaced, so a new icon
+ * on the site never leaves a broken glyph in the mail.
+ */
+function mmhNewsletterReplaceIconsWithEmoji(string $html): string
+{
+    $emoji = [
+        'mail' => "\u{1F4E7}",
+        'phone' => "\u{1F4DE}",
+        'globe' => "\u{1F310}",
+        'link' => "\u{1F517}",
+        'external-link' => "\u{1F517}",
+        'map-pin' => "\u{1F4CD}",
+        'calendar' => "\u{1F4C5}",
+        'clock' => "\u{1F553}",
+        'book-open' => "\u{1F4D6}",
+        'newspaper' => "\u{1F4F0}",
+        'zap' => "\u{1F680}",
+        'eye' => "\u{1F52E}",
+        'check-circle' => "\u{2705}",
+        'x-circle' => "\u{274C}",
+        'alert-triangle' => "\u{26A0}",
+        'lightbulb' => "\u{1F4A1}",
+        'home' => "\u{1F3E0}",
+        'accessibility' => "\u{267F}",
+        'user' => "\u{1F464}",
+        'users' => "\u{1F465}",
+        'ticket' => "\u{1F3AB}",
+        'tag' => "\u{1F3F7}",
+        'camera' => "\u{1F4F7}",
+        'download' => "\u{2B07}",
+        'arrow-left' => "\u{2190}",
+        'arrow-right' => "\u{2192}",
+    ];
+
+    return preg_replace_callback(
+        '/<svg\b[^>]*\bdata-icon="([a-z0-9-]+)"[^>]*>.*?<\/svg>/is',
+        fn (array $match): string => $emoji[$match[1]] ?? '',
+        $html,
+    ) ?? $html;
 }
 
 function mmhNewsletterRemoveSiteChrome(string $html): string

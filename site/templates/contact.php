@@ -45,7 +45,7 @@
 
 
 
-    <!-- 🔽 Flexible Blocks -->
+    <!-- Flexible Blocks -->
     <section class="content">
         <div class="designer">
             <?php foreach ($page->text()->toBlocks() as $block) : ?>
@@ -60,7 +60,7 @@
     </section>
 </main>
 
-<script>
+<!-- <script>
     mapboxgl.accessToken = '<?= esc($page->mapbox_token()) ?>';
 
     const map = new mapboxgl.Map({
@@ -76,6 +76,6 @@
     new mapboxgl.Marker()
         .setLngLat([<?= $page->lng() ?>, <?= $page->lat() ?>])
         .addTo(map);
-</script>
+</script> -->
 
 <?php snippet('layout/footer'); ?>

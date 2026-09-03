@@ -7,6 +7,7 @@
 @import url('./tokens/fonts.css');
 
 /* UI Components */
+@import url('./components/icon.css');
 @import url('./components/buttons.css');
 @import url('./components/forms.css');
 @import url('./components/badge.css');

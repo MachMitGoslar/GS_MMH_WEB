@@ -10,10 +10,59 @@
   --events-gold: var(--color-ripe-mango-1000);
 }
 
+/* Basis-Kachel. Lag frueher global in newsletter.css und hat von dort
+   Startseite und Terminseite mitgestylt -- inklusive `height: fit-content`,
+   das das Grid-Stretch aushebelte und die Kacheln einer Reihe
+   unterschiedlich hoch machte. */
 .eventsListItem {
   grid-column: span 4;
-  border-left: 2px solid var(--color-ripe-mango-1000);
-  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: var(--size-5);
+  border: 1px solid var(--color-dead-pixel-300);
+  border-left: 4px solid var(--color-ripe-mango-800);
+  border-radius: var(--border-radius-4);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.eventsListItem:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-ripe-mango-600);
+}
+
+/* Der Link fuellt die Kachel, damit der Inhalt bei gleicher Zeilenhoehe
+   sauber verteilt wird. */
+.eventsListItem > a {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+}
+
+.eventsListItem time {
+  display: block;
+  color: var(--color-ripe-mango-1000);
+  font-weight: var(--font-weight-semiBold);
+}
+
+.eventsListItem h3,
+.eventsListItem h4 {
+  color: var(--color-dead-pixel-1400);
+}
+
+.eventsListItem p {
+  color: var(--color-dead-pixel-1000);
+}
+
+.eventsListItem p:last-child {
+  margin-top: auto;
+  margin-bottom: 0;
 }
 
 .main--events .events-toolbar {

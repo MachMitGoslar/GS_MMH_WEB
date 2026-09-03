@@ -1,4 +1,6 @@
 <?php
+
+use Kirby\Cms\Block;
 /**
 * @var \Kirby\Cms\Site $site
 * @var \Kirby\Cms\Page $page
@@ -80,6 +82,30 @@
           <?= $page->subheadline() ?>
         </h2>
 
+        <?php $themePages = $page->themePages(); ?>
+        <?php if ($themePages->isNotEmpty()) : ?>
+          <p class="project-topics" aria-label="Themenfelder">
+            <?php foreach ($themePages as $theme) : ?>
+              <a href="<?= $theme->url() ?>"
+                 class="project-topic-chip gs-c-btn"
+                 data-type="secondary"
+                 data-size="small"
+                 data-style="pill"><?= $theme->title()->html() ?></a>
+            <?php endforeach ?>
+          </p>
+        <?php endif ?>
+
+        <?php $projectTags = $page->tagList(); ?>
+        <?php if (!empty($projectTags)) : ?>
+          <?php $projectsPage = $site->find('projects'); ?>
+          <p class="project-tags" aria-label="Tags">
+            <?php foreach ($projectTags as $tag) : ?>
+              <a href="<?= $projectsPage ? $projectsPage->url() . '?tag=' . urlencode($tag) : '#' ?>"
+                 class="project-tag-chip"><?= esc($tag) ?></a>
+            <?php endforeach ?>
+          </p>
+        <?php endif ?>
+
         <?php if ($teamMembers->isNotEmpty()) : ?>
           <div class="project-team-strip<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?>" aria-label="Projektteam"<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
             <?php foreach ($teamMembers as $member) : ?>
@@ -122,6 +148,7 @@
                         continue;
                     } ?>
                 <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
+
                     <?= $block ?>
                 </div>
                 <?php endforeach ?>
@@ -135,7 +162,37 @@
         <section>
             <?php snippet('dreamform/forms', ['page' => $page]) ?>
         </section>
+
+        <section class="project-update-gallery">
+          <?php if (count($page->projectUpdatePictures()) > 0) : ?>
+            <h2> Bilder aus dem Projekt </h2>
+            
+          <?php 
+             $block = new Kirby\Cms\Block(
+              [
+                  'type' => 'gallery',
+                  'content' => [
+                    'images' => $page->projectUpdatePictures(),
+                    'caption' => 'Bilder aus dem Projekt',
+                    'crop' => '600x600',
+                    'ratio' => '4:3'
+                  ]
+              ]
+             );
+
+
+             
+             print snippet('blocks/gallery', ['block' => $block]);
+            
+          ?>
+          <?php endif ?>
+  
+
+        </section>
+
     </div>
+
+    
 
 
 

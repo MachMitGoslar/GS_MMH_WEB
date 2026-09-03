@@ -108,7 +108,7 @@ if ($timeLabel === '') {
     <a href="<?= esc($url) ?>">
       <time class="font-footnote mb-2"><?= esc($listTimeLabel) ?></time>
       <h3 class="font-subheadline mb-2"><?= esc($displayTitle) ?></h3>
-      <p class="font-body mb-2"><?= Str::short($description, 120, '…') ?></p>
+      <p class="font-footnote mb-2"><?= Str::short($description, 120, '…') ?></p>
     </a>
   <?php endif ?>
 </li>

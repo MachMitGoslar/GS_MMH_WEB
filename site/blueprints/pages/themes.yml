@@ -1,0 +1,36 @@
+title: Themenfelder
+icon: tags
+
+status:
+  draft: true
+  unlisted: true
+  listed: true
+
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    columns:
+      - width: 2/3
+        fields:
+          cover: fields/cover
+          headline:
+            type: text
+            placeholder: "{{ page.title }}"
+            required: true
+          subheadline:
+            label: Untertitel
+            type: text
+      - width: 1/3
+        sections:
+          themes:
+            type: pages
+            label: Themenfelder
+            query: page.childrenAndDrafts
+            status: all
+            templates: theme
+            create: theme
+            sortable: true
+            empty: Noch keine Themenfelder angelegt
+
+  seo: tabs/seo

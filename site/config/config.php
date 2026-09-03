@@ -19,16 +19,20 @@ return [
 
     'date.timezone' => 'Europe/Berlin',
 
-    'cache.oveda' => true,
-
-    // Google Calendar Integration (optional)
-    // To enable: Create a Google Cloud Service Account, download the JSON key,
-    // and set the path here. Share each room's calendar with the service account email.
-    'google' => [
-        'calendar' => [
-            'credentials' => null, // e.g., __DIR__ . '/google-service-account.json'
-        ],
+    // Themenfelder der Projekte. Slug => Label.
+    // Muss mit den Optionen von `topic`
+    // in site/blueprints/pages/project.yml übereinstimmen.
+    'mmh.topics' => [
+        'digitale-stadt' => 'Digitale Stadt',
+        'teilhabe' => 'Teilhabe & Barrierefreiheit',
+        'klima' => 'Klima & Nachhaltigkeit',
+        'ehrenamt' => 'Ehrenamt & Engagement',
+        'demokratie' => 'Demokratie & Beteiligung',
+        'kultur' => 'Kunst, Kultur & Begegnung',
+        'haus' => 'Das MachMit!Haus',
     ],
+
+    'cache.oveda' => true,
 
     // Load custom API routes (higher priority)
     'api' => require __DIR__ . '/api.php',

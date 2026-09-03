@@ -33,8 +33,10 @@
   grid-template-columns: 1fr;
 
   @media (width > 767px) {
-    grid-template-columns: 3fr 2fr;
-    align-items: end;
+    & {
+      grid-template-columns: 3fr 2fr;
+      align-items: end;
+    }
   }
 }
 
@@ -66,7 +68,7 @@
   box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
 
   & span {
-    font-size: var(--typo-size-70);
+    font-size: var(--typo-size-80);
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--color-fg-brand-primary);
@@ -95,7 +97,7 @@
   padding: 0.125rem 0.625rem;
   border-radius: 999px;
   background: var(--color-dead-pixel-100);
-  font-size: var(--typo-size-70);
+  font-size: var(--typo-size-80);
   font-weight: var(--font-weight-semiBold);
   color: var(--color-dead-pixel-1300);
 }
@@ -156,8 +158,10 @@
   grid-template-columns: 1fr;
 
   @media (width > 1039px) {
-    grid-template-columns: 2fr 1fr;
-    align-items: start;
+    & {
+      grid-template-columns: 2fr 1fr;
+      align-items: start;
+    }
   }
 }
 
@@ -176,7 +180,9 @@
   grid-template-columns: 1fr;
 
   @media (width > 767px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    & {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 }
 
@@ -193,18 +199,24 @@
   background: var(--color-white);
 
   @media (width > 489px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    & {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (width > 767px) {
-    grid-column: span 2;
+    & {
+      grid-column: span 2;
+    }
   }
 }
 
 /* Without a map the facts use the full row */
 .c-event__glance[data-has-map='false'] .c-event__facts {
   @media (width > 767px) {
-    grid-column: span 3;
+    & {
+      grid-column: span 3;
+    }
   }
 }
 
@@ -224,9 +236,11 @@
 
   /* Next to the facts the map fills the row instead of keeping its ratio */
   @media (width > 767px) {
-    flex: 1;
-    aspect-ratio: auto;
-    min-height: 14rem;
+    & {
+      flex: 1;
+      aspect-ratio: auto;
+      min-height: 14rem;
+    }
   }
 }
 
@@ -271,7 +285,7 @@
 }
 
 .c-event__factLabel {
-  font-size: var(--typo-size-70);
+  font-size: var(--typo-size-80);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--color-dead-pixel-1100);
@@ -323,7 +337,7 @@
   padding: 0.125rem 0.625rem;
   border: var(--event-border);
   border-radius: 999px;
-  font-size: var(--typo-size-70);
+  font-size: var(--typo-size-80);
   color: var(--color-dead-pixel-1200);
 }
 
@@ -422,7 +436,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  font-size: var(--typo-size-70);
+  font-size: var(--typo-size-80);
   color: var(--color-dead-pixel-1100);
 
   & a {

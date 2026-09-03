@@ -283,7 +283,7 @@
     box-sizing: border-box;
     border-radius: 999px;
     border: 2px solid var(--color-fg-brand-primary);
-    background: transparent;
+    background: #fff;
     box-shadow: none;
     color: var(--color-white);
   }
@@ -295,7 +295,8 @@
 
   .project-team-strip.is-floating.is-expanded .project-team-member,
   .project-team-strip.is-floating:focus-within .project-team-member {
-    order: var(--expanded-order);
+    /* wird in site/templates/project.php per JS gesetzt */
+    order: var(--expanded-order, 0);
     margin-right: 0;
     right: 0;
   }

@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\SMTP;
 return [
     'ready' => function () {
         return [
-            'debug' => false,
+            'debug' => TRUE,
             'panel' => [
                 'install' => true,
                 'vue.compiler' => false,

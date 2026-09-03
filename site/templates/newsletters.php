@@ -16,17 +16,17 @@
   </div>
 
   <!-- Content Section -->
-  <section class="grid content mb-12">
+  <section class="grid content mb-7">
     
     <!-- Header with Title and Description -->
-    <div class="grid-item mb-8" data-span="1/1">
-      <div class="max-w-3xl">
+    <div class="grid-item mb-6" data-span="1/1">
+      <div class="newsletter-listing__intro">
         <h1 class="font-titleXXL mb-4">
           <?= $page->headline()->or($page->title())->html() ?>
         </h1>
         
         <?php if ($page->description()->isNotEmpty()) : ?>
-          <p class="font-body text-lg text-gray-600">
+          <p class="font-body">
             <?= $page->description()->html() ?>
           </p>
         <?php endif ?>
@@ -36,7 +36,7 @@
     <!-- Newsletter Grid -->
     <?php if ($page->children()->listed()->count() > 0) : ?>
       <div class="grid-item" data-span="1/1">
-        <h2 class="font-titleL mb-6">Alle Newsletter-Ausgaben</h2>
+        <h2 class="font-title mb-6">Alle Newsletter-Ausgaben</h2>
         
         <ul class="grid content">
           <?php
@@ -73,8 +73,8 @@
       </div>
     <?php else : ?>
       <div class="grid-item" data-span="1/1">
-        <div class="text-center py-12 bg-gray-50 rounded-lg">
-          <p class="font-body text-gray-600 text-lg">
+        <div class="newsletter-empty">
+          <p class="font-body">
             Noch keine Newsletter veröffentlicht.
           </p>
         </div>
@@ -82,18 +82,19 @@
     <?php endif ?>
 
     <!-- Newsletter Subscription CTA -->
-    <div class="grid-item mt-12" data-span="1/1">
-      <div class="bg-blue-50 rounded-lg p-8 text-center">
-        <h3 class="font-titleL mb-4">Newsletter abonnieren</h3>
-        <p class="font-body text-gray-700 mb-6 max-w-2xl mx-auto">
-          Bleiben Sie auf dem Laufenden über unsere Projekte, Veranstaltungen und Neuigkeiten. 
-          Unser Newsletter erscheint regelmäßig mit spannenden Einblicken in unsere Arbeit.
+     <?php if ($page->cta_text()->isNotEmpty() || $page->cta_button_text()->isNotEmpty()) : ?>
+    <div class="grid-item mt-7" data-span="1/1">
+      <div class="newsletter-cta">
+        <h3 class="font-title mb-4">Newsletter abonnieren</h3>
+        <p class="font-body newsletter-cta__text mb-6">
+          <?= $page->cta_text() ?>
         </p>
         <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regular" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal">
-          Jetzt abonnieren
+          <?= $page->cta_button_text() ?>
         </button>
       </div>
     </div>
+    <?php endif ?>
     
   </section>
 

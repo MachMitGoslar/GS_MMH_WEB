@@ -17,8 +17,8 @@ $allRooms = $roomsPage->children()->listed();
   <!-- Breadcrumb -->
   <nav class="grid content room-breadcrumb">
     <div class="grid-item" data-span="1/1">
-      <a href="<?= $roomsPage->url() ?>" class="breadcrumb-link font-footnote">
-        ← Zurück zur Übersicht
+      <a href="<?= $roomsPage->url() ?>" class="breadcrumb-link font-footnote gs-c-icon-text">
+        <?php snippet('utilities/icon', ['name' => 'arrow-left']) ?> Zurück zur Übersicht
       </a>
     </div>
   </nav>
@@ -45,7 +45,7 @@ $allRooms = $roomsPage->children()->listed();
         <?php endif ?>
         <?php if ($page->accessible()->toBool()) : ?>
           <div class="quick-info-item quick-info-badge">
-            <span class="badge-accessible">♿ Barrierefrei</span>
+            <span class="badge-accessible gs-c-icon-text"><?php snippet('utilities/icon', ['name' => 'accessibility']) ?> Barrierefrei</span>
           </div>
         <?php endif ?>
       </div>
@@ -79,7 +79,7 @@ $allRooms = $roomsPage->children()->listed();
       <?php if ($page->virtual_tour_url()->isNotEmpty()) : ?>
         <div class="room-virtual-tour">
           <a href="<?= $page->virtual_tour_url() ?>" target="_blank" rel="noopener" class="gs-c-btn" data-type="secondary">
-            🔭 360°-Tour starten
+            <?php snippet('utilities/icon', ['name' => 'rotate-cw']) ?> 360°-Tour starten
           </a>
         </div>
       <?php endif ?>
@@ -151,7 +151,7 @@ $allRooms = $roomsPage->children()->listed();
           </div>
             <?php if ($page->nonprofit_discount()->toBool()) : ?>
             <p class="pricing-discount font-footnote">
-              💡 <?= $page->nonprofit_discount_percent()->or(0) ?>% Rabatt für gemeinnützige Organisationen
+              <?php snippet('utilities/icon', ['name' => 'lightbulb']) ?> <?= $page->nonprofit_discount_percent()->or(0) ?>% Rabatt für gemeinnützige Organisationen
             </p>
             <?php endif ?>
             <?php if ($page->pricing_notes()->isNotEmpty()) : ?>

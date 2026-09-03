@@ -52,6 +52,30 @@ tabs:
               - aktiv
               - in Auswertung
               - abgeschlossen
+          topic:
+            type: select
+            label: Hauptthema
+            help: Bestimmt, unter welchem Themenfeld das Projekt in der Übersicht einsortiert wird.
+            required: true
+            width: 1/2
+            options:
+              digitale-stadt: Digitale Stadt
+              teilhabe: Teilhabe & Barrierefreiheit
+              klima: Klima & Nachhaltigkeit
+              ehrenamt: Ehrenamt & Engagement
+              demokratie: Demokratie & Beteiligung
+              kultur: Kunst, Kultur & Begegnung
+              haus: Das MachMit!Haus
+          tags:
+            type: tags
+            label: Tags
+            help: >-
+              Vorschläge stammen aus der gemeinsamen Tagliste aller Projekte.
+              Neue Tags können frei ergänzt werden.
+            width: 1/2
+            options:
+              type: query
+              query: kirby.collection("project-tags")
           text:
             type: layout
             size: huge
