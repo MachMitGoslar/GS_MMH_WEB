@@ -43,7 +43,7 @@
             <section class="grid-item projects-listing" data-span="1/1">
 
                 <?php if (count($topicFilters) > 1) : ?>
-                                            <span class="projects-filter-heading"> Nach Themen </h6>
+                    <span class="projects-filter-heading"> Nach Themen </span>
 
                     <div class="projects-filter-row mb-3">
                         <a
@@ -75,7 +75,7 @@
                 <?php endif ?>
 
                 <?php if (!empty($tagFilters)) : ?>
-                                                                <span class="projects-filter-heading"> Nach Schlagworten </h6>
+                    <span class="projects-filter-heading"> Nach Schlagworten </span>
 
                     <div class="projects-filter-row mb-5" aria-label="Nach Tag filtern">
 
@@ -111,7 +111,20 @@
                         <?php foreach ($group['projects'] as $project) : ?>
                             <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
                         <?php endforeach ?>
-                        <?php if ($archivePage && !$page->show_archive()->toBool()) : ?>
+                        
+                    </ul>
+                    
+                <?php endforeach ?>
+
+                
+            </section>
+        <?php endif; ?>
+
+        <?php if ($archivePage && !$page->show_archive()->toBool()) : ?>
+                        <section class="grid-item project-archive" data-span="1/1">
+                    <h2 id="archive" class="font-title2 section-title">Projektarchiv</h2>
+
+                    <ul class="grid mb-4">
                         <li class="c-projectTeaserCard">
 
                             <div class="hero-wrapper">
@@ -138,15 +151,9 @@
                             </div>
 
                         </li>
+                                </ul>
+                        </section>
                     <?php endif; ?>
-                    </ul>
-                    
-                <?php endforeach ?>
-
-                
-            </section>
-        <?php endif; ?>
-
 
         <?php if ($page->show_archive()->toBool()) : ?>
             <section class="grid-item" data-span="1/1">

@@ -1,6 +1,7 @@
 /* Themenfeld-Gruppierung und Filter auf der Projektübersicht */
 
-.projects-listing .section-title {
+.projects-listing .section-title,
+.project-archive .section-title {
   margin-bottom: var(--spacing-4, 1.5rem);
   padding-bottom: var(--spacing-2, 0.5rem);
   border-bottom: 2px solid var(--color-primary, #000);

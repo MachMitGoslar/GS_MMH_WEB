@@ -496,7 +496,7 @@
 }
 
 .author-name {
-  color: var(--color-fg-white, #fff);
+  color: var(--color-black, #000);
 }
 
 .author-role {
