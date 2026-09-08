@@ -164,7 +164,7 @@ use Kirby\Cms\Block;
         </section>
 
         <section class="project-update-gallery">
-          <?php if (count($page->projectUpdatePictures()) > 0) : ?>
+          <?php if ($page->show_project_step_pictures() == "true" && count($page->projectUpdatePictures()) > 0): ?>
             <h2> Bilder aus dem Projekt </h2>
             
           <?php 
@@ -175,7 +175,7 @@ use Kirby\Cms\Block;
                     'images' => $page->projectUpdatePictures(),
                     'caption' => 'Bilder aus dem Projekt',
                     'crop' => '600x600',
-                    'ratio' => '4:3'
+                    'ratio' => '1:1'
                   ]
               ]
              );
