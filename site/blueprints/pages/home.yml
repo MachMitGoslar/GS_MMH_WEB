@@ -39,4 +39,38 @@ tabs:
           blocks:
             extends: fields/blocks
 
+  cta_modal:
+    label: CTA Modal
+    icon: megaphone
+    fields:
+      cta_modal_enabled:
+        type: toggle
+        label: Modal beim Öffnen anzeigen
+        text:
+          - "Nein"
+          - "Ja"
+        default: false
+      cta_modal_headline:
+        type: text
+        label: Überschrift
+        when:
+          cta_modal_enabled: true
+      cta_modal_text:
+        type: textarea
+        label: Text
+        when:
+          cta_modal_enabled: true
+      cta_modal_continue_text:
+        type: text
+        label: Button Text
+        default: Weiter
+        when:
+          cta_modal_enabled: true
+      cta_modal_continue_url:
+        type: link
+        label: Ziel Seite
+        help: Externe URL oder interne Seite.
+        when:
+          cta_modal_enabled: true
+
   seo: tabs/seo
