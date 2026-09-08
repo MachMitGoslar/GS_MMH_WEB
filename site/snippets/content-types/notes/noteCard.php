@@ -63,9 +63,9 @@ $cover = $note->cover();
           <a href="<?= $note->url() ?>"><?= $note->title()->html() ?></a>
         </h3>
         <?php if ($note->headline()->isNotEmpty()) : ?>
-          <p class="note-card-subtitle font-headline"><?= $note->headline()->html() ?></p>
+          <p class="note-card-subtitle font-subheadline font-line-height-narrow"><?= $note->headline()->html() ?></p>
         <?php endif ?>
-        <p class="note-card-excerpt font-body">
+        <p class="note-card-excerpt font-footnote">
           <?= $note->text()->toBlocks()->first()?->text()->excerpt(200) ?? '' ?>
         </p>
         <a href="<?= $note->url() ?>" class="gs-c-btn" data-type="secondary" data-size="small">
@@ -117,13 +117,13 @@ $cover = $note->cover();
           </div>
         <?php endif ?>
       </div>
-      <h3 class="note-card-title font-headline">
+      <h3 class="note-card-title font-headline font-line-height-narrow">
         <a href="<?= $note->url() ?>"><?= $note->title()->html() ?></a>
       </h3>
       <?php if ($note->headline()->isNotEmpty()) : ?>
-        <p class="note-card-subtitle font-subheadline"><?= $note->headline()->excerpt(80) ?></p>
+        <p class="note-card-subtitle font-subheadline font-line-height-narrow"><?= $note->headline()->excerpt(80) ?></p>
       <?php endif ?>
-      <p class="note-card-excerpt font-body">
+      <p class="note-card-excerpt font-footnote">
         <?= $note->text()->toBlocks()->first()?->text()->excerpt(120) ?? '' ?>
       </p>
       <a href="<?= $note->url() ?>" class="gs-c-btn" data-type="secondary" data-size="small">

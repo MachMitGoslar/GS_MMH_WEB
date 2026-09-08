@@ -29,10 +29,42 @@
       align-self: flex-start;
     }
 
+    /* Sits between the excerpt and the CTA; not a .gs-c-btn so it is
+       unaffected by the bottom-anchor rule above. */
+    & .project-teaser-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+      margin-bottom: 0.75rem;
+    }
+
+    & .project-teaser-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.5rem;
+      border: 1px solid var(--color-dead-pixel-400);
+      border-radius: var(--border-radius-pill, 999px);
+      color: var(--color-fg-muted);
+      font-size: var(--typo-size-80);
+
+      &::before {
+        content: '#';
+      }
+
+      &:hover {
+        border-color: var(--color-fg-brand-primary);
+      }
+    }
+
     /* Status Header */
     & .statusheader {
       display: flex;
       justify-content: space-between;
+
+      /* gleiche Datumsfarbe wie in Newsletter- und Tagebuch-Karte */
+      & time {
+        color: var(--color-fg-muted);
+      }
 
       & .status-badge {
         --color-project-planning: var(--color-cornflower-1000);
@@ -82,7 +114,9 @@
     overflow: hidden;
 
     @media (width > 489px) {
-      --aspected-ration: 21/9;
+      & {
+        --aspected-ration: 21/9;
+      }
     }
   }
 

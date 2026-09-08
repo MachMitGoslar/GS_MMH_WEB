@@ -1,0 +1,73 @@
+title: Themenfeld
+icon: tag
+
+status:
+  draft: true
+  unlisted: true
+  listed: true
+
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    columns:
+      - width: 2/3
+        fields:
+          cover:
+            extends: fields/cover
+          topic:
+            type: select
+            label: Themen-Slug
+            help: Verbindet die Seite mit dem Feld „Hauptthema“ der Projekte. Muss eindeutig sein.
+            required: true
+            options:
+              digitale-stadt: Digitale Stadt
+              teilhabe: Teilhabe & Barrierefreiheit
+              klima: Klima & Nachhaltigkeit
+              ehrenamt: Ehrenamt & Engagement
+              demokratie: Demokratie & Beteiligung
+              kultur: Kunst, Kultur & Begegnung
+              haus: Das MachMit!Haus
+          headline:
+            type: text
+            label: Titel
+            placeholder: "{{ page.title }}"
+          subheadline:
+            type: text
+            label: Untertitel
+          text:
+            type: layout
+            size: huge
+            label: Einleitung
+            layouts:
+              - "1/1"
+              - "1/2, 1/2"
+              - "1/3, 2/3"
+              - "2/3, 1/3"
+              - "1/3, 1/3, 1/3"
+            fieldsets:
+              - heading
+              - text
+              - image
+              - gallery
+              - box
+              - card
+              - cta
+              - divider
+
+      - width: 1/3
+        sections:
+          projects:
+            type: pages
+            label: Projekte in diesem Themenfeld
+            query: page.projectsForPanel
+            templates: project
+            layout: list
+            info: "{{ page.project_status }}"
+            empty: Noch keine Projekte zugeordnet
+            image:
+              query: page.cover
+              cover: true
+              ratio: 3/2
+
+  seo: tabs/seo

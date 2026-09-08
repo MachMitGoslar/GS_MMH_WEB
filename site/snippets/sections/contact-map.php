@@ -32,19 +32,19 @@ $mapboxToken = $mapboxToken?->value();
 
             <?php if ($email) : ?>
                 <div class="contact-item font-body mb-2">
-                    📧 <a href="mailto:<?= $email ?>"><?= $email ?></a>
+                    <?php snippet('utilities/icon', ['name' => 'mail']) ?> <a href="mailto:<?= $email ?>"><?= $email ?></a>
                 </div>
             <?php endif ?>
 
             <?php if ($website) : ?>
                 <div class="contact-item font-body mb-2">
-                    🌐 <a href="<?= $website ?>"><?= preg_replace('#^https?://#', '', $website) ?></a>
+                    <?php snippet('utilities/icon', ['name' => 'globe']) ?> <a href="<?= $website ?>"><?= preg_replace('#^https?://#', '', $website) ?></a>
                 </div>
             <?php endif ?>
 
             <?php if ($phone) : ?>
                 <div class="contact-item font-body mb-2">
-                    📞 <a href="tel:<?= $phone ?>"><?= $phone ?></a>
+                    <?php snippet('utilities/icon', ['name' => 'phone']) ?> <a href="tel:<?= $phone ?>"><?= $phone ?></a>
                 </div>
             <?php endif ?>
             <?php if ($social) : ?>
@@ -69,19 +69,23 @@ $mapboxToken = $mapboxToken?->value();
 </section>
 
 <script>
-    mapboxgl.accessToken = '<?= esc($mapboxToken) ?>';
+    window.onload = function() {
+        mapboxgl.accessToken = '<?= esc($mapboxToken) ?>';
 
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/standard',
-        center: [<?= $lng ?>, <?= $lat ?>],
-        zoom: 15,
-        attributionControl: false
-    });
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/standard',
+            center: [<?= $lng ?>, <?= $lat ?>],
+            zoom: 15,
+            attributionControl: false
+        });
 
-    map.scrollZoom.disable();
+        map.scrollZoom.disable();
 
-    new mapboxgl.Marker()
-        .setLngLat([<?= $lng ?>, <?= $lat ?>])
-        .addTo(map);
+        new mapboxgl.Marker()
+            .setLngLat([<?= $lng ?>, <?= $lat ?>])
+            .addTo(map);
+        
+        console.log("Map loaded", map)
+    };
 </script>

@@ -54,17 +54,17 @@
 }
 
 .c-newsletterTeaserCard .newsletter-badge-icon {
-  font-size: 0.875rem;
+  font-size: var(--typo-size-90);
 }
 
 .c-newsletterTeaserCard .newsletter-badge-text {
   text-transform: uppercase;
   letter-spacing: 0.025em;
-  font-size: 0.75rem;
+  font-size: var(--typo-size-80);
 }
 
 .c-newsletterTeaserCard time {
-  color: var(--color-gray-600);
+  color: var(--color-fg-muted);
   font-weight: var(--font-weight-medium);
 }
 
@@ -114,7 +114,6 @@
 .c-newsletterTeaserCard p {
   margin-bottom: 1rem;
   color: var(--color-gray-700);
-  line-height: 1.6;
 }
 
 /* Button Override for Newsletter Context */
@@ -203,10 +202,44 @@
 
   .c-newsletterTeaserCard .newsletter-badge {
     padding: 0.1875rem 0.5rem;
-    font-size: 0.6875rem;
   }
 
   .c-newsletterTeaserCard .newsletter-badge-icon {
-    font-size: 0.75rem;
+    font-size: var(--typo-size-80);
   }
+}
+
+/* ==========================================
+   NEWSLETTER LISTING — Panels
+   Ersetzen die uebriggebliebenen Tailwind-Klassen
+   (bg-gray-50 / bg-blue-50 / rounded-lg / p-8 / text-center),
+   fuer die es in diesem Projekt nie CSS gab.
+   ========================================== */
+
+.newsletter-listing__intro {
+  max-width: 48rem;
+}
+
+.newsletter-empty,
+.newsletter-cta {
+  padding: var(--size-6);
+  border-radius: var(--border-radius-5);
+  text-align: center;
+}
+
+.newsletter-empty {
+  background: var(--color-dead-pixel-25);
+  border: 1px solid var(--color-dead-pixel-300);
+  color: var(--color-fg-muted);
+}
+
+.newsletter-cta {
+  background: var(--color-ripe-mango-200);
+  border: 1px solid var(--color-ripe-mango-300);
+}
+
+.newsletter-cta__text {
+  max-width: 42rem;
+  margin-inline: auto;
+  color: var(--color-dead-pixel-1300);
 }

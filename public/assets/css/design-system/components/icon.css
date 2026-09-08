@@ -1,0 +1,20 @@
+/* Icons - Design System */
+
+/* Line icons rendered by the `utilities/icon` snippet. They inherit the text
+   colour through `currentColor`, so no variant per background is needed. */
+
+.gs-c-icon {
+  /* The global reset puts every svg on `display: block`; icons sit in running
+     text, so they need to be inline and nudged onto the text baseline. */
+  display: inline-block;
+  flex: none;
+  vertical-align: -0.15em;
+}
+
+/* Wrapper for an icon followed by its label, for containers that are not
+   already a flex row. */
+.gs-c-icon-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}

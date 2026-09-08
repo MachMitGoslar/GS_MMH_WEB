@@ -79,7 +79,7 @@
         <a href="${escapeHtml(event.url)}">
           <time class="font-footnote mb-2">${escapeHtml(event.list_time_label)}</time>
           <h3 class="font-subheadline mb-2">${escapeHtml(event.title)}</h3>
-          <p class="font-body mb-2">${escapeHtml(event.description)}</p>
+          <p class="font-footnote mb-2">${escapeHtml(event.description)}</p>
         </a>
       </li>
     `;

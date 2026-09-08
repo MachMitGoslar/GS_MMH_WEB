@@ -9,6 +9,7 @@
 
 /* Content-Type Components */
 @import url('./components/projectTeaserCard.css');
+@import url('./components/projectsListing.css');
 @import url('./components/projectUpdateTeaserCard.css');
 @import url('./components/teamMemberCard.css');
 @import url('./components/eventsList.css');

@@ -149,7 +149,7 @@
                 <?php if ($newsletter->greetingText()->isNotEmpty()) : ?>
                   <p class="newsletter-excerpt"><?= $newsletter->greetingText()->excerpt(150) ?></p>
                 <?php endif ?>
-                <a href="<?= $newsletter->url() ?>" class="newsletter-link">Newsletter lesen →</a>
+                <a href="<?= $newsletter->url() ?>" class="newsletter-link gs-c-icon-text">Newsletter lesen <?php snippet('utilities/icon', ['name' => 'arrow-right']) ?></a>
               </article>
             <?php endforeach ?>
           </div>
@@ -179,7 +179,7 @@
                 <?php if ($note->text()->isNotEmpty()) : ?>
                     <p class="note-excerpt"><?= $note->string_content()->body()->excerpt(150) ?></p>
                 <?php endif ?>
-                <a href="<?= $note->url() ?>" class="note-link">Artikel lesen →</a>
+                <a href="<?= $note->url() ?>" class="note-link gs-c-icon-text">Artikel lesen <?php snippet('utilities/icon', ['name' => 'arrow-right']) ?></a>
               </article>
             <?php endforeach ?>
           </div>

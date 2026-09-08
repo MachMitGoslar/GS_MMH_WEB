@@ -26,17 +26,25 @@
   margin: 0 auto 1rem;
   padding: 0 var(--padding-lr);
   @media (width > 489px) {
-    --padding-lr: 1rem;
+    & {
+      --padding-lr: 1rem;
+    }
   }
   @media (width > 767px) {
-    --padding-lr: 2rem;
+    & {
+      --padding-lr: 2rem;
+    }
   }
   @media (width > 1039px) {
-    --padding-lr: 2rem;
+    & {
+      --padding-lr: 2rem;
+    }
   }
   @media (width > 1439px) {
-    --max-width: 83rem;
-    --padding-lr: 0;
+    & {
+      --max-width: 83rem;
+      --padding-lr: 0;
+    }
   }
 }
 
@@ -70,12 +78,14 @@ video {
 }
 
 body {
-  overflow-x: hidden;
+  /* `clip` statt `hidden`: `hidden` wuerde per Spec overflow-y auf `auto`
+     zwingen und den Body zum Scroll-Container machen (Safari-Layoutfehler) */
+  overflow-x: clip;
 }
 
 html,
 body {
-  height: 100%;
+  min-height: 100%;
 
   --color-page-background: var(--color-dead-pixel-10);
 

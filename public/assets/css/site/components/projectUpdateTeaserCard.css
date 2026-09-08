@@ -26,7 +26,9 @@
     overflow: hidden;
 
     @media (width > 489px) {
-      --aspected-ration: 21/9;
+      & {
+        --aspected-ration: 21/9;
+      }
     }
   }
 
@@ -65,6 +67,11 @@
       display: flex;
       justify-content: space-between;
 
+      /* gleiche Datumsfarbe wie in Newsletter- und Tagebuch-Karte */
+      & time {
+        color: var(--color-fg-muted);
+      }
+
       & .status-badge {
         --color-project-planning: var(--color-cornflower-1000);
         --color-project-preparing: var(--color-cornflower-1300);
@@ -73,6 +80,8 @@
         --color-project-done: var(--color-ripe-mango-1400);
 
         display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
         padding: 0.125rem 0.5rem;
         font-size: var(--typo-size-80);
         font-weight: var(--font-weight-semiBold);
@@ -98,6 +107,10 @@
 
         &[data-color='done'] {
           background-color: var(--color-project-done);
+        }
+
+        &.status-badge--change svg {
+          flex-shrink: 0;
         }
       }
     }

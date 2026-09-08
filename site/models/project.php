@@ -15,7 +15,10 @@
  * More about models: https://getkirby.com/docs/guide/templates/page-models
  */
 
+use Kirby\Content\Content;
+use Kirby\Panel\Field;
 use Kirby\Panel\Page as PanelPage;
+use Kirby\Toolkit\Str;
 
 class ProjectPage extends Page
 {
@@ -30,6 +33,16 @@ class ProjectPage extends Page
             fn ($step) => $this->projectStepTimestamp($step),
             'desc',
         );
+    }
+
+    public function projectUpdatePictures(): Array
+    {
+        $steps = $this->project_steps();
+        $pictures = [];
+        foreach($steps as $image) {
+                $pictures[] = Str::ltrim($image->content()->image()->toString(), '- ');
+        }
+        return $pictures;
     }
 
     public function latestProjectStep(): Kirby\Cms\Page|null
@@ -65,6 +78,55 @@ class ProjectPage extends Page
         $timestamp = strtotime($date . ' ' . $time);
 
         return $timestamp === false ? 0 : $timestamp;
+    }
+
+    /**
+     * Date of the newest project step, for sorting project listings.
+     * Replaces the former sort on the non-existent `last_modified` field.
+     */
+    public function latestStepDate(): int
+    {
+        $newest = 0;
+        foreach ($this->children() as $step) {
+            $newest = max($newest, $this->projectStepTimestamp($step));
+        }
+
+        return $newest;
+    }
+
+    /**
+     * The topic slug this project belongs to, or '' when unset.
+     */
+    public function topicSlug(): string
+    {
+        return trim((string) $this->topic()->value());
+    }
+
+    /**
+     * This project's tags, from the shared tag list in
+     * `site/collections/project-tags.php`.
+     */
+    public function tagList(): array
+    {
+        return $this->tags()->split(',');
+    }
+
+    /**
+     * The Themenfeld page this project belongs to, wrapped in a Pages
+     * collection for template compatibility. Empty when content/themen/
+     * does not exist yet or the project has no topic.
+     */
+    public function themePages(): Kirby\Cms\Pages
+    {
+        $root = $this->site()->find('themen');
+        $slug = $this->topicSlug();
+
+        if (!$root || $slug === '') {
+            return new Kirby\Cms\Pages([]);
+        }
+
+        return $root->children()->listed()
+            ->filter(fn ($theme) => $theme->topic()->value() === $slug);
     }
 
     public function panel(): PanelPage

@@ -20,7 +20,7 @@
 
 <?php snippet('layout/header'); ?>
 
-<main class="main">
+<main class="main main--newsletter">
   <!-- Newsletter Hero Section -->
   <section class="newsletter-cover">
     <div class="newsletter-cover-content">
@@ -97,7 +97,7 @@
                 <div class="calendar-events">
                   <?php if (!empty($calendar[$day])) : ?>
                         <?php foreach ($calendar[$day] as $event) : ?>
-                      <div class="calendar-event mb-2 p-2 bg-gray-100 rounded">
+                      <div class="calendar-event">
                         <div class="font-footnote event-time"><?= $event->start_time()->toDate('H:i', $fallback = null) ?></div>
                         <div class="font-body event-title"><?= $event->activity() ?></div>
                             <?php if ($event->location() && $event->location()->isNotEmpty()) : ?>
@@ -163,10 +163,10 @@
                     </time>
                     <h4 class="font-subheadline mb-1"><?= $event->event_name() ?></h4>
                     <?php if ($event->event_description()->isNotEmpty()) : ?>
-                      <p class="font-body mb-1"><?= $event->event_description() ?></p>
+                      <p class="font-footnote mb-1"><?= $event->event_description() ?></p>
                     <?php endif ?>
                     <?php if ($event->event_location()->isNotEmpty()) : ?>
-                      <p class="font-footnote text-gray-600">📍 <?= $event->event_location() ?></p>
+                      <p class="font-footnote"><?php snippet('utilities/icon', ['name' => 'map-pin', 'size' => 14]) ?> <?= $event->event_location() ?></p>
                     <?php endif ?>
                   </li>
                 <?php endforeach; ?>
@@ -241,7 +241,8 @@
             <?php foreach ($page->review_entries()->toStructure() as $entry) : ?>
               <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
-                  'badge' => '📖 Rückblick',
+                  'badge' => 'Rückblick',
+                  'badgeIcon' => 'book-open',
                   'footerText' => $entry->date()->isNotEmpty() ? $entry->date()->toDate('d.m.Y') : null,
               ]) ?>
             <?php endforeach ?>
@@ -259,9 +260,11 @@
             <?php foreach ($page->actual_entries()->toStructure() as $entry) : ?>
               <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
-                  'badge' => '🚀 Aktuell',
+                  'badge' => 'Aktuell',
+                  'badgeIcon' => 'zap',
                   'badgeColor' => 'active',
-                  'footerText' => $entry->location()->isNotEmpty() ? '📍 ' . $entry->location() : null,
+                  'footerText' => $entry->location()->isNotEmpty() ? $entry->location() : null,
+                  'footerIcon' => 'map-pin',
               ]) ?>
             <?php endforeach ?>
           </ul>
@@ -279,9 +282,11 @@
             <?php foreach ($page->upcomming_entries()->toStructure() as $entry) : ?>
               <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
-                  'badge' => '🔮 Vorschau',
+                  'badge' => 'Vorschau',
+                  'badgeIcon' => 'eye',
                   'badgeColor' => 'planning',
-                  'footerText' => $entry->date()->isNotEmpty() ? '📅 ' . $entry->date()->toDate('d.m.Y') : null,
+                  'footerText' => $entry->date()->isNotEmpty() ? $entry->date()->toDate('d.m.Y') : null,
+                  'footerIcon' => 'calendar',
               ]) ?>
             <?php endforeach ?>
           </ul>
@@ -298,7 +303,8 @@
             <?php foreach ($page->news()->toStructure() as $entry) : ?>
               <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
-                  'badge' => '📰 Nachrichten',
+                  'badge' => 'Nachrichten',
+                  'badgeIcon' => 'newspaper',
               ]) ?>
             <?php endforeach ?>
           </ul>
@@ -330,13 +336,13 @@
         <h3 class="font-title mb-3">MachMit!Haus Kontakt</h3>
         <div class="contact-info mb-4">
           <div class="contact-item font-body mb-2">
-            <span>📧</span> <a href="mailto:machmit@goslar.de">machmit@goslar.de</a>
+            <span><?php snippet('utilities/icon', ['name' => 'mail']) ?></span> <a href="mailto:machmit@goslar.de">machmit@goslar.de</a>
           </div>
           <div class="contact-item font-body mb-2">
-            <span>🌐</span> <a href="https://machmit.goslar.de">machmit.goslar.de</a>
+            <span><?php snippet('utilities/icon', ['name' => 'globe']) ?></span> <a href="https://machmit.goslar.de">machmit.goslar.de</a>
           </div>
           <div class="contact-item font-body mb-2">
-            <span>📞</span> <a href="tel:05321704525">05321 704 525</a>
+            <span><?php snippet('utilities/icon', ['name' => 'phone']) ?></span> <a href="tel:05321704525">05321 704 525</a>
           </div>
         </div>
         <div class="social-info">

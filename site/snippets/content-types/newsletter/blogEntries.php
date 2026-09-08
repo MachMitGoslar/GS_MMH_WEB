@@ -18,9 +18,9 @@
         </div>
         <div class="entry-text">
           <header class="entry-header">
-            <h3 class="entry-headline font-titleM"><?= $entry->headline()->kt() ?></h3>
+            <h3 class="entry-headline font-title2"><?= $entry->headline()->kt() ?></h3>
             <?php if ($entry->subheadline()->isNotEmpty()) : ?>
-              <h4 class="entry-subheadline font-titleS"><?= $entry->subheadline()->kt() ?></h4>
+              <h4 class="entry-subheadline font-title3"><?= $entry->subheadline()->kt() ?></h4>
             <?php endif ?>
           </header>
           <div class="entry-body">
@@ -46,9 +46,9 @@
         <!-- Image Right Layout -->
         <div class="entry-text">
           <header class="entry-header">
-            <h3 class="entry-headline font-titleM"><?= $entry->headline()->kt() ?></h3>
+            <h3 class="entry-headline font-title2"><?= $entry->headline()->kt() ?></h3>
             <?php if ($entry->subheadline()->isNotEmpty()) : ?>
-              <h4 class="entry-subheadline font-titleS"><?= $entry->subheadline()->kt() ?></h4>
+              <h4 class="entry-subheadline font-title3"><?= $entry->subheadline()->kt() ?></h4>
             <?php endif ?>
           </header>
           <div class="entry-body">
