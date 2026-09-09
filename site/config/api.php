@@ -67,6 +67,10 @@ return [
                         'email' => $request->get('email'),
                     ];
 
+                    if (function_exists('mmhNewsletterValidateFormTextFields')) {
+                        mmhNewsletterValidateFormTextFields($data);
+                    }
+
                     \GsMmh\WebPlugin\NewsletterRecipients::create([
                         'first_name' => $data['first_name'],
                         'last_name' => $data['last_name'],

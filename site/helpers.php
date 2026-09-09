@@ -59,6 +59,67 @@ function mmhNewsletterFormPage(): ?\Kirby\Cms\Page
     return site()->find('forms/newsletter-anmeldung');
 }
 
+function mmhNewsletterValidateFormTextFields(array $data): void
+{
+    $form = mmhNewsletterFormPage();
+
+    if (!$form) {
+        return;
+    }
+
+    $labels = [
+        'first_name' => 'Vorname',
+        'last_name' => 'Nachname',
+    ];
+
+    foreach ($labels as $key => $fallbackLabel) {
+        $block = $form
+            ->fields()
+            ->toLayouts()
+            ->toBlocks()
+            ->filter(fn ($block) => $block->type() === 'text-field' && $block->key()->value() === $key)
+            ->first();
+
+        if (!$block) {
+            continue;
+        }
+
+        mmhValidateTextFieldValue((string) ($data[$key] ?? ''), $block, $fallbackLabel);
+    }
+}
+
+function mmhValidateTextFieldValue(string $value, \Kirby\Cms\Block $block, string $fallbackLabel): void
+{
+    $value = trim($value);
+    $label = $block->label()->or($fallbackLabel)->value();
+    $maxLength = $block->maxLength()->toInt();
+
+    if ($maxLength > 0 && mb_strlen($value) > $maxLength) {
+        $message = $block->maxLengthErrorMessage()->isNotEmpty()
+            ? $block->maxLengthErrorMessage()->value()
+            : $label . ' ist zu lang.';
+
+        throw new \Kirby\Exception\Exception($message);
+    }
+
+    $mode = $block->allowedCharacters()->or('all')->value();
+    $patterns = [
+        'letters' => '/^[\p{L}\p{M}\s]+$/u',
+        'name' => '/^[\p{L}\p{M}][\p{L}\p{M}\s\'\-.]*$/u',
+        'alnum' => '/^[\p{L}\p{M}\p{N}\s]+$/u',
+    ];
+
+    if ($value === '' || !isset($patterns[$mode]) || preg_match($patterns[$mode], $value) === 1) {
+        return;
+    }
+
+    $message = $block->charactersErrorMessage()->isNotEmpty()
+        ? $block->charactersErrorMessage()->value()
+        : $label . ' enthält nicht erlaubte Zeichen.';
+
+    throw new \Kirby\Exception\Exception($message);
+}
+
 function mmhNewsletterStoreSubmission(array $data): void
 {
     $form = mmhNewsletterFormPage();
