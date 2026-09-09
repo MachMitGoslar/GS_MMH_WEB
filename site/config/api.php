@@ -61,11 +61,23 @@ return [
                 }
 
                 try {
-                    \GsMmh\WebPlugin\NewsletterRecipients::create([
+                    $data = [
                         'first_name' => $request->get('first_name'),
                         'last_name' => $request->get('last_name'),
                         'email' => $request->get('email'),
+                    ];
+
+                    \GsMmh\WebPlugin\NewsletterRecipients::create([
+                        'first_name' => $data['first_name'],
+                        'last_name' => $data['last_name'],
+                        'email' => $data['email'],
                     ]);
+                    if (function_exists('mmhNewsletterStoreSubmission')) {
+                        mmhNewsletterStoreSubmission($data);
+                    }
+                    if (function_exists('mmhNewsletterSendNotifications')) {
+                        mmhNewsletterSendNotifications($data, false);
+                    }
                 } catch (\Kirby\Exception\Exception $exception) {
                     if (str_contains($exception->getMessage(), 'bereits eingetragen')) {
                         return [

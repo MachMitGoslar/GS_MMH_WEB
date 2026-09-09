@@ -12,6 +12,7 @@ use Kirby\Cms\Pages;
 use Kirby\Cms\Site;
 use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
+use Kirby\Toolkit\Str;
 
 /**
  * Get the color class name for a project status
@@ -51,6 +52,88 @@ function getArchivedProjects(Site $site)
     return $site->page('projects')
         ?->children()
         ->filter(fn ($project) => $project->effectiveProjectStatus() === 'abgeschlossen');
+}
+
+function mmhNewsletterFormPage(): ?\Kirby\Cms\Page
+{
+    return site()->find('forms/newsletter-anmeldung');
+}
+
+function mmhNewsletterStoreSubmission(array $data): void
+{
+    $form = mmhNewsletterFormPage();
+
+    if (!$form) {
+        return;
+    }
+
+    $root = $form->root() . '/' . Str::random(16);
+    Dir::make($root);
+
+    $submitted = date('c');
+    $referer = kirby()->request()->header('referer') ?? '';
+    $content = [
+        'First_name' => $data['first_name'],
+        'Last_name' => $data['last_name'],
+        'Email' => $data['email'],
+        'Privacy_accepted' => '1',
+        'Dreamform-submitted' => $submitted,
+        'Dreamform-referer' => $referer,
+        'Uuid' => bin2hex(random_bytes(16)),
+    ];
+
+    $encoded = [];
+    foreach ($content as $key => $value) {
+        $encoded[] = $key . ': ' . str_replace("\n----\n", "\n---\n", (string) $value);
+    }
+
+    F::write($root . '/submission.txt', implode("\n\n----\n\n", $encoded));
+}
+
+function mmhNewsletterSendNotifications(array $data, bool $alreadyRegistered): void
+{
+    $kirby = kirby();
+    $from = $kirby->option('tobimori.dreamform.email.from') ?: ('noreply@' . $kirby->url('host'));
+    $fromName = $kirby->option('tobimori.dreamform.email.name') ?: 'MachMit!Haus Goslar';
+    $adminEmail = $from;
+    $subjectSuffix = $alreadyRegistered ? 'bestehende Anmeldung' : 'neue Anmeldung';
+
+    try {
+        $kirby->email([
+            'from' => $from,
+            'fromName' => $fromName,
+            'replyTo' => $adminEmail,
+            'to' => $data['email'],
+            'subject' => 'MachMit!Haus Goslar: Newsletter-Anmeldung erhalten',
+            'body' => implode("\n\n", [
+                "Hallo {$data['first_name']},",
+                'wir haben deine Anmeldung zum Newsletter erhalten.',
+                'Viele Grüße',
+                'MachMit!Haus Goslar',
+            ]),
+        ]);
+    } catch (\Throwable $exception) {
+        error_log('Newsletter confirmation email failed: ' . $exception->getMessage());
+    }
+
+    try {
+        $kirby->email([
+            'from' => $from,
+            'fromName' => $fromName,
+            'replyTo' => $data['email'],
+            'to' => $adminEmail,
+            'subject' => 'Newsletter: ' . $subjectSuffix,
+            'body' => implode("\n", [
+                'Newsletter-Anmeldung',
+                '',
+                "Vorname: {$data['first_name']}",
+                "Nachname: {$data['last_name']}",
+                "E-Mail: {$data['email']}",
+            ]),
+        ]);
+    } catch (\Throwable $exception) {
+        error_log('Newsletter admin email failed: ' . $exception->getMessage());
+    }
 }
 
 if (!function_exists('mmhTimestampValue')) {

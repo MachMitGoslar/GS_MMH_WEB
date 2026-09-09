@@ -7,6 +7,7 @@
 */
 $showTeaser = $showTeaser ?? true;
 $modalPage = $site->find('newsletter-modal');
+$newsletterForm = mmhNewsletterFormPage();
 $modalValue = static function (string $field, string $fallback) use ($modalPage, $site): string {
     if ($modalPage?->{$field}()->isNotEmpty() === true) {
         return (string) $modalPage->{$field}();
@@ -58,10 +59,16 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
         <?php
     },
 
-    'slotContent' => function () use ($firstNameLabel, $lastNameLabel, $emailLabel, $submitButtonText, $privacyText) {
+    'slotContent' => function () use (
+        $firstNameLabel,
+        $lastNameLabel,
+        $emailLabel,
+        $submitButtonText,
+        $privacyText
+    ) {
         ?>
         <form class="dreamform newsletter-subscribe-form" action="<?= url('newsletter-anmelden.json') ?>" method="post" novalidate>
-          <div class="newsletter-subscribe-honeypot" aria-hidden="true">
+          <div class="newsletter-subscribe-honeypot" aria-hidden="true" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
             <label for="newsletter-subscribe-website">Website</label>
             <input id="newsletter-subscribe-website" name="website" type="text" tabindex="-1" autocomplete="off">
           </div>
