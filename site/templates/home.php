@@ -61,6 +61,8 @@
             <?php endforeach ?>
         </section>
     <?php endif; ?>
+
+    <?php snippet('shared/pageCtaModal') ?>
 </main>
 
 <?php snippet('layout/footer'); ?>
