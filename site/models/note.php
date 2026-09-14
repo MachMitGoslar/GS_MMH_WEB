@@ -34,7 +34,7 @@ class NotePage extends Page
 
     public function string_content()
     {
-        $string_content = 'test';
+        $string_content = '';
         foreach ($this->text()->toBlocks() as $block) {
             if ($block->type() === 'text' || $block->type() === 'accordion' || $block->type() === 'box' || $block->type() === 'heading') {
                 $string_content .= $block->text()->body();

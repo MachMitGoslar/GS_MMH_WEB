@@ -27,6 +27,14 @@ tabs:
             label: Beschreibung
             type: textarea
             placeholder: Beschreibung der Newsletter-Seite und was Nutzer erwarten können
+          cta_text:
+            label: Call-to-Action Text
+            type: textarea
+            placeholder: Text für den Newsletter-Abonnement-CTA
+          cta_button_text:
+            label: Call-to-Action Button Text
+            type: text
+            placeholder: Jetzt abonnieren
             
       - width: 1/2
         fields:

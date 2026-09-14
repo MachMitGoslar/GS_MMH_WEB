@@ -28,7 +28,7 @@
     <?php endif ?>
     
     <?php if ($teamMember->description()->isNotEmpty()) : ?>
-      <p class="description"><?= $teamMember->description()->excerpt(100) ?></p>
+      <div class="description"><?= $teamMember->description()->kirbytext() ?></div>
     <?php endif ?>
     </a>   
     

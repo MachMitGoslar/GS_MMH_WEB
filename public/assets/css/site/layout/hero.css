@@ -10,15 +10,23 @@
   object-fit: cover;
 
   @media (width > 489px) {
-    --grid-colums-count: 1;
+    & {
+      --grid-colums-count: 1;
+    }
   }
   @media (width > 767px) {
-    --aspected-ration: 24/9;
+    & {
+      --aspected-ration: 24/9;
+    }
   }
   @media (width > 1039px) {
-    --aspected-ration: 28/9;
+    & {
+      --aspected-ration: 28/9;
+    }
   }
   @media (width > 1439px) {
-    --aspected-ration: 28/9;
+    & {
+      --aspected-ration: 28/9;
+    }
   }
 }

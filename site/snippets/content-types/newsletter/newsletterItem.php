@@ -41,7 +41,7 @@ if ($heroImage && !$heroImage->exists()) {
   <div class="content">
     <div class="statusheader">
       <div class="newsletter-badge">
-        <span class="newsletter-badge-icon">📧</span>
+        <span class="newsletter-badge-icon"><?php snippet('utilities/icon', ['name' => 'mail', 'size' => 14]) ?></span>
         <span class="newsletter-badge-text">Newsletter</span>
       </div>
       <time class="font-footnote" datetime="<?= date('Y-m-d', $publishTimestamp) ?>">
@@ -54,7 +54,7 @@ if ($heroImage && !$heroImage->exists()) {
     </a>
     
     <?php if ($newsletter->greeting_text()->isNotEmpty()) : ?>
-      <p class="font-body"><?= $newsletter->greeting_text()->excerpt(120) ?></p>
+      <p class="font-footnote"><?= $newsletter->greeting_text()->excerpt(120) ?></p>
     <?php endif ?>
     
     <a href="<?= $newsletter->url() ?>" class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill">

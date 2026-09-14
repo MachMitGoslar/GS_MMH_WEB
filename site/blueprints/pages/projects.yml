@@ -21,14 +21,78 @@ tabs:
 
       - width: 1/3
         sections:
-          projects:
+          topic_digitale_stadt:
             type: pages
-            label: Projekte
-            query: page.childrenAndDrafts.filterBy("project_status", "!=", "abgeschlossen")
+            label: Digitale Stadt
+            query: page.childrenAndDrafts.filterBy("topic", "digitale-stadt")
             status: all
             templates: project
             create: project
             sortable: true
+            empty: Noch keine Projekte in diesem Themenfeld
+          topic_teilhabe:
+            type: pages
+            label: Teilhabe & Barrierefreiheit
+            query: page.childrenAndDrafts.filterBy("topic", "teilhabe")
+            status: all
+            templates: project
+            create: project
+            sortable: true
+            empty: Noch keine Projekte in diesem Themenfeld
+          topic_klima:
+            type: pages
+            label: Klima & Nachhaltigkeit
+            query: page.childrenAndDrafts.filterBy("topic", "klima")
+            status: all
+            templates: project
+            create: project
+            sortable: true
+            empty: Noch keine Projekte in diesem Themenfeld
+          topic_ehrenamt:
+            type: pages
+            label: Ehrenamt & Engagement
+            query: page.childrenAndDrafts.filterBy("topic", "ehrenamt")
+            status: all
+            templates: project
+            create: project
+            sortable: true
+            empty: Noch keine Projekte in diesem Themenfeld
+          topic_demokratie:
+            type: pages
+            label: Demokratie & Beteiligung
+            query: page.childrenAndDrafts.filterBy("topic", "demokratie")
+            status: all
+            templates: project
+            create: project
+            sortable: true
+            empty: Noch keine Projekte in diesem Themenfeld
+          topic_kultur:
+            type: pages
+            label: Kunst, Kultur & Begegnung
+            query: page.childrenAndDrafts.filterBy("topic", "kultur")
+            status: all
+            templates: project
+            create: project
+            sortable: true
+            empty: Noch keine Projekte in diesem Themenfeld
+          topic_haus:
+            type: pages
+            label: Das MachMit!Haus
+            query: page.childrenAndDrafts.filterBy("topic", "haus")
+            status: all
+            templates: project
+            create: project
+            sortable: true
+            empty: Noch keine Projekte in diesem Themenfeld
+          topic_none:
+            type: pages
+            label: Ohne Themenfeld
+            query: page.childrenAndDrafts.filterBy("topic", "")
+            status: all
+            templates: project
+            create: project
+            sortable: true
+            empty: Alle Projekte sind einem Themenfeld zugeordnet
 
   settings:
     label: Einstellungen

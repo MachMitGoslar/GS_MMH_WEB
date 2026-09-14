@@ -1,0 +1,24 @@
+.page-cta-modal {
+  --modal-width: min(90vw, 38rem);
+  --modal-border-radius: 1.5rem;
+  --modal-close-bg: var(--color-ripe-mango-700);
+  --modal-close-bg-hover: var(--color-ripe-mango-300);
+  --modal-close-color: var(--color-ripe-mango-1400);
+}
+
+.page-cta-modal .gs-c-modal__body {
+  padding-inline: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.page-cta-modal__title {
+  margin: 0 0 1rem;
+}
+
+.page-cta-modal__text > * + * {
+  margin-top: 1rem;
+}
+
+.page-cta-modal .gs-c-modal__footer {
+  justify-content: flex-end;
+}

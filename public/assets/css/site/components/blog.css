@@ -141,10 +141,11 @@
     width: 100%;
     aspect-ratio: var(--aspected-ration);
     object-fit: cover;
-    background: red;
 
     @media (width > 489px) {
-      --aspected-ration: 21/9;
+      & {
+        --aspected-ration: 21/9;
+      }
     }
     @media (width > 767px) {
     }

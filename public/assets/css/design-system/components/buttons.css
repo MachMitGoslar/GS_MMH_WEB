@@ -219,8 +219,3 @@ button {
   cursor: pointer;
   line-height: inherit;
 }
-
-button::-moz-focus-inner {
-  padding: 0;
-  border: 0;
-}

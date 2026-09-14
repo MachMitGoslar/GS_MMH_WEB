@@ -19,13 +19,16 @@
   & .hero-wrapper {
     --aspected-ration: 24/9;
 
+    position: relative;
     display: block;
     width: 100%;
     aspect-ratio: var(--aspected-ration);
     overflow: hidden;
 
     @media (width > 489px) {
-      --aspected-ration: 21/9;
+      & {
+        --aspected-ration: 21/9;
+      }
     }
   }
 
@@ -35,6 +38,21 @@
     height: 100%;
     object-fit: cover;
     background: transparent;
+  }
+
+  & .outlook-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: inline-flex;
+    padding: 0.1875rem 0.625rem;
+    font-size: var(--typo-size-80);
+    font-weight: var(--font-weight-medium);
+    border-radius: 1rem;
+    background: var(--color-ripe-mango-200);
+    color: var(--color-ripe-mango-1400);
+    border: 1px solid var(--color-ripe-mango-300);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 16%);
   }
 
   & .content {
@@ -49,6 +67,11 @@
       display: flex;
       justify-content: space-between;
 
+      /* gleiche Datumsfarbe wie in Newsletter- und Tagebuch-Karte */
+      & time {
+        color: var(--color-fg-muted);
+      }
+
       & .status-badge {
         --color-project-planning: var(--color-cornflower-1000);
         --color-project-preparing: var(--color-cornflower-1300);
@@ -57,6 +80,8 @@
         --color-project-done: var(--color-ripe-mango-1400);
 
         display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
         padding: 0.125rem 0.5rem;
         font-size: var(--typo-size-80);
         font-weight: var(--font-weight-semiBold);
@@ -82,6 +107,10 @@
 
         &[data-color='done'] {
           background-color: var(--color-project-done);
+        }
+
+        &.status-badge--change svg {
+          flex-shrink: 0;
         }
       }
     }

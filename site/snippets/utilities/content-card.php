@@ -59,19 +59,19 @@ if ($hasImage) {
       <?php endif ?>
       
       <?php if ($item->location()->isNotEmpty()) : ?>
-        <div class="content-card__location">📍 <?= $item->location() ?></div>
+        <div class="content-card__location gs-c-icon-text"><?php snippet('utilities/icon', ['name' => 'map-pin']) ?> <?= $item->location() ?></div>
       <?php endif ?>
       
       <?php if ($item->link()->isNotEmpty()) : ?>
         <div class="content-card__action-link">
-        <span>🔗</span>
+        <?php snippet('utilities/icon', ['name' => 'link']) ?>
         <a href="<?= $item->link() ?>" class="content-card__link-text" target="_blank">
             <?= $item->link() ?>
         </a>
         </div>
       <?php elseif ($item->mailto()->isNotEmpty()) : ?>
         <div class="content-card__action-link">
-          <span>📖</span> 
+          <?php snippet('utilities/icon', ['name' => 'book-open']) ?> 
           <a href="<?= $item->mailto() ?>" class="content-card__link-text">
             <?= $item->mailto() ?>
           </a>

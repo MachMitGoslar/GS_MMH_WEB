@@ -129,6 +129,33 @@
 :root {
   --color-fg-brand-primary: var(--color-ripe-mango-1200);
   --color-bg-brand-primary: var(--color-ripe-mango-1300);
+  --color-bg-brand-secondary: var(--color-ripe-mango-200);
+  --color-accent-light: var(--color-ripe-mango-200);
+
+  /* Semantische Rollen */
+  --color-fg-default: var(--color-dead-pixel-1400);
+  --color-fg-emphasis: var(--color-dead-pixel-1500);
+  --color-fg-muted: var(--color-dead-pixel-1000);
+  --color-bg-default: var(--color-white);
+  --color-border-default: var(--color-dead-pixel-300);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 10%);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%);
+}
+
+/* Aliase fuer Namen, die in Komponenten benutzt, aber nie definiert wurden.
+   Sie zeigen auf die Dead-Pixel-Graustufe bzw. Ripe Mango. */
+:root {
+  --color-grey-50: var(--color-dead-pixel-25);
+  --color-grey-200: var(--color-dead-pixel-200);
+  --color-grey-300: var(--color-dead-pixel-300);
+  --color-gray-600: var(--color-dead-pixel-1000);
+  --color-gray-700: var(--color-dead-pixel-1100);
+  --color-gray-900: var(--color-dead-pixel-1300);
+  --color-black-60: var(--color-dead-pixel-1000);
+  --color-black-70: var(--color-dead-pixel-1100);
+  --color-black-80: var(--color-dead-pixel-1300);
+  --color-black-85: var(--color-dead-pixel-1400);
+  --color-ripe-mango-50: var(--color-ripe-mango-100);
 }
 
 .color-fg-brand-primary {
