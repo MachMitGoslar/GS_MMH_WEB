@@ -44,6 +44,7 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
   <div>
     <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regualr" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal"><?=$site->newsletterTeaserButtonText()?></button>
   </div>
+  <p class="newsletter-subscribe-page-feedback" role="status" aria-live="polite" tabindex="-1"></p>
 </div>
 <?php endif ?>
 
@@ -98,7 +99,7 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
             </div>
           </div>
 
-          <p class="newsletter-subscribe-feedback" role="status" aria-live="polite"></p>
+          <p class="newsletter-subscribe-feedback" role="status" aria-live="polite" tabindex="-1"></p>
 
           <div class="newsletter-subscribe-actions">
             <button class="gs-c-btn" data-type="primary" data-size="regular" data-style="pill" type="submit"><?= esc($submitButtonText) ?></button>
@@ -116,14 +117,26 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
     const openButton = document.querySelector('.newsletter-subscribe-open');
     const form = dialog.querySelector('.newsletter-subscribe-form');
     const feedback = dialog.querySelector('.newsletter-subscribe-feedback');
+    const pageFeedback = document.querySelector('.newsletter-subscribe-page-feedback');
     const firstInput = dialog.querySelector('input[name="first_name"]');
 
     openButton?.addEventListener('click', () => {
+      dialog.dataset.submitted = '';
+      form.dataset.submitted = '';
+      feedback.textContent = '';
+      feedback.dataset.type = '';
+      if (pageFeedback) {
+        pageFeedback.textContent = '';
+        pageFeedback.dataset.type = '';
+      }
       dialog.showModal();
       window.setTimeout(() => firstInput?.focus(), 20);
     });
 
-    dialog.addEventListener('close', () => openButton?.focus());
+    dialog.addEventListener('close', () => {
+      dialog.dataset.submitted = '';
+      openButton?.focus();
+    });
 
     form?.addEventListener('submit', async event => {
       event.preventDefault();
@@ -145,8 +158,14 @@ if ($modalPage?->newsletterModalPrivacyText()->isNotEmpty() === true) {
         feedback.dataset.type = result.success ? 'success' : 'error';
 
         if (result.success) {
+          const message = result.message || 'Danke für deine Anmeldung.';
           form.reset();
-          window.setTimeout(() => dialog.close(), 1400);
+          if (pageFeedback) {
+            pageFeedback.textContent = message;
+            pageFeedback.dataset.type = 'success';
+          }
+          dialog.close();
+          pageFeedback?.focus();
         }
       } catch {
         feedback.textContent = 'Die Anmeldung konnte nicht gesendet werden. Bitte versuche es später erneut.';

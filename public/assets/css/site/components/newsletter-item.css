@@ -160,6 +160,60 @@
   color: #991b1b;
 }
 
+.newsletter-subscribe-form[data-submitted='true']
+.newsletter-subscribe-honeypot,
+.newsletter-subscribe-form[data-submitted='true']
+.newsletter-subscribe-field-group,
+.newsletter-subscribe-form[data-submitted='true']
+.newsletter-subscribe-consent-section,
+.newsletter-subscribe-form[data-submitted='true']
+.newsletter-subscribe-actions {
+  display: none;
+}
+
+.newsletter-subscribe-modal[data-submitted='true'] .gs-c-modal__title-section {
+  display: none;
+}
+
+.newsletter-subscribe-form[data-submitted='true'] {
+  padding-top: 0;
+}
+
+.newsletter-subscribe-feedback,
+.newsletter-subscribe-page-feedback {
+  display: none;
+  margin: var(--size-5) 0;
+  padding: var(--size-4) var(--size-5);
+  border-radius: 0.5rem;
+  font-size: var(--typo-size-100);
+  font-weight: var(--font-weight-semiBold);
+  line-height: var(--typo-line-height-regular);
+}
+
+.newsletter-subscribe-feedback:not(:empty),
+.newsletter-subscribe-page-feedback:not(:empty) {
+  display: block;
+}
+
+.newsletter-subscribe-form[data-submitted='true']
+.newsletter-subscribe-feedback {
+  margin: 0;
+}
+
+.newsletter-subscribe-feedback[data-type='success'],
+.newsletter-subscribe-page-feedback[data-type='success'] {
+  color: #245f53;
+  background: #e6f3ef;
+  border: 1px solid rgb(36 95 83 / 22%);
+}
+
+.newsletter-subscribe-feedback[data-type='error'],
+.newsletter-subscribe-page-feedback[data-type='error'] {
+  color: #b3261e;
+  background: #fdeceb;
+  border: 1px solid rgb(179 38 30 / 20%);
+}
+
 /* Entry modal — base styles via gs-c-modal, only overrides here */
 .newsletter-entry-modal {
   --modal-width: min(90vw, 680px);
