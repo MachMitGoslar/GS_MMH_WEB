@@ -164,7 +164,7 @@
             <?php foreach ($memberNotes as $note) : ?>
               <article class="note-card">
                 <div class="note-meta">
-                  <time datetime="<?= $note->published() ?>">
+                  <time datetime="<?= $note->published('c') ?>">
                     <?= $note->published() ?>
                   </time>
                   <?php if ($note->tags()->isNotEmpty()) : ?>

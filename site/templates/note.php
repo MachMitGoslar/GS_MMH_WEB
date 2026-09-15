@@ -27,7 +27,7 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
           <div class="grid content">
             <div class="grid-item" data-span="1/1">
               <div class="note-meta-hero">
-                <time datetime="<?= $page->date()->toDate('c') ?>" class="note-date">
+                <time datetime="<?= $page->published('c') ?>" class="note-date">
                   <?= $page->published() ?>
                 </time>
                 <?php if ($page->tags()->isNotEmpty()) : ?>
@@ -51,7 +51,7 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
       <section class="note-header grid content">
         <div class="grid-item" data-span="1/1">
           <div class="note-meta">
-            <time datetime="<?= $page->date()->toDate('c') ?>" class="note-date">
+            <time datetime="<?= $page->published('c') ?>" class="note-date">
               <?= $page->published() ?>
             </time>
             <?php if ($page->tags()->isNotEmpty()) : ?>

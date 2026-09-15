@@ -48,7 +48,7 @@ $cover = $note->cover();
       </div>
       <div class="note-card-content">
         <div class="note-card-meta">
-          <time datetime="<?= $note->date()->toDate('c') ?>" class="note-card-date font-footnote">
+          <time datetime="<?= $note->published('c') ?>" class="note-card-date font-footnote">
             <?= $note->published() ?>
           </time>
           <?php if ($note->tags()->isNotEmpty()) : ?>
@@ -106,7 +106,7 @@ $cover = $note->cover();
     </div>
     <div class="note-card-content">
       <div class="note-card-meta">
-        <time datetime="<?= $note->date()->toDate('c') ?>" class="note-card-date font-footnote">
+        <time datetime="<?= $note->published('c') ?>" class="note-card-date font-footnote">
           <?= $note->published() ?>
         </time>
         <?php if ($note->tags()->isNotEmpty()) : ?>
