@@ -3,6 +3,8 @@
 
 header,
 .header {
+  --header-mobile-breakpoint: 960px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +21,7 @@ header,
     0 2px 4px 0 rgb(0 0 0 / 2%);
   transition: all 0.25s ease;
 
-  @media (width < 768px) {
+  @media (width < 960px) {
     & {
       padding: 0.5rem 1rem 0;
       flex-direction: column;
@@ -37,7 +39,7 @@ header,
 
   & .placeholder {
     width: 7rem;
-    @media (width < 768px) {
+    @media (width < 960px) {
       & {
         display: none;
       }
@@ -46,7 +48,7 @@ header,
 
   & .mainNav {
     display: block;
-    @media (width < 768px) {
+    @media (width < 960px) {
       & {
         display: none;
       }
@@ -58,6 +60,7 @@ header,
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    flex-wrap: nowrap;
 
     & .mainNav-list-item {
       flex-grow: 0;
@@ -69,7 +72,7 @@ header,
       & a:focus {
         opacity: 0.3;
       }
-      @media (width < 768px) {
+      @media (width < 960px) {
         & {
           font-size: var(--typo-size-500);
           font-weight: var(--font-weight-bold);
@@ -82,7 +85,7 @@ header,
       }
     }
 
-    @media (width < 768px) {
+    @media (width < 960px) {
       & {
         padding-top: 3rem;
         flex-direction: column;
@@ -99,7 +102,7 @@ header,
     & svg {
       height: 100%;
     }
-    @media (width < 768px) {
+    @media (width < 960px) {
       & {
         display: block;
       }
@@ -110,7 +113,7 @@ header,
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @media (width < 768px) {
+    @media (width < 960px) {
       & {
         width: 100%;
       }

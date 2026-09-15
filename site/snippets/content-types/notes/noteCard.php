@@ -17,7 +17,7 @@ $cover = $note->cover();
     <!-- Featured Card with Large Image -->
     <div class="note-card-featured">
       <div class="note-card-image-wrapper">
-        <a href="<?= $note->url() ?>" class="note-card-image-link">
+        <div class="note-card-image-link">
           <?php if ($cover) : ?>
             <img src="<?= $cover->crop(1200, 500)->url() ?>"
                  alt="<?= $note->title()->html() ?>"
@@ -27,7 +27,7 @@ $cover = $note->cover();
           <?php else : ?>
               <?php snippet('utilities/imagePlaceholder', ['class' => 'note-card-image']) ?>
           <?php endif ?>
-        </a>
+        </div>
         <!-- Authors on image border (right side) -->
         <?php if ($authors->count() > 0) : ?>
           <div class="note-card-authors">
@@ -60,7 +60,7 @@ $cover = $note->cover();
           <?php endif ?>
         </div>
         <h3 class="note-card-title font-titleXL">
-          <a href="<?= $note->url() ?>"><?= $note->title()->html() ?></a>
+          <?= $note->title()->html() ?>
         </h3>
         <?php if ($note->headline()->isNotEmpty()) : ?>
           <p class="note-card-subtitle font-subheadline font-line-height-narrow"><?= $note->headline()->html() ?></p>
@@ -76,7 +76,7 @@ $cover = $note->cover();
   <?php else : ?>
     <!-- Regular Card -->
     <div class="note-card-image-wrapper note-card-image-wrapper--has-image">
-      <a href="<?= $note->url() ?>" class="note-card-image-link">
+      <div class="note-card-image-link">
         <?php if ($cover) : ?>
           <img src="<?= $cover->crop(600, 400)->url() ?>"
                alt="<?= $note->title()->html() ?>"
@@ -85,7 +85,7 @@ $cover = $note->cover();
         <?php else : ?>
             <?php snippet('utilities/imagePlaceholder', ['class' => 'note-card-image']) ?>
         <?php endif ?>
-      </a>
+      </div>
       <!-- Authors on image border (right side) -->
       <?php if ($authors->count() > 0) : ?>
         <div class="note-card-authors">
@@ -118,7 +118,7 @@ $cover = $note->cover();
         <?php endif ?>
       </div>
       <h3 class="note-card-title font-headline font-line-height-narrow">
-        <a href="<?= $note->url() ?>"><?= $note->title()->html() ?></a>
+        <?= $note->title()->html() ?>
       </h3>
       <?php if ($note->headline()->isNotEmpty()) : ?>
         <p class="note-card-subtitle font-subheadline font-line-height-narrow"><?= $note->headline()->excerpt(80) ?></p>

@@ -6,8 +6,7 @@
 ?>
 
 <div class="c-teamMemberCard">
-    <a href="<?= $teamMember->url() ?>" >
-  <div class="profile-image">
+  <a href="<?= $teamMember->url() ?>" class="profile-image" aria-label="<?= $teamMember->name()->html() ?>">
     <?php if ($teamMember->cover() && $teamMember->cover()->toFile()) : ?>
       <img src="<?= $teamMember->cover()->crop(200, 200)->url() ?>"
            alt="<?= $teamMember->name()->html() ?>" 
@@ -17,11 +16,9 @@
         <span><?= strtoupper(substr($teamMember->name()->value(), 0, 1)) ?></span>
       </div>
     <?php endif ?>
-  </div>
   </a>
   <div class="content">
-    <a href="<?= $teamMember->url() ?>" > 
-    <h3 class="name"><?= $teamMember->name()->html() ?></h3>
+    <h3 class="name"><a href="<?= $teamMember->url() ?>"><?= $teamMember->name()->html() ?></a></h3>
     
     <?php if ($teamMember->role()->isNotEmpty()) : ?>
       <div class="role"><?= $teamMember->role()->html() ?></div>
@@ -30,7 +27,6 @@
     <?php if ($teamMember->description()->isNotEmpty()) : ?>
       <div class="description"><?= $teamMember->description()->kirbytext() ?></div>
     <?php endif ?>
-    </a>   
     
     <?php if ($teamMember->hasAnyContactInfo()) : ?>
       <div class="contact-links">
@@ -52,4 +48,4 @@
       </div>
     <?php endif ?>
   </div>
-        </div>
+</div>

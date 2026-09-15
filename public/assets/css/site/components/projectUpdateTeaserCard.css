@@ -24,6 +24,8 @@
     width: 100%;
     aspect-ratio: var(--aspected-ration);
     overflow: hidden;
+    color: inherit;
+    text-decoration: none;
 
     @media (width > 489px) {
       & {
@@ -61,6 +63,16 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+
+    & h3 a,
+    & h4 a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--color-fg-brand-primary);
+      }
+    }
 
     /* Status Header */
     & .statusheader {

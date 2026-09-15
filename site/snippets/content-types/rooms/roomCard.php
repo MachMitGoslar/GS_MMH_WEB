@@ -8,7 +8,6 @@
 ?>
 
 <article class="room-card">
-  <a href="<?= $room->url() ?>" class="room-card-link">
     <!-- Image -->
     <div class="room-card-image-wrapper">
       <?php if ($cover = $room->cover()) : ?>
@@ -71,9 +70,8 @@
       <?php endif ?>
 
       <!-- CTA -->
-      <span class="room-card-cta gs-c-btn" data-type="secondary" data-size="small">
+      <a href="<?= $room->url() ?>" class="room-card-cta gs-c-btn" data-type="secondary" data-size="small">
         Details ansehen
-      </span>
+      </a>
     </div>
-  </a>
 </article>

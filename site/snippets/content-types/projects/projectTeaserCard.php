@@ -21,7 +21,7 @@ $projectCover = $project->cover();
     <time class="font-footnote" datetime="<?= $project->modified('c') ?>"><?= $project->modified('d.m.Y') ?></time>
     </div>
 
-    <h3 class="font-headline font-line-height-narrow"><?=$project->title()?></h3>
+    <h3 class="font-headline font-line-height-narrow"><?= $project->title() ?></h3>
     <p class="font-footnote mb-3"><?=$project->subheadline()?></p>
     <!-- <p class="font-body"><?=$project->text()->excerpt()?></p> -->
     <a href="<?=$project?>" class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill">Zum Projekt</a>

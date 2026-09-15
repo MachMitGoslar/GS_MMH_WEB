@@ -29,6 +29,8 @@
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
+    color: inherit;
+    text-decoration: none;
 
     img {
       width: 100%;
@@ -67,6 +69,15 @@
     line-height: var(--typo-line-height-narrow);
     color: var(--color-black);
     margin: 0;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--color-ripe-mango-1000);
+      }
+    }
   }
 
   .role {
@@ -254,6 +265,79 @@
     gap: 1.25rem;
     min-width: 0;
     align-self: stretch;
+  }
+
+  @media (max-width: 1120px) {
+    .member-hero {
+      padding: 2.25rem 0;
+
+      .member-hero-content {
+        align-items: stretch;
+        gap: 1.5rem;
+      }
+    }
+
+    .profile-image-large {
+      width: 152px;
+      height: 152px;
+    }
+
+    .contact-profile-section {
+      flex: 0 0 min(22rem, 42%);
+      gap: 1rem;
+    }
+
+    .member-info {
+      .member-name {
+        font-size: var(--typo-size-400);
+      }
+
+      .member-role {
+        font-size: var(--typo-size-200);
+        line-height: 1.15;
+      }
+    }
+
+    .unified-contact-card {
+      padding: 1.35rem;
+
+      .contact-content-grid {
+        gap: 1.25rem;
+      }
+
+      .contact-item-inline {
+        padding-inline: 0.75rem;
+
+        span {
+          overflow-wrap: anywhere;
+        }
+      }
+
+      .map-container {
+        .member-map {
+          height: 180px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 940px) {
+    .member-hero {
+      .member-hero-content {
+        flex-direction: column;
+      }
+    }
+
+    .contact-profile-section {
+      flex: none;
+      align-self: auto;
+    }
+
+    .unified-contact-card {
+      .contact-content-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
   }
 
   .member-info {

@@ -155,6 +155,28 @@
     }
   }
 
+  & figure > .card-image-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    overflow: hidden;
+  }
+
+  & figure > .card-image-link > .hero {
+    --aspected-ration: 24/9;
+
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--aspected-ration);
+    object-fit: cover;
+
+    @media (width > 489px) {
+      & {
+        --aspected-ration: 21/9;
+      }
+    }
+  }
+
   & .content {
     padding: 0 1rem;
     width: 100%;

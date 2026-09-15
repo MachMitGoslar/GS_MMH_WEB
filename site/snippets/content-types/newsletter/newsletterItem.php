@@ -29,7 +29,7 @@ if ($heroImage && !$heroImage->exists()) {
 ?>
 
 <li class="c-newsletterTeaserCard grid-item <?= $class ?>" data-span="1/4">
-  <div>
+  <div class="newsletter-card-image-link">
     <?php if ($heroImage && $heroImage->isNotEmpty()) : ?>
         <?php $url = $heroImage->crop(800, 400)->url(); ?>
       <img class="hero" src="<?= $url ?>" alt="<?= $newsletter->title()->html() ?>" loading="lazy">
@@ -49,9 +49,7 @@ if ($heroImage && !$heroImage->exists()) {
       </time>
     </div>
 
-    <a href="<?= $newsletter->url() ?>">
-      <h3 class="font-headline font-line-height-narrow mb-2"><?= $newsletter->title()->html() ?></h3>
-    </a>
+    <h3 class="font-headline font-line-height-narrow mb-2"><?= $newsletter->title()->html() ?></h3>
     
     <?php if ($newsletter->greeting_text()->isNotEmpty()) : ?>
       <p class="font-footnote"><?= $newsletter->greeting_text()->excerpt(120) ?></p>
