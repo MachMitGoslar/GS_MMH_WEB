@@ -116,7 +116,7 @@ git commit -m "type(scope): beschreibung"
 git push origin <branch-name>
 ```
 
-Erstelle dann einen Pull Request auf GitHub gegen `main`.
+Erstelle dann einen Pull Request auf GitHub gegen `staging` (Normalfall) bzw. gegen `main`, wenn es sich um einen dringenden Hotfix handelt. Siehe [Branch- & Deploy-Strategie](#branch--deploy-strategie).
 
 **Commit-Nachricht Format:**
 
@@ -137,6 +137,38 @@ refactor(config): split routes into separate file
 - [ ] Lint-Checks bestehen (`npm run lint`)
 - [ ] Aenderungen sind getestet
 - [ ] PR-Beschreibung erklaert _was_ und _warum_
+
+---
+
+## Branch- & Deploy-Strategie
+
+Es gibt zwei langlebige Branches:
+
+- **`main`** — Produktion, wird live ausgeliefert.
+- **`staging`** — Vorschau/Review-Umgebung, wird vor jedem Produktions-Release getestet.
+
+### Normalfall
+
+1. Branch wie oben von `main` erstellen.
+2. Pull Request gegen **`staging`** stellen (nicht `main`).
+3. Nach Review wird `staging` deployed und geprüft.
+4. `staging` wird anschließend manuell nach `main` promotet (Produktions-Release).
+
+### Hotfix-Ausnahme
+
+Bei dringenden Produktionsfehlern darf ein `hotfix/`-Branch direkt von `main` erstellt und per PR **direkt gegen `main`** gemergt werden, um sofort auszuliefern — ohne den Umweg über `staging`.
+
+Damit `staging` dabei nicht veraltet, öffnet ein GitHub-Actions-Workflow (`.github/workflows/sync-main-to-staging.yml`) nach jedem Push auf `main` automatisch einen "Sync: main → staging"-Pull-Request. **Das Mergen dieses PRs gehört zum Abschluss eines Hotfixes dazu** — ein Hotfix gilt erst als fertig, wenn `staging` wieder synchron ist. Der Workflow pusht selbst nichts nach `main`; er öffnet lediglich den Sync-PR.
+
+Zeigt der Sync-PR Konflikte, lokal lösen:
+
+```bash
+git checkout staging
+git pull origin staging
+git merge main
+# Konflikte lösen
+git push origin staging
+```
 
 ---
 
