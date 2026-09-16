@@ -34,7 +34,7 @@
   "homepage": "https://github.com/rangarius/GS_MMH_WEB#readme",
   "dependencies": {
     "autoprefixer": "^10.4.19",
-    "sharp": "^0.34.5"
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
