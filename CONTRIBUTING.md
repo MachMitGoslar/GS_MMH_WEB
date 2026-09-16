@@ -151,22 +151,22 @@ Es gibt zwei langlebige Branches:
 
 1. Branch wie oben von `main` erstellen.
 2. Pull Request gegen **`staging`** stellen (nicht `main`).
-3. Nach Review wird `staging` deployed und geprüft.
-4. `staging` wird anschließend manuell nach `main` promotet (Produktions-Release).
+3. Nach Review wird `staging` deployed und geprueft.
+4. `staging` wird anschliessend manuell nach `main` promotet (Produktions-Release).
 
 ### Hotfix-Ausnahme
 
-Bei dringenden Produktionsfehlern darf ein `hotfix/`-Branch direkt von `main` erstellt und per PR **direkt gegen `main`** gemergt werden, um sofort auszuliefern — ohne den Umweg über `staging`.
+Bei dringenden Produktionsfehlern darf ein `hotfix/`-Branch direkt von `main` erstellt und per PR **direkt gegen `main`** gemergt werden, um sofort auszuliefern — ohne den Umweg ueber `staging`.
 
-Damit `staging` dabei nicht veraltet, öffnet ein GitHub-Actions-Workflow (`.github/workflows/sync-main-to-staging.yml`) nach jedem Push auf `main` automatisch einen "Sync: main → staging"-Pull-Request. **Das Mergen dieses PRs gehört zum Abschluss eines Hotfixes dazu** — ein Hotfix gilt erst als fertig, wenn `staging` wieder synchron ist. Der Workflow pusht selbst nichts nach `main`; er öffnet lediglich den Sync-PR.
+Damit `staging` dabei nicht veraltet, oeffnet ein GitHub-Actions-Workflow (`.github/workflows/sync-main-to-staging.yml`) nach jedem Push auf `main` automatisch einen "Sync: main → staging"-Pull-Request. **Das Mergen dieses PRs gehoert zum Abschluss eines Hotfixes dazu** — ein Hotfix gilt erst als fertig, wenn `staging` wieder synchron ist. Der Workflow pusht selbst nichts nach `main`; er oeffnet lediglich den Sync-PR.
 
-Zeigt der Sync-PR Konflikte, lokal lösen:
+Zeigt der Sync-PR Konflikte, lokal loesen:
 
 ```bash
 git checkout staging
 git pull origin staging
 git merge main
-# Konflikte lösen
+# Konflikte loesen
 git push origin staging
 ```
 
