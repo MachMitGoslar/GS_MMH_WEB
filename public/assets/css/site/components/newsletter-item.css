@@ -69,6 +69,12 @@
 }
 
 /* Hero Image */
+.c-newsletterTeaserCard .newsletter-card-image-link {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
 .c-newsletterTeaserCard .hero {
   --aspected-ratio: 24/9;
 

@@ -10,7 +10,7 @@ template: note
 create:
   - note
 empty: Noch keine Einträge enthalten
-sortBy: date desc
+sortBy: published desc
 image:
   query: page.cover
   label: Titelbild

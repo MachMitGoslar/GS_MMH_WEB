@@ -34,7 +34,9 @@
   <!-- Notes Grid -->
   <section class="grid content">
     <?php
-    $notes = $page->children()->listed()->sortBy('date', 'desc');
+    $notes = $page->children()->listed()->sortBy(function ($note) {
+        return $note->publishedTimestamp();
+    }, 'desc');
 $featuredNotes = $notes->filterBy('featured', true);
 $regularNotes = $notes->filterBy('featured', '!=', true);
 ?>

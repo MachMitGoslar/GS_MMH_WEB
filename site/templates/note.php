@@ -15,19 +15,25 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
   <article class="note-article">
 
     <!-- Hero Section with Cover Image -->
-    <?php if ($cover = $page->cover()) : ?>
       <section class="note-hero">
         <div class="note-hero-image">
+          <?php if ($cover = $page->cover()) : ?>
+
           <img src="<?= $cover->crop(1920, 800)->url() ?>"
             alt="<?= $page->title()->html() ?>"
             loading="eager">
+          <?php else : ?>
+          <?php snippet('utilities/imagePlaceholder', ['class' => 'note-hero-default']) ?>
+          <?php endif ?>
+
+
           <div class="note-hero-overlay"></div>
         </div>
         <div class="note-hero-content">
           <div class="grid content">
             <div class="grid-item" data-span="1/1">
               <div class="note-meta-hero">
-                <time datetime="<?= $page->date()->toDate('c') ?>" class="note-date">
+                <time datetime="<?= $page->published('c') ?>" class="note-date">
                   <?= $page->published() ?>
                 </time>
                 <?php if ($page->tags()->isNotEmpty()) : ?>
@@ -46,29 +52,6 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
           </div>
         </div>
       </section>
-    <?php else : ?>
-      <!-- No Cover Image - Simple Header -->
-      <section class="note-header grid content">
-        <div class="grid-item" data-span="1/1">
-          <div class="note-meta">
-            <time datetime="<?= $page->date()->toDate('c') ?>" class="note-date">
-              <?= $page->published() ?>
-            </time>
-            <?php if ($page->tags()->isNotEmpty()) : ?>
-              <div class="note-tags">
-                <?php foreach ($page->tags()->split() as $tag) : ?>
-                  <span class="tag">#<?= $tag ?></span>
-                <?php endforeach ?>
-              </div>
-            <?php endif ?>
-          </div>
-          <h1 class="font-titleXXL"><?= $page->title()->html() ?></h1>
-          <?php if ($page->headline()->isNotEmpty()) : ?>
-            <h2 class="font-titleXL font-weight-light"><?= $page->headline()->html() ?></h2>
-          <?php endif ?>
-        </div>
-      </section>
-    <?php endif ?>
 
     <!-- Author Section -->
     <?php

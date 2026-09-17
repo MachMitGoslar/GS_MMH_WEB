@@ -99,16 +99,9 @@
   box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
 }
 
-.room-card-link {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: inherit;
-  height: 100%;
-}
-
 .room-card-image-wrapper {
   position: relative;
+  display: block;
   aspect-ratio: 3 / 2;
   overflow: hidden;
 }

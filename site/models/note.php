@@ -29,7 +29,20 @@ class NotePage extends Page
 
     public function published($format = null)
     {
-        return parent::date()->toDate($format ?? 'd M, Y');
+        $date = $this->content()->published()->isNotEmpty()
+            ? $this->content()->published()
+            : parent::date();
+
+        return $date->toDate($format ?? 'd M, Y');
+    }
+
+    public function publishedTimestamp(): int
+    {
+        $date = $this->content()->published()->isNotEmpty()
+            ? $this->content()->published()
+            : parent::date();
+
+        return (int) $date->toDate('U');
     }
 
     public function string_content()

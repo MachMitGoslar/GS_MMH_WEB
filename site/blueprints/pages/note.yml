@@ -139,6 +139,13 @@ tabs:
             fields:
               
               # Author selection (team members)
+              published:
+                label: Veröffentlichungsdatum
+                type: date
+                default: today
+                width: 1/1
+                help: Wird für Anzeige und Sortierung im Tagebuch verwendet. Beim ersten Veröffentlichen automatisch gesetzt, falls leer.
+
               author:
                 label: Autor(en) & Beteiligte
                 type: pages
