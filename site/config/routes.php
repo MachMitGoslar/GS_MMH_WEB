@@ -6,7 +6,6 @@
  * Define custom routes for the MachMit!Haus website
  */
 
-use GsMmh\WebPlugin\NewsletterRecipients;
 use Kirby\Cms\Response;
 use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
@@ -239,71 +238,6 @@ HTML, 'text/html');
             $content = snippet('content-types/ferienpass/events', ['query' => $query], true);
 
             return new Response($content, 'application/json');
-        },
-    ],
-
-    /**
-     * Newsletter Subscription
-     * Adds a new subscriber to the newsletter_recipients table
-     */
-    [
-        'pattern' => 'newsletter-anmelden.json',
-        'method' => 'POST',
-        'action' => function () {
-            $request = kirby()->request();
-
-            if (trim((string) $request->get('website')) !== '') {
-                return new Response(
-                    json_encode(['success' => true, 'message' => 'Danke für deine Anmeldung.'], JSON_UNESCAPED_UNICODE),
-                    'application/json',
-                );
-            }
-
-            try {
-                if ($request->get('privacy_accepted') !== '1') {
-                    throw new \Kirby\Exception\Exception('Bitte akzeptiere die Datenschutzinformationen.');
-                }
-
-                $data = [
-                    'first_name' => $request->get('first_name'),
-                    'last_name' => $request->get('last_name'),
-                    'email' => $request->get('email'),
-                ];
-
-                mmhNewsletterValidateFormTextFields($data);
-
-                NewsletterRecipients::create([
-                    'first_name' => $data['first_name'],
-                    'last_name' => $data['last_name'],
-                    'email' => $data['email'],
-                ]);
-                mmhNewsletterStoreSubmission($data);
-                mmhNewsletterSendNotifications($data, false);
-
-                return new Response(
-                    json_encode([
-                        'success' => true,
-                        'message' => 'Danke! Du wirst ab sofort über unsere Neuigkeiten informiert.',
-                    ], JSON_UNESCAPED_UNICODE),
-                    'application/json',
-                );
-            } catch (\Throwable $e) {
-                if (str_contains($e->getMessage(), 'bereits eingetragen')) {
-                    return new Response(
-                        json_encode([
-                            'success' => true,
-                            'message' => 'Du bist bereits für den Newsletter angemeldet.',
-                        ], JSON_UNESCAPED_UNICODE),
-                        'application/json',
-                    );
-                }
-
-                return new Response(
-                    json_encode(['success' => false, 'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE),
-                    'application/json',
-                    400,
-                );
-            }
         },
     ],
 
