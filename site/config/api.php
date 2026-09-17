@@ -31,65 +31,6 @@ return [
                 ];
             },
         ],
-        [
-            'pattern' => 'newsletter/subscribe',
-            'method' => 'POST',
-            'auth' => false,
-            'action' => function () {
-                if (!class_exists(\GsMmh\WebPlugin\NewsletterRecipients::class)) {
-                    require_once kirby()->root('plugins') . '/gs-mmh-web-plugin/NewsletterRecipients.php';
-                }
-
-                $request = kirby()->request();
-
-                if (trim((string) $request->get('website')) !== '') {
-                    return [
-                        'success' => true,
-                        'message' => 'Danke für deine Anmeldung.',
-                    ];
-                }
-
-                if ($request->get('privacy_accepted') !== '1') {
-                    return new Kirby\Cms\Response(
-                        json_encode([
-                            'success' => false,
-                            'message' => 'Bitte akzeptiere die Datenschutzinformationen.',
-                        ], JSON_UNESCAPED_UNICODE),
-                        'application/json',
-                        400,
-                    );
-                }
-
-                try {
-                    \GsMmh\WebPlugin\NewsletterRecipients::create([
-                        'first_name' => $request->get('first_name'),
-                        'last_name' => $request->get('last_name'),
-                        'email' => $request->get('email'),
-                    ]);
-                } catch (\Kirby\Exception\Exception $exception) {
-                    if (str_contains($exception->getMessage(), 'bereits eingetragen')) {
-                        return [
-                            'success' => true,
-                            'message' => 'Du bist bereits für den Newsletter angemeldet.',
-                        ];
-                    }
-
-                    return new Kirby\Cms\Response(
-                        json_encode([
-                            'success' => false,
-                            'message' => $exception->getMessage(),
-                        ], JSON_UNESCAPED_UNICODE),
-                        'application/json',
-                        400,
-                    );
-                }
-
-                return [
-                    'success' => true,
-                    'message' => 'Danke, du bist jetzt für den Newsletter angemeldet.',
-                ];
-            },
-        ],
         /**
          * All-Rooms Availability API
          */
