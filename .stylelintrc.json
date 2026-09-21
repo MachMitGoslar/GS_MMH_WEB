@@ -1,24 +1,12 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "extends": ["stylelint-config-standard"],
   "rules": {
-    "indentation": 2,
-    "string-quotes": "single",
-    "color-hex-case": "lower",
-    "color-hex-length": "short",
-    "selector-pseudo-element-colon-notation": "double",
-    "selector-pseudo-class-parentheses-space-inside": "never",
     "selector-disallowed-list": [
       ["/::?-moz-/"],
       {
         "message": "Firefox-eigene Pseudo-Selektoren verwirft WebKit komplett. Im gebuendelten Stylesheet verschiebt das die Regel-Zuordnung in Safaris Web Inspector fuer alles, was danach kommt."
       }
     ],
-    "declaration-block-trailing-semicolon": "always",
-    "declaration-colon-space-before": "never",
-    "declaration-colon-space-after": "always",
-    "number-leading-zero": "always",
-    "function-url-quotes": "always",
-    "comment-whitespace-inside": "always",
     "color-named": null,
     "no-duplicate-selectors": null,
     "no-descending-specificity": null,

@@ -1,6 +1,20 @@
 const js = require('@eslint/js');
 
 module.exports = [
+  {
+    ignores: [
+      'node_modules/**',
+      'vendor/**',
+      'kirby/**',
+      'storage/**',
+      'public/media/**',
+      'media/**',
+      '*.min.js',
+      '**/Tests/**/*.js',
+      '**/tests/**/*.js',
+      'site/plugins/**',
+    ],
+  },
   js.configs.recommended,
   {
     languageOptions: {
@@ -23,17 +37,5 @@ module.exports = [
       'prefer-const': 'error',
       'no-var': 'error',
     },
-    ignores: [
-      'node_modules/**',
-      'vendor/**',
-      'kirby/**',
-      'storage/**',
-      'public/media/**',
-      'media/**',
-      '*.min.js',
-      '**/Tests/**/*.js',
-      '**/tests/**/*.js',
-      'site/plugins/**',
-    ],
   },
 ];

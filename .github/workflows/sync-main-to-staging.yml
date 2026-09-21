@@ -1,0 +1,64 @@
+name: Sync main to staging
+
+# Keeps `staging` from drifting when a hotfix branches from and merges
+# straight back into `main`, skipping the normal staging -> main promotion.
+#
+# This workflow never pushes to `main` - it only reads it (compare + PR
+# create with --head main) to open a PR whose *base* is `staging`. It does
+# not trigger, and is independent of, whatever deploy/rollout automation
+# runs on pushes to `main`.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  sync-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check whether staging is behind main
+        id: compare
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ahead=$(gh api "repos/${{ github.repository }}/compare/staging...main" --jq '.total_commits')
+          echo "ahead=$ahead" >> "$GITHUB_OUTPUT"
+
+      - name: Check for an existing open sync PR
+        id: existing
+        if: steps.compare.outputs.ahead != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          number=$(gh pr list --repo "${{ github.repository }}" --base staging --head main --state open --json number --jq '.[0].number // empty')
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+
+      - name: Create sync PR
+        if: steps.compare.outputs.ahead != '0' && steps.existing.outputs.number == ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > /tmp/sync-pr-body.md <<'EOF'
+          Automatisch erstellt nach einem Push auf `main` (z. B. ein Hotfix), damit `staging` wieder auf demselben Stand ist. Bitte zeitnah mergen -- das gehoert zum Abschluss eines Hotfixes dazu, nicht zu optionalem Aufraeumen.
+
+          Bei Merge-Konflikten lokal loesen:
+
+          ```
+          git checkout staging
+          git pull origin staging
+          git merge main
+          # Konflikte loesen
+          git push origin staging
+          ```
+          EOF
+          gh pr create \
+            --repo "${{ github.repository }}" \
+            --base staging \
+            --head main \
+            --title "Sync: main → staging" \
+            --body-file /tmp/sync-pr-body.md
