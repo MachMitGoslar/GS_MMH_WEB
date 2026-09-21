@@ -119,28 +119,6 @@ return [
             );
         },
     ],
-    [
-        'pattern' => 'ehrentag-goslar',
-        'action' => function () {
-            return new Response(<<<HTML
-<!doctype html>
-<html lang="de">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ehrenamt Goslar</title>
-</head>
-<body>
-    <div data-engagement-plattform data-engagement-plattform-integration-key="vzPpwKUyog"></div>
-	<script
-	    type="text/javascript"
-	    src="https://freiwilligendatenbank.aktion-mensch.de/app/engagementplattform-loader-angebotswidget.js"
-	></script>
-</body>
-</html>
-HTML, 'text/html');
-        },
-    ],
 
     /**
      * Newsletter RSS Feed
