@@ -1,6 +1,7 @@
 <?php
 
 use Kirby\Cms\Pages;
+use Kirby\Toolkit\Str;
 
 /**
  * Alle neuesten Updates sammeln (Newsletter + Projekt-Steps)
@@ -33,6 +34,7 @@ function latestUpdateAll(): Pages
 
     // Newsletter + ProjektSteps zusammenführen
     $all = $newsletters->merge($projektSteps);
+
 
     return $all;
 }
@@ -124,6 +126,9 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
         ? $update->description()->value()
         : $update->text()->excerpt(160)->value();
 
+    //Remove remaining html tags from description string
+    $description = Str::unhtml($description);    
+    
     $title = $update->title()->value();
 
     if ($isNewsletter) {
