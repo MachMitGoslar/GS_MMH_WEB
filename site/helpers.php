@@ -10,8 +10,6 @@
 use Kirby\Cms\App as KirbyApp;
 use Kirby\Cms\Pages;
 use Kirby\Cms\Site;
-use Kirby\Filesystem\Dir;
-use Kirby\Filesystem\F;
 
 /**
  * Get the color class name for a project status
