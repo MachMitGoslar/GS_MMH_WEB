@@ -55,13 +55,14 @@ tabs:
               newsletterTeaserButtonText:
                 type: text
                 label: Teaser Button Text
-          newsletterModalPage:
-            type: pages
-            label: Newsletter Modal
-            query: site.index.filterBy("id", "newsletter-modal")
-            create: false
-            templates:
-              - newsletter-modal
+              registrationForm:
+                extends: dreamform/fields/form
+              modalHeadline:
+                type: text
+                label: Modal Headline
+              modalText:
+                type: textarea
+                label: Modal Text
   navigation:
     label: Navigation
     icon: menu

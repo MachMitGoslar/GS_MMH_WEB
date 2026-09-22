@@ -167,13 +167,13 @@
 }
 
 .newsletter-subscribe-form[data-submitted='true']
-.newsletter-subscribe-honeypot,
+  .newsletter-subscribe-honeypot,
 .newsletter-subscribe-form[data-submitted='true']
-.newsletter-subscribe-field-group,
+  .newsletter-subscribe-field-group,
 .newsletter-subscribe-form[data-submitted='true']
-.newsletter-subscribe-consent-section,
+  .newsletter-subscribe-consent-section,
 .newsletter-subscribe-form[data-submitted='true']
-.newsletter-subscribe-actions {
+  .newsletter-subscribe-actions {
   display: none;
 }
 
@@ -202,7 +202,7 @@
 }
 
 .newsletter-subscribe-form[data-submitted='true']
-.newsletter-subscribe-feedback {
+  .newsletter-subscribe-feedback {
   margin: 0;
 }
 
@@ -250,7 +250,7 @@
 }
 
 /* Mobile responsive adjustments */
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .c-newsletterTeaserCard {
     padding-bottom: 1.5rem;
     gap: 0.75rem;

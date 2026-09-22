@@ -236,7 +236,7 @@
     if (document.getElementById('member-map')) {
       mapboxgl.accessToken = 'pk.eyJ1IjoicmFuZ2FyaWFuIiwiYSI6ImNrZGVxNzNhODI5MTcyenM4dGR5bnZhb3UifQ.7WvcNEBQJn9iV42IiyG8rQ';
       <?php $coords = $page->geo()->toObject(); ?>
-      <?php if($coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty()) : ?>
+      <?php if ($coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty()) : ?>
       let coordinates = [<?= $coords->longitude()->value() ?>, <?= $coords->latitude()->value() ?>];
       <?php else: ?>
       // Geocode the address (simple fallback to MachMit!Haus coordinates)

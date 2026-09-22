@@ -111,7 +111,8 @@
   line-height: var(--typo-line-height-regular);
   color: var(--color-dead-pixel-1400);
   background: var(--color-white);
-  transition: border-color 0.2s ease,
+  transition:
+    border-color 0.2s ease,
     box-shadow 0.2s ease;
 
   &:focus {
@@ -170,7 +171,8 @@
   border-radius: 0.25rem;
   border: 2px solid rgb(0 0 0 / 15%);
   background: #fff;
-  transition: background-color 0.15s ease,
+  transition:
+    background-color 0.15s ease,
     border-color 0.15s ease,
     color 0.15s ease;
   cursor: pointer;
@@ -305,7 +307,8 @@
   padding: var(--size-8);
   text-align: center;
   background: var(--color-dead-pixel-25);
-  transition: border-color 0.2s ease,
+  transition:
+    border-color 0.2s ease,
     background-color 0.2s ease;
 
   &:hover {
@@ -362,7 +365,6 @@
   font-size: var(--typo-size-90);
   font-weight: var(--font-weight-medium);
   margin-top: var(--size-1);
-  display: none;
   align-items: center;
   gap: var(--size-1);
 }

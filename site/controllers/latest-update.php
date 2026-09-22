@@ -35,7 +35,6 @@ function latestUpdateAll(): Pages
     // Newsletter + ProjektSteps zusammenführen
     $all = $newsletters->merge($projektSteps);
 
-
     return $all;
 }
 
@@ -127,8 +126,8 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
         : $update->text()->excerpt(160)->value();
 
     //Remove remaining html tags from description string
-    $description = Str::unhtml($description);    
-    
+    $description = Str::unhtml($description);
+
     $title = $update->title()->value();
 
     if ($isNewsletter) {

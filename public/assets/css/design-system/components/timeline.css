@@ -132,22 +132,24 @@
 }
 
 .timeline-block--standard
-.c-project-timeline-card--has-image:nth-child(odd)
-.info {
+  .c-project-timeline-card--has-image:nth-child(odd)
+  .info {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 120px;
-  grid-template-areas: 'headline image'
+  grid-template-areas:
+    'headline image'
     'text image';
   column-gap: 1rem;
   align-items: end;
 }
 
 .timeline-block--standard
-.c-project-timeline-card--has-image:nth-child(even)
-.info {
+  .c-project-timeline-card--has-image:nth-child(even)
+  .info {
   display: grid;
   grid-template-columns: 120px minmax(0, 1fr);
-  grid-template-areas: 'image headline'
+  grid-template-areas:
+    'image headline'
     'image text';
   column-gap: 1rem;
   align-items: end;
@@ -247,11 +249,11 @@
 
   .timeline-block--standard .c-project-timeline-card .info,
   .timeline-block--standard
-  .c-project-timeline-card--has-image:nth-child(odd)
-  .info,
+    .c-project-timeline-card--has-image:nth-child(odd)
+    .info,
   .timeline-block--standard
-  .c-project-timeline-card--has-image:nth-child(even)
-  .info {
+    .c-project-timeline-card--has-image:nth-child(even)
+    .info {
     display: block;
     min-height: 0;
     padding: 16px;
@@ -330,13 +332,13 @@
 }
 
 .timeline-block--compact
-.c-project-timeline-card:last-child:nth-child(odd)::before {
+  .c-project-timeline-card:last-child:nth-child(odd)::before {
   border-bottom: 0;
   border-bottom-left-radius: 0;
 }
 
 .timeline-block--compact
-.c-project-timeline-card:last-child:nth-child(even)::before {
+  .c-project-timeline-card:last-child:nth-child(even)::before {
   border-bottom: 0;
   border-bottom-right-radius: 0;
 }
@@ -354,9 +356,9 @@
 }
 
 .timeline-block--compact
-.c-project-timeline-card:nth-child(even)
-> .info
-> .headline {
+  .c-project-timeline-card:nth-child(even)
+  > .info
+  > .headline {
   flex-direction: row-reverse;
 }
 
@@ -381,25 +383,27 @@
 }
 
 .timeline-block--compact
-.c-project-timeline-card--has-image:nth-child(odd)
-> .info {
+  .c-project-timeline-card--has-image:nth-child(odd)
+  > .info {
   grid-template-columns: minmax(0, 1fr) 120px;
-  grid-template-areas: 'headline image'
+  grid-template-areas:
+    'headline image'
     'text image';
 }
 
 .timeline-block--compact
-.c-project-timeline-card--has-image:nth-child(even)
-> .info {
+  .c-project-timeline-card--has-image:nth-child(even)
+  > .info {
   grid-template-columns: 120px minmax(0, 1fr);
-  grid-template-areas: 'image headline'
+  grid-template-areas:
+    'image headline'
     'image text';
 }
 
 .timeline-block--compact
-.c-project-timeline-card--has-image
-> .info
-> .headline {
+  .c-project-timeline-card--has-image
+  > .info
+  > .headline {
   grid-area: headline;
   width: 100%;
 }
@@ -418,10 +422,10 @@
 }
 
 .timeline-block--compact
-.c-project-timeline-card--has-image
-> .info
-> .image
-img {
+  .c-project-timeline-card--has-image
+  > .info
+  > .image
+  img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -431,20 +435,20 @@ img {
 }
 
 .timeline-block--compact
-.c-project-timeline-card:nth-child(odd)
-> .info
-> .headline::before {
+  .c-project-timeline-card:nth-child(odd)
+  > .info
+  > .headline::before {
   left: -8px;
 }
 
 .timeline-block--compact
-.c-project-timeline-card:nth-child(even)
-> .info
-> .headline::before {
+  .c-project-timeline-card:nth-child(even)
+  > .info
+  > .headline::before {
   right: -8px;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (width <= 400px) {
   .timeline-block--compact .c-project-timeline-card:nth-child(odd)::before {
     top: -5px;
     bottom: -5px;
@@ -471,17 +475,11 @@ img {
   }
 
   .timeline-block--compact .c-project-timeline-card:nth-child(odd)::before {
-    left: 0;
-    right: auto;
-    top: -10px;
-    bottom: -10px;
+    inset: -10px auto -10px 0;
   }
 
   .timeline-block--compact .c-project-timeline-card:nth-child(even)::before {
-    right: 0;
-    left: auto;
-    top: -10px;
-    bottom: -10px;
+    inset: -10px 0 -10px auto;
   }
 
   .timeline-block--compact .c-project-timeline-card:first-child::before {
@@ -489,9 +487,9 @@ img {
   }
 
   .timeline-block--compact
-  .c-project-timeline-card:last-child:nth-child(odd)::before,
+    .c-project-timeline-card:last-child:nth-child(odd)::before,
   .timeline-block--compact
-  .c-project-timeline-card:last-child:nth-child(even)::before {
+    .c-project-timeline-card:last-child:nth-child(even)::before {
     bottom: 0;
   }
 
@@ -521,18 +519,18 @@ img {
 
   .timeline-block--compact .c-project-timeline-card--has-image > .info,
   .timeline-block--compact
-  .c-project-timeline-card--has-image:nth-child(odd)
-  > .info,
+    .c-project-timeline-card--has-image:nth-child(odd)
+    > .info,
   .timeline-block--compact
-  .c-project-timeline-card--has-image:nth-child(even)
-  > .info {
+    .c-project-timeline-card--has-image:nth-child(even)
+    > .info {
     display: block;
   }
 
   .timeline-block--compact
-  .c-project-timeline-card--has-image
-  > .info
-  > .image {
+    .c-project-timeline-card--has-image
+    > .info
+    > .image {
     width: 96px;
     height: 96px;
     margin-top: 1rem;
@@ -581,7 +579,7 @@ img {
   border-radius: 50px 0 0 50px;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (width <= 400px) {
   .timeline-container--constrained .timeline-item:nth-child(odd)::before {
     top: -5px;
     bottom: -5px;
@@ -602,13 +600,13 @@ img {
 }
 
 .timeline-container--constrained
-.timeline-item:last-child:nth-child(odd)::before {
+  .timeline-item:last-child:nth-child(odd)::before {
   border-bottom: 0;
   border-bottom-left-radius: 0;
 }
 
 .timeline-container--constrained
-.timeline-item:last-child:nth-child(even)::before {
+  .timeline-item:last-child:nth-child(even)::before {
   border-bottom: 0;
   border-bottom-right-radius: 0;
 }
@@ -716,14 +714,14 @@ img {
 }
 
 .timeline-container--constrained
-.timeline-item:nth-child(odd)
-.timeline-connector {
+  .timeline-item:nth-child(odd)
+  .timeline-connector {
   left: var(--timeline-axis-left);
 }
 
 .timeline-container--constrained
-.timeline-item:nth-child(even)
-.timeline-connector {
+  .timeline-item:nth-child(even)
+  .timeline-connector {
   left: var(--timeline-axis-left);
   right: auto;
 }
@@ -857,7 +855,8 @@ img {
   border-radius: 1rem;
   padding: 1rem 1rem 1.1rem;
   border: 1px solid rgb(0 0 0 / 10%);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 8%),
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 8%),
     0 10px 24px rgb(0 0 0 / 8%);
   z-index: 1;
 }
