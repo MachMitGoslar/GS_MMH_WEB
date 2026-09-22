@@ -235,6 +235,7 @@ return [
                         'message' => 'Keine Updates gefunden',
                     ];
                 }
+
                 return $data;
             },
         ],

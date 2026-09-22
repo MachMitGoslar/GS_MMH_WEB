@@ -23,7 +23,8 @@
   box-shadow: 0 6px 14px rgb(0 0 0 / 15%);
   color: #111;
   text-decoration: none;
-  transition: transform 220ms ease,
+  transition:
+    transform 220ms ease,
     box-shadow 220ms ease,
     border-color 220ms ease,
     background-color 220ms ease,
@@ -100,7 +101,7 @@
   margin: 0;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .project-team-strip {
     display: none;
     flex-wrap: wrap;
@@ -335,9 +336,9 @@
   }
 
   .project-team-strip.is-floating.is-expanded
-  .project-team-member:nth-child(n + 4),
+    .project-team-member:nth-child(n + 4),
   .project-team-strip.is-floating:focus-within
-  .project-team-member:nth-child(n + 4) {
+    .project-team-member:nth-child(n + 4) {
     width: 7.5rem;
     min-width: 7.5rem;
     max-width: 7.5rem;
@@ -355,9 +356,9 @@
   .project-team-strip.is-floating.is-expanded .project-team-member:nth-child(2),
   .project-team-strip.is-floating.is-expanded .project-team-member:nth-child(3),
   .project-team-strip.is-floating:focus-within
-  .project-team-member:nth-child(2),
+    .project-team-member:nth-child(2),
   .project-team-strip.is-floating:focus-within
-  .project-team-member:nth-child(3) {
+    .project-team-member:nth-child(3) {
     margin-right: 0;
   }
 

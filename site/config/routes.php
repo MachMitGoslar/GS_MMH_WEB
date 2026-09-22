@@ -29,14 +29,14 @@ const MMH_MERGED_PROJECTS = [
 return [
     /**
     * HOTFIX
-	* 301 für alte Linksstruktur
-	*/
-	[
-		'pattern' => '/stipendien',
-        'action'  => function () {
-        	go('projects/03-machmit-stipendien', 301);
+    * 301 für alte Linksstruktur
+    */
+    [
+        'pattern' => '/stipendien',
+        'action' => function () {
+            go('projects/03-machmit-stipendien', 301);
         },
-	],
+    ],
 
     /**
      * 301 für zusammengeführte Projekte. Greift unter beiden Wurzeln,

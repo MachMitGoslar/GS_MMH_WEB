@@ -1,22 +1,18 @@
 <?php
+use Kirby\Toolkit\Str;
 
 /**
 * @var Kirby\Cms\Site $site
 * @var Kirby\Cms\Page $page
+* @var tobimori\DreamForm\Models\FormPage $modalForm
+*
 * @var bool|null $showTeaser
 */
 $showTeaser = $showTeaser ?? true;
-$modalPage = $site->find('newsletter-modal');
-$newsletterForm = \GsMmh\WebPlugin\NewsletterRecipients::formPage();
-$modalValue = static function (string $field, string $fallback) use ($modalPage, $site): string {
-    if ($modalPage?->{$field}()->isNotEmpty() === true) {
-        return (string) $modalPage->{$field}();
-    }
 
-    return (string) $site->{$field}()->or($fallback);
-};
-$modalHeadline = $modalValue('newsletterModalHeadline', 'Newsletter abonnieren');
-$modalText = $modalValue('newsletterModalText', 'Erhalte Neuigkeiten aus dem MachMit!Haus direkt per E-Mail.');
+$modalHeadline = $site->newsletterModalHeadline()->or('Newsletter abonnieren');
+$modalText = $site->newsletterModalText()->or('Erhalte Neuigkeiten aus dem MachMit!Haus direkt per E-Mail.');
+$modalForm = $site->registrationForm();
 ?>
 <?php if ($showTeaser === true) : ?>
 <div class="c-newsletter-teaser grid-item" data-span="1/2">
@@ -43,35 +39,12 @@ $modalText = $modalValue('newsletterModalText', 'Erhalte Neuigkeiten aus dem Mac
         <?php
     },
 
-    'slotContent' => function () use ($newsletterForm) {
+    'slotContent' => function () use ($modalForm) {
         ?>
-        <?php snippet('dreamform/form', [
-            'form' => $newsletterForm,
-            'attr' => [
-                'form' => ['class' => 'dreamform newsletter-subscribe-form'],
-                'field' => ['class' => 'dreamform-field'],
-                'label' => ['class' => 'dreamform-label'],
-                'error' => ['class' => 'dreamform-error'],
-                'input' => ['class' => 'dreamform-input'],
-                'button' => ['class' => 'gs-c-btn', 'data-type' => 'primary', 'data-size' => 'regular', 'data-style' => 'pill'],
-                'success' => ['class' => 'newsletter-subscribe-feedback', 'role' => 'status', 'aria-live' => 'polite', 'tabindex' => '-1'],
-                'text' => [
-                    'input' => ['class' => 'dreamform-input', 'autocomplete' => 'name'],
-                ],
-                'email' => [
-                    'input' => ['class' => 'dreamform-input', 'autocomplete' => 'email'],
-                ],
-                'checkbox' => [
-                    'field' => ['class' => 'dreamform-field newsletter-subscribe-consent-section'],
-                    'input' => ['class' => 'dreamform-checkbox-input'],
-                    'row' => ['class' => 'dreamform-checkbox'],
-                ],
-            ],
-        ]) ?>
-        <?php
+        <?=snippet('content-elements/form', ['form' => $modalForm->toPage(), 'className' => 'newsletter-subscribe-form']); ?>
+      <?php
     },
 ]) ?>
-
 <script>
   (() => {
     const dialog = document.getElementById('newsletter-subscribe-modal');
@@ -79,8 +52,12 @@ $modalText = $modalValue('newsletterModalText', 'Erhalte Neuigkeiten aus dem Mac
 
     const openButton = document.querySelector('.newsletter-subscribe-open');
     const form = dialog.querySelector('.newsletter-subscribe-form');
-    const firstInput = dialog.querySelector('input[name="first_name"]');
-    const success = dialog.querySelector('.newsletter-subscribe-feedback');
+    const firstInput = dialog.querySelector('input[name="vorname"]');
+
+    const success = dialog.querySelector('div#<?= Str::replace($modalForm->id(), '- page://', '') ?>');
+    const error = form?.querySelector('div.dreamform-error');
+    
+    const submit = form?.querySelector('button[type="submit"]');
 
     openButton?.addEventListener('click', () => {
       dialog.showModal();
@@ -88,8 +65,22 @@ $modalText = $modalValue('newsletterModalText', 'Erhalte Neuigkeiten aus dem Mac
     });
 
     dialog.addEventListener('close', () => {
+      console.log('Dialog closed');
       openButton?.focus();
     });
+
+    if(form && submit) {
+      submit.addEventListener('click', (event) => {
+        console.log('Submit button clicked');
+        event.preventDefault();
+        form.requestSubmit();
+        console.log('Form requested to submit', form);
+      });
+    }
+    if (error) {
+      dialog.showModal();
+      error.focus();
+    }
 
     if (!form && success) {
       dialog.showModal();

@@ -1,6 +1,5 @@
 <?php
 
-use Kirby\Cms\Block;
 /**
 * @var \Kirby\Cms\Site $site
 * @var \Kirby\Cms\Page $page
@@ -164,27 +163,25 @@ use Kirby\Cms\Block;
         </section>
 
         <section class="project-update-gallery">
-          <?php if ($page->show_project_step_pictures() == "true" && count($page->projectUpdatePictures()) > 0): ?>
+          <?php if ($page->show_project_step_pictures() == 'true' && count($page->projectUpdatePictures()) > 0): ?>
             <h2> Bilder aus dem Projekt </h2>
             
-          <?php 
+          <?php
              $block = new Kirby\Cms\Block(
-              [
+                 [
                   'type' => 'gallery',
                   'content' => [
                     'images' => $page->projectUpdatePictures(),
                     'caption' => 'Bilder aus dem Projekt',
                     'crop' => '600x600',
-                    'ratio' => '1:1'
-                  ]
-              ]
+                    'ratio' => '1:1',
+                  ],
+              ],
              );
 
+              print snippet('blocks/gallery', ['block' => $block]);
 
-             
-             print snippet('blocks/gallery', ['block' => $block]);
-            
-          ?>
+              ?>
           <?php endif ?>
   
 

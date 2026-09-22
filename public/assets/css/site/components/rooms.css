@@ -71,6 +71,7 @@
       grid-column: span 6;
     }
   }
+
   @media (width > 1039px) {
     & {
       grid-column: span 4;
@@ -89,7 +90,8 @@
   border-radius: var(--radius-md, 8px);
   overflow: hidden;
   box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
-  transition: transform 0.2s ease,
+  transition:
+    transform 0.2s ease,
     box-shadow 0.2s ease;
   height: 100%;
 }
@@ -340,7 +342,8 @@
   border-radius: var(--radius-sm, 4px);
   overflow: hidden;
   display: block;
-  transition: opacity 0.2s ease,
+  transition:
+    opacity 0.2s ease,
     transform 0.2s ease;
 }
 
@@ -553,7 +556,7 @@
   border-left: 1px solid var(--color-border, #e0e0e0);
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .room-sidebar {
     padding-left: 0;
     border-left: none;
@@ -727,7 +730,8 @@
   padding: var(--spacing-2, 0.5rem);
   border: 2px solid var(--color-border, #e0e0e0);
   border-radius: var(--radius-md, 8px);
-  transition: border-color 0.2s ease,
+  transition:
+    border-color 0.2s ease,
     background-color 0.2s ease;
 }
 
@@ -768,7 +772,8 @@
   border: 2px solid var(--color-border, #e0e0e0);
   border-radius: 4px;
   flex-shrink: 0;
-  transition: background-color 0.2s ease,
+  transition:
+    background-color 0.2s ease,
     border-color 0.2s ease;
 }
 
@@ -778,8 +783,8 @@
 }
 
 .room-checkbox:checked
-+ .room-checkbox-content
-.room-checkbox-indicator::after {
+  + .room-checkbox-content
+  .room-checkbox-indicator::after {
   /* Icon as a mask so it matches the svg icon set */
   content: '';
   display: block;

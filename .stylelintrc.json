@@ -13,7 +13,9 @@
     "block-no-empty": null,
     "no-empty-source": null,
     "selector-class-pattern": null,
-    "custom-property-pattern": null
+    "custom-property-pattern": null,
+    "block-no-redundant-nested-style-rules": null,
+    "media-feature-name-value-no-unknown": null
   },
   "ignoreFiles": [
     "node_modules/**/*",
