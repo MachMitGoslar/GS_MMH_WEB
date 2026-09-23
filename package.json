@@ -16,38 +16,33 @@
     "lint:css": "stylelint \"**/*.{css,scss}\" --fix",
     "lint:php": "ddev exec composer run lint",
     "pre-commit": "npm run format && npm run lint",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rangarius/GS_MMH_WEB.git"
+    "url": "git+https://github.com/MachMitGoslar/GS_MMH_WEB.git"
   },
   "keywords": [
     "website",
     "kirby"
   ],
-  "author": "stuffdev.de",
+  "author": "MachMit!Goslar",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/rangarius/GS_MMH_WEB/issues"
   },
   "homepage": "https://github.com/rangarius/GS_MMH_WEB#readme",
-  "dependencies": {
-    "autoprefixer": "^10.4.19",
-    "sharp": "^0.34.5"
-  },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
-    "browser-sync": "^3.0.2",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.55.0",
-    "husky": "^8.0.3",
-    "kirbyup": "^3.2.1",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.1.1",
-    "stylelint": "^14.16.1",
-    "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-standard": "^29.0.0"
+    "@eslint/js": "^10.0.1",
+    "browser-sync": "^3.0.4",
+    "concurrently": "^10.0.5",
+    "eslint": "^10.11.0",
+    "husky": "^9.1.7",
+    "kirbyup": "^3.5.0",
+    "lint-staged": "^17.5.1",
+    "prettier": "^3.9.8",
+    "stylelint": "^17.15.0",
+    "stylelint-config-standard": "^40.0.0"
   },
   "lint-staged": {
     "site/!(plugins)/*.{js,ts}": [

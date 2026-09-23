@@ -27,7 +27,9 @@ return function ($page, $site) {
         }
 
         return $note->author()->toPages()->has($page);
-    })->sortBy('date', 'desc');
+    })->sortBy(function ($note) {
+        return $note->publishedTimestamp();
+    }, 'desc');
 
     return compact('memberProjects', 'memberNewsletters', 'memberNotes');
 };

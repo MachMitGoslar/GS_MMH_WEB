@@ -6,7 +6,6 @@
  * Define custom routes for the MachMit!Haus website
  */
 
-use GsMmh\WebPlugin\NewsletterRecipients;
 use Kirby\Cms\Response;
 use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
@@ -30,14 +29,14 @@ const MMH_MERGED_PROJECTS = [
 return [
     /**
     * HOTFIX
-	* 301 für alte Linksstruktur
-	*/
-	[
-		'pattern' => '/stipendien',
-        'action'  => function () {
-        	go('projects/03-machmit-stipendien', 301);
+    * 301 für alte Linksstruktur
+    */
+    [
+        'pattern' => '/stipendien',
+        'action' => function () {
+            go('projects/03-machmit-stipendien', 301);
         },
-	],
+    ],
 
     /**
      * 301 für zusammengeführte Projekte. Greift unter beiden Wurzeln,
@@ -117,28 +116,6 @@ return [
                 $payload,
                 'application/json',
             );
-        },
-    ],
-    [
-        'pattern' => 'ehrentag-goslar',
-        'action' => function () {
-            return new Response(<<<HTML
-<!doctype html>
-<html lang="de">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ehrenamt Goslar</title>
-</head>
-<body>
-    <div data-engagement-plattform data-engagement-plattform-integration-key="vzPpwKUyog"></div>
-	<script
-	    type="text/javascript"
-	    src="https://freiwilligendatenbank.aktion-mensch.de/app/engagementplattform-loader-angebotswidget.js"
-	></script>
-</body>
-</html>
-HTML, 'text/html');
         },
     ],
 
@@ -249,35 +226,6 @@ HTML, 'text/html');
             $content = snippet('content-types/ferienpass/events', ['query' => $query], true);
 
             return new Response($content, 'application/json');
-        },
-    ],
-
-    /**
-     * Newsletter Subscription
-     * Adds a new subscriber to the newsletter_recipients table
-     */
-    [
-        'pattern' => 'newsletter-anmelden.json',
-        'method' => 'POST',
-        'action' => function () {
-            try {
-                NewsletterRecipients::create([
-                    'first_name' => kirby()->request()->get('first_name'),
-                    'last_name' => kirby()->request()->get('last_name'),
-                    'email' => kirby()->request()->get('email'),
-                ]);
-
-                return new Response(
-                    json_encode(['success' => true, 'message' => 'Danke! Du wirst ab sofort über unsere Neuigkeiten informiert.'], JSON_UNESCAPED_UNICODE),
-                    'application/json',
-                );
-            } catch (\Throwable $e) {
-                return new Response(
-                    json_encode(['success' => false, 'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE),
-                    'application/json',
-                    400,
-                );
-            }
         },
     ],
 

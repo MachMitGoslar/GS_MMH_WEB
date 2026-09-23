@@ -10,8 +10,6 @@
 use Kirby\Cms\App as KirbyApp;
 use Kirby\Cms\Pages;
 use Kirby\Cms\Site;
-use Kirby\Filesystem\Dir;
-use Kirby\Filesystem\F;
 
 /**
  * Get the color class name for a project status
@@ -174,15 +172,15 @@ function mmhStylesheetBundle(): string
         return $path;
     }
 
-    $version  = mmhStylesheetVersion();
-    $entry    = kirby()->root('index') . '/assets/css/index.css';
+    $version = mmhStylesheetVersion();
+    $entry = kirby()->root('index') . '/assets/css/index.css';
     $fallback = 'assets/css/index.css?version=' . $version;
 
     if (is_file($entry) === false) {
         return $path = $fallback;
     }
 
-    $dir  = kirby()->root('media') . '/css';
+    $dir = kirby()->root('media') . '/css';
     $file = $dir . '/site.' . $version . '.css';
 
     if (is_file($file) === false) {
@@ -214,9 +212,9 @@ function mmhStylesheetBundle(): string
 function mmhInlineStylesheet(string $entry): string
 {
     $remote = [];
-    $seen   = [];
-    $body   = mmhInlineStylesheetPart($entry, $remote, $seen);
-    $head   = implode("\n", array_unique($remote));
+    $seen = [];
+    $body = mmhInlineStylesheetPart($entry, $remote, $seen);
+    $head = implode("\n", array_unique($remote));
 
     return $head === '' ? $body : $head . "\n\n" . $body;
 }
@@ -253,7 +251,7 @@ function mmhInlineStylesheetPart(string $file, array &$remote, array &$seen): st
 
             return mmhInlineStylesheetPart($dir . '/' . $target, $remote, $seen);
         },
-        $css
+        $css,
     );
 
     return mmhRebaseStylesheetUrls($css, $dir);
@@ -303,6 +301,6 @@ function mmhRebaseStylesheetUrls(string $css, string $dir): string
 
             return 'url("/' . implode('/', $parts) . '")';
         },
-        $css
+        $css,
     );
 }

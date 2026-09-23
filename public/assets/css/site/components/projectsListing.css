@@ -82,7 +82,8 @@
   color: var(--color-fg-muted);
   font-size: var(--typo-size-80);
   font-weight: var(--font-weight-semiBold);
-  transition: transform 0.2s ease,
+  transition:
+    transform 0.2s ease,
     border-color 0.2s ease;
 
   &::before {

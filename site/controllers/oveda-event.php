@@ -133,8 +133,8 @@ function mmhOvedaEventDetail(int $eventDateId): array|null
      * should be:
      * $timezone = new DateTimeZone(date_default_timezone_get());
      */
-    $timezone = new DateTimeZone("Europe/Berlin");
-    
+    $timezone = new DateTimeZone('Europe/Berlin');
+
     $start = new DateTimeImmutable((string) ($eventDate['start'] ?? 'now'));
     $start = $start->setTimezone($timezone);
     $end = empty($eventDate['end'])

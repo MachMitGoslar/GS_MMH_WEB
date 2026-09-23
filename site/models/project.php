@@ -35,13 +35,14 @@ class ProjectPage extends Page
         );
     }
 
-    public function projectUpdatePictures(): Array
+    public function projectUpdatePictures(): array
     {
         $steps = $this->project_steps();
         $pictures = [];
-        foreach($steps as $image) {
-                $pictures[] = Str::ltrim($image->content()->image()->toString(), '- ');
+        foreach ($steps as $image) {
+            $pictures[] = Str::ltrim($image->content()->image()->toString(), '- ');
         }
+
         return $pictures;
     }
 
