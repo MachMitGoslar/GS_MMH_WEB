@@ -55,7 +55,7 @@ $modalForm = $site->registrationForm();
     const firstInput = dialog.querySelector('input[name="vorname"]');
 
     const success = dialog.querySelector('div#<?= Str::replace($modalForm->id(), '- page://', '') ?>');
-    const error = form?.querySelector('div.dreamform-error');
+    const errors = form?.querySelectorAll('.dreamform-error');
     
     const submit = form?.querySelector('button[type="submit"]');
 
@@ -77,14 +77,20 @@ $modalForm = $site->registrationForm();
         console.log('Form requested to submit', form);
       });
     }
-    if (error) {
-      dialog.showModal();
-      error.focus();
+    if (errors) {
+      for(const error of errors.entries()) {
+       if (error[1].innerHTML) {
+         dialog.showModal();
+         error[1].focus();
+         break;
+       }
+      }
     }
 
     if (!form && success) {
       dialog.showModal();
       success.focus();
     }
+
   })();
 </script>

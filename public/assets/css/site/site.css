@@ -23,9 +23,66 @@
 @import url('./components/pageCtaModal.css');
 @import url('./components/rooms.css');
 
-#project-description .project-layout-grid {
+/* Default (non-highlighted) rows sit flush with the parent column */
+#project-description .project-layout-grid[data-highlight='none'] {
   margin-left: 0;
   margin-right: 0;
   padding-left: 0;
   padding-right: 0;
+}
+
+/* Vertical rhythm between stacked layout rows */
+.project-layout-grid + .project-layout-grid {
+  margin-top: var(--size-6);
+}
+
+/* Opt-in row highlight ("Hervorhebung" row setting in the Panel). */
+.project-layout-grid[data-highlight]:not([data-highlight='none']) {
+  padding: var(--size-5) var(--size-6);
+  border-radius: var(--border-radius-4);
+}
+
+.project-layout-grid[data-highlight='dark'] {
+  background: var(--color-dead-pixel-1300);
+  color: var(--color-dead-pixel-10);
+}
+
+.project-layout-grid[data-highlight='primary'] {
+  background: var(--color-bg-brand-primary);
+  color: var(--color-dead-pixel-10);
+}
+
+.project-layout-grid[data-highlight='light'] {
+  background: var(--color-dead-pixel-100);
+}
+
+/* Cards keep their white background on dark/primary rows. The row sets a
+   light text color for its own content, but that would land on the
+   card's white fill and become unreadable, so the card resets back to
+   the default (dark) text color for its own content. */
+.project-layout-grid[data-highlight='dark'] .c-blog-card,
+.project-layout-grid[data-highlight='primary'] .c-blog-card {
+  color: var(--color-fg-default);
+}
+
+/* Consecutive rows sharing the same highlight merge into one continuous
+   block: shared edge loses its radius/gap, only the outer corners stay round. */
+.project-layout-grid[data-highlight='dark']
+  + .project-layout-grid[data-highlight='dark'],
+.project-layout-grid[data-highlight='primary']
+  + .project-layout-grid[data-highlight='primary'],
+.project-layout-grid[data-highlight='light']
+  + .project-layout-grid[data-highlight='light'] {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.project-layout-grid[data-highlight='dark']:has(+ [data-highlight='dark']),
+.project-layout-grid[data-highlight='primary']:has(
+    + [data-highlight='primary']
+  ),
+.project-layout-grid[data-highlight='light']:has(+ [data-highlight='light']) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
