@@ -137,7 +137,7 @@
             <?php if (!$contentIsVisible($layout)) {
                 continue;
             } ?>
-          <div class="grid project-layout-grid">
+          <div class="grid project-layout-grid" data-highlight="<?= esc($layout->highlight()->or('none')) ?>">
 
             <?php foreach ($layout->columns() as $column) : ?>
             <div class="grid-item" data-span="<?=$column->width()?>">
