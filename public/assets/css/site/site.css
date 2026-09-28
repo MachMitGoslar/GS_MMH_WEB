@@ -8,6 +8,7 @@
 @import url('./layout/hero.css');
 
 /* Content-Type Components */
+@import url('./components/avatarStack.css');
 @import url('./components/projectTeaserCard.css');
 @import url('./components/projectsListing.css');
 @import url('./components/projectUpdateTeaserCard.css');

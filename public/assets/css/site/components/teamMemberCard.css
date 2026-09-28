@@ -29,6 +29,7 @@
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
+    background: #fff;
     color: inherit;
     text-decoration: none;
 
@@ -37,6 +38,10 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
+
+      &[data-fit='contain'] {
+        object-fit: contain;
+      }
     }
 
     .placeholder-avatar {
@@ -178,7 +183,7 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .c-teamMemberCard {
     padding: 1rem;
 
@@ -214,7 +219,7 @@
       gap: 2rem;
       width: 100%;
 
-      @media (max-width: 768px) {
+      @media (width <= 768px) {
         & {
           flex-direction: column;
           gap: 1.5rem;
@@ -231,6 +236,7 @@
     overflow: hidden;
     flex-shrink: 0;
     border: 4px solid white;
+    background: #fff;
     box-shadow: 0 8px 32px rgb(0 0 0 / 12%);
 
     img {
@@ -238,6 +244,10 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
+
+      &[data-fit='contain'] {
+        object-fit: contain;
+      }
     }
 
     .placeholder-avatar-large {
@@ -267,7 +277,7 @@
     align-self: stretch;
   }
 
-  @media (max-width: 1120px) {
+  @media (width <= 1120px) {
     .member-hero {
       padding: 2.25rem 0;
 
@@ -321,7 +331,7 @@
     }
   }
 
-  @media (max-width: 940px) {
+  @media (width <= 940px) {
     .member-hero {
       .member-hero-content {
         flex-direction: column;
@@ -478,7 +488,7 @@
     width: 100%;
     flex: 1 1 auto;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
       & {
         margin-bottom: 1.5rem;
       }
@@ -523,7 +533,7 @@
         grid-template-columns: 1fr;
       }
 
-      @media (max-width: 768px) {
+      @media (width <= 768px) {
         & {
           grid-template-columns: 1fr;
           gap: 2rem;
@@ -790,7 +800,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (width <= 768px) {
     .member-hero {
       padding: 2rem 0;
       margin-bottom: 2rem;
@@ -871,6 +881,7 @@
         width: 100%;
         padding: 0.85rem 0.9rem;
 
+        /* stylelint-disable declaration-property-value-keyword-no-deprecated */
         span {
           word-break: break-word;
         }
