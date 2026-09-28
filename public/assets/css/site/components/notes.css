@@ -164,7 +164,11 @@
 }
 
 .note-card-author {
+  --stack-index: 0;
+
   display: block;
+  position: relative;
+  z-index: var(--stack-index);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -183,6 +187,41 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.note-card-author img[data-fit='contain'] {
+  object-fit: contain;
+}
+
+html.js .note-card-authors.avatar-stack[data-reveal] .note-card-author {
+  opacity: 0;
+  translate: -0.5rem 0;
+}
+
+html.js
+  .note-card-authors.avatar-stack[data-reveal].is-revealed
+  .note-card-author {
+  animation: avatar-slide-in 300ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  animation-delay: calc(var(--stack-index) * 90ms);
+}
+
+html.js .note-card-authors.avatar-stack[data-reveal] .note-card-author-more {
+  opacity: 0;
+}
+
+html.js
+  .note-card-authors.avatar-stack[data-reveal].is-revealed
+  .note-card-author-more {
+  animation: avatar-badge-stamp 380ms cubic-bezier(0.3, 1.6, 0.5, 1) 330ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .note-card-authors.avatar-stack[data-reveal] .note-card-author,
+  html.js .note-card-authors.avatar-stack[data-reveal] .note-card-author-more {
+    animation: none;
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .placeholder-avatar-small {
@@ -479,12 +518,17 @@
   height: 80px;
   border-radius: 50%;
   overflow: hidden;
+  background: var(--color-bg-primary, #fff);
 }
 
 .author-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.author-avatar img[data-fit='contain'] {
+  object-fit: contain;
 }
 
 .placeholder-avatar {

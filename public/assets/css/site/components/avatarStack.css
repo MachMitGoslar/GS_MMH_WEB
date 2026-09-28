@@ -1,0 +1,48 @@
+/* Shared keyframes for overlapping avatar stacks (project team strip,
+   note card authors, ...). Each item carries a `--stack-index` custom
+   property (0-based, in DOM order) used to stagger the animation and to
+   resolve the "later item paints above earlier item" stacking order. */
+
+@keyframes avatar-slide-in {
+  from {
+    opacity: 0;
+    translate: -1rem 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes team-avatar-slide-in {
+  from {
+    opacity: 0;
+    translate: 1.5rem 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes avatar-badge-stamp {
+  0% {
+    opacity: 0;
+    scale: 1.8;
+    rotate: -12deg;
+  }
+
+  60% {
+    opacity: 1;
+    scale: 0.9;
+    rotate: 0deg;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 1;
+    rotate: 0deg;
+  }
+}

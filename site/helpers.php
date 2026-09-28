@@ -51,6 +51,40 @@ function getArchivedProjects(Site $site)
         ->filter(fn ($project) => $project->effectiveProjectStatus() === 'abgeschlossen');
 }
 
+if (!function_exists('mmhAvatarImage')) {
+    /**
+     * Resolve an avatar-style image to a URL and the object-fit mode it
+     * needs on the front end.
+     *
+     * Portrait/square images (typical headshots) are cropped to fill the
+     * circle, anchored to the top so faces survive the crop. Wide images
+     * (logos, banners, panoramic/group shots) are resized to fit inside
+     * the circle instead, since cropping them would cut off content.
+     *
+     * @param \Kirby\Cms\File $image
+     * @param int $size Target square box size in pixels
+     * @return array{url: string, fit: string}
+     */
+    function mmhAvatarImage($image, int $size): array
+    {
+        $width = $image->width();
+        $height = $image->height();
+        $isPortraitOrSquare = $height <= 0 || $width <= 0 || $width <= $height * 1.2;
+
+        if ($isPortraitOrSquare) {
+            return [
+                'url' => $image->crop($size, $size, 'top')->url(),
+                'fit' => 'cover',
+            ];
+        }
+
+        return [
+            'url' => $image->resize($size, $size)->url(),
+            'fit' => 'contain',
+        ];
+    }
+}
+
 if (!function_exists('mmhTimestampValue')) {
     function mmhTimestampValue($value): int
     {
