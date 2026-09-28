@@ -30,11 +30,13 @@ $cover = $note->cover();
         </div>
         <!-- Authors on image border (right side) -->
         <?php if ($authors->count() > 0) : ?>
-          <div class="note-card-authors">
+          <div class="note-card-authors avatar-stack" data-reveal>
+            <?php $authorIndex = 0; ?>
             <?php foreach ($authors->limit(2) as $author) : ?>
-              <a href="<?= $author->url() ?>" class="note-card-author" title="<?= $author->title()->html() ?>">
+              <a href="<?= $author->url() ?>" class="note-card-author" style="--stack-index: <?= $authorIndex++ ?>" title="<?= $author->title()->html() ?>">
                 <?php if ($authorImage = $author->cover()) : ?>
-                  <img src="<?= $authorImage->crop(48, 48)->url() ?>" alt="<?= $author->title()->html() ?>">
+                  <?php $avatar = mmhAvatarImage($authorImage, 96); ?>
+                  <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
                 <?php else : ?>
                   <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
                 <?php endif ?>
@@ -88,11 +90,13 @@ $cover = $note->cover();
       </div>
       <!-- Authors on image border (right side) -->
       <?php if ($authors->count() > 0) : ?>
-        <div class="note-card-authors">
+        <div class="note-card-authors avatar-stack" data-reveal>
+            <?php $authorIndex = 0; ?>
             <?php foreach ($authors->limit(2) as $author) : ?>
-            <a href="<?= $author->url() ?>" class="note-card-author" title="<?= $author->title()->html() ?>">
+            <a href="<?= $author->url() ?>" class="note-card-author" style="--stack-index: <?= $authorIndex++ ?>" title="<?= $author->title()->html() ?>">
                 <?php if ($authorImage = $author->cover()) : ?>
-                <img src="<?= $authorImage->crop(40, 40)->url() ?>" alt="<?= $author->title()->html() ?>">
+                <?php $avatar = mmhAvatarImage($authorImage, 80); ?>
+                <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
                 <?php else : ?>
                 <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
                 <?php endif ?>

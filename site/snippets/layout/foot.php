@@ -1,6 +1,8 @@
 
 <?php // move to a separate js file and call it in the head snippet?>
 
+<?= js('assets/js/avatar-stack.js?version=' . filemtime(kirby()->root('index') . '/assets/js/avatar-stack.js')) ?>
+
 <script async defer>
 
   const htmlElement = document.querySelector(':root')

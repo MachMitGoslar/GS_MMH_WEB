@@ -65,7 +65,8 @@ if ($authors->count() > 0) :
               <a href="<?= $author->url() ?>" class="author-card">
                 <div class="author-avatar">
                   <?php if ($authorImage = $author->cover()) : ?>
-                    <img src="<?= $authorImage->crop(80, 80)->url() ?>" alt="<?= $author->title()->html() ?>">
+                    <?php $avatar = mmhAvatarImage($authorImage, 160); ?>
+                    <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
                   <?php else : ?>
                     <div class="placeholder-avatar">
                       <span><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>

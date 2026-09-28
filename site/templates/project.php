@@ -106,12 +106,14 @@
         <?php endif ?>
 
         <?php if ($teamMembers->isNotEmpty()) : ?>
-          <div class="project-team-strip<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?>" aria-label="Projektteam"<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
+          <div class="project-team-strip avatar-stack<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?>" aria-label="Projektteam" data-reveal<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
+            <?php $i = 0; ?>
             <?php foreach ($teamMembers as $member) : ?>
-              <a href="<?= $member->url() ?>" class="project-team-member" title="<?= $member->title()->html() ?>">
+              <a href="<?= $member->url() ?>" class="project-team-member" style="--stack-index: <?= $i++ ?>" title="<?= $member->title()->html() ?>">
                 <span class="project-team-avatar">
                   <?php if ($memberImage = $member->cover()) : ?>
-                    <img src="<?= $memberImage->crop(160, 160)->url() ?>" alt="<?= $member->title()->html() ?>">
+                    <?php $avatar = mmhAvatarImage($memberImage, 240); ?>
+                    <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $member->title()->html() ?>">
                   <?php else : ?>
                     <span class="project-team-placeholder">
                       <?= strtoupper(substr($member->title()->value(), 0, 1)) ?>
