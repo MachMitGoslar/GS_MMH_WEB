@@ -338,3 +338,22 @@ function mmhRebaseStylesheetUrls(string $css, string $dir): string
         $css,
     );
 }
+
+if (!function_exists('mmhMapboxToken')) {
+    /**
+     * Mapbox access token (public "pk." token, URL-restricted in the Mapbox dashboard).
+     *
+     * Source of truth is the `mmh.mapbox.token` config option; the Panel field
+     * `mapbox_token` on the contact page is only used as fallback.
+     */
+    function mmhMapboxToken(): string
+    {
+        $token = trim((string) option('mmh.mapbox.token', ''));
+
+        if ($token === '') {
+            $token = trim((string) site()->find('contact')?->mapbox_token()->value());
+        }
+
+        return $token;
+    }
+}

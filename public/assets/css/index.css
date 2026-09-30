@@ -25,21 +25,25 @@
   max-width: var(--max-width);
   margin: 0 auto 1rem;
   padding: 0 var(--padding-lr);
+
   @media (width > 489px) {
     & {
       --padding-lr: 1rem;
     }
   }
+
   @media (width > 767px) {
     & {
       --padding-lr: 2rem;
     }
   }
+
   @media (width > 1039px) {
     & {
       --padding-lr: 2rem;
     }
   }
+
   @media (width > 1439px) {
     & {
       --max-width: 83rem;
@@ -71,6 +75,7 @@ figure,
 iframe,
 img,
 object,
+picture,
 svg,
 video {
   display: block;
@@ -100,5 +105,9 @@ ul {
 img {
   max-width: 100%;
   width: 100%;
+
+  /* width/height-Attribute dienen nur dem Platzhalter (kein Layout-Shift);
+     die Hoehe folgt dem Seitenverhaeltnis bzw. aspect-ratio aus dem CSS */
+  height: auto;
   transform-style: preserve-3d;
 }
