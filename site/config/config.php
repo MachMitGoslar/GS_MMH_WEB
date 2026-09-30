@@ -36,7 +36,7 @@ return [
 
     // Mapbox Access Token (öffentlicher pk.-Token für mmh.goslar.de und machmit.goslar.de;
     // im Mapbox-Dashboard auf diese URLs beschränken). Pro Host überschreibbar.
-    'mmh.mapbox.token' => 'pk.eyJ1IjoicmFuZ2FyaWFuIiwiYSI6ImNtdW56cGFreTAwOTQyd3IwNnd6YXBocHcifQ.lI4peTIwuo7Fak6Ng8r-Zw',
+    'mmh.mapbox.token' => '',
 
     // Bildoptimierung: Qualität + Srcset-Breiten je Verwendungszweck.
     // Driver/Binary stehen in den host-spezifischen Configs.
@@ -58,6 +58,7 @@ return [
                     $srcsets[$role . '-webp'][$width . 'w'] = ['width' => $width, 'format' => 'webp'];
                 }
             }
+
             return $srcsets;
         })(),
     ],
