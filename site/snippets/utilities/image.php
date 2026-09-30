@@ -59,6 +59,9 @@ $build = function (?string $format) use ($file, $widths, $height): array {
     $set = [];
     $last = null;
     foreach ($widths as $w) {
+        if(is_object($w) && $w->exists() && $w <= 0) {
+            continue; // ungültige Breite überspringen
+        }
         if ($w > $file->width()) {
             continue; // nicht hochskalieren
         }
