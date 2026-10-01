@@ -231,39 +231,6 @@
   margin-bottom: var(--spacing-4, 1.5rem);
 }
 
-.breadcrumb-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-1, 0.25rem);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.breadcrumb-list li {
-  display: flex;
-  align-items: center;
-  color: var(--color-fg-muted, #666);
-}
-
-.breadcrumb-list li::after {
-  content: '›';
-  margin-left: var(--spacing-1, 0.25rem);
-}
-
-.breadcrumb-list li:last-child::after {
-  display: none;
-}
-
-.breadcrumb-list a {
-  color: var(--color-fg-muted, #666);
-  text-decoration: none;
-}
-
-.breadcrumb-list a:hover {
-  color: var(--color-primary, #000);
-}
-
 /* Room Header */
 .room-header {
   margin-bottom: var(--spacing-5, 2rem);
