@@ -119,6 +119,7 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
 ?>
 
 <?php snippet('layout/head', slots: true); ?>
+<?php $eventBack = ['url' => url('events'), 'label' => 'Alle Veranstaltungen']; ?>
 <?php if ($hasMap) : ?>
 <?php slot('head') ?>
 <?php snippet('layout/mapbox') ?>
@@ -130,10 +131,7 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
 <main class="main main--event">
   <article class="c-event content" data-cancelled="<?= $detail['is_cancelled'] ? 'true' : 'false' ?>">
 
-    <a class="c-event__back" href="<?= url('events') ?>">
-      <?php snippet('content-types/events/eventIcon', ['icon' => 'arrow-left', 'size' => 18]) ?>
-      <span>Alle Veranstaltungen</span>
-    </a>
+    <?php snippet('utilities/back-link', ['back' => $eventBack, 'class' => 'c-event__back']) ?>
 
     <div class="c-event__header">
       <div class="c-event__media">

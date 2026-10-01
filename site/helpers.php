@@ -339,6 +339,34 @@ function mmhRebaseStylesheetUrls(string $css, string $dir): string
     );
 }
 
+if (!function_exists('mmhBackLink')) {
+    /**
+     * Ziel und Label der einheitlichen Zurück-Navigation (Header-Button + Inline-Link).
+     *
+     * Standard: Elternseite der aktuellen Seite. Templates können über $override
+     * `url` und/or `label` setzen oder mit `false` die Navigation abschalten.
+     *
+     * @param array{url?: string, label?: string}|false|null $override
+     * @return array{url: string, label: string}|null
+     */
+    function mmhBackLink(?\Kirby\Cms\Page $page, array|false|null $override = null): ?array
+    {
+        if ($override === false || $page === null || $page->isHomePage()) {
+            return null;
+        }
+
+        $parent = $page->parent();
+        $override = $override ?? [];
+
+        if (empty($override['url']) && ($parent === null || $parent->isDraft())) {
+            return null;
+        }
+
+        return [
+            'url' => $override['url'] ?? $parent->url(),
+            'label' => $override['label'] ?? 'Zurück zur Übersicht',
+        ];
+    }
 if (!function_exists('mmhMapboxToken')) {
     /**
      * Mapbox access token (public "pk." token, URL-restricted in the Mapbox dashboard).

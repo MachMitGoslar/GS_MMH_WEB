@@ -11,17 +11,8 @@
 }
 
 .c-event__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  align-self: flex-start;
   font-size: var(--typo-size-80);
   padding-top: 3%;
-  color: var(--color-dead-pixel-1200);
-
-  &:hover {
-    color: var(--color-fg-brand-primary);
-  }
 }
 
 /* Header -- a div on purpose: the global `header` rule in layout/header.css
