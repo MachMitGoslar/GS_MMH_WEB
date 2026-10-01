@@ -364,7 +364,7 @@ if (!function_exists('mmhBackLink')) {
 
         return [
             'url' => $override['url'] ?? $parent->url(),
-            'label' => $override['label'] ?? 'Zurück zu ' . ($parent?->title()->value() ?? 'Übersicht'),
+            'label' => $override['label'] ?? 'Zurück zur Übersicht',
         ];
     }
 if (!function_exists('mmhMapboxToken')) {
