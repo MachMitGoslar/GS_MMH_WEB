@@ -64,7 +64,7 @@
 
         foreach ($sortedNewsletters as $index => $newsletter) :
             ?>
-                <?= snippet('content-types/newsletter/newsletterItem', [
+            <?= snippet('content-types/newsletter/newsletterItem', [
             'newsletter' => $newsletter,
             'class' => $index === 0 ? 'newsletter-item--featured' : '',
               ]) ?>

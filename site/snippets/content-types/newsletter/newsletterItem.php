@@ -34,7 +34,7 @@ if ($heroImage && !$heroImage->exists()) {
         <?php $url = $heroImage->crop(800, 400)->url(); ?>
       <img class="hero" src="<?= $url ?>" alt="<?= $newsletter->title()->html() ?>" loading="lazy">
     <?php else : ?>
-      <img class="hero" src="https://picsum.photos/800/400?random=newsletter" alt="<?= $newsletter->title()->html() ?>" loading="lazy">
+        <?php snippet('utilities/imagePlaceholder', ['class' => 'hero']) ?>
     <?php endif ?>
   </div>
   
