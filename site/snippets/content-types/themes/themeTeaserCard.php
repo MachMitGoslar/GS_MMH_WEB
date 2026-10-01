@@ -12,7 +12,12 @@ $countAll = $theme->projects()->count();
 <li class="c-projectTeaserCard">
   <div class="hero-wrapper">
     <?php if ($themeCover) : ?>
-      <img class="hero" src="<?= $themeCover->url() ?>"<?= $themeCover->focus()->isNotEmpty() ? ' style="object-position: ' . $themeCover->focus() . '"' : '' ?> alt="<?= $themeCover->alt() ?>" />
+      <?php snippet('utilities/image', [
+          'file' => $themeCover,
+          'role' => 'card',
+          'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+          'class' => 'hero',
+      ]) ?>
     <?php else : ?>
         <?php snippet('utilities/imagePlaceholder') ?>
     <?php endif; ?>

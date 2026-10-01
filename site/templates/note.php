@@ -19,9 +19,13 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
         <div class="note-hero-image">
           <?php if ($cover = $page->cover()) : ?>
 
-          <img src="<?= $cover->crop(1920, 800)->url() ?>"
-            alt="<?= $page->title()->html() ?>"
-            loading="eager">
+          <?php snippet('utilities/image', [
+              'file' => $cover,
+              'role' => 'hero',
+              'ratio' => '12:5',
+              'lazy' => false,
+              'alt' => $page->title()->value(),
+          ]) ?>
           <?php else : ?>
           <?php snippet('utilities/imagePlaceholder', ['class' => 'note-hero-default']) ?>
           <?php endif ?>

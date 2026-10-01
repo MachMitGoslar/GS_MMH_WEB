@@ -315,7 +315,7 @@ if ($date) {
                 $key = $sign['sign'] ?? '';
                 $glyph = $glyphs[$key] ?? '✶';
                 $imageFile = $images[$key] ?? null;
-                $imageUrl = $imageFile ? url('assets/pngs/' . $imageFile) : null;
+                $imageUrl = $imageFile ? url('assets/pngs/' . preg_replace('/\.png$/', '.webp', $imageFile)) : null;
                 $goslar = $sign['goslar'] ?? '';
                 $german = $sign['german'] ?? '';
                 $span = $sign['span'] ?? '';

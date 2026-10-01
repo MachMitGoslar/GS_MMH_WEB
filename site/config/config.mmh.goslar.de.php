@@ -33,6 +33,7 @@ return [
     'content' => [
         'salt' => env('CONTENT_SALT'),
     ],
+    'mmh.mapbox.token' => '',
     'tobimori.dreamform' => [
         'storeSubmissions' => true,
         'log' => true,

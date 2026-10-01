@@ -790,7 +790,7 @@ function mmhNewsletterNormalizeAuthorAvatar(string $html): string
 function mmhNewsletterInlineTimelineImageTags(string $html): string
 {
     return preg_replace_callback(
-        '/(<div\b[^>]*\bclass=(["\'])(?=[^"\']*\btimeline-image\b)[^"\']*\2[^>]*>\s*)<img\b([^>]*)>/i',
+        '/(<div\b[^>]*\bclass=(["\'])(?=[^"\']*\btimeline-image\b)[^"\']*\2[^>]*>\s*)<picture\b([^>]*)>/i',
         static function (array $matches): string {
             $style = 'display:block;width:96px;height:96px;max-width:96px;object-fit:cover;border-radius:999px;';
 

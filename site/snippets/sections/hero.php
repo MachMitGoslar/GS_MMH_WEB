@@ -12,9 +12,14 @@ $heroImages = $page->cover(); // check if cover() exists and then run the toFile
 
     <?php // instead of getting pictures from here, use the images of the field "hero" of each page?>
     <?php if ($heroImages && $heroImages->isNotEmpty()) : ?>
-            <img src="<?= $heroImages->thumb(['width' => 1600, 'height' => 800, 'quality' => 80, 'crop' => true])->url() ?>" alt="<?= $heroImages->alt() ?>">
+            <?php snippet('utilities/image', [
+                'file' => $heroImages,
+                'role' => 'hero',
+                'ratio' => '2:1',
+                'lazy' => false,
+            ]) ?>
 
     <?php else : ?>
-        <img src="<?= $url ?? 'https://picsum.photos/1600/800?' ?>" alt="Ein zufällig ausgewähltes Bild">
+        <img src="<?= $url ?? 'https://picsum.photos/1600/800?' ?>" alt="Ein zufällig ausgewähltes Bild" width="1600" height="800">
     <?php endif; ?>
 </div>

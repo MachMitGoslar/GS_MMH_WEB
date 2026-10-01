@@ -16,13 +16,13 @@ $imageAlt = '';
 if (isset($item) && $item->image()->isNotEmpty()) {
     if ($imageFile = $item->image()->toFile()) {
         $hasImage = true;
-        $imageUrl = $imageFile->url();
+        $imageUrl = $imageFile->thumb(['width' => 800, 'format' => 'webp'])->url();
         $imageAlt = $imageFile->alt()->or($item->headline()->value());
     }
 } elseif (isset($item) && method_exists($item, 'cover_image') && $item->cover_image()->isNotEmpty()) {
     if ($imageFile = $item->cover_image()->toFile()) {
         $hasImage = true;
-        $imageUrl = $imageFile->url();
+        $imageUrl = $imageFile->thumb(['width' => 800, 'format' => 'webp'])->url();
         $imageAlt = $imageFile->alt()->or($item->headline()->value());
     }
 }
@@ -37,7 +37,13 @@ if ($hasImage) {
   
   <div class="content-card__content">
     <?php if ($hasImage && $layout === 'imageLeft') : ?>
-      <div class="content-card__image content-card__image--left" style="background-image: url('<?= $imageUrl ?>');">
+      <div class="content-card__image content-card__image--left">
+          <?php snippet('utilities/image', [
+            'file' => $imageFile,
+            'role' => 'card',
+            'sizes' => '(min-width: 768px) 33vw, 100vw',
+            'alt' => (string) $imageAlt,
+        ]) ?>
       </div>
     <?php endif ?>
     
@@ -81,7 +87,12 @@ if ($hasImage) {
     
     <?php if ($hasImage && $layout === 'imageRight') : ?>
       <div class="content-card__image content-card__image--right">
-        <img src="<?= $imageUrl ?>" alt="<?= $imageAlt ?>" loading="lazy">
+        <?php snippet('utilities/image', [
+            'file' => $imageFile,
+            'role' => 'card',
+            'sizes' => '(min-width: 768px) 33vw, 100vw',
+            'alt' => (string) $imageAlt,
+        ]) ?>
       </div>
     <?php endif ?>
   </div>

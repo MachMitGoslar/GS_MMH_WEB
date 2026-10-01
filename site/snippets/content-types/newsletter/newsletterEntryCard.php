@@ -29,7 +29,13 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
 <li class="c-newsletterTeaserCard grid-item" data-span="1/3">
   <?php if ($imageFile) : ?>
     <div>
-      <img class="hero" src="<?= $imageFile->url() ?>" alt="<?= $entry->headline() ?>" style="object-position: <?= $imageFile->focus()->isNotEmpty() ? $imageFile->focus() : '50% 50%' ?>"  >
+      <?php snippet('utilities/image', [
+          'file' => $imageFile,
+          'role' => 'card',
+          'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+          'class' => 'hero',
+          'alt' => $entry->headline()->value(),
+      ]) ?>
     </div>
   <?php endif ?>
   <div class="content">

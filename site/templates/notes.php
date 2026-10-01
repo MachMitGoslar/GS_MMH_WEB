@@ -13,9 +13,13 @@
   <section class="notes-hero">
     <?php if ($cover = $page->cover()) : ?>
       <div class="notes-hero-image">
-        <img src="<?= $cover->crop(1920, 600)->url() ?>"
-             alt="<?= $page->title()->html() ?>"
-             loading="eager">
+        <?php snippet('utilities/image', [
+            'file' => $cover,
+            'role' => 'hero',
+            'ratio' => '16:5',
+            'lazy' => false,
+            'alt' => $page->title()->value(),
+        ]) ?>
         <div class="notes-hero-overlay"></div>
       </div>
     <?php endif ?>
