@@ -129,11 +129,7 @@ can be
       --_border: var(--_border-primary-hover);
     }
 
-    &:focus {
-      --_background: var(--_background-primary-pressed);
-      --_foreground: var(--_foreground-primary-pressed);
-      --_border: var(--_border-primary-pressed);
-    }
+    /* Focus state is intentionally omitted for secondary buttons - Visual to close to disabled state */
 
     &.disabled,
     &[disabled] {
