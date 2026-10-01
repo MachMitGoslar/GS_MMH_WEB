@@ -70,4 +70,10 @@ Header set X-Content-Type-Options "nosniff"
   ExpiresActive on
   ExpiresByType text/css                  "access plus 1 year"
   ExpiresByType application/javascript    "access plus 1 year"
+  # Bilder: /media-URLs sind versioniert, statische Assets werden selten ersetzt
+  ExpiresByType image/webp                "access plus 1 month"
+  ExpiresByType image/jpeg                "access plus 1 month"
+  ExpiresByType image/png                 "access plus 1 month"
+  ExpiresByType image/gif                 "access plus 1 month"
+  ExpiresByType image/svg+xml             "access plus 1 month"
 </IfModule>

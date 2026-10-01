@@ -15,7 +15,7 @@ $place = $detail['place'];
 $organizer = $detail['organizer'];
 $organization = $detail['organization'];
 
-$mapboxToken = trim((string) $site->find('contact')?->mapbox_token()->value());
+$mapboxToken = mmhMapboxToken();
 $hasMap = $mapboxToken !== ''
     && $place['latitude'] !== null
     && $place['longitude'] !== null;
@@ -118,7 +118,13 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
 }
 ?>
 
-<?php snippet('layout/head'); ?>
+<?php snippet('layout/head', slots: true); ?>
+<?php if ($hasMap) : ?>
+<?php slot('head') ?>
+<?php snippet('layout/mapbox') ?>
+<?php endslot() ?>
+<?php endif ?>
+<?php endsnippet() ?>
 <?php snippet('layout/header'); ?>
 
 <main class="main main--event">
