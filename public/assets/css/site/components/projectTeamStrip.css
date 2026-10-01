@@ -425,3 +425,14 @@ html.js
     translate: 0 0;
   }
 }
+
+/* Project color accents: the strip is re-parented to <body> on scroll, so the
+   class sits on the strip itself instead of relying on an ancestor. */
+.project-team-strip.has-project-accent {
+  --color-fg-brand-primary: var(--color-project-ink);
+}
+
+.project-team-strip.has-project-accent .project-team-placeholder {
+  background: var(--color-project);
+  color: var(--color-project-on);
+}

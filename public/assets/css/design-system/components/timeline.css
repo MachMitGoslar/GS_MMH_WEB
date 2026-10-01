@@ -1030,3 +1030,23 @@
     top: 4px;
   }
 }
+
+/* Project color accents (project pages with a project color, see
+   templates/project.php). Without it the mango defaults above stay in place. */
+.has-project-accent .timeline-block--standard.c-project-timeline,
+.has-project-accent .timeline-block--compact.c-project-timeline {
+  --timeline-accent: var(--color-project-ink);
+}
+
+.has-project-accent .project-step-timeline-container::before {
+  background: linear-gradient(
+    180deg,
+    var(--color-project) 0%,
+    color-mix(in srgb, var(--color-project) 55%, white) 100%
+  );
+}
+
+.has-project-accent .project-step-timeline-card::before,
+.has-project-accent .project-step-timeline-connector {
+  background: var(--color-project);
+}

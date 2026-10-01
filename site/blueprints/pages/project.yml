@@ -76,6 +76,33 @@ tabs:
             options:
               type: query
               query: kirby.collection("project-tags")
+          project_color:
+            type: color
+            label: Projektfarbe
+            mode: picker
+            alpha: false
+            format: hex
+            width: 1/2
+            help: >-
+              Optional. Leer = Primary-Farbe. Kann in Hervorhebungen und
+              Trennern als „Projektfarbe“ gewählt werden.
+            options:
+              "#866811": Primary
+              "#425aa7": Cornflower
+              "#b72217": Ferocious
+              "#3d683d": Pastel Green
+              "#973399": Violaceous Greti
+              "#64610a": Lager
+              "#5e5e5d": Grau
+          project_color_accents:
+            type: toggle
+            label: Projektfarbe für Hero & Team-Leiste
+            help: Wirkt nur, wenn eine Projektfarbe gesetzt ist.
+            default: true
+            width: 1/2
+            text:
+              - "Nein"
+              - "Ja"
           text:
             type: layout
             size: huge
@@ -110,6 +137,7 @@ tabs:
                     none: Normal
                     dark: Dark (wie Newsletter-Teaser)
                     primary: Primary
+                    project: Projektfarbe (Fallback Primary)
                     light: Hellgrau
 
           team:
