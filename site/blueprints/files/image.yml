@@ -7,8 +7,14 @@ title: Image
 # when this blueprint is used, which allows you to control what users can upload.
 # More about file blueprints: https://getkirby.com/docs/reference/panel/blueprints/file
 
-accept: 
+accept:
   type: image
+  maxsize: 15000000
+
+# Große Originale werden beim Upload auf max. 2560px verkleinert
+create:
+  width: 2560
+  height: 2560
 
 columns:
   - width: 1/2
@@ -28,6 +34,7 @@ columns:
           alt:
             label: Alternative Text
             type: text
+            help: Ein Satz, der das Bild beschreibt (Barrierefreiheit und SEO).
           photographer:
             label: Fotograf/in
             type: text

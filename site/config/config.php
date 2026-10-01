@@ -34,6 +34,35 @@ return [
 
     'cache.oveda' => true,
 
+    // Mapbox Access Token (öffentlicher pk.-Token für mmh.goslar.de und machmit.goslar.de;
+    // im Mapbox-Dashboard auf diese URLs beschränken). Pro Host überschreibbar.
+    'mmh.mapbox.token' => '',
+
+    // Bildoptimierung: Qualität + Srcset-Breiten je Verwendungszweck.
+    // Driver/Binary stehen in den host-spezifischen Configs.
+    // Jede Rolle gibt es als Original-Format und als WebP-Variante ("<rolle>-webp").
+    'thumbs' => [
+        'quality' => 78,
+        'interlace' => true,
+        'srcsets' => (function () {
+            $roles = [
+                'hero' => [640, 1024, 1600, 1920],
+                'content' => [400, 800, 1200],
+                'card' => [320, 480, 640],
+                'thumb' => [200, 400],
+            ];
+            $srcsets = [];
+            foreach ($roles as $role => $widths) {
+                foreach ($widths as $width) {
+                    $srcsets[$role][$width . 'w'] = ['width' => $width];
+                    $srcsets[$role . '-webp'][$width . 'w'] = ['width' => $width, 'format' => 'webp'];
+                }
+            }
+
+            return $srcsets;
+        })(),
+    ],
+
     // Load custom API routes (higher priority)
     'api' => require __DIR__ . '/api.php',
 

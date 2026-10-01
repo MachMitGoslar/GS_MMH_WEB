@@ -18,7 +18,7 @@
 $email = $email?->value();
 $website = $website?->value();
 $phone = $phone?->value();
-$mapboxToken = $mapboxToken?->value();
+$mapboxToken = (string) ($mapboxToken ?? '');
 
 ?>
 

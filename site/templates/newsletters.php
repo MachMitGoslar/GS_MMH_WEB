@@ -38,7 +38,7 @@
       <div class="grid-item" data-span="1/1">
         <h2 class="font-title mb-6">Alle Newsletter-Ausgaben</h2>
         
-        <ul class="grid content">
+        <ul class="grid">
           <?php
             $newsletters = $page->children()->listed();
         // Sort by publish_date, then fallback to published date, modified date, or folder number
@@ -64,7 +64,7 @@
 
         foreach ($sortedNewsletters as $index => $newsletter) :
             ?>
-                <?= snippet('content-types/newsletter/newsletterItem', [
+            <?= snippet('content-types/newsletter/newsletterItem', [
             'newsletter' => $newsletter,
             'class' => $index === 0 ? 'newsletter-item--featured' : '',
               ]) ?>

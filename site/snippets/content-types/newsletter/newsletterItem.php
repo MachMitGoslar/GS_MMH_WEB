@@ -31,10 +31,16 @@ if ($heroImage && !$heroImage->exists()) {
 <li class="c-newsletterTeaserCard grid-item <?= $class ?>" data-span="1/4">
   <div class="newsletter-card-image-link">
     <?php if ($heroImage && $heroImage->isNotEmpty()) : ?>
-        <?php $url = $heroImage->crop(800, 400)->url(); ?>
-      <img class="hero" src="<?= $url ?>" alt="<?= $newsletter->title()->html() ?>" loading="lazy">
+      <?php snippet('utilities/image', [
+          'file' => $heroImage,
+          'role' => 'card',
+          'ratio' => '2:1',
+          'sizes' => '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw',
+          'class' => 'hero',
+          'alt' => $newsletter->title()->value(),
+      ]) ?>
     <?php else : ?>
-      <img class="hero" src="https://picsum.photos/800/400?random=newsletter" alt="<?= $newsletter->title()->html() ?>" loading="lazy">
+        <?php snippet('utilities/imagePlaceholder', ['class' => 'hero']) ?>
     <?php endif ?>
   </div>
   
