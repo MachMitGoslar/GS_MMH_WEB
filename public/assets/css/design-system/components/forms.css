@@ -60,6 +60,7 @@
   line-height: var(--typo-line-height-narrow);
   font-weight: var(--font-weight-bold);
   color: var(--color-dead-pixel-1400);
+  padding: var(--size-4);
 }
 
 .dreamform {
@@ -469,7 +470,7 @@
 
 @media (width < 768px) {
   .dreamform {
-    padding: var(--size-6);
+    padding: var(--size-2);
     margin: var(--size-4) 0;
   }
 

@@ -40,7 +40,7 @@ if ($heroImage && !$heroImage->exists()) {
           'alt' => $newsletter->title()->value(),
       ]) ?>
     <?php else : ?>
-      <?php snippet('utilities/imagePlaceholder') ?>
+        <?php snippet('utilities/imagePlaceholder', ['class' => 'hero']) ?>
     <?php endif ?>
   </div>
   

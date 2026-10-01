@@ -546,6 +546,7 @@
 
   margin: 20px auto;
   padding: 20px;
+  max-width: 340px;
 }
 
 .timeline-container--constrained .timeline-item__container {
@@ -815,7 +816,6 @@
   position: relative;
   margin: 20px auto;
   padding: 20px 0;
-  max-width: 340px;
 }
 
 .project-step-timeline-container::before {
@@ -849,8 +849,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: var(--project-step-card-width);
-  max-width: var(--project-step-card-width);
   background: #f2f2f2;
   border-radius: 1rem;
   padding: 1rem 1rem 1.1rem;
@@ -1019,8 +1017,7 @@
 
   .project-step-timeline-card {
     padding: 0.9rem 0.9rem 1rem;
-    width: calc(100% - 40px);
-    max-width: calc(100% - 40px);
+    width: 100%;
     margin-left: 0;
   }
 
