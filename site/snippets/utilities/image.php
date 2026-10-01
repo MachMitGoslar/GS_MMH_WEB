@@ -47,6 +47,7 @@ if (in_array($file->extension(), ['svg', 'gif'], true)) {
         'loading' => $lazy ? 'lazy' : null,
         'decoding' => 'async',
     ]);
+
     return;
 }
 
@@ -58,9 +59,13 @@ if ($ratio && preg_match('/^(\d+):(\d+)$/', $ratio, $m)) {
 $build = function (?string $format) use ($file, $widths, $height): array {
     $set = [];
     $last = null;
+    $widths[] = min((int) $file->width(), max($widths));
+    $widths = array_values(array_unique($widths));
+    sort($widths);
+
     foreach ($widths as $w) {
-        if(is_object($w) && $w->exists() && $w <= 0) {
-            continue; // ungültige Breite überspringen
+        if ($w <= 0) {
+            continue;
         }
         if ($w > $file->width()) {
             continue; // nicht hochskalieren
@@ -78,6 +83,7 @@ $build = function (?string $format) use ($file, $widths, $height): array {
         $last = $file;
         $set[] = $file->url() . ' ' . $file->width() . 'w';
     }
+
     return [implode(', ', $set), $last];
 };
 

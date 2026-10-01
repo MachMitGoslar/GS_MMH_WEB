@@ -37,7 +37,13 @@ if ($hasImage) {
   
   <div class="content-card__content">
     <?php if ($hasImage && $layout === 'imageLeft') : ?>
-      <div class="content-card__image content-card__image--left" style="background-image: url('<?= $imageUrl ?>');">
+      <div class="content-card__image content-card__image--left">
+          <?php snippet('utilities/image', [
+            'file' => $imageFile,
+            'role' => 'card',
+            'sizes' => '(min-width: 768px) 33vw, 100vw',
+            'alt' => (string) $imageAlt,
+        ]) ?>
       </div>
     <?php endif ?>
     
