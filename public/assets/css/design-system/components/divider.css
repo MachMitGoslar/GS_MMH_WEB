@@ -43,6 +43,10 @@
   --_color: var(--color-fg-brand-primary);
 }
 
+.c-divider[data-color='project'] {
+  --_color: var(--color-project-ink, var(--color-fg-brand-primary));
+}
+
 /* Spacing */
 
 .c-divider[data-spacing='small'] {

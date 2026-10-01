@@ -25,6 +25,16 @@
 @import url('./components/pageCtaModal.css');
 @import url('./components/rooms.css');
 
+/* Project color: falls back to the primary brand color unless a project
+   sets its own (see templates/project.php). */
+:root {
+  --color-project: var(--color-bg-brand-primary); /* surfaces */
+  --color-project-on: var(--color-dead-pixel-10); /* text on surfaces */
+  --color-project-ink: var(
+    --color-fg-brand-primary
+  ); /* text/borders on white */
+}
+
 /* Default (non-highlighted) rows sit flush with the parent column */
 #project-description .project-layout-grid[data-highlight='none'] {
   margin-left: 0;
@@ -54,6 +64,11 @@
   color: var(--color-dead-pixel-10);
 }
 
+.project-layout-grid[data-highlight='project'] {
+  background: var(--color-project);
+  color: var(--color-project-on);
+}
+
 .project-layout-grid[data-highlight='light'] {
   background: var(--color-dead-pixel-100);
 }
@@ -63,7 +78,8 @@
    card's white fill and become unreadable, so the card resets back to
    the default (dark) text color for its own content. */
 .project-layout-grid[data-highlight='dark'] .c-blog-card,
-.project-layout-grid[data-highlight='primary'] .c-blog-card {
+.project-layout-grid[data-highlight='primary'] .c-blog-card,
+.project-layout-grid[data-highlight='project'] .c-blog-card {
   color: var(--color-fg-default);
 }
 
@@ -73,6 +89,8 @@
   + .project-layout-grid[data-highlight='dark'],
 .project-layout-grid[data-highlight='primary']
   + .project-layout-grid[data-highlight='primary'],
+.project-layout-grid[data-highlight='project']
+  + .project-layout-grid[data-highlight='project'],
 .project-layout-grid[data-highlight='light']
   + .project-layout-grid[data-highlight='light'] {
   margin-top: 0;
@@ -83,6 +101,9 @@
 .project-layout-grid[data-highlight='dark']:has(+ [data-highlight='dark']),
 .project-layout-grid[data-highlight='primary']:has(
     + [data-highlight='primary']
+  ),
+.project-layout-grid[data-highlight='project']:has(
+    + [data-highlight='project']
   ),
 .project-layout-grid[data-highlight='light']:has(+ [data-highlight='light']) {
   border-bottom-left-radius: 0;

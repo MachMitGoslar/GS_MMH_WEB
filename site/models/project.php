@@ -27,6 +27,23 @@ class ProjectPage extends Page
         return $this->content()->get('cover')->toFile() ?? $this->image();
     }
 
+    /**
+     * Optional project color with derived text/ink colors, or null when unset/invalid.
+     */
+    public function projectColor(): ?array
+    {
+        return mmhColorContrast($this->project_color()->value());
+    }
+
+    /**
+     * Whether hero and team strip should use the project color.
+     */
+    public function useProjectAccents(): bool
+    {
+        return $this->projectColor() !== null
+            && ($this->project_color_accents()->isEmpty() || $this->project_color_accents()->toBool());
+    }
+
     public function project_steps(): Kirby\Cms\Pages
     {
         return $this->children()->sortBy(
