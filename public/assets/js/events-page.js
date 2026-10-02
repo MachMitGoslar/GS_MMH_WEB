@@ -31,7 +31,7 @@
   const filtersRow = eventsPage.querySelector('.events-filter-row');
   let paginationState = {
     hasPrev: currentPage > 1,
-    hasNext: Boolean(paginationNext && !paginationNext.hidden),
+    hasNext: Boolean(paginationNext && !paginationNext.hasAttribute('disabled')),
     total: null,
   };
   const modal = eventsPage.querySelector('.events-calendar-modal');
@@ -282,12 +282,13 @@
 
       if (paginationPrev) {
         const hasPrev = shouldShowPagination && paginationState.hasPrev;
-        paginationPrev.disabled = !hasPrev;
-        if (hasPrev) {
+        if (!hasPrev) {
+          paginationPrev.setAttribute('disabled', 'true');
+          paginationPrev.setAttribute('aria-disabled', 'true');
+        } else {
           paginationPrev.href = buildPageHref(currentPage - 1);
           paginationPrev.removeAttribute('disabled');
-        } else {
-          paginationPrev.setAttribute('disabled', 'true');
+          paginationPrev.removeAttribute('aria-disabled');
         }
       }
 
@@ -295,9 +296,11 @@
         const hasNext = shouldShowPagination && paginationState.hasNext;
         if (!hasNext) {
           paginationNext.setAttribute('disabled', 'true');
+          paginationNext.setAttribute('aria-disabled', 'true');
         } else {
           paginationNext.href = buildPageHref(currentPage + 1);
           paginationNext.removeAttribute('disabled');
+          paginationNext.removeAttribute('aria-disabled');
         }
       }
     }
@@ -478,13 +481,13 @@
   });
 
   paginationPrev?.addEventListener('click', event => {
-    if (paginationPrev.disabled || currentPage <= 1) return;
+    if (paginationPrev.hasAttribute('disabled') || currentPage <= 1) return;
     event.preventDefault();
     loadResults(currentPage - 1);
   });
 
   paginationNext?.addEventListener('click', event => {
-    if (paginationNext.disabled) return;
+    if (paginationNext.hasAttribute('disabled')) return;
     event.preventDefault();
     loadResults(currentPage + 1);
   });
