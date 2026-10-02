@@ -13,7 +13,13 @@
         <!-- Image Left Layout -->
         <div class="entry-media">
             <?php if ($image = $entry->image()->toFile()) : ?>
-            <img src="<?= $image->url() ?>" alt="<?= $entry->headline()->or($image->alt()) ?>" class="entry-image">
+            <?php snippet('utilities/image', [
+                'file' => $image,
+                'role' => 'content',
+                'sizes' => '(min-width: 768px) 50vw, 100vw',
+                'class' => 'entry-image',
+                'alt' => $entry->headline()->or($image->alt())->value(),
+            ]) ?>
             <?php endif ?>
         </div>
         <div class="entry-text">
@@ -41,7 +47,7 @@
           </footer>
             <?php endif ?>
         </div>
-      
+
         <?php else : ?>
         <!-- Image Right Layout -->
         <div class="entry-text">
@@ -71,7 +77,13 @@
         </div>
         <div class="entry-media">
             <?php if ($image = $entry->image()->toFile()) : ?>
-            <img src="<?= $image->url() ?>" alt="<?= $entry->headline()->or($image->alt()) ?>" class="entry-image">
+            <?php snippet('utilities/image', [
+                'file' => $image,
+                'role' => 'content',
+                'sizes' => '(min-width: 768px) 50vw, 100vw',
+                'class' => 'entry-image',
+                'alt' => $entry->headline()->or($image->alt())->value(),
+            ]) ?>
             <?php endif ?>
         </div>
         <?php endif ?>

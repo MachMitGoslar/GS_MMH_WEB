@@ -1,0 +1,27 @@
+/* Inline-Zurück-Link: nur ab Desktop, mobil ersetzt ihn der Header-Button */
+.c-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  color: var(--color-dead-pixel-1200);
+
+  &:hover {
+    color: var(--color-fg-brand-primary);
+  }
+
+  @media (width < 960px) {
+    & {
+      display: none;
+    }
+  }
+}
+
+/* Container, der nur den Zurück-Link enthält, mobil ebenfalls ausblenden */
+.c-back-link-wrapper {
+  @media (width < 960px) {
+    & {
+      display: none;
+    }
+  }
+}

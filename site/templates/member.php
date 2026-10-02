@@ -8,8 +8,7 @@
 <?php snippet('layout/head', slots: true); ?>
 
 <?php slot('head') ?>
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
+<?php snippet('layout/mapbox') ?>
 <?php endslot() ?>
 
 <?php endsnippet() ?>
@@ -236,7 +235,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     // Only initialize if map container exists
     if (document.getElementById('member-map')) {
-      mapboxgl.accessToken = 'pk.eyJ1IjoicmFuZ2FyaWFuIiwiYSI6ImNrZGVxNzNhODI5MTcyenM4dGR5bnZhb3UifQ.7WvcNEBQJn9iV42IiyG8rQ';
+      mapboxgl.accessToken = '<?= esc(mmhMapboxToken(), 'js') ?>';
       <?php $coords = $page->geo()->toObject(); ?>
       <?php if ($coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty()) : ?>
       let coordinates = [<?= $coords->longitude()->value() ?>, <?= $coords->latitude()->value() ?>];

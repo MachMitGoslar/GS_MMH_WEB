@@ -78,7 +78,6 @@
 .c-newsletterTeaserCard .hero {
   --aspected-ratio: 24/9;
 
-  display: block;
   width: 100%;
   aspect-ratio: var(--aspected-ratio);
   object-fit: cover;

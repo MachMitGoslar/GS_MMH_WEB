@@ -114,6 +114,33 @@ header,
     }
   }
 
+  & .mobileMenuWrapper__start {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Einheitliche Zurück-Navigation, nur in der mobilen Ansicht */
+  & .header-back {
+    display: none;
+    color: var(--color-dead-pixel-1200);
+
+    @media (width < 960px) {
+      & {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem; /* Touch-Ziel; Höhe begrenzt durch die 3rem hohe Headerbar */
+        margin-left: -0.75rem;
+      }
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-fg-brand-primary);
+    }
+  }
+
   & .mobileMenuWrapper {
     display: flex;
     align-items: center;
@@ -130,6 +157,10 @@ header,
 .mainNav.is-active {
   display: block;
   width: 100%;
+}
+
+.header.is-active .header-back {
+  display: none;
 }
 
 .header.is-active {

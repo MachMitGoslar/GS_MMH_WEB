@@ -662,6 +662,7 @@ function mmhNewsletterInlineCriticalEmailStyles(string $html): string
         'eventsListItem' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-left:4px solid #d69a00;border-radius:12px;padding:18px;margin:0 0 16px;box-sizing:border-box;box-shadow:0 2px 8px rgba(0,0,0,.06);',
         'newsletter-grid' => 'display:block;width:100%;list-style:none;margin:0;padding:0;',
         'c-newsletterTeaserCard' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-radius:12px;overflow:hidden;margin:0 0 28px;padding:0 0 24px;box-sizing:border-box;',
+        'c-newsletterEntryCard' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-radius:12px;overflow:hidden;margin:0 0 28px;padding:0 0 24px;box-sizing:border-box;',
         'c-projectUpdateTeaser-card' => 'display:block;width:100%;background:#ffffff;border:1px solid #dddddd;border-radius:12px;overflow:hidden;margin:0 0 20px;box-sizing:border-box;box-shadow:0 2px 8px rgba(0,0,0,.08);',
         'hero' => 'display:block;width:100%;height:auto;max-width:100%;',
         'statusheader' => 'display:block;margin:0 0 10px;',
@@ -683,6 +684,7 @@ function mmhNewsletterInlineCriticalEmailStyles(string $html): string
     }
 
     $tagStyles = [
+        'figure' => 'display:block;margin:0;',
         'h1' => 'font-family:Arial,Helvetica,sans-serif;',
         'h2' => 'display:block;font-family:Arial,Helvetica,sans-serif;font-size:28px;line-height:1.2;font-weight:700;color:#1f1f1f;margin:0 0 20px;',
         'h3' => 'font-family:Arial,Helvetica,sans-serif;',
@@ -790,7 +792,7 @@ function mmhNewsletterNormalizeAuthorAvatar(string $html): string
 function mmhNewsletterInlineTimelineImageTags(string $html): string
 {
     return preg_replace_callback(
-        '/(<div\b[^>]*\bclass=(["\'])(?=[^"\']*\btimeline-image\b)[^"\']*\2[^>]*>\s*)<img\b([^>]*)>/i',
+        '/(<div\b[^>]*\bclass=(["\'])(?=[^"\']*\btimeline-image\b)[^"\']*\2[^>]*>\s*)<picture\b([^>]*)>/i',
         static function (array $matches): string {
             $style = 'display:block;width:96px;height:96px;max-width:96px;object-fit:cover;border-radius:999px;';
 

@@ -19,10 +19,14 @@ $cover = $note->cover();
       <div class="note-card-image-wrapper">
         <div class="note-card-image-link">
           <?php if ($cover) : ?>
-            <img src="<?= $cover->crop(1200, 500)->url() ?>"
-                 alt="<?= $note->title()->html() ?>"
-                 class="note-card-image"
-                 loading="lazy">
+            <?php snippet('utilities/image', [
+                'file' => $cover,
+                'role' => 'content',
+                'ratio' => '12:5',
+                'sizes' => '(min-width: 1200px) 1200px, 100vw',
+                'class' => 'note-card-image',
+                'alt' => $note->title()->value(),
+            ]) ?>
             <div class="note-card-overlay"></div>
           <?php else : ?>
               <?php snippet('utilities/imagePlaceholder', ['class' => 'note-card-image']) ?>
@@ -80,10 +84,14 @@ $cover = $note->cover();
     <div class="note-card-image-wrapper note-card-image-wrapper--has-image">
       <div class="note-card-image-link">
         <?php if ($cover) : ?>
-          <img src="<?= $cover->crop(600, 400)->url() ?>"
-               alt="<?= $note->title()->html() ?>"
-               class="note-card-image"
-               loading="lazy">
+          <?php snippet('utilities/image', [
+              'file' => $cover,
+              'role' => 'card',
+              'ratio' => '3:2',
+              'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+              'class' => 'note-card-image',
+              'alt' => $note->title()->value(),
+          ]) ?>
         <?php else : ?>
             <?php snippet('utilities/imagePlaceholder', ['class' => 'note-card-image']) ?>
         <?php endif ?>

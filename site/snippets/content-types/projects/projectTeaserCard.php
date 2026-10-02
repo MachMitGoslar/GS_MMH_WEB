@@ -10,7 +10,12 @@ $projectCover = $project->cover();
 <li class="c-projectTeaserCard">
   <div class="hero-wrapper">
     <?php if ($projectCover) : ?>
-      <img class="hero" src="<?= $projectCover->url() ?>"<?= $projectCover->focus()->isNotEmpty() ? ' style="object-position: ' . $projectCover->focus() . '"' : '' ?> alt="<?= $projectCover->alt() ?>" />
+      <?php snippet('utilities/image', [
+          'file' => $projectCover,
+          'role' => 'card',
+          'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+          'class' => 'hero',
+      ]) ?>
     <?php else : ?>
         <?php snippet('utilities/imagePlaceholder') ?>
     <?php endif; ?>

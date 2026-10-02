@@ -11,11 +11,14 @@ $ratio = $block->ratio()->or('auto');
   <ul class="grid">
     <?php foreach ($block->images()->toFiles() as $image) : ?>
     <li class="grid-item grid-item-span4">
-    <a href="<?= $image->url() ?>" data-fslightbox="gallery">
-      <img src="<?= $image->url() ?>" alt="<?= $image->alt()->esc() ?>" class="c-gallery-image" />
-
-      <!-- <?= $image?> -->
-      </a>
+    <a href="<?= $image->width() > 1920 ? $image->resize(1920)->url() : $image->url() ?>" data-fslightbox="gallery">
+      <?php snippet('utilities/image', [
+          'file' => $image,
+          'role' => 'card',
+          'sizes' => '(min-width: 1024px) 33vw, 100vw',
+          'class' => 'c-gallery-image',
+      ]) ?>
+    </a>
     </li>
     <?php endforeach ?>
   </ul>

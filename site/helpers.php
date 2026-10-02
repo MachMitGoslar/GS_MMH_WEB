@@ -338,3 +338,105 @@ function mmhRebaseStylesheetUrls(string $css, string $dir): string
         $css,
     );
 }
+
+if (!function_exists('mmhBackLink')) {
+    /**
+     * Ziel und Label der einheitlichen Zurück-Navigation (Header-Button + Inline-Link).
+     *
+     * Standard: Elternseite der aktuellen Seite. Templates können über $override
+     * `url` und/or `label` setzen oder mit `false` die Navigation abschalten.
+     *
+     * @param array{url?: string, label?: string}|false|null $override
+     * @return array{url: string, label: string}|null
+     */
+    function mmhBackLink(?\Kirby\Cms\Page $page, array|false|null $override = null): ?array
+    {
+        if ($override === false || $page === null || $page->isHomePage()) {
+            return null;
+        }
+
+        $parent = $page->parent();
+        $override = $override ?? [];
+
+        if (empty($override['url']) && ($parent === null || $parent->isDraft())) {
+            return null;
+        }
+
+        return [
+            'url' => $override['url'] ?? $parent->url(),
+            'label' => $override['label'] ?? 'Zurück zur Übersicht',
+        ];
+    }
+}
+if (!function_exists('mmhMapboxToken')) {
+    /**
+     * Mapbox access token (public "pk." token, URL-restricted in the Mapbox dashboard).
+     *
+     * Source of truth is the `mmh.mapbox.token` config option; the Panel field
+     * `mapbox_token` on the contact page is only used as fallback.
+     */
+    function mmhMapboxToken(): string
+    {
+        $token = trim((string) option('mmh.mapbox.token', ''));
+
+        if ($token === '') {
+            $token = trim((string) site()->find('contact')?->mapbox_token()->value());
+        }
+
+        return $token;
+    }
+}
+
+if (!function_exists('mmhColorContrast')) {
+    /**
+     * Derives readable colors from a free-form hex color (WCAG 2.x contrast).
+     *
+     * Returns null for anything that is not a #rrggbb value, so the result is
+     * always safe to print into CSS.
+     *
+     * - bg:  the color itself (surfaces)
+     * - on:  text color on top of `bg` (white or dark, whichever contrasts more)
+     * - ink: `bg` darkened until it reaches 3:1 against white (text/borders on white)
+     */
+    function mmhColorContrast(?string $hex): ?array
+    {
+        $hex = strtolower(trim((string) $hex));
+        if (!preg_match('/^#[0-9a-f]{6}$/', $hex)) {
+            return null;
+        }
+
+        $toRgb = fn (string $h): array => [
+            hexdec(substr($h, 1, 2)),
+            hexdec(substr($h, 3, 2)),
+            hexdec(substr($h, 5, 2)),
+        ];
+        $toHex = fn (array $c): string => sprintf('#%02x%02x%02x', ...array_map(fn ($v) => (int) round($v), $c));
+        $luminance = function (array $c): float {
+            [$r, $g, $b] = array_map(function ($v) {
+                $v /= 255;
+
+                return $v <= 0.03928 ? $v / 12.92 : (($v + 0.055) / 1.055) ** 2.4;
+            }, $c);
+
+            return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
+        };
+        $contrast = function (float $a, float $b): float {
+            [$hi, $lo] = $a >= $b ? [$a, $b] : [$b, $a];
+
+            return ($hi + 0.05) / ($lo + 0.05);
+        };
+
+        $rgb = $toRgb($hex);
+        $lum = $luminance($rgb);
+        $dark = '#6e6e6e'; // --color-dead-pixel-1300
+
+        $on = $contrast($lum, 1.0) >= $contrast($lum, $luminance($toRgb($dark))) ? '#ffffff' : $dark;
+
+        $ink = $rgb;
+        for ($i = 0; $i < 20 && $contrast($luminance($ink), 1.0) < 3.0; $i++) {
+            $ink = array_map(fn ($v) => $v * 0.9, $ink);
+        }
+
+        return ['bg' => $hex, 'on' => $on, 'ink' => $toHex($ink)];
+    }
+}

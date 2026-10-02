@@ -546,6 +546,7 @@
 
   margin: 20px auto;
   padding: 20px;
+  max-width: 340px;
 }
 
 .timeline-container--constrained .timeline-item__container {
@@ -815,7 +816,6 @@
   position: relative;
   margin: 20px auto;
   padding: 20px 0;
-  max-width: 340px;
 }
 
 .project-step-timeline-container::before {
@@ -849,8 +849,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: var(--project-step-card-width);
-  max-width: var(--project-step-card-width);
   background: #f2f2f2;
   border-radius: 1rem;
   padding: 1rem 1rem 1.1rem;
@@ -1019,8 +1017,7 @@
 
   .project-step-timeline-card {
     padding: 0.9rem 0.9rem 1rem;
-    width: calc(100% - 40px);
-    max-width: calc(100% - 40px);
+    width: 100%;
     margin-left: 0;
   }
 
@@ -1032,4 +1029,24 @@
     left: 50%;
     top: 4px;
   }
+}
+
+/* Project color accents (project pages with a project color, see
+   templates/project.php). Without it the mango defaults above stay in place. */
+.has-project-accent .timeline-block--standard.c-project-timeline,
+.has-project-accent .timeline-block--compact.c-project-timeline {
+  --timeline-accent: var(--color-project-ink);
+}
+
+.has-project-accent .project-step-timeline-container::before {
+  background: linear-gradient(
+    180deg,
+    var(--color-project) 0%,
+    color-mix(in srgb, var(--color-project) 55%, white) 100%
+  );
+}
+
+.has-project-accent .project-step-timeline-card::before,
+.has-project-accent .project-step-timeline-connector {
+  background: var(--color-project);
 }

@@ -11,15 +11,13 @@ $roomsPage = $page->parent();
 $allRooms = $roomsPage->children()->listed();
 ?>
 <?php snippet('layout/head'); ?>
-<?php snippet('layout/header'); ?>
+<?php snippet('layout/header', ['back' => ['label' => 'Zurück zur Übersicht']]); ?>
 
 <main class="main">
   <!-- Breadcrumb -->
-  <nav class="grid content room-breadcrumb">
+  <nav class="grid content room-breadcrumb c-back-link-wrapper">
     <div class="grid-item" data-span="1/1">
-      <a href="<?= $roomsPage->url() ?>" class="breadcrumb-link font-footnote gs-c-icon-text">
-        <?php snippet('utilities/icon', ['name' => 'arrow-left']) ?> Zurück zur Übersicht
-      </a>
+      <?php snippet('utilities/back-link', ['back' => ['label' => 'Zurück zur Übersicht']]) ?>
     </div>
   </nav>
 
@@ -57,9 +55,14 @@ $allRooms = $roomsPage->children()->listed();
     <div class="grid-item" data-span="1/1">
       <?php if ($cover = $page->cover()->toFile()) : ?>
         <div class="room-main-image">
-          <img src="<?= $cover->crop(1200, 600)->url() ?>"
-               alt="<?= $page->title()->html() ?>"
-               loading="eager">
+          <?php snippet('utilities/image', [
+              'file' => $cover,
+              'role' => 'content',
+              'ratio' => '2:1',
+              'sizes' => '(min-width: 1200px) 1200px, 100vw',
+              'lazy' => false,
+              'alt' => $page->title()->value(),
+          ]) ?>
         </div>
       <?php endif ?>
 
@@ -68,9 +71,13 @@ $allRooms = $roomsPage->children()->listed();
         <div class="room-gallery">
             <?php foreach ($gallery as $image) : ?>
             <a href="<?= $image->url() ?>" class="room-gallery-item" data-lightbox="room-gallery">
-              <img src="<?= $image->crop(300, 200)->url() ?>"
-                   alt="<?= $image->alt()->or($page->title()) ?>"
-                   loading="lazy">
+              <?php snippet('utilities/image', [
+                  'file' => $image,
+                  'role' => 'thumb',
+                  'ratio' => '3:2',
+                  'sizes' => '300px',
+                  'alt' => $image->alt()->or($page->title())->value(),
+              ]) ?>
             </a>
             <?php endforeach ?>
         </div>

@@ -9,6 +9,10 @@
 <?php snippet('layout/head', slots: true); ?>
 <?php $blockIsVisible = require kirby()->root('controllers') . '/blocks.php'; ?>
 
+<?php slot('head') ?>
+<?php snippet('layout/mapbox') ?>
+<?php endslot() ?>
+
 <?php endsnippet() ?>
 <?php snippet('layout/header'); ?>
 
@@ -40,7 +44,7 @@
             'addressLabel' => $page->address()->kt(),
             'lat' => $page->lat()->value(),
             'lng' => $page->lng()->value(),
-            'mapboxToken' => $page->mapbox_token(),
+            'mapboxToken' => mmhMapboxToken(),
     ]) ?>
 
 
@@ -61,7 +65,7 @@
 </main>
 
 <!-- <script>
-    mapboxgl.accessToken = '<?= esc($page->mapbox_token()) ?>';
+    mapboxgl.accessToken = '<?= esc(mmhMapboxToken()) ?>';
 
     const map = new mapboxgl.Map({
         container: 'map',

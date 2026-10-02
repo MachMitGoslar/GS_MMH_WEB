@@ -11,10 +11,14 @@
     <!-- Image -->
     <div class="room-card-image-wrapper">
       <?php if ($cover = $room->cover()) : ?>
-        <img src="<?= $cover->crop(600, 400)->url() ?>"
-             alt="<?= $room->title()->html() ?>"
-             class="room-card-image"
-             loading="lazy">
+        <?php snippet('utilities/image', [
+            'file' => $cover,
+            'role' => 'card',
+            'ratio' => '3:2',
+            'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+            'class' => 'room-card-image',
+            'alt' => $room->title()->value(),
+        ]) ?>
       <?php else : ?>
         <div class="room-card-placeholder">
           <?php snippet('utilities/icon', ['name' => 'home']) ?>

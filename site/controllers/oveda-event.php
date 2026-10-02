@@ -7,7 +7,7 @@ require_once __DIR__ . '/events-api.php';
 
 const MMH_OVEDA_API = 'https://oveda.de/api/v1';
 const MMH_OVEDA_BASE = 'https://oveda.de';
-
+const MMH_OVEDA_TIMEZONE = new DateTimeZone('Europe/Berlin');
 /**
  * Cached GET against the Oveda API. Returns null on any transport or
  * decoding problem, so callers only have to check for null.
@@ -133,15 +133,14 @@ function mmhOvedaEventDetail(int $eventDateId): array|null
      * should be:
      * $timezone = new DateTimeZone(date_default_timezone_get());
      */
-    $timezone = new DateTimeZone('Europe/Berlin');
 
     $start = new DateTimeImmutable((string) ($eventDate['start'] ?? 'now'));
-    $start = $start->setTimezone($timezone);
+    $start = $start->setTimezone(MMH_OVEDA_TIMEZONE);
     $end = empty($eventDate['end'])
         ? null
-        : (new DateTimeImmutable((string) $eventDate['end']))->setTimezone($timezone);
+        : (new DateTimeImmutable((string) $eventDate['end']))->setTimezone(MMH_OVEDA_TIMEZONE);
     $allday = (bool) ($eventDate['allday'] ?? false);
-    $now = new DateTimeImmutable('now', $timezone);
+    $now = new DateTimeImmutable('now', MMH_OVEDA_TIMEZONE);
     $today = $now->format('Y-m-d');
 
     $place = mmhOvedaResolvePlace($event['place'] ?? []);
@@ -496,7 +495,6 @@ function mmhOvedaEventOtherDates(array $detail, int $limit = 8): array
         return [];
     }
 
-    $timezone = new DateTimeZone(date_default_timezone_get());
     $dates = [];
 
     foreach ($page['items'] as $item) {
@@ -510,10 +508,10 @@ function mmhOvedaEventOtherDates(array $detail, int $limit = 8): array
             continue;
         }
 
-        $start = (new DateTimeImmutable((string) ($item['start'] ?? 'now')))->setTimezone($timezone);
+        $start = (new DateTimeImmutable((string) ($item['start'] ?? 'now')))->setTimezone(MMH_OVEDA_TIMEZONE);
         $end = empty($item['end'])
             ? null
-            : (new DateTimeImmutable((string) $item['end']))->setTimezone($timezone);
+            : (new DateTimeImmutable((string) $item['end']))->setTimezone(MMH_OVEDA_TIMEZONE);
 
         $dates[] = [
             'id' => $itemId,

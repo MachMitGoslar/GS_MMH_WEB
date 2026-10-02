@@ -31,7 +31,9 @@
   const filtersRow = eventsPage.querySelector('.events-filter-row');
   let paginationState = {
     hasPrev: currentPage > 1,
-    hasNext: Boolean(paginationNext && !paginationNext.hidden),
+    hasNext: Boolean(
+      paginationNext && !paginationNext.hasAttribute('disabled')
+    ),
     total: null,
   };
   const modal = eventsPage.querySelector('.events-calendar-modal');
@@ -279,18 +281,29 @@
         selectedDay === '' &&
         (paginationState.hasPrev || paginationState.hasNext);
       pagination.hidden = !shouldShowPagination;
-      pagination.style.display = shouldShowPagination ? '' : 'none';
 
       if (paginationPrev) {
         const hasPrev = shouldShowPagination && paginationState.hasPrev;
-        paginationPrev.hidden = !hasPrev;
-        if (hasPrev) paginationPrev.href = buildPageHref(currentPage - 1);
+        if (!hasPrev) {
+          paginationPrev.setAttribute('disabled', 'true');
+          paginationPrev.setAttribute('aria-disabled', 'true');
+        } else {
+          paginationPrev.href = buildPageHref(currentPage - 1);
+          paginationPrev.removeAttribute('disabled');
+          paginationPrev.removeAttribute('aria-disabled');
+        }
       }
 
       if (paginationNext) {
         const hasNext = shouldShowPagination && paginationState.hasNext;
-        paginationNext.hidden = !hasNext;
-        if (hasNext) paginationNext.href = buildPageHref(currentPage + 1);
+        if (!hasNext) {
+          paginationNext.setAttribute('disabled', 'true');
+          paginationNext.setAttribute('aria-disabled', 'true');
+        } else {
+          paginationNext.href = buildPageHref(currentPage + 1);
+          paginationNext.removeAttribute('disabled');
+          paginationNext.removeAttribute('aria-disabled');
+        }
       }
     }
 
@@ -470,13 +483,13 @@
   });
 
   paginationPrev?.addEventListener('click', event => {
-    if (paginationPrev.hidden || currentPage <= 1) return;
+    if (paginationPrev.hasAttribute('disabled') || currentPage <= 1) return;
     event.preventDefault();
     loadResults(currentPage - 1);
   });
 
   paginationNext?.addEventListener('click', event => {
-    if (paginationNext.hidden) return;
+    if (paginationNext.hasAttribute('disabled')) return;
     event.preventDefault();
     loadResults(currentPage + 1);
   });

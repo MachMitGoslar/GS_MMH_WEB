@@ -7,9 +7,18 @@
 ?>
 <?php $contentIsVisible = require kirby()->root('controllers') . '/blocks.php'; ?>
 <?php $teamMembers = $page->team()->toPages(); ?>
+<?php $projectColor = $page->projectColor(); ?>
+<?php $projectAccents = $page->useProjectAccents(); ?>
 <?php snippet('layout/head'); ?>
 <?php snippet('layout/header'); ?>
 <style>
+<?php if ($projectColor) : ?>
+  :root {
+    --color-project: <?= $projectColor['bg'] ?>;
+    --color-project-on: <?= $projectColor['on'] ?>;
+    --color-project-ink: <?= $projectColor['ink'] ?>;
+  }
+<?php endif ?>
   @media (min-width: 768px) {
     .project-team-strip.is-floating.is-expanded,
     .project-team-strip.is-floating:focus-within {
@@ -65,7 +74,7 @@
     }
   }
 </style>
-  <main>
+  <main<?= $projectAccents ? ' class="has-project-accent"' : '' ?>>
   <div class="mb-4">
     <?=snippet('sections/hero')?>
   </div>
@@ -106,7 +115,7 @@
         <?php endif ?>
 
         <?php if ($teamMembers->isNotEmpty()) : ?>
-          <div class="project-team-strip avatar-stack<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?>" aria-label="Projektteam" data-reveal<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
+          <div class="project-team-strip avatar-stack<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?><?= $projectAccents ? ' has-project-accent' : '' ?>" aria-label="Projektteam" data-reveal<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
             <?php $i = 0; ?>
             <?php foreach ($teamMembers as $member) : ?>
               <a href="<?= $member->url() ?>" class="project-team-member" style="--stack-index: <?= $i++ ?>" title="<?= $member->title()->html() ?>">

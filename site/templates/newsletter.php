@@ -9,8 +9,7 @@
 <?php snippet('layout/head', slots: true); ?>
 
 <?php slot('head') ?>
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
+<?php snippet('layout/mapbox') ?>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -37,7 +36,14 @@
         <div class="newsletter-author-content">
           <div class="newsletter-author-profile">
             <?php if ($authorImage = $author->cover()) : ?>
-              <img src="<?= $authorImage->url() ?>" alt="<?= $author->title() ?>" class="author-avatar"<?= $authorImage->focus()->isNotEmpty() ? ' style="object-position: ' . $authorImage->focus() . '"' : '' ?>>
+              <?php snippet('utilities/image', [
+                  'file' => $authorImage,
+                  'role' => 'thumb',
+                  'sizes' => '120px',
+                  'class' => 'author-avatar',
+                  'lazy' => false,
+                  'alt' => $author->title()->value(),
+              ]) ?>
             <?php endif ?>
             <div class="author-info">
               <h3 class="font-headline author-name"><?= $author->title() ?></h3>
@@ -200,7 +206,12 @@
                     </div>
                     <div class="timeline-image">
                       <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()) : ?>
-                        <img src="<?= $imageFile->url() ?>" alt="<?= $entry->year() ?>" loading="lazy">
+                        <?php snippet('utilities/image', [
+                            'file' => $imageFile,
+                            'role' => 'card',
+                            'sizes' => '(min-width: 768px) 320px, 100vw',
+                            'alt' => $entry->year()->value(),
+                        ]) ?>
                       <?php endif ?>
                     </div>
                     <div class="timeline-connector"></div>
@@ -211,7 +222,12 @@
                     <div class="timeline-connector"></div>
                     <div class="timeline-image">
                       <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()) : ?>
-                        <img src="<?= $imageFile->url() ?>" alt="<?= $entry->year() ?>" loading="lazy">
+                        <?php snippet('utilities/image', [
+                            'file' => $imageFile,
+                            'role' => 'card',
+                            'sizes' => '(min-width: 768px) 320px, 100vw',
+                            'alt' => $entry->year()->value(),
+                        ]) ?>
                       <?php endif ?>
                     </div>
                     <div class="timeline-content">
@@ -274,17 +290,16 @@
 
 
     <!-- Previews Section -->
-    <?php if ($page->upcomming_entries() && $page->upcomming_entries()->isNotEmpty()) : ?>
+    <?php if ($page->upcoming_entries() && $page->upcoming_entries()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Vorschau</h2>
           <ul class="grid newsletter-grid mb-4">
-            <?php foreach ($page->upcomming_entries()->toStructure() as $entry) : ?>
+            <?php foreach ($page->upcoming_entries()->toStructure() as $entry) : ?>
               <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
                   'badge' => 'Vorschau',
                   'badgeIcon' => 'eye',
-                  'badgeColor' => 'planning',
                   'footerText' => $entry->date()->isNotEmpty() ? $entry->date()->toDate('d.m.Y') : null,
                   'footerIcon' => 'calendar',
               ]) ?>
@@ -319,7 +334,13 @@
         <div class="c-newsletter-teaser grid-item" data-span="1/1">
           <div class="flex items-center mb-5">
             <?php if (isset($authorImage) && $authorImage) : ?>
-              <img src="<?= $authorImage->url() ?>" alt="Kontakt" class="author-avatar">
+              <?php snippet('utilities/image', [
+                  'file' => $authorImage,
+                  'role' => 'thumb',
+                  'sizes' => '120px',
+                  'class' => 'author-avatar',
+                  'alt' => 'Kontakt',
+              ]) ?>
             <?php endif ?>
             <div>
               <h3 class="font-headline color-fg-light mb-1">Mehr Informationen?</h3>
@@ -357,7 +378,7 @@
       </div>
     </section>
         <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoicmFuZ2FyaWFuIiwiYSI6ImNrZGVxNzNhODI5MTcyenM4dGR5bnZhb3UifQ.7WvcNEBQJn9iV42IiyG8rQ';
+            mapboxgl.accessToken = '<?= esc(mmhMapboxToken(), 'js') ?>';
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/standard', // Use the standard style for the map

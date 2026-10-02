@@ -172,24 +172,24 @@
                 <a class="gs-c-btn" data-type="secondary" data-size="small" href="<?= $buildUrl(['keyword' => null, 'category' => null, 'day' => null, 'page' => null]) ?>">Filter zurücksetzen</a>
             </div>
 
-            <div class="pagination events-pagination" data-events-pagination<?= (!$pagination['has_prev'] && !$pagination['has_next']) ? ' hidden' : '' ?>>
+            <div class="pagination events-pagination" data-events-pagination<?= (!$pagination['has_prev'] && !$pagination['has_next']) ? ' disabled' : '' ?>>
                 <a
                     href="<?= $pagination['prev_url'] ?? $buildUrl(['page' => 1]) ?>"
                     class="gs-c-btn"
                     data-type="secondary"
-                    data-size="regualr"
+                    data-size="regular"
                     data-style="pill"
                     data-pagination-prev
-                    <?= empty($pagination['prev_url']) ? 'hidden' : '' ?>
+                    <?= empty($pagination['prev_url']) ? 'disabled' : '' ?>
                 >Vorherige Seite</a>
                 <a
                     href="<?= $pagination['next_url'] ?? $buildUrl(['page' => 2]) ?>"
                     class="gs-c-btn"
                     data-type="secondary"
-                    data-size="regualr"
+                    data-size="regular"
                     data-style="pill"
                     data-pagination-next
-                    <?= empty($pagination['next_url']) ? 'hidden' : '' ?>
+                    <?= empty($pagination['next_url']) ? 'disabled' : '' ?>
                 >Nächste Seite</a>
             </div>
         </section>
