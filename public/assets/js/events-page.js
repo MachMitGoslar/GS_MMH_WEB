@@ -31,7 +31,7 @@
   const filtersRow = eventsPage.querySelector('.events-filter-row');
   let paginationState = {
     hasPrev: currentPage > 1,
-    hasNext: Boolean(paginationNext && !paginationNext.hidden),
+    hasNext: Boolean(paginationNext && !paginationNext.hasAttribute('disabled')),
     total: null,
   };
   const modal = eventsPage.querySelector('.events-calendar-modal');
@@ -478,13 +478,13 @@
   });
 
   paginationPrev?.addEventListener('click', event => {
-    if (paginationPrev.disabled || currentPage <= 1) return;
+    if (paginationPrev.hasAttribute('disabled') || currentPage <= 1) return;
     event.preventDefault();
     loadResults(currentPage - 1);
   });
 
   paginationNext?.addEventListener('click', event => {
-    if (paginationNext.disabled) return;
+    if (paginationNext.hasAttribute('disabled')) return;
     event.preventDefault();
     loadResults(currentPage + 1);
   });
