@@ -292,9 +292,7 @@
       }
 
       if (paginationNext) {
-        console.log('Current page:', currentPage);
         const hasNext = shouldShowPagination && paginationState.hasNext;
-        console.log('Setting paginationNext.disabled to', !hasNext);
         if (!hasNext) {
           paginationNext.setAttribute('disabled', 'true');
         } else {
