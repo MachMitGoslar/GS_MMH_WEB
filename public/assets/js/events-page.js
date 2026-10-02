@@ -279,18 +279,28 @@
         selectedDay === '' &&
         (paginationState.hasPrev || paginationState.hasNext);
       pagination.hidden = !shouldShowPagination;
-      pagination.style.display = shouldShowPagination ? '' : 'none';
 
       if (paginationPrev) {
         const hasPrev = shouldShowPagination && paginationState.hasPrev;
-        paginationPrev.hidden = !hasPrev;
-        if (hasPrev) paginationPrev.href = buildPageHref(currentPage - 1);
+        paginationPrev.disabled = !hasPrev;
+        if (hasPrev) {
+          paginationPrev.href = buildPageHref(currentPage - 1);
+          paginationPrev.removeAttribute('disabled');
+        } else {
+          paginationPrev.setAttribute('disabled', 'true');
+        }
       }
 
       if (paginationNext) {
+        console.log('Current page:', currentPage);
         const hasNext = shouldShowPagination && paginationState.hasNext;
-        paginationNext.hidden = !hasNext;
-        if (hasNext) paginationNext.href = buildPageHref(currentPage + 1);
+        console.log('Setting paginationNext.disabled to', !hasNext);
+        if (!hasNext) {
+          paginationNext.setAttribute('disabled', 'true');
+        } else {
+          paginationNext.href = buildPageHref(currentPage + 1);
+          paginationNext.removeAttribute('disabled');
+        }
       }
     }
 
