@@ -21,13 +21,11 @@ $slotContent = $slotContent ?? null;
 $slotFooter = $slotFooter ?? null;
 
 $heroUrl = null;
-$heroFocus = null;
 if (!empty($hero)) {
     if (is_string($hero)) {
         $heroUrl = $hero;
     } else {
         $heroUrl = $hero->url();
-        $heroFocus = $hero->focus()->isNotEmpty() ? (string) $hero->focus() : null;
     }
 }
 
@@ -45,7 +43,14 @@ $classes = trim('gs-c-modal ' . $modifier . ($heroUrl ? ' gs-c-modal--has-hero' 
   </div>
 
   <?php if ($heroUrl): ?>
-    <img class="gs-c-modal__hero" src="<?= esc($heroUrl, 'attr') ?>" alt="<?= esc($heroAlt, 'attr') ?>"<?= $heroFocus ? ' style="object-position: ' . esc($heroFocus, 'attr') . '"' : '' ?>>
+    <?php snippet('utilities/image', [
+       'class' => 'gs-c-modal__hero',
+       'file' => $hero,
+       'role' => 'hero',
+       'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+       'alt' => $heroAlt,
+
+    ]) ?>
   <?php endif ?>
 
   <div class="gs-c-modal__body" onclick="event.stopPropagation()">

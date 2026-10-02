@@ -49,7 +49,7 @@ if ($hasImage) {
     
     <div class="content-card__text">
       <div class="content-card__title"><?= $item->headline() ?></div>
-      
+
       <?php if ($item->subheadline()->isNotEmpty()) : ?>
         <div class="content-card__subtitle">
             <?= $item->subheadline() ?>

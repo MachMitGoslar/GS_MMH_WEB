@@ -31,7 +31,9 @@
   const filtersRow = eventsPage.querySelector('.events-filter-row');
   let paginationState = {
     hasPrev: currentPage > 1,
-    hasNext: Boolean(paginationNext && !paginationNext.hasAttribute('disabled')),
+    hasNext: Boolean(
+      paginationNext && !paginationNext.hasAttribute('disabled')
+    ),
     total: null,
   };
   const modal = eventsPage.querySelector('.events-calendar-modal');
