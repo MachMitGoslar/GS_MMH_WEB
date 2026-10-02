@@ -290,17 +290,16 @@
 
 
     <!-- Previews Section -->
-    <?php if ($page->upcomming_entries() && $page->upcomming_entries()->isNotEmpty()) : ?>
+    <?php if ($page->upcoming_entries() && $page->upcoming_entries()->isNotEmpty()) : ?>
       <section class="grid content mb-7">
         <div class="grid-item" data-span="1/1">
           <h2 class="font-title mb-4">Vorschau</h2>
           <ul class="grid newsletter-grid mb-4">
-            <?php foreach ($page->upcomming_entries()->toStructure() as $entry) : ?>
+            <?php foreach ($page->upcoming_entries()->toStructure() as $entry) : ?>
               <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
                   'badge' => 'Vorschau',
                   'badgeIcon' => 'eye',
-                  'badgeColor' => 'planning',
                   'footerText' => $entry->date()->isNotEmpty() ? $entry->date()->toDate('d.m.Y') : null,
                   'footerIcon' => 'calendar',
               ]) ?>
