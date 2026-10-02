@@ -478,13 +478,13 @@
   });
 
   paginationPrev?.addEventListener('click', event => {
-    if (paginationPrev.hidden || currentPage <= 1) return;
+    if (paginationPrev.disabled || currentPage <= 1) return;
     event.preventDefault();
     loadResults(currentPage - 1);
   });
 
   paginationNext?.addEventListener('click', event => {
-    if (paginationNext.hidden) return;
+    if (paginationNext.disabled) return;
     event.preventDefault();
     loadResults(currentPage + 1);
   });
