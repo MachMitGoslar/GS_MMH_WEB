@@ -121,8 +121,17 @@
   overflow: hidden;
   height: 100%;
 
+  /* Responsive layout for blog card */
+  @container blog-card (width < 642px) {
+    & figure img {
+      aspect-ratio: 24/9;
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+
   /* Image left, 1/4 width, once the card has enough effective room */
-  @container blog-card (width > 700px) {
+  @container blog-card (width >= 642px) {
     & {
       flex-direction: row;
     }
@@ -136,6 +145,11 @@
     & figure > .card-image-link > .hero {
       height: 100%;
       aspect-ratio: auto;
+    }
+
+    & figure img {
+      object-fit: cover;
+      height: 100%;
     }
 
     & .content {

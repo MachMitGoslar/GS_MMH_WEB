@@ -31,3 +31,23 @@
   background-color: #ef4444;
   color: white;
 }
+
+.badge[data-variant='review'] {
+  background-color: var(--color-ripe-mango-700);
+  color: var(--color-ripe-mango-1400);
+}
+
+.badge[data-variant='actual'] {
+  background-color: var(--color-violaceous-greti-1300);
+  color: var(--color-dead-pixel-100);
+}
+
+.badge[data-variant='upcoming'] {
+  background-color: var(--color-pastel-green-900);
+  color: var(--color-pastel-green-100);
+}
+
+.badge[data-variant='news'] {
+  background-color: var(--color-cornflower-1000);
+  color: var(--color-cornflower-100);
+}
