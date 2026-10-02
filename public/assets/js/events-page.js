@@ -282,12 +282,13 @@
 
       if (paginationPrev) {
         const hasPrev = shouldShowPagination && paginationState.hasPrev;
-        paginationPrev.disabled = !hasPrev;
-        if (hasPrev) {
+        if (!hasPrev) {
+          paginationPrev.setAttribute('disabled', 'true');
+          paginationPrev.setAttribute('aria-disabled', 'true');
+        } else {
           paginationPrev.href = buildPageHref(currentPage - 1);
           paginationPrev.removeAttribute('disabled');
-        } else {
-          paginationPrev.setAttribute('disabled', 'true');
+          paginationPrev.removeAttribute('aria-disabled');
         }
       }
 
@@ -295,9 +296,11 @@
         const hasNext = shouldShowPagination && paginationState.hasNext;
         if (!hasNext) {
           paginationNext.setAttribute('disabled', 'true');
+          paginationNext.setAttribute('aria-disabled', 'true');
         } else {
           paginationNext.href = buildPageHref(currentPage + 1);
           paginationNext.removeAttribute('disabled');
+          paginationNext.removeAttribute('aria-disabled');
         }
       }
     }
