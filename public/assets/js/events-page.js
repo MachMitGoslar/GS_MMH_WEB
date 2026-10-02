@@ -279,18 +279,26 @@
         selectedDay === '' &&
         (paginationState.hasPrev || paginationState.hasNext);
       pagination.hidden = !shouldShowPagination;
-      pagination.style.display = shouldShowPagination ? '' : 'none';
 
       if (paginationPrev) {
         const hasPrev = shouldShowPagination && paginationState.hasPrev;
-        paginationPrev.hidden = !hasPrev;
-        if (hasPrev) paginationPrev.href = buildPageHref(currentPage - 1);
+        paginationPrev.disabled = !hasPrev;
+        if (hasPrev) {
+          paginationPrev.href = buildPageHref(currentPage - 1);
+          paginationPrev.removeAttribute('disabled');
+        } else {
+          paginationPrev.setAttribute('disabled', 'true');
+        }
       }
 
       if (paginationNext) {
         const hasNext = shouldShowPagination && paginationState.hasNext;
-        paginationNext.hidden = !hasNext;
-        if (hasNext) paginationNext.href = buildPageHref(currentPage + 1);
+        if (!hasNext) {
+          paginationNext.setAttribute('disabled', 'true');
+        } else {
+          paginationNext.href = buildPageHref(currentPage + 1);
+          paginationNext.removeAttribute('disabled');
+        }
       }
     }
 
@@ -470,13 +478,13 @@
   });
 
   paginationPrev?.addEventListener('click', event => {
-    if (paginationPrev.hidden || currentPage <= 1) return;
+    if (paginationPrev.disabled || currentPage <= 1) return;
     event.preventDefault();
     loadResults(currentPage - 1);
   });
 
   paginationNext?.addEventListener('click', event => {
-    if (paginationNext.hidden) return;
+    if (paginationNext.disabled) return;
     event.preventDefault();
     loadResults(currentPage + 1);
   });
