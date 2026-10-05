@@ -110,3 +110,19 @@ img {
   height: auto;
   transform-style: preserve-3d;
 }
+
+.debug-warning {
+  height: 5vh;
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 -1px 3px #000 inset;
+  justify-content: center;
+  background: var(--_foreground-primary-enabled);
+  color: white;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-sans);
+  font-size: var(--typo-size-200);
+}
