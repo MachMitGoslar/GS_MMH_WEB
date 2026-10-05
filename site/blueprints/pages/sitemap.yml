@@ -1,0 +1,56 @@
+title: Sitemap
+icon: page
+
+options:
+  changeTemplate:
+    - default
+
+tabs:
+  content:
+    label: Inhalt
+    icon: text
+    columns:
+      main:
+        width: 2/3
+        sections:
+          fields:
+            type: fields
+            fields:
+              cover: fields/cover
+              headline:
+                label: Titel
+                type: text
+              subheadline:
+                label: Subtitel
+                type: text
+              intro_text:
+                type: writer
+                label: Text
+                toolbar:
+                  inline: true
+                  marks:
+                    - bold
+                    - button
+              pages:
+                label: Seiten
+                type: pages
+  schedule:
+    label: Veröffentlichung
+    icon: clock
+    columns:
+      main:
+        sections:
+          scheduling:
+            type: fields
+            fields:
+              publish_date:
+                label: Veröffentlichungsdatum
+                type: date
+                time: true
+                default: now
+              end_date:
+                label: Enddatum
+                type: date
+                time: true
+
+  seo: tabs/seo
