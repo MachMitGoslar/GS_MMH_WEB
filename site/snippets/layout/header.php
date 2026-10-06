@@ -11,6 +11,7 @@ $navigation = $site->navigation()?->toPages();
 $backLink = mmhBackLink($page ?? null, $back ?? null);
 ?>
 
+
 <header class="header flex" id="mainNavHeader">
     <div class="mobileMenuWrapper">
         <div class="mobileMenuWrapper__start">
@@ -40,3 +41,8 @@ $backLink = mmhBackLink($page ?? null, $back ?? null);
 
     </div>
 </header>
+<?php if($kirby->option('debug')): ?>
+<div class="debug-warning">
+    Dies ist eine Staging Umgebung. Die angezeigten Inhalte dienen nur zu Testzwecken!
+</div>
+<?php endif ?>
