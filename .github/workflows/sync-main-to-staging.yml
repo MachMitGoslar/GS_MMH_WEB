@@ -41,8 +41,13 @@ jobs:
       - name: Create sync PR
         if: steps.compare.outputs.ahead != '0' && steps.existing.outputs.number == ''
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.SYNC_PR_TOKEN }}
         run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Configure the SYNC_PR_TOKEN repository secret with a token allowed to create pull requests."
+            exit 1
+          fi
+
           cat > /tmp/sync-pr-body.md <<'EOF'
           Automatisch erstellt nach einem Push auf `main` (z. B. ein Hotfix), damit `staging` wieder auf demselben Stand ist. Bitte zeitnah mergen -- das gehoert zum Abschluss eines Hotfixes dazu, nicht zu optionalem Aufraeumen.
 
