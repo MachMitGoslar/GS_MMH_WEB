@@ -78,22 +78,22 @@ $formAttr = [
 ?>
 <div class="project-form-modals" data-form-modal-root>
   <?php foreach ($forms as $form) :
-      $modalId = 'form-modal-' . preg_replace('/[^a-zA-Z0-9_-]+/', '-', $form->id());
-      $titleId = $modalId . '-title';
-      $mergedAttr = A::merge($formAttr, [
+        $modalId = 'form-modal-' . preg_replace('/[^a-zA-Z0-9_-]+/', '-', $form->id());
+        $titleId = $modalId . '-title';
+        $mergedAttr = A::merge($formAttr, [
           'form' => [
               'class' => 'dreamform project-form-modal__form',
               'data-form-modal-form' => $form->id(),
           ],
-      ]);
+        ]);
 
-      snippet('shared/modal', [
+        snippet('shared/modal', [
           'id' => $modalId,
           'modifier' => 'project-form-modal',
           'ariaLabel' => $titleId,
 
           'slotTitle' => function () use ($form, $titleId) {
-              ?>
+            ?>
               <h2 class="project-form-modal__title" id="<?= esc($titleId, 'attr') ?>"><?= $form->title()->html() ?></h2>
               <?php
           },
@@ -104,6 +104,6 @@ $formAttr = [
                   'attr' => $mergedAttr,
               ]);
           },
-      ]);
+        ]);
   endforeach ?>
 </div>

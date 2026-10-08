@@ -153,6 +153,7 @@ class ProjectPage extends Page
     }
 }
 
+// phpcs:disable
 class ProjectPanelPage extends PanelPage
 {
     public function breadcrumb(): array

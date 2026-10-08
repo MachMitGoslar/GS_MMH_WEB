@@ -24,7 +24,7 @@
           <div class="contact-profile-section">
             <div class="profile-image-large">
               <?php if ($page->cover() && $page->cover()->toFile()) : ?>
-                <?php $avatar = mmhAvatarImage($page->cover(), 300); ?>
+                    <?php $avatar = mmhAvatarImage($page->cover(), 300); ?>
                 <img src="<?= $avatar['url'] ?>"
                      data-fit="<?= $avatar['fit'] ?>"
                      alt="<?= $page->name()->html() ?>"
@@ -239,7 +239,7 @@
       <?php $coords = $page->geo()->toObject(); ?>
       <?php if ($coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty()) : ?>
       let coordinates = [<?= $coords->longitude()->value() ?>, <?= $coords->latitude()->value() ?>];
-      <?php else: ?>
+      <?php else : ?>
       // Geocode the address (simple fallback to MachMit!Haus coordinates)
       let coordinates = [10.429327, 51.906169]; // Default to MachMit!Haus
       <?php endif ?>

@@ -6,14 +6,11 @@ use Kirby\Cms\Pages;
  * @var \Kirby\Cms\Site $site
  * @var \Kirby\Cms\Page $navigationPages
  * returns the navigation pages for the sitemap
- * 
+ *
  */
 
 return function ($site, $page, $kirby) {
-    $navigation = $site->find('sitemap')->pages()->toPages();  
+    $navigation = $site->find('sitemap')->pages()->toPages();
 
     return compact('navigation');
-
 };
-
-?>

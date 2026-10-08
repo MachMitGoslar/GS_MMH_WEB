@@ -31,7 +31,7 @@ if ($heroImage && !$heroImage->exists()) {
 <li class="c-newsletterTeaserCard grid-item <?= $class ?>" data-span="1/4">
   <div class="newsletter-card-image-link">
     <?php if ($heroImage && $heroImage->isNotEmpty()) : ?>
-      <?php snippet('utilities/image', [
+        <?php snippet('utilities/image', [
           'file' => $heroImage,
           'role' => 'card',
           'ratio' => '2:1',

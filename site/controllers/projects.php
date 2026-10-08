@@ -161,5 +161,4 @@ return function ($site, $page, $kirby) {
         'tagFilters' => $tagFilters,
         'topicResetUrl' => $buildFilterUrl(null, $tagQuery),
     ];
-
 };

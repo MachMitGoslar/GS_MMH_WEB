@@ -10,7 +10,7 @@ $projectCover = $project->cover();
 <li class="c-projectTeaserCard">
   <div class="hero-wrapper">
     <?php if ($projectCover) : ?>
-      <?php snippet('utilities/image', [
+        <?php snippet('utilities/image', [
           'file' => $projectCover,
           'role' => 'card',
           'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',

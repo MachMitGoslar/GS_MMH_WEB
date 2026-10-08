@@ -57,4 +57,3 @@ foreach ($events as $event) {
 }
 //var_dump(json_encode($new_events));
 print json_encode($new_events, JSON_UNESCAPED_SLASHES);
-?>

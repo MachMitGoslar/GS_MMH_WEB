@@ -36,7 +36,7 @@
         <div class="newsletter-author-content">
           <div class="newsletter-author-profile">
             <?php if ($authorImage = $author->cover()) : ?>
-              <?php snippet('utilities/image', [
+                <?php snippet('utilities/image', [
                   'file' => $authorImage,
                   'role' => 'thumb',
                   'sizes' => '120px',
@@ -66,38 +66,38 @@
           <div class="calendar-grid">
             <?php
             $weeklyEvents = $page->weekly_dates()->toStructure();
-        $daysOfWeek = [
-        'monday' => 0,
-        'tuesday' => 1,
-        'wednesday' => 2,
-        'thursday' => 3,
-        'friday' => 4,
-        ];
-        $dayNames = [
-        'monday' => 'Mo',
-        'tuesday' => 'Di',
-        'wednesday' => 'Mi',
-        'thursday' => 'Do',
-        'friday' => 'Fr',
-        ];
+            $daysOfWeek = [
+            'monday' => 0,
+            'tuesday' => 1,
+            'wednesday' => 2,
+            'thursday' => 3,
+            'friday' => 4,
+            ];
+            $dayNames = [
+            'monday' => 'Mo',
+            'tuesday' => 'Di',
+            'wednesday' => 'Mi',
+            'thursday' => 'Do',
+            'friday' => 'Fr',
+            ];
 
         // Initialize calendar grid for full week
-        $calendar = array_fill(0, 5, []);
+            $calendar = array_fill(0, 5, []);
 
         // Group events by day
-        foreach ($weeklyEvents as $event) {
-            $dayKey = $event->day()->value();
-            if (isset($daysOfWeek[$dayKey])) {
-                $calendar[$daysOfWeek[$dayKey]][] = $event;
+            foreach ($weeklyEvents as $event) {
+                $dayKey = $event->day()->value();
+                if (isset($daysOfWeek[$dayKey])) {
+                    $calendar[$daysOfWeek[$dayKey]][] = $event;
+                }
             }
-        }
 
         // Display calendar grid for full week
-        for ($day = 0; $day < 5; $day++) :
-            $dayKeys = array_keys($dayNames);
-            $currentDayKey = $dayKeys[$day] ?? '';
-            $currentDayName = $dayNames[$currentDayKey] ?? '';
-            ?>
+            for ($day = 0; $day < 5; $day++) :
+                $dayKeys = array_keys($dayNames);
+                $currentDayKey = $dayKeys[$day] ?? '';
+                $currentDayName = $dayNames[$currentDayKey] ?? '';
+                ?>
               <div class="calendar-day">
                 <div class="font-headline calendar-day-label"><?= $currentDayName ?></div>
                 <div class="calendar-events">
@@ -133,26 +133,26 @@
           <?php
           // Group events by month
             $upcomingEvents = $page->upcomming_dates()->toStructure();
-        $eventsByMonth = [];
+            $eventsByMonth = [];
 
-        foreach ($upcomingEvents as $event) {
-            if ($event->show_event_date()->toBool() && $event->event_date()->isNotEmpty()) {
-                $monthKey = $event->event_date()->toDate('Y-m');
-                $monthName = $event->event_date()->toDate('F Y');
+            foreach ($upcomingEvents as $event) {
+                if ($event->show_event_date()->toBool() && $event->event_date()->isNotEmpty()) {
+                    $monthKey = $event->event_date()->toDate('Y-m');
+                    $monthName = $event->event_date()->toDate('F Y');
 
-                if (!isset($eventsByMonth[$monthKey])) {
-                    $eventsByMonth[$monthKey] = [
-                      'name' => $monthName,
-                      'events' => [],
-                    ];
+                    if (!isset($eventsByMonth[$monthKey])) {
+                        $eventsByMonth[$monthKey] = [
+                          'name' => $monthName,
+                          'events' => [],
+                        ];
+                    }
+                    $eventsByMonth[$monthKey]['events'][] = $event;
                 }
-                $eventsByMonth[$monthKey]['events'][] = $event;
             }
-        }
 
         // Sort months chronologically
-        ksort($eventsByMonth);
-        ?>
+            ksort($eventsByMonth);
+            ?>
           
           <div class="newsletter-months-grid">
           <?php foreach ($eventsByMonth as $monthData) : ?>
@@ -192,10 +192,10 @@
           <h2 class="font-title mb-3">Jahresrückblick</h2>
           <div class="timeline-container">
             <?php
-        $timelineEntries = $page->timeline()->toStructure();
-        $isLeft = true;
-        foreach ($timelineEntries as $entry) :
-            ?>
+            $timelineEntries = $page->timeline()->toStructure();
+            $isLeft = true;
+            foreach ($timelineEntries as $entry) :
+                ?>
               <div class="timeline-item <?= $isLeft ? 'timeline-item--left' : 'timeline-item--right' ?>">
                 <?php if ($isLeft) : ?>
                   <div class="timeline-item__container">
@@ -206,7 +206,7 @@
                     </div>
                     <div class="timeline-image">
                       <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()) : ?>
-                        <?php snippet('utilities/image', [
+                            <?php snippet('utilities/image', [
                             'file' => $imageFile,
                             'role' => 'card',
                             'sizes' => '(min-width: 768px) 320px, 100vw',
@@ -222,7 +222,7 @@
                     <div class="timeline-connector"></div>
                     <div class="timeline-image">
                       <?php if ($entry->image()->isNotEmpty() && $imageFile = $entry->image()->toFile()) : ?>
-                        <?php snippet('utilities/image', [
+                            <?php snippet('utilities/image', [
                             'file' => $imageFile,
                             'role' => 'card',
                             'sizes' => '(min-width: 768px) 320px, 100vw',
@@ -237,10 +237,10 @@
                   </div>
                 <?php endif ?>
               </div>
-                <?php
-            $isLeft = !$isLeft;
-        endforeach;
-?>
+                    <?php
+                    $isLeft = !$isLeft;
+            endforeach;
+            ?>
           </div>
         </div>
       </section>
@@ -255,7 +255,7 @@
           <h2 class="font-title mb-4">Rückblicke</h2>
           <ul class="grid newsletter-grid mb-4">
             <?php foreach ($page->review_entries()->toStructure() as $entry) : ?>
-              <?php snippet('content-types/newsletter/newsletterEntryCard', [
+                <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
                   'badge' => 'Rückblick',
                   'badgeIcon' => 'book-open',
@@ -274,7 +274,7 @@
           <h2 class="font-title mb-4">Aktuelle Projekte</h2>
           <ul class="grid newsletter-grid mb-4">
             <?php foreach ($page->actual_entries()->toStructure() as $entry) : ?>
-              <?php snippet('content-types/newsletter/newsletterEntryCard', [
+                <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
                   'badge' => 'Aktuell',
                   'badgeIcon' => 'zap',
@@ -296,7 +296,7 @@
           <h2 class="font-title mb-4">Vorschau</h2>
           <ul class="grid newsletter-grid mb-4">
             <?php foreach ($page->upcoming_entries()->toStructure() as $entry) : ?>
-              <?php snippet('content-types/newsletter/newsletterEntryCard', [
+                <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
                   'badge' => 'Vorschau',
                   'badgeIcon' => 'eye',
@@ -316,7 +316,7 @@
           <h2 class="font-title mb-4">Nachrichten aus dem MachMit!Haus</h2>
           <ul class="grid newsletter-grid mb-4">
             <?php foreach ($page->news()->toStructure() as $entry) : ?>
-              <?php snippet('content-types/newsletter/newsletterEntryCard', [
+                <?php snippet('content-types/newsletter/newsletterEntryCard', [
                   'entry' => $entry,
                   'badge' => 'Nachrichten',
                   'badgeIcon' => 'newspaper',
@@ -334,7 +334,7 @@
         <div class="c-newsletter-teaser grid-item" data-span="1/1">
           <div class="flex items-center mb-5">
             <?php if (isset($authorImage) && $authorImage) : ?>
-              <?php snippet('utilities/image', [
+                <?php snippet('utilities/image', [
                   'file' => $authorImage,
                   'role' => 'thumb',
                   'sizes' => '120px',

@@ -48,7 +48,9 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
     <div class="content">
       <div class="heading">
       <div class="statusheader mb-2">
-        <div class="badge"<?= ' data-variant="' . $badgeColor . '"' ?>><?php if ($badgeIcon) : ?><?php snippet('utilities/icon', ['name' => $badgeIcon, 'size' => 14]) ?> <?php endif ?><?= $badge ?></div>
+        <div class="badge"<?= ' data-variant="' . $badgeColor . '"' ?>><?php if ($badgeIcon) :
+            ?><?php snippet('utilities/icon', ['name' => $badgeIcon, 'size' => 14]) ?> <?php
+                          endif ?><?= $badge ?></div>
       </div>
       <h3 class="font-headline font-line-height-narrow mb-2"><?= $entry->headline() ?></h3>
       <?php if ($entry->subheadline()->isNotEmpty()) : ?>
@@ -58,19 +60,21 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
       <div class="body">
       <p class="font-footnote"><?= $hasMore ? $entry->content_text()->excerpt($excerptLimit) : $rawText ?></p>
       <?php if ($footerText) : ?>
-        <p class="font-footnote mt-2"><?php if ($footerIcon) : ?><?php snippet('utilities/icon', ['name' => $footerIcon, 'size' => 14]) ?> <?php endif ?><?= $footerText ?></p>
+        <p class="font-footnote mt-2"><?php if ($footerIcon) :
+            ?><?php snippet('utilities/icon', ['name' => $footerIcon, 'size' => 14]) ?> <?php
+                                      endif ?><?= $footerText ?></p>
       <?php endif ?>
       <?php if ($hasActions || $hasMore) : ?>
         <div class="newsletter-entry-card__actions mt-3">
-          <?php if ($entryMailto) : ?>
+            <?php if ($entryMailto) : ?>
             <a href="mailto:<?= $entryMailto ?>" class="gs-c-btn" data-type="secondary" data-size="small"><?php snippet('utilities/icon', ['name' => 'mail', 'size' => 16]) ?> E-Mail</a>
-          <?php endif ?>
-          <?php if ($entryLink) : ?>
+            <?php endif ?>
+            <?php if ($entryLink) : ?>
             <a href="<?= $entryLink ?>" class="gs-c-btn" data-type="secondary" data-size="small" target="_blank" rel="noopener"><?php snippet('utilities/icon', ['name' => 'link', 'size' => 16]) ?> Website</a>
-          <?php endif ?>
-          <?php if ($hasMore) : ?>
+            <?php endif ?>
+            <?php if ($hasMore) : ?>
             <button class="gs-c-btn" data-type="secondary" data-size="small" onclick="document.getElementById('<?= $modalId ?>').showModal()">Mehr lesen</button>
-          <?php endif ?>
+            <?php endif ?>
         </div>
       <?php endif ?>
     </div>
@@ -91,7 +95,9 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
         'slotTitle' => function () use ($entry, $badge, $badgeIcon, $badgeColor, $titleId) {
             ?>
             <div class="statusheader mb-3">
-              <div class="status-badge"<?= $badgeColor ? ' data-color="' . $badgeColor . '"' : '' ?>><?php if ($badgeIcon) : ?><?php snippet('utilities/icon', ['name' => $badgeIcon, 'size' => 14]) ?> <?php endif ?><?= $badge ?></div>
+              <div class="status-badge"<?= $badgeColor ? ' data-color="' . $badgeColor . '"' : '' ?>><?php if ($badgeIcon) :
+                    ?><?php snippet('utilities/icon', ['name' => $badgeIcon, 'size' => 14]) ?> <?php
+                                       endif ?><?= $badge ?></div>
             </div>
             <h3 class="font-headline font-line-height-narrow mb-2" id="<?= $titleId ?>"><?= $entry->headline() ?></h3>
             <?php if ($entry->subheadline()->isNotEmpty()) : ?>
@@ -110,7 +116,9 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
             ?>
             <div class="newsletter-entry-modal__footer-meta">
               <?php if ($footerText) : ?>
-                <p class="font-footnote"><?php if ($footerIcon) : ?><?php snippet('utilities/icon', ['name' => $footerIcon, 'size' => 14]) ?> <?php endif ?><?= $footerText ?></p>
+                <p class="font-footnote"><?php if ($footerIcon) :
+                    ?><?php snippet('utilities/icon', ['name' => $footerIcon, 'size' => 14]) ?> <?php
+                                         endif ?><?= $footerText ?></p>
               <?php endif ?>
               <?php if ($entryMailto) : ?>
                 <a href="mailto:<?= $entryMailto ?>" class="gs-c-btn" data-type="secondary" data-size="small"><?php snippet('utilities/icon', ['name' => 'mail', 'size' => 16]) ?> E-Mail</a>
