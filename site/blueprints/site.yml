@@ -23,6 +23,7 @@ tabs:
           - projects
           - blog
           - team
+          - sitemap
   newsletter:
     label: Newsletter
     icon: email

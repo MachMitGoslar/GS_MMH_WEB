@@ -201,6 +201,18 @@ return [
         },
     ],
 
+    /***** NOT ALLOWED RESPONSE FOR DEBUGGING SITES */
+    [
+        'pattern' => '/not-allowed',
+        'action' => function () {
+            return new Response(
+                '<h1>Not Allowed</h1><p>You are not allowed to access this page on the debug site.</p>',
+                'text/html',
+                404
+            );
+        },
+    ],
+
     /**
      * Ferienpass Events API - Random Event
      * Returns a random ferienpass event in JSON format
