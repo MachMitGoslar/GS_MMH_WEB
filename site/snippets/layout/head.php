@@ -7,7 +7,7 @@
     <?php if (!$kirby->option('debug')) : ?>
         <?php snippet('seo/meta') ?>
     <?php else : ?>
-        <?php if (!$kirby->user() && $kirby->option('mmh.debugLock', true)) {
+        <?php if (!$kirby->user() && $kirby->option('mmh.debugLock', true) && $page->slug() !== "not-allowed") {
             go('/not-allowed', 403);
         } ?>
 
