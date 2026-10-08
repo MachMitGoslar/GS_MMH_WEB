@@ -69,7 +69,7 @@ vendor/
 !/site/plugins/gs-mmh-signage-plugin
 !/site/plugins/gs-mmh-signage-plugin/*
 /kirby/*
-/content/
+/content/*
 
 
 .php-cs-fixer.cache
