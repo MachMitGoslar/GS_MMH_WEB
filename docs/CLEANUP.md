@@ -61,11 +61,14 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [ ] Staging: eigene Config anlegen (siehe Phase 3)
 
 ### Toter Code
-- [ ] Dateien: `debug_test.php`, `data_format.txt`, `DEBUG_SETUP.md` (prüfen)
+- [x] Dateien: `debug_test.php` gelöscht; `data_format.txt` → `docs/app-card-format.txt` (App-Card-Format, ist Doku). `DEBUG_SETUP.md` bleibt (README verlinkt sie)
 - [ ] Templates: `calendar.php`, `machmit.php`, `app_performance.php` (Site und Plugin), Plugin-`templates/` und `controllers/`
-- [ ] Snippets: `layout/mainLayout.php`, `utilities/content-card.php`, `newsletter/blogEntries.php`, `projects/projectTimelineEntry.php`, `integrations/performace*`, `ferienpass/csv_helper.php`, `blocks/line.php` (leer)
-- [ ] Controller: `controllers/site.php` (leer); `about.php` = `team.php` zusammenlegen; `?>` in `error.php`
-- [ ] Funktionen: `getColor`, `getArchivedProjects`, `scheduleLabel`, `mmhApiCoverSvgUrl`, `mmhOvedaEventClientPayload`
+- [x] Snippets gelöscht: `utilities/content-card.php`, `newsletter/blogEntries.php`, `projects/projectTimelineEntry.php`, `integrations/performace*`, `ferienpass/csv_helper.php`
+- [ ] Snippets offen: `layout/mainLayout.php` (hängt an calendar/machmit); `blocks/line.php` ist leer, aber **bewusst nicht löschen**: der leere Override unterdrückt das Kirby-Default-`<hr>`, Löschen würde Trennlinien sichtbar machen. Erst klären, ob das gewollt ist
+- [x] `controllers/site.php` (leer) gelöscht
+- [ ] Controller: `about.php` = `team.php` zusammenlegen; `?>` in `error.php`
+- [x] `getArchivedProjects` gelöscht
+- [ ] Funktionen offen: `getColor` (Plugin, in dessen README dokumentiert), `scheduleLabel` (Plugin-Blockmethode), `mmhApiCoverSvgUrl` (nur Definition). **`mmhOvedaEventClientPayload` ist in Gebrauch** (`events-api.php:453`), nicht löschen
 - [ ] CSS: `.c-card*` in `designer.css`, `cta.css` (leer), `layout/content.css`, `newsletter-unsubscribe.css`, `.project-teaser-tags`, `.content-card--imageRight`
 - [ ] Debug-Reste: `console.log` (bookingForm, newsletterTeaser, contact-map, signage screen), auskommentierte `var_dump`, auskommentiertes Mail-Handling in `hooks.php`
 - [ ] Signage-Plugin: totes `'panel' => ['js','css']`, Route `signage/assets/js/`

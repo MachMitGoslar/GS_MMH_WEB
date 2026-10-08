@@ -38,19 +38,6 @@ function getProjectStatusColor(string $status): string
     }
 }
 
-/**
- * Return all projects with status badge "abgeschlossen".
- *
- * @param Site $site
- * @return Pages
- */
-function getArchivedProjects(Site $site)
-{
-    return $site->page('projects')
-        ?->children()
-        ->filter(fn ($project) => $project->effectiveProjectStatus() === 'abgeschlossen');
-}
-
 if (!function_exists('mmhAvatarImage')) {
     /**
      * Resolve an avatar-style image to a URL and the object-fit mode it
