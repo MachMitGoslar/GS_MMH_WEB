@@ -23,11 +23,34 @@ const visualPages = pages =>
   pages.filter(page => page.visual !== false && !page.known);
 
 function checklist(pages) {
-  const lines = ['- [ ] `all` — jede Seite darf sich ändern'];
+  const compared = visualPages(pages);
+  const single = compared.filter(page => !page.detail);
+  const detail = compared.filter(page => page.detail);
+  const lines = [
+    '- [ ] `all` — jede Seite darf sich ändern',
+    '',
+    '**Seiten**',
+    '',
+  ];
 
-  for (const page of visualPages(pages)) {
+  for (const page of single) {
     const label = page.label ? ` — ${page.label}` : '';
     lines.push(`- [ ] \`${page.name}\`${label} (\`${page.path}\`)`);
+  }
+
+  if (detail.length) {
+    lines.push(
+      '',
+      '**Detailseiten** — ein Haken gilt für *alle* Seiten dieser Art, geprüft wird je eine Stichprobe',
+      ''
+    );
+
+    for (const page of detail) {
+      const label = page.label || page.name;
+      lines.push(
+        `- [ ] \`${page.name}\` — ${label}: alle \`${page.detail}\` (Stichprobe: \`${page.path}\`)`
+      );
+    }
   }
 
   return [

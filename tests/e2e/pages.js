@@ -6,6 +6,8 @@
  * pages that no longer exist are skipped (MMH_SKIP_MISSING=1), so keep the list
  * short and stable.
  *
+ * detail: '/x/<y>' -> a detail page: the entry is a sample for ALL pages that match
+ *                  the pattern (e.g. /team/christian stands for every team member)
  * label: '...'    -> shown in the visual checklist of the pull request template
  *                  (run `npm run pr-template` after changing the list)
  * visual: false  -> smoke only (content depends on time or external APIs)
@@ -16,17 +18,24 @@
 module.exports = [
   { name: 'home', label: 'Startseite', path: '/' },
   { name: 'projects', label: 'Projektübersicht', path: '/projects' },
-  { name: 'project', label: 'Projektseite', path: '/projects/01-goslar-app' },
+  {
+    name: 'project',
+    label: 'Projektseiten',
+    detail: '/projects/<projekt>',
+    path: '/projects/01-goslar-app',
+  },
   {
     name: 'project-step',
-    label: 'Projektschritt',
+    label: 'Projektschritte',
+    detail: '/projects/<projekt>/<schritt>',
     path: '/projects/01-goslar-app/version-4-3-0',
   },
   { name: 'project-archive', label: 'Projektarchiv', path: '/project-archive' },
   { name: 'notes', label: 'Tagebuch', path: '/notes' },
   {
     name: 'note',
-    label: 'Tagebucheintrag',
+    label: 'Tagebucheinträge',
+    detail: '/notes/<eintrag>',
     path: '/notes/eine-neue-website',
     hide: ['.related-notes'], // shuffle() in templates/note.php
   },
@@ -38,11 +47,17 @@ module.exports = [
   },
   {
     name: 'newsletter',
-    label: 'Newsletter',
+    label: 'Newsletter-Ausgaben',
+    detail: '/newsletter/<ausgabe>',
     path: '/newsletter/november-2025',
   },
   { name: 'team', label: 'Team', path: '/team' },
-  { name: 'member', label: 'Teammitglied', path: '/team/christian' },
+  {
+    name: 'member',
+    label: 'Teammitglieder',
+    detail: '/team/<name>',
+    path: '/team/christian',
+  },
   { name: 'about', label: 'Über uns', path: '/uber-uns' },
   { name: 'contact', path: '/contact', visual: false },
   { name: 'informations', label: 'Mehr Informationen', path: '/informations' },

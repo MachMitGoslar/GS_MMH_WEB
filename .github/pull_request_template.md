@@ -52,22 +52,28 @@ Nach dem Bearbeiten des PR-Textes läuft der Check automatisch neu.
 <!-- visual-pages:start -->
 <!-- erzeugt aus tests/e2e/pages.js: npm run pr-template -->
 - [ ] `all` — jede Seite darf sich ändern
+
+**Seiten**
+
 - [ ] `home` — Startseite (`/`)
 - [ ] `projects` — Projektübersicht (`/projects`)
-- [ ] `project` — Projektseite (`/projects/01-goslar-app`)
-- [ ] `project-step` — Projektschritt (`/projects/01-goslar-app/version-4-3-0`)
 - [ ] `project-archive` — Projektarchiv (`/project-archive`)
 - [ ] `notes` — Tagebuch (`/notes`)
-- [ ] `note` — Tagebucheintrag (`/notes/eine-neue-website`)
 - [ ] `newsletter_index` — Newsletter-Übersicht (`/newsletter`)
-- [ ] `newsletter` — Newsletter (`/newsletter/november-2025`)
 - [ ] `team` — Team (`/team`)
-- [ ] `member` — Teammitglied (`/team/christian`)
 - [ ] `about` — Über uns (`/uber-uns`)
 - [ ] `informations` — Mehr Informationen (`/informations`)
 - [ ] `impressum` — Impressum (`/impressum`)
 - [ ] `not-allowed` — Zugriff verweigert (`/not-allowed`)
 - [ ] `not-found` — Fehlerseite (404) (`/not-found`)
+
+**Detailseiten** — ein Haken gilt für *alle* Seiten dieser Art, geprüft wird je eine Stichprobe
+
+- [ ] `project` — Projektseiten: alle `/projects/<projekt>` (Stichprobe: `/projects/01-goslar-app`)
+- [ ] `project-step` — Projektschritte: alle `/projects/<projekt>/<schritt>` (Stichprobe: `/projects/01-goslar-app/version-4-3-0`)
+- [ ] `note` — Tagebucheinträge: alle `/notes/<eintrag>` (Stichprobe: `/notes/eine-neue-website`)
+- [ ] `newsletter` — Newsletter-Ausgaben: alle `/newsletter/<ausgabe>` (Stichprobe: `/newsletter/november-2025`)
+- [ ] `member` — Teammitglieder: alle `/team/<name>` (Stichprobe: `/team/christian`)
 <!-- visual-pages:end -->
 
 ## Verwandtes Issue

@@ -5,6 +5,12 @@ const { checklist, render, parse } = require('./pr-template');
 const pages = [
   { name: 'home', path: '/', label: 'Startseite' },
   { name: 'newsletter_index', path: '/newsletter' },
+  {
+    name: 'member',
+    path: '/team/christian',
+    label: 'Teammitglieder',
+    detail: '/team/<name>',
+  },
   { name: 'events', path: '/events', visual: false },
   { name: 'rooms', path: '/rooms', known: 'unfinished' },
   { name: 'project-step', path: '/p/s' },
@@ -19,6 +25,24 @@ test('lists only pages that the visual test compares', () => {
   assert.match(text, /`project-step`/);
   assert.doesNotMatch(text, /`events`/);
   assert.doesNotMatch(text, /`rooms`/);
+});
+
+test('groups pages and detail pages, a detail entry stands for all of its kind', () => {
+  const text = checklist(pages);
+  const single = text.indexOf('**Seiten**');
+  const detail = text.indexOf('**Detailseiten**');
+
+  assert.ok(single > -1 && detail > single, 'two sections, pages first');
+  assert.match(
+    text,
+    /- \[ \] `member` — Teammitglieder: alle `\/team\/<name>` \(Stichprobe: `\/team\/christian`\)/
+  );
+  assert.ok(text.indexOf('`member`') > detail, 'member is a detail page');
+  assert.ok(text.indexOf('`home`') < detail, 'home is a normal page');
+});
+
+test('without detail pages there is no detail section', () => {
+  assert.doesNotMatch(checklist([{ name: 'home', path: '/' }]), /Detailseiten/);
 });
 
 test('render replaces the block and keeps the rest', () => {
@@ -51,6 +75,12 @@ test('parse returns the ticked pages of the generated block', () => {
     ticked: ['home', 'project-step'],
     unknown: [],
   });
+});
+
+test('parse reads ticked detail pages like any other', () => {
+  const body = checklist(pages).replace('- [ ] `member`', '- [x] `member`');
+
+  assert.deepStrictEqual(parse(body, pages).ticked, ['member']);
 });
 
 test('parse knows the all switch and underscores in names', () => {
