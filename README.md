@@ -269,9 +269,13 @@ To enable Google Calendar integration for room bookings:
 | `ddev composer test` | PHPUnit unit tests (`tests/Unit`) |
 | `npm run test:e2e` | Playwright smoke tests against `https://gs-mmh-web.ddev.site` (status, JS errors, complete HTML, mobile menu) |
 | `npm run test:visual:update` | Create local screenshot baselines. Run it on the unchanged code **before** a refactoring |
-| `npm run test:visual` | Compare against the local baselines |
+| `npm run test:visual` | Compare against the local baselines. On a difference it names the changed pages and the commands below |
+| `npm run test:visual -- --expect member,team` | Local twin of the PR checklist: these pages may differ (`--expect all`: every page); all others must stay the same. Page names are validated |
+| `npm run test:visual:update -- member team` | Accept the new look: refresh only the baselines of these pages |
 | `npm run test:tools` | Node tests of the helper scripts (`tests/tools`) |
 | `npm run pr-template` | Regenerate the visual checklist of the PR template after changing `tests/e2e/pages.js` |
+
+Locally the DDEV site is tested. After you change files on the host (e.g. CSS), give DDEV's file sync a moment before you create baselines, otherwise they can capture a half-synced state.
 
 In CI the smoke tests run against the live content of `web_content` **and the current plugin heads**
 (`production` for code going to `main`, `staging` otherwise; a plugin without that branch falls back to

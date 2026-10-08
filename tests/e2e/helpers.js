@@ -42,10 +42,12 @@ function visualExpectation(name) {
   };
 }
 
-/** One line for the job summary of the workflow (ignored outside of CI). */
+/** One line for the job summary of the workflow; printed to the console locally. */
 function summarize(line) {
   if (process.env.GITHUB_STEP_SUMMARY) {
     fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${line}\n`);
+  } else {
+    console.log(line);
   }
 }
 
