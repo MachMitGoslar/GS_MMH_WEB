@@ -270,6 +270,8 @@ To enable Google Calendar integration for room bookings:
 | `npm run test:e2e` | Playwright smoke tests against `https://gs-mmh-web.ddev.site` (status, JS errors, complete HTML, mobile menu) |
 | `npm run test:visual:update` | Create local screenshot baselines. Run it on the unchanged code **before** a refactoring |
 | `npm run test:visual` | Compare against the local baselines |
+| `npm run test:tools` | Node tests of the helper scripts (`tests/tools`) |
+| `npm run pr-template` | Regenerate the visual checklist of the PR template after changing `tests/e2e/pages.js` |
 
 In CI the smoke tests run against the live content of `web_content` **and the current plugin heads**
 (`production` for code going to `main`, `staging` otherwise; a plugin without that branch falls back to
@@ -277,12 +279,11 @@ In CI the smoke tests run against the live content of `web_content` **and the cu
 plugins (`tests/e2e/ci-visual.sh`), so no baselines are stored in the repository. The commits are
 resolved once per run. The plugin commits pinned by the repository are *not* used for CI.
 
-A pull request that changes the look **on purpose** announces it in its description:
-`Visual-Change: project, notes` (page names from `tests/e2e/pages.js`) or `Visual-Change: all`.
-Only the listed pages may differ, every other difference still fails the check. The
-before/after/diff images are attached to the run (artifact `visual-diffs`) and listed in the job summary. The page list lives in
-`tests/e2e/pages.js`; pages that editors removed are skipped in CI. See
-[docs/CLEANUP.md](docs/CLEANUP.md) for the background.
+A pull request that changes the look **on purpose** ticks the affected pages in the
+"Visuelle Änderungen" checklist of its description (or `all`). Only the ticked pages may differ,
+every other difference still fails the check. The checklist is generated from
+`tests/e2e/pages.js` (`npm run pr-template`; CI fails when the template is out of date). The
+before/after/diff images are attached to the run (artifact `visual-diffs`) and listed in the job summary.
 
 ### Code Style
 

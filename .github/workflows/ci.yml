@@ -70,6 +70,11 @@ jobs:
 
       - run: npm run lint:css
 
+      # The checklist of the PR template must list the pages of the visual test
+      - run: npm run pr-template:check
+
+      - run: npm run test:tools
+
   php-style:
     name: PHP style (PHPCS)
     if: github.event.action != 'edited'
@@ -184,17 +189,17 @@ jobs:
           echo "ref=$REF" >> "$GITHUB_OUTPUT"
           echo "Content: web_content/$BRANCH @ ${REF:0:7}" >> "$GITHUB_STEP_SUMMARY"
 
-      # A pull request that changes the look on purpose says so in its
-      # description, e.g. `Visual-Change: project, notes` or `Visual-Change: all`.
-      # Only the listed pages may differ; everything else must stay the same.
+      # A pull request that changes the look on purpose ticks the affected pages
+      # in the checklist of its description (generated from tests/e2e/pages.js).
+      # Only the ticked pages may differ; everything else must stay the same.
       - name: Announced visual changes
         id: expected
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |
-          LINE=$(printf '%s\n' "$PR_BODY" | tr -d '\r' | grep -iE '^[[:space:]]*visual-change[[:space:]]*:' | head -1 | sed -E 's/^[^:]*:[[:space:]]*//; s/[[:space:]]+$//' || true)
-          echo "pages=$LINE" >> "$GITHUB_OUTPUT"
-          if [ -n "$LINE" ]; then echo "Announced visual changes: \`$LINE\`" >> "$GITHUB_STEP_SUMMARY"; fi
+          PAGES=$(node tests/tools/pr-template.js --parse)
+          echo "pages=$PAGES" >> "$GITHUB_OUTPUT"
+          if [ -n "$PAGES" ]; then echo "Announced visual changes: \`$PAGES\`" >> "$GITHUB_STEP_SUMMARY"; fi
 
       - uses: actions/cache@v4
         with:

@@ -20,6 +20,9 @@
     "test:e2e": "playwright test smoke",
     "test:visual": "playwright test visual",
     "test:visual:update": "playwright test visual --update-snapshots",
+    "test:tools": "node --test \"tests/tools/*.test.js\"",
+    "pr-template": "node tests/tools/pr-template.js --write",
+    "pr-template:check": "node tests/tools/pr-template.js --check",
     "pre-commit": "npm run format && npm run lint",
     "prepare": "husky"
   },
