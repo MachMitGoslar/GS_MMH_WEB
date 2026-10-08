@@ -36,6 +36,7 @@ Icon
 
 /storage/cache/*
 /site/cache/*
+/site/sessions/*
 !/storage/cache/index.html
 
 
@@ -68,7 +69,7 @@ vendor/
 !/site/plugins/gs-mmh-signage-plugin
 !/site/plugins/gs-mmh-signage-plugin/*
 /kirby/*
-/content/
+/content/*
 
 
 .php-cs-fixer.cache
@@ -88,26 +89,16 @@ vendor/
 !.env.example
 figma-tokens.json
 
-# ===============================
-# DreamForm: Ignore submissions only
-# ===============================
-
-# firstly: allow everything in forms
-/content/forms/**
-
-# but ignore all subdirectories (submissions)
-/content/forms/*/*/
-
-# ignore also the content of those subdirectories
-/content/forms/*/*/**
-
-# allow important files in forms
-!/content/forms/*/form.txt
-!/content/forms/*/forms.txt
-!/content/forms/*/*.yml
-!/content/forms/*/*.yaml
-!/content/forms/*/*.php
-!/content/forms/*/*.md
 
 ### Config & Settings ! No credentials or sensitive data should be committed to Git!
 /site/config/config.mmh.goslar.de.php
+
+# PHPUnit
+/.phpunit.cache/
+
+# Playwright
+/tests/e2e/.results/
+/playwright-report/
+# Visual baselines are platform specific (macOS vs Linux fonts); create them
+# locally with `npm run test:visual:update` before a refactoring.
+/tests/e2e/__screenshots__/

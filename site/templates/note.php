@@ -18,16 +18,15 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
       <section class="note-hero">
         <div class="note-hero-image">
           <?php if ($cover = $page->cover()) : ?>
-
-          <?php snippet('utilities/image', [
-              'file' => $cover,
-              'role' => 'hero',
-              'ratio' => '12:5',
-              'lazy' => false,
-              'alt' => $page->title()->value(),
+                <?php snippet('utilities/image', [
+                'file' => $cover,
+                'role' => 'hero',
+                'ratio' => '12:5',
+                'lazy' => false,
+                'alt' => $page->title()->value(),
           ]) ?>
           <?php else : ?>
-          <?php snippet('utilities/imagePlaceholder', ['class' => 'note-hero-default']) ?>
+              <?php snippet('utilities/imagePlaceholder', ['class' => 'note-hero-default']) ?>
           <?php endif ?>
 
 
@@ -60,8 +59,8 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
     <!-- Author Section -->
     <?php
     $authors = $page->author()->toPages();
-if ($authors->count() > 0) :
-    ?>
+    if ($authors->count() > 0) :
+        ?>
       <section class="note-authors grid content">
         <div class="grid-item" data-span="1/1">
           <div class="authors-list">
@@ -69,7 +68,7 @@ if ($authors->count() > 0) :
               <a href="<?= $author->url() ?>" class="author-card">
                 <div class="author-avatar">
                   <?php if ($authorImage = $author->cover()) : ?>
-                    <?php $avatar = mmhAvatarImage($authorImage, 160); ?>
+                        <?php $avatar = mmhAvatarImage($authorImage, 160); ?>
                     <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
                   <?php else : ?>
                     <div class="placeholder-avatar">
@@ -146,9 +145,9 @@ if ($authors->count() > 0) :
 
         <!-- Related Notes -->
         <?php
-    $relatedNotes = $page->siblings(false)->listed()->shuffle()->limit(3);
-if ($relatedNotes->count() > 0) :
-    ?>
+        $relatedNotes = $page->siblings(false)->listed()->shuffle()->limit(3);
+        if ($relatedNotes->count() > 0) :
+            ?>
           <div class="sidebar-section">
             <h4 class="font-subheadline sidebar-title">Weitere Einträge</h4>
             <div class="related-notes">

@@ -23,6 +23,7 @@
     "kirby/**/*",
     "storage/**/*",
     "**/*.min.css",
+    "public/media/**",
     "site/plugins/**"
   ]
 }

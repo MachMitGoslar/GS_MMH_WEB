@@ -1,0 +1,5 @@
+@import url('https://fonts.example/a.css');
+@import url('./a.css');
+@import url("./b.css");
+@import url('https://fonts.example/a.css');
+body { margin: 0; }

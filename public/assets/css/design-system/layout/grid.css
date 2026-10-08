@@ -16,19 +16,19 @@
 
 /* Breakpoints steuern nur die Anzahl der Gesamtspalten */
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .grid {
     --grid-colums-count: 8;
   }
 }
 
-@media (min-width: 1040px) {
+@media (width >= 1040px) {
   .grid {
     --grid-colums-count: 12;
   }
 }
 
-@media (min-width: 1440px) {
+@media (width >= 1440px) {
   .grid {
     --grid-colums-count: 12;
     --grid-gap: 2rem;
@@ -56,7 +56,7 @@
    TABLET (8-Spalten-System)
 ------------------------------------ */
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .grid-item[data-span='1/1'] {
     grid-column: span 8;
   }
@@ -85,7 +85,7 @@
    DESKTOP (12-Spalten-System)
 ------------------------------------ */
 
-@media (min-width: 1040px) {
+@media (width >= 1040px) {
   .grid-item[data-span='1/1'] {
     grid-column: span 12;
   }
@@ -150,7 +150,7 @@
   background: red;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .test-column {
     height: 100vh;
   }

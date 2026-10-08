@@ -57,7 +57,7 @@
     <?php if ($blocks = $page->blocks()?->toBlocks()) : ?>
         <section class="grid content mb-7">
             <?php foreach ($blocks as $block) : ?>
-                <div class="grid-item" data-span="full" block"><?php snippet('blocks/' . $block->type(), compact('block')) ?></div>
+                <div class="grid-item" data-span="full"><?php snippet('blocks/' . $block->type(), compact('block')) ?></div>
             <?php endforeach ?>
         </section>
     <?php endif; ?>

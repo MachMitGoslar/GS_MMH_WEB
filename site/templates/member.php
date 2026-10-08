@@ -24,7 +24,7 @@
           <div class="contact-profile-section">
             <div class="profile-image-large">
               <?php if ($page->cover() && $page->cover()->toFile()) : ?>
-                <?php $avatar = mmhAvatarImage($page->cover(), 300); ?>
+                    <?php $avatar = mmhAvatarImage($page->cover(), 300); ?>
                 <img src="<?= $avatar['url'] ?>"
                      data-fit="<?= $avatar['fit'] ?>"
                      alt="<?= $page->name()->html() ?>"
@@ -239,11 +239,11 @@
       <?php $coords = $page->geo()->toObject(); ?>
       <?php if ($coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty()) : ?>
       let coordinates = [<?= $coords->longitude()->value() ?>, <?= $coords->latitude()->value() ?>];
-      <?php else: ?>
+      <?php else : ?>
       // Geocode the address (simple fallback to MachMit!Haus coordinates)
       let coordinates = [10.429327, 51.906169]; // Default to MachMit!Haus
       <?php endif ?>
-      let address = '<?= addslashes($page->address()->value()) ?>';
+      let address = <?= json_encode($page->address()->value(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
       
       const map = new mapboxgl.Map({
         container: 'member-map',
@@ -261,7 +261,15 @@
         anchor: "top",
         closeButton: false
       })
-      .setHTML('<h4><?= addslashes($page->name()->value()) ?></h4><p>' + address + '</p>');
+      .setDOMContent((() => {
+        const box = document.createElement('div');
+        const title = document.createElement('h4');
+        title.textContent = <?= json_encode($page->name()->value(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+        const line = document.createElement('p');
+        line.textContent = address;
+        box.append(title, line);
+        return box;
+      })());
       
       const el = document.createElement('div');
             el.className = 'custom-marker';

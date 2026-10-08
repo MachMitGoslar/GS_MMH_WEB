@@ -34,6 +34,10 @@ return [
 
     'cache.oveda' => true,
 
+    // git-content cron endpoints (/git-content/push|pull): set MMH_GIT_CONTENT_SECRET
+    // on each instance and call them with ?secret=<value>. Unset = open (legacy).
+    'thathoff.git-content.cronHooksSecret' => getenv('MMH_GIT_CONTENT_SECRET') ?: null,
+
     // Mapbox Access Token (öffentlicher pk.-Token für mmh.goslar.de und machmit.goslar.de;
     // im Mapbox-Dashboard auf diese URLs beschränken). Pro Host überschreibbar.
     'mmh.mapbox.token' => '',

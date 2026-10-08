@@ -105,7 +105,7 @@
 
         <?php $projectTags = $page->tagList(); ?>
         <?php if (!empty($projectTags)) : ?>
-          <?php $projectsPage = $site->find('projects'); ?>
+            <?php $projectsPage = $site->find('projects'); ?>
           <p class="project-tags" aria-label="Tags">
             <?php foreach ($projectTags as $tag) : ?>
               <a href="<?= $projectsPage ? $projectsPage->url() . '?tag=' . urlencode($tag) : '#' ?>"
@@ -121,7 +121,7 @@
               <a href="<?= $member->url() ?>" class="project-team-member" style="--stack-index: <?= $i++ ?>" title="<?= $member->title()->html() ?>">
                 <span class="project-team-avatar">
                   <?php if ($memberImage = $member->cover()) : ?>
-                    <?php $avatar = mmhAvatarImage($memberImage, 240); ?>
+                        <?php $avatar = mmhAvatarImage($memberImage, 240); ?>
                     <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $member->title()->html() ?>">
                   <?php else : ?>
                     <span class="project-team-placeholder">
@@ -174,25 +174,25 @@
         </section>
 
         <section class="project-update-gallery">
-          <?php if ($page->show_project_step_pictures() == 'true' && count($page->projectUpdatePictures()) > 0): ?>
+          <?php if ($page->show_project_step_pictures() == 'true' && count($page->projectUpdatePictures()) > 0) : ?>
             <h2> Bilder aus dem Projekt </h2>
             
-          <?php
-             $block = new Kirby\Cms\Block(
-                 [
-                  'type' => 'gallery',
-                  'content' => [
+                <?php
+                $block = new Kirby\Cms\Block(
+                    [
+                    'type' => 'gallery',
+                    'content' => [
                     'images' => $page->projectUpdatePictures(),
                     'caption' => 'Bilder aus dem Projekt',
                     'crop' => '600x600',
                     'ratio' => '1:1',
-                  ],
-              ],
-             );
+                    ],
+                    ],
+                );
 
-              print snippet('blocks/gallery', ['block' => $block]);
+                print snippet('blocks/gallery', ['block' => $block]);
 
-              ?>
+                ?>
           <?php endif ?>
   
 

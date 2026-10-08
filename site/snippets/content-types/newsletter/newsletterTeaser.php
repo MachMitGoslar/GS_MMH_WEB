@@ -42,7 +42,7 @@ $modalForm = $site->registrationForm();
     'slotContent' => function () use ($modalForm) {
         ?>
         <?=snippet('content-elements/form', ['form' => $modalForm->toPage(), 'className' => 'newsletter-subscribe-form']); ?>
-      <?php
+        <?php
     },
 ]) ?>
 <script>

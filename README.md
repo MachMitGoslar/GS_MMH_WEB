@@ -258,8 +258,36 @@ To enable Google Calendar integration for room bookings:
 |--------------------|----------------------------------------|
 | `npm run serve`    | PHP server + BrowserSync (live reload) |
 | `npm run format`   | Format JS, CSS, PHP (Prettier + php-cs-fixer) |
-| `npm run lint`     | Lint JS, CSS, PHP with auto-fix        |
+| `npm run lint`     | Lint JS, CSS, PHP                      |
+| `npm run lint:js:fix` / `lint:css:fix` | Lint with auto-fix       |
 | `npm run pre-commit` | Format + lint (runs via husky)      |
+
+### Tests
+
+| Command | Description |
+|---------|-------------|
+| `ddev composer test` | PHPUnit unit tests (`tests/Unit`) |
+| `npm run test:e2e` | Playwright smoke tests against `https://gs-mmh-web.ddev.site` (status, JS errors, complete HTML, mobile menu) |
+| `npm run test:visual:update` | Create local screenshot baselines. Run it on the unchanged code **before** a refactoring |
+| `npm run test:visual` | Compare against the local baselines. On a difference it names the changed pages and the commands below |
+| `npm run test:visual -- --expect member,team` | Local twin of the PR checklist: these pages may differ (`--expect all`: every page); all others must stay the same. Page names are validated |
+| `npm run test:visual:update -- member team` | Accept the new look: refresh only the baselines of these pages |
+| `npm run test:tools` | Node tests of the helper scripts (`tests/tools`) |
+| `npm run pr-template` | Regenerate the visual checklist of the PR template after changing `tests/e2e/pages.js` |
+
+Locally the DDEV site is tested. After you change files on the host (e.g. CSS), give DDEV's file sync a moment before you create baselines, otherwise they can capture a half-synced state.
+
+In CI the smoke tests run against the live content of `web_content` **and the current plugin heads**
+(`production` for code going to `main`, `staging` otherwise; a plugin without that branch falls back to
+`main`), and every pull request is additionally rendered against its base with the same content and
+plugins (`tests/e2e/ci-visual.sh`), so no baselines are stored in the repository. The commits are
+resolved once per run. The plugin commits pinned by the repository are *not* used for CI.
+
+A pull request that changes the look **on purpose** ticks the affected pages in the
+"Visuelle Änderungen" checklist of its description (or `all`). Only the ticked pages may differ,
+every other difference still fails the check. The checklist is generated from
+`tests/e2e/pages.js` (`npm run pr-template`; CI fails when the template is out of date). The
+before/after/diff images are attached to the run (artifact `visual-diffs`) and listed in the job summary.
 
 ### Code Style
 
@@ -291,6 +319,7 @@ See the [plugin README](site/plugins/gs-mmh-web-plugin/README.md) for block/comp
 | [DEBUG_SETUP.md](DEBUG_SETUP.md)                   | Xdebug configuration          |
 | [PRECOMMIT_SETUP.md](PRECOMMIT_SETUP.md)          | Git hooks and linting          |
 | [Plugin README](site/plugins/gs-mmh-web-plugin/README.md) | Blocks, marks, routes, hooks |
+| [docs/CLEANUP.md](docs/CLEANUP.md)                | Cleanup plan: structure, duplicates, tests, content submodule (living document) |
 
 ## License
 

@@ -121,9 +121,9 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
 <?php snippet('layout/head', slots: true); ?>
 <?php $eventBack = ['url' => url('events'), 'label' => 'Alle Veranstaltungen']; ?>
 <?php if ($hasMap) : ?>
-<?php slot('head') ?>
-<?php snippet('layout/mapbox') ?>
-<?php endslot() ?>
+    <?php slot('head') ?>
+    <?php snippet('layout/mapbox') ?>
+    <?php endslot() ?>
 <?php endif ?>
 <?php endsnippet() ?>
 <?php snippet('layout/header'); ?>
@@ -138,7 +138,7 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
         <?php if ($photo['url']) : ?>
           <img class="c-event__image" src="<?= esc($photo['url']) ?>" alt="<?= esc($detail['title']) ?>" loading="lazy">
         <?php else : ?>
-          <?php snippet('utilities/imagePlaceholder') ?>
+            <?php snippet('utilities/imagePlaceholder') ?>
         <?php endif ?>
 
         <div class="c-event__dateBadge" aria-hidden="true">
@@ -194,7 +194,7 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
                 <?php endif ?>
               </span>
             </div>
-        <?php endforeach ?>
+          <?php endforeach ?>
       </div>
 
       <?php if ($hasMap) : ?>
@@ -210,12 +210,12 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
             role="img"
             aria-label="Karte: <?= esc(implode(', ', $detail['address_lines'])) ?>"
           ></div>
-          <?php if ($detail['maps_url'] !== null) : ?>
+            <?php if ($detail['maps_url'] !== null) : ?>
             <a class="c-event__mapLink" href="<?= esc($detail['maps_url']) ?>" target="_blank" rel="noopener noreferrer">
-              <?php snippet('content-types/events/eventIcon', ['icon' => 'map-pin', 'size' => 14]) ?>
+                <?php snippet('content-types/events/eventIcon', ['icon' => 'map-pin', 'size' => 14]) ?>
               <span>Route planen</span>
             </a>
-          <?php endif ?>
+            <?php endif ?>
         </div>
       <?php endif ?>
     </section>
@@ -235,7 +235,7 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
             <ul class="c-event__tags">
               <?php foreach ($detail['tags'] as $tag) : ?>
                 <li class="c-event__tag">
-                  <?php snippet('content-types/events/eventIcon', ['icon' => 'tag', 'size' => 14]) ?>
+                    <?php snippet('content-types/events/eventIcon', ['icon' => 'tag', 'size' => 14]) ?>
                   <span><?= esc($tag) ?></span>
                 </li>
               <?php endforeach ?>
@@ -308,7 +308,7 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
 <script type="application/ld+json"><?= json_encode($eventSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
 
 <?php if ($hasMap) : ?>
-  <?= js('assets/js/event-map.js?version=' . filemtime(kirby()->root('index') . '/assets/js/event-map.js')) ?>
+    <?= js('assets/js/event-map.js?version=' . filemtime(kirby()->root('index') . '/assets/js/event-map.js')) ?>
 <?php endif ?>
 
 <?php snippet('layout/footer'); ?>

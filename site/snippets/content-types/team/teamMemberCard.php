@@ -8,7 +8,7 @@
 <div class="c-teamMemberCard">
   <a href="<?= $teamMember->url() ?>" class="profile-image" aria-label="<?= $teamMember->name()->html() ?>">
     <?php if ($teamMember->cover() && $teamMember->cover()->toFile()) : ?>
-      <?php $avatar = mmhAvatarImage($teamMember->cover(), 200); ?>
+        <?php $avatar = mmhAvatarImage($teamMember->cover(), 200); ?>
       <img src="<?= $avatar['url'] ?>"
            data-fit="<?= $avatar['fit'] ?>"
            alt="<?= $teamMember->name()->html() ?>"

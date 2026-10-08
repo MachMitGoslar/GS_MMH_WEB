@@ -12,9 +12,17 @@
     "format:css": "prettier --write \"**/*.{css,scss}\"",
     "format:php": "ddev exec composer run format",
     "lint": "npm run lint:js && npm run lint:css && npm run lint:php",
-    "lint:js": "eslint -c eslint.config.js --fix",
-    "lint:css": "stylelint \"**/*.{css,scss}\" --fix",
+    "lint:js": "eslint -c eslint.config.js public/assets/js",
+    "lint:js:fix": "eslint -c eslint.config.js public/assets/js --fix",
+    "lint:css": "stylelint \"public/assets/**/*.css\"",
+    "lint:css:fix": "stylelint \"public/assets/**/*.css\" --fix",
     "lint:php": "ddev exec composer run lint",
+    "test:e2e": "playwright test smoke",
+    "test:visual": "node tests/tools/visual.js",
+    "test:visual:update": "node tests/tools/visual.js --update",
+    "test:tools": "node --test \"tests/tools/*.test.js\"",
+    "pr-template": "node tests/tools/pr-template.js --write",
+    "pr-template:check": "node tests/tools/pr-template.js --check",
     "pre-commit": "npm run format && npm run lint",
     "prepare": "husky"
   },
@@ -34,6 +42,7 @@
   "homepage": "https://github.com/rangarius/GS_MMH_WEB#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.0",
     "browser-sync": "^3.0.4",
     "concurrently": "^10.0.5",
     "eslint": "^10.11.0",
@@ -45,7 +54,7 @@
     "stylelint-config-standard": "^40.0.0"
   },
   "lint-staged": {
-    "site/!(plugins)/*.{js,ts}": [
+    "public/assets/js/*.js": [
       "npx prettier --write",
       "npx eslint --fix"
     ],

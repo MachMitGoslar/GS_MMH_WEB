@@ -13,11 +13,12 @@ return [
     'panel' => [
         'install' => true,
     ],
+    // Optional remote DB, credentials come from the environment (never commit them)
     'db' => [
-        'host' => 'mmh.goslar.de',
-        'database' => 'admin_test_mmh',
-        'user' => 'admin_test_mmh',
-        'password' => '147bwl4_Q',
+        'host' => getenv('MMH_DB_HOST') ?: 'localhost',
+        'database' => getenv('MMH_DB_NAME') ?: '',
+        'user' => getenv('MMH_DB_USER') ?: '',
+        'password' => getenv('MMH_DB_PASSWORD') ?: '',
     ],
     'url' => 'http://localhost:8001',
 

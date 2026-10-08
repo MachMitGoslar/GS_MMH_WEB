@@ -153,7 +153,7 @@
                         </li>
                                 </ul>
                         </section>
-                    <?php endif; ?>
+        <?php endif; ?>
 
         <?php if ($page->show_archive()->toBool()) : ?>
             <section class="grid-item" data-span="1/1">
