@@ -17,6 +17,9 @@
     "lint:css": "stylelint \"public/assets/**/*.css\"",
     "lint:css:fix": "stylelint \"public/assets/**/*.css\" --fix",
     "lint:php": "ddev exec composer run lint",
+    "test:e2e": "playwright test smoke",
+    "test:visual": "playwright test visual",
+    "test:visual:update": "playwright test visual --update-snapshots",
     "pre-commit": "npm run format && npm run lint",
     "prepare": "husky"
   },
@@ -36,6 +39,7 @@
   "homepage": "https://github.com/rangarius/GS_MMH_WEB#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.0",
     "browser-sync": "^3.0.4",
     "concurrently": "^10.0.5",
     "eslint": "^10.11.0",

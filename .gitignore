@@ -115,3 +115,10 @@ figma-tokens.json
 
 # PHPUnit
 /.phpunit.cache/
+
+# Playwright
+/tests/e2e/.results/
+/playwright-report/
+# Visual baselines are platform specific (macOS vs Linux fonts); create them
+# locally with `npm run test:visual:update` before a refactoring.
+/tests/e2e/__screenshots__/

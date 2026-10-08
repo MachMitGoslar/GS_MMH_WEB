@@ -22,7 +22,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 |---|---|---|---|
 | 0 | Dieses Dokument | erledigt | |
 | 1 | Sofort-Fixes & Hygiene | in Arbeit (Routen, Hooks, Kleinbugs erledigt) | |
-| 2 | Test-Fundament (PHPUnit, Playwright, Lint, CI) | in Arbeit (PHPUnit, Lint, CI-Grundgerüst erledigt; Playwright offen) | |
+| 2 | Test-Fundament (PHPUnit, Playwright, Lint, CI) | in Arbeit (PHPUnit, Lint, CI, Playwright-Smoke und Visual erledigt; Fixture-Content, weitere Unit-Tests, CI-Visual offen) | |
 | 3 | Content-Submodul entfernen | offen | |
 | 4 | Logik-Struktur (`mmh-site` + Module) | offen | |
 | 5 | Komponenten konsolidieren | offen | |
@@ -100,12 +100,12 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [ ] Horoskop: Parsing in pure Funktion extrahieren und testen (Sortierung, Attribute 0–8)
 
 ### Playwright
-- [ ] `tests/visual/`, `playwright.config.ts`, `baseURL` per Umgebungsvariable
-- [ ] Fester Test-Content (Tag `test-fixture` in `web_content`); Oveda, n8n, Mapbox mocken/maskieren
+- [x] `tests/e2e/`, `playwright.config.js`, `baseURL` per `PLAYWRIGHT_BASE_URL` (Default DDEV). Projekte `desktop` (1440) und `mobile` (Pixel 7)
+- [~] Fester Test-Content (Tag `test-fixture` in `web_content`): offen; die Pfade in `tests/e2e/pages.js` beziehen sich auf den Content-Branch `staging`. Externe Bilder (picsum) und Mapbox werden im Visual-Test ersetzt/blockiert; Oveda/n8n noch nicht gemockt (Events nur im Smoke-Test)
 - [ ] Seiten: home, projects, project (mit/ohne Projektfarbe, Highlights), theme(s), notes, note, rooms, room, events, event, newsletters, newsletter, über-uns, member, contact, error, sitemap, `/app/horoskope`
 - [ ] Breakpoints 390 / 768 / 1040 / 1440; Interaktionen: Mobile-Nav, Modals, Kalender-Overlay
-- [ ] Smoke-Checks: Status, Konsolenfehler, geschlossenes HTML
-- [ ] Baseline-Screenshots erzeugen (vor Phase 4/5)
+- [x] Smoke-Checks (`npm run test:e2e`): Status, JS-Fehler, `</html>` vorhanden, genau ein `<main>`, Mobile-Menü-Toggle auf den früher defekten Seiten. 46 Tests grün, Räume als bekannt fehlerhaft markiert (HTTP 500 in `bookingForm.php:80`, unfertiges Feature)
+- [~] Visual-Tests (`npm run test:visual`, `test:visual:update`): 15 Seiten × 2 Viewports, 3× hintereinander stabil. **Baselines werden nicht committet** (29 MB, plattformabhängig, Pfad in `.gitignore`): vor jedem Refactoring lokal auf dem unveränderten Stand mit `test:visual:update` erzeugen, danach vergleichen. Offen: Linux-Baselines + Fixture-Content für einen CI-Job
 
 ### Lint & CI
 - [x] Stylelint: 0 Fehler (Autofix: Range-Notation, Leerzeilen, `overflow`-Shorthand; das generierte Bundle `public/media/**` wird ignoriert)
@@ -115,6 +115,11 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [x] `.editorconfig` angelegt; toter Prettier-PHP-Override entfernt
 - [ ] Optional: PHPStan Level 1–3
 - [~] `.github/workflows/ci.yml`: phpunit, ESLint/Stylelint (blockierend), PHPCS (noch nicht blockierend, bekannte Verstöße z. B. `project.php`: mehrere Klassen pro Datei). Job `visual` folgt mit Playwright
+
+**Befunde aus den Tests (nicht verändert, nur dokumentiert):**
+- `sections/hero.php` lädt ohne Cover ein **zufälliges Foto von picsum.photos** (404-Seite, Impressum, Über-uns u. a.): jede Seite sieht bei jedem Aufruf anders aus. Siehe Phase 1 „picsum-Fallback“.
+- `templates/note.php:149`: `shuffle()` bei „Weitere Einträge“ erzeugt wechselnde Seitenhöhe (im Visual-Test per `hide` ausgeblendet).
+- `mmh.debugLock` (neu, Default `true`, in `layout/head.php`): die Debug-Sperre für Gäste lässt sich abschalten. Nur die DDEV-Config setzt `false`, damit Playwright als Gast browsen kann. Staging/Production unverändert.
 
 ---
 
