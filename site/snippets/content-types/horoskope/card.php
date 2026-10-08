@@ -23,7 +23,7 @@ $sign_array = [
     'kaiser',
     'kloserschuelerin',
     'muellerin',
-    'rammelsberg',
+    'rammelberg',
     'ratsherr',
     'teichgraefin',
     'weberin',

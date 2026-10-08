@@ -97,3 +97,4 @@ if (kirby()->request()->is('POST')) {
 </main>
 
 <?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>

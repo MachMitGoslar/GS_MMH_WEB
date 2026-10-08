@@ -139,7 +139,8 @@ return [
     /**
      * Horoscope Card API
      * Returns the daily Goslarer Horoskope as a JSON app-card payload.
-     * Defined before the `/app/(:any)` tracker so it wins route matching.
+     * The `/app/(:any)` tracker below hands off via NextRouteException,
+     * so the order of these routes does not matter.
      */
     [
         'pattern' => '/app/horoskop_card',
@@ -154,7 +155,8 @@ return [
      * Horoskope List Page
      * Renders the daily Goslarer Horoskope as an HTML list with
      * collapsible texts per zodiac sign.
-     * Defined before the `/app/(:any)` tracker so it wins route matching.
+     * The `/app/(:any)` tracker below hands off via NextRouteException,
+     * so the order of these routes does not matter.
      */
     [
         'pattern' => '/app/horoskope',
@@ -178,6 +180,14 @@ return [
         'pattern' => '/app/(:any)',
         'action' => function ($any) {
             try {
+                Db::execute('CREATE TABLE IF NOT EXISTS `app_requests` (
+                    `id` int(11) NOT NULL AUTO_INCREMENT,
+                    `url` varchar(255) NOT NULL,
+                    `day` date NOT NULL,
+                    `requests` int(11) NOT NULL,
+                    PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+
                 $data = [
                     'url' => $any,
                     'day' => date('Y-m-d'),

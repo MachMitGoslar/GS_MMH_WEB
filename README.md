@@ -291,6 +291,7 @@ See the [plugin README](site/plugins/gs-mmh-web-plugin/README.md) for block/comp
 | [DEBUG_SETUP.md](DEBUG_SETUP.md)                   | Xdebug configuration          |
 | [PRECOMMIT_SETUP.md](PRECOMMIT_SETUP.md)          | Git hooks and linting          |
 | [Plugin README](site/plugins/gs-mmh-web-plugin/README.md) | Blocks, marks, routes, hooks |
+| [docs/CLEANUP.md](docs/CLEANUP.md)                | Cleanup plan: structure, duplicates, tests, content submodule (living document) |
 
 ## License
 

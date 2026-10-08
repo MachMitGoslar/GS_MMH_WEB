@@ -103,3 +103,4 @@
 </main>
 
 <?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>
