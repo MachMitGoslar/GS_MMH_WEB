@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const pages = require('./pages');
+const { skipIfMissing } = require('./helpers');
 
 // 1x1 grey PNG. External images (e.g. the random picsum.photos fallback in
 // sections/hero.php) would make every capture different, so they are replaced.
@@ -12,6 +13,7 @@ const PLACEHOLDER = Buffer.from(
 // (file name suffix), because font rendering differs between macOS and Linux.
 for (const page of pages.filter(p => p.visual !== false && !p.known)) {
   test(`${page.name} looks the same`, async ({ page: browser, baseURL }) => {
+    await skipIfMissing(browser.request, page);
     const ownHost = new URL(baseURL).host;
     await browser.route('**/*', route => {
       const request = route.request();

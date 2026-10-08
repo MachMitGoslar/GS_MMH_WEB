@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const pages = require('./pages');
+const { skipIfMissing } = require('./helpers');
 
 // Failed third-party requests (maps, fonts, analytics) are not our bugs.
 const isThirdPartyNoise = text =>
@@ -9,6 +10,7 @@ for (const page of pages) {
   test.describe(page.name, () => {
     test(`${page.path} renders cleanly`, async ({ page: browser, request }) => {
       test.fail(Boolean(page.known), page.known);
+      await skipIfMissing(request, page);
 
       const errors = [];
       browser.on('pageerror', error =>

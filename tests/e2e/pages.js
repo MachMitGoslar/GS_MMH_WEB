@@ -1,9 +1,10 @@
 /**
  * Pages covered by the smoke and visual tests.
  *
- * The paths refer to the content of the `staging` content branch. In CI the
- * visual tests render with the content commit pinned in
- * .github/workflows/ci.yml (CONTENT_REF); keep the paths valid for it.
+ * The paths refer to pages of the live content. In CI the tests render with the
+ * head of web_content/production (PRs into main) or web_content/staging, and
+ * pages that no longer exist are skipped (MMH_SKIP_MISSING=1), so keep the list
+ * short and stable.
  *
  * visual: false  -> smoke only (content depends on time or external APIs)
  * hide: [css]    -> selectors hidden in screenshots (randomised content)

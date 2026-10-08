@@ -5,7 +5,14 @@ on:
     branches: [main, staging]
   push:
     branches: [main, staging]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      base_ref:
+        description: 'Visual regression: ref to compare the selected branch against'
+        default: origin/main
+      content_ref:
+        description: 'web_content commit to render with (empty = head of production)'
+        default: ''
 
 permissions:
   contents: read
@@ -75,15 +82,69 @@ jobs:
 
       - run: composer lint
 
-  visual:
-    name: Visual regression (PR vs. base)
-    if: github.event_name == 'pull_request'
+  # The pages are rendered with the live content of web_content: the head of
+  # `production` for code that goes to main, the head of `staging` otherwise.
+  # The commit is resolved once per job, so every render of a run sees the same
+  # content (a comparison of base and PR can never be skewed by an edit).
+  smoke:
+    name: Smoke tests (code + live content)
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    env:
-      # Content the pages are rendered with. Pinned, so content edits never
-      # show up as visual changes. Update it on purpose (public web_content).
-      CONTENT_REF: 72e9eae26021b3f3685421da473983484fbf194d
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Resolve content
+        id: content
+        env:
+          TARGET: ${{ github.base_ref || github.ref_name }}
+          OVERRIDE: ${{ inputs.content_ref }}
+        run: |
+          BRANCH=staging
+          if [ "$TARGET" = "main" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then BRANCH=production; fi
+          REF=${OVERRIDE:-$(git ls-remote https://github.com/MachMitGoslar/web_content "refs/heads/$BRANCH" | cut -f1)}
+          [ -n "$REF" ] || { echo "could not resolve web_content/$BRANCH"; exit 1; }
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+          echo "Content: web_content/$BRANCH @ ${REF:0:7}" >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/cache@v4
+        with:
+          path: content
+          key: content-${{ steps.content.outputs.ref }}
+
+      - run: npm ci
+        env:
+          HUSKY: '0'
+
+      - run: npx playwright install --with-deps chromium
+
+      - run: tests/e2e/ci-smoke.sh
+        env:
+          CONTENT_REF: ${{ steps.content.outputs.ref }}
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: smoke-results
+          path: tests/e2e/.results
+          if-no-files-found: ignore
+
+  visual:
+    name: Visual regression (PR vs. base)
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -100,10 +161,23 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Resolve content
+        id: content
+        env:
+          TARGET: ${{ github.base_ref }}
+          OVERRIDE: ${{ inputs.content_ref }}
+        run: |
+          BRANCH=staging
+          if [ "$TARGET" = "main" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then BRANCH=production; fi
+          REF=${OVERRIDE:-$(git ls-remote https://github.com/MachMitGoslar/web_content "refs/heads/$BRANCH" | cut -f1)}
+          [ -n "$REF" ] || { echo "could not resolve web_content/$BRANCH"; exit 1; }
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+          echo "Content: web_content/$BRANCH @ ${REF:0:7}" >> "$GITHUB_STEP_SUMMARY"
+
       - uses: actions/cache@v4
         with:
           path: content
-          key: content-${{ env.CONTENT_REF }}
+          key: content-${{ steps.content.outputs.ref }}
 
       - run: npm ci
         env:
@@ -112,7 +186,9 @@ jobs:
       - run: npx playwright install --with-deps chromium
 
       # Renders the base and the PR with the same content and compares them.
-      - run: tests/e2e/ci-visual.sh ${{ github.event.pull_request.base.sha }} ${{ github.sha }}
+      - run: tests/e2e/ci-visual.sh "${{ github.event.pull_request.base.sha || inputs.base_ref }}" "${{ github.sha }}"
+        env:
+          CONTENT_REF: ${{ steps.content.outputs.ref }}
 
       - uses: actions/upload-artifact@v4
         if: failure()

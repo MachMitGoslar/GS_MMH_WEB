@@ -112,14 +112,20 @@ Das Arbeitsverzeichnis bleibt dabei unangetastet.
   cd "$REPO"
   rm content/.git                       # nur die Verweisdatei "gitdir: ../.git/modules/content"
   mv .git/modules/content content/.git
-  git -C content config --unset core.worktree
+  git config --file content/.git/config --unset core.worktree
   ```
+  **Wichtig:** genau so, mit `--file`. `git -C content config --unset core.worktree` scheitert mit
+  `fatal: cannot chdir to '../../../content'`, weil git vor dem Befehl versucht, in das noch falsch
+  aufgelöste Arbeitsverzeichnis zu wechseln. Bleibt `core.worktree` stehen, ist **jeder** git-Befehl in
+  `content/` kaputt, auch git-content im Panel. Die Arbeitsdateien und der Verlauf sind dabei nicht
+  beschädigt; die Zeile mit `git config --file content/.git/config --unset core.worktree` entfernen genügt.
 - [ ] Submodul-Konfiguration entfernen (ohne `deinit`!):
   ```bash
   git config --remove-section submodule.content 2>/dev/null || true
   ```
 - [ ] Prüfen:
   ```bash
+  git config --file content/.git/config --get core.worktree   # darf nichts ausgeben
   ls -d content/.git                                   # ist ein Verzeichnis
   git -C content status --porcelain | diff - ../content-status-before-$DATE.txt
   git -C content rev-parse --show-toplevel             # .../content
