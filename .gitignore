@@ -112,3 +112,6 @@ figma-tokens.json
 
 ### Config & Settings ! No credentials or sensitive data should be committed to Git!
 /site/config/config.mmh.goslar.de.php
+
+# PHPUnit
+/.phpunit.cache/
