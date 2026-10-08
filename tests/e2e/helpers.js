@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { test } = require('@playwright/test');
 
 /**
@@ -21,4 +22,31 @@ async function skipIfMissing(request, page) {
   );
 }
 
-module.exports = { skipIfMissing };
+/**
+ * Looks that are changed on purpose.
+ *
+ * MMH_VISUAL_EXPECTED (from the `Visual-Change:` line of the pull request) is
+ * `all` or a list of page names from pages.js, separated by commas or spaces.
+ * Listed pages may differ from the base without failing the run; every other
+ * page still has to look the same.
+ */
+function visualExpectation(name) {
+  const listed = (process.env.MMH_VISUAL_EXPECTED || '')
+    .toLowerCase()
+    .split(/[,\s]+/)
+    .filter(Boolean);
+
+  return {
+    all: listed.includes('all'),
+    expected: listed.includes('all') || listed.includes(name.toLowerCase()),
+  };
+}
+
+/** One line for the job summary of the workflow (ignored outside of CI). */
+function summarize(line) {
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${line}\n`);
+  }
+}
+
+module.exports = { skipIfMissing, visualExpectation, summarize };

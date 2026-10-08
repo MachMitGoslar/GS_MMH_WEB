@@ -38,6 +38,19 @@
 
 <!-- Falls visuelle Änderungen: Vorher/Nachher Screenshots einfügen -->
 
+## Visuelle Änderungen
+
+<!--
+Der CI-Job "Visual regression" rendert den Basis-Branch und diesen PR und vergleicht beide.
+Ändert dieser PR das Aussehen ABSICHTLICH, nenne die betroffenen Seiten in der Zeile unten
+(Namen aus tests/e2e/pages.js, durch Komma getrennt, oder `all`). Nur diese Seiten dürfen
+abweichen, jede andere Abweichung lässt den Job weiter scheitern. Die Vorher/Nachher/Diff-Bilder
+hängen als Artefakt "visual-diffs" am Lauf. Keine visuelle Änderung beabsichtigt: Zeile leer lassen.
+Nach dem Bearbeiten des PR-Textes läuft der Check automatisch neu.
+-->
+
+Visual-Change:
+
 ## Verwandtes Issue
 
 <!-- z.B. Closes #123 -->

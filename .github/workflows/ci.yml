@@ -3,6 +3,9 @@ name: CI
 on:
   pull_request:
     branches: [main, staging]
+    # `edited`: changing the pull request description re-runs the visual check,
+    # so a `Visual-Change:` line can be added afterwards.
+    types: [opened, synchronize, reopened, edited]
   push:
     branches: [main, staging]
   workflow_dispatch:
@@ -18,12 +21,15 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.ref }}
+  # Description edits run apart from code runs, so editing a pull request does
+  # not cancel the checks of the latest push.
+  group: ci-${{ github.ref }}-${{ github.event.action == 'edited' && 'edited' || 'code' }}
   cancel-in-progress: true
 
 jobs:
   phpunit:
     name: PHPUnit
+    if: github.event.action != 'edited'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -45,6 +51,7 @@ jobs:
 
   frontend-lint:
     name: ESLint and Stylelint
+    if: github.event.action != 'edited'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -65,6 +72,7 @@ jobs:
 
   php-style:
     name: PHP style (PHPCS)
+    if: github.event.action != 'edited'
     runs-on: ubuntu-latest
     # Errors fail the job; warnings (long lines) are reported only.
     steps:
@@ -86,6 +94,7 @@ jobs:
   # content (a comparison of base and PR can never be skewed by an edit).
   smoke:
     name: Smoke tests (code + live content)
+    if: github.event.action != 'edited'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -175,6 +184,18 @@ jobs:
           echo "ref=$REF" >> "$GITHUB_OUTPUT"
           echo "Content: web_content/$BRANCH @ ${REF:0:7}" >> "$GITHUB_STEP_SUMMARY"
 
+      # A pull request that changes the look on purpose says so in its
+      # description, e.g. `Visual-Change: project, notes` or `Visual-Change: all`.
+      # Only the listed pages may differ; everything else must stay the same.
+      - name: Announced visual changes
+        id: expected
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          LINE=$(printf '%s\n' "$PR_BODY" | tr -d '\r' | grep -iE '^[[:space:]]*visual-change[[:space:]]*:' | head -1 | sed -E 's/^[^:]*:[[:space:]]*//; s/[[:space:]]+$//' || true)
+          echo "pages=$LINE" >> "$GITHUB_OUTPUT"
+          if [ -n "$LINE" ]; then echo "Announced visual changes: \`$LINE\`" >> "$GITHUB_STEP_SUMMARY"; fi
+
       - uses: actions/cache@v4
         with:
           path: content
@@ -191,9 +212,11 @@ jobs:
         env:
           ENV_BRANCH: ${{ steps.content.outputs.branch }}
           CONTENT_REF: ${{ steps.content.outputs.ref }}
+          MMH_VISUAL_EXPECTED: ${{ steps.expected.outputs.pages }}
 
+      # Also on success: announced changes keep their before/after/diff images.
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: always()
         with:
           name: visual-diffs
           path: tests/e2e/.results

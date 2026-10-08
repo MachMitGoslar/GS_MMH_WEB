@@ -275,7 +275,12 @@ In CI the smoke tests run against the live content of `web_content` **and the cu
 (`production` for code going to `main`, `staging` otherwise; a plugin without that branch falls back to
 `main`), and every pull request is additionally rendered against its base with the same content and
 plugins (`tests/e2e/ci-visual.sh`), so no baselines are stored in the repository. The commits are
-resolved once per run. The plugin commits pinned by the repository are *not* used for CI. The page list lives in
+resolved once per run. The plugin commits pinned by the repository are *not* used for CI.
+
+A pull request that changes the look **on purpose** announces it in its description:
+`Visual-Change: project, notes` (page names from `tests/e2e/pages.js`) or `Visual-Change: all`.
+Only the listed pages may differ, every other difference still fails the check. The
+before/after/diff images are attached to the run (artifact `visual-diffs`) and listed in the job summary. The page list lives in
 `tests/e2e/pages.js`; pages that editors removed are skipped in CI. See
 [docs/CLEANUP.md](docs/CLEANUP.md) for the background.
 

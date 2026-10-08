@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const pages = require('./pages');
-const { skipIfMissing } = require('./helpers');
+const { skipIfMissing, visualExpectation, summarize } = require('./helpers');
 
 // 1x1 grey PNG. External images (e.g. the random picsum.photos fallback in
 // sections/hero.php) would make every capture different, so they are replaced.
@@ -60,14 +60,37 @@ for (const page of pages.filter(p => p.visual !== false && !p.known)) {
       );
     });
 
-    await expect(browser).toHaveScreenshot(`${page.name}.png`, {
-      fullPage: true,
-      mask: [
-        browser.locator('iframe'),
-        browser.locator('.mapboxgl-map'),
-        browser.locator('.debug-warning'),
-        browser.locator('[data-visual-mask]'),
-      ],
-    });
+    const { all, expected } = visualExpectation(page.name);
+    const viewport = test.info().project.name;
+
+    try {
+      await expect(browser).toHaveScreenshot(`${page.name}.png`, {
+        fullPage: true,
+        mask: [
+          browser.locator('iframe'),
+          browser.locator('.mapboxgl-map'),
+          browser.locator('.debug-warning'),
+          browser.locator('[data-visual-mask]'),
+        ],
+      });
+    } catch (error) {
+      if (!expected) {
+        throw error;
+      }
+      // A change the pull request announced: keep the diff (it is attached to
+      // the test and uploaded), but do not fail.
+      test.info().annotations.push({
+        type: 'expected visual change',
+        description: page.name,
+      });
+      summarize(`- 🎨 **${page.name}** (${viewport}) changed, as announced`);
+      return;
+    }
+
+    if (expected && !all) {
+      summarize(
+        `- ⚪ **${page.name}** (${viewport}) is listed in \`Visual-Change\` but did not change`
+      );
+    }
   });
 }
