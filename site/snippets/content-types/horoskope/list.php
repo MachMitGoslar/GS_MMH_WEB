@@ -51,6 +51,16 @@ $images = [
     'pisces' => 'hk_teichgraefin.png',   // Träumerische Teichgräfin
 ];
 
+// Attribute labels, keyed by the API field names. Values range 0–8.
+$attributeLabels = [
+    'freude' => 'Freude',
+    'glueck' => 'Glück',
+    'energie' => 'Energie',
+    'gesundheit' => 'Gesundheit',
+    'motivation' => 'Motivation',
+];
+$attributeMax = 8;
+
 $formattedDate = '';
 if ($date) {
     $ts = strtotime($date);
@@ -239,6 +249,49 @@ if ($date) {
             font-style: italic;
             color: var(--ink-soft);
         }
+        .horoskope__attributes {
+            display: grid;
+            gap: 0.2rem;
+            margin: 0.9rem 0 0;
+            padding-top: 0.9rem;
+            border-top: 1px double var(--gold-deep);
+        }
+        .horoskope__attribute {
+            display: grid;
+            grid-template-columns: 6.5rem 1fr 2.2rem;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .horoskope__attribute dt {
+            font-family: "Cinzel", "Trajan Pro", serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            line-height: 1;
+            color: var(--ink-soft);
+        }
+        .horoskope__attribute dd {
+            --pip: 8px;
+            margin: 0;
+            height: var(--pip);
+            max-width: 16rem;
+            /* 8 segments; the first --value ones are filled */
+            background:
+                linear-gradient(90deg, var(--gold-deep), var(--gold-bright))
+                    0 0 / calc(var(--value) * 12.5%) 100% no-repeat,
+                rgba(138, 101, 8, 0.18);
+            border-radius: 999px;
+            box-shadow: inset 0 0 0 1px rgba(138, 101, 8, 0.45);
+            /* carve the bar into 8 pips */
+            -webkit-mask: repeating-linear-gradient(90deg, #000 0 calc(12.5% - 2px), transparent calc(12.5% - 2px) 12.5%);
+            mask: repeating-linear-gradient(90deg, #000 0 calc(12.5% - 2px), transparent calc(12.5% - 2px) 12.5%);
+        }
+        .horoskope__score {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--ink-soft);
+            text-align: right;
+        }
         .horoskope__text {
             margin: 0;
             padding-top: 0.9rem;
@@ -306,9 +359,8 @@ if ($date) {
         <?php else : ?>
             <?php
             // Keep the API's configured order (aries → pisces).
-            usort($signs, function ($a, $b) {
-                return ($a['order'] ?? 0) <=> ($b['order'] ?? 0);
-            });
+            $sortKey = fn ($s) => is_numeric($s['order'] ?? null) ? (int) $s['order'] : 0;
+            usort($signs, fn ($a, $b) => $sortKey($a) <=> $sortKey($b));
             ?>
             <?php foreach ($signs as $sign) : ?>
                 <?php
@@ -320,6 +372,7 @@ if ($date) {
                 $german = $sign['german'] ?? '';
                 $span = $sign['span'] ?? '';
                 $text = $sign['text'] ?? '';
+                $attributes = $sign['attributes'] ?? (is_array($sign['order'] ?? null) ? $sign['order'] : []);
                 ?>
                 <details class="horoskope__item">
                     <summary class="horoskope__summary">
@@ -335,6 +388,19 @@ if ($date) {
                         </span>
                     </summary>
                     <p class="horoskope__text"><?= Escape::html($text) ?></p>
+                    <?php if ($attributes) : ?>
+                        <dl class="horoskope__attributes">
+                            <?php foreach ($attributeLabels as $attrKey => $attrLabel) : ?>
+                                <?php if (!isset($attributes[$attrKey])) continue; ?>
+                                <?php $value = max(0, min($attributeMax, (int) $attributes[$attrKey])); ?>
+                                <div class="horoskope__attribute" role="img" aria-label="<?= Escape::attr($attrLabel . ': ' . $value . ' von ' . $attributeMax) ?>">
+                                    <dt><?= Escape::html($attrLabel) ?></dt>
+                                    <dd style="--value: <?= $value ?>"></dd>
+                                    <span class="horoskope__score" aria-hidden="true"><?= $value ?>/<?= $attributeMax ?></span>
+                                </div>
+                            <?php endforeach ?>
+                        </dl>
+                    <?php endif ?>
                 </details>
             <?php endforeach ?>
         <?php endif ?>
