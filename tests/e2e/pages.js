@@ -24,7 +24,7 @@ module.exports = [
     hide: ['.related-notes'], // shuffle() in templates/note.php
   },
   { name: 'events', path: '/events', visual: false },
-  { name: 'newsletter', path: '/newsletter' },
+  { name: 'newsletter_index', path: '/newsletter' },
   { name: 'newsletter', path: '/newsletter/november-2025' },
   { name: 'team', path: '/team' },
   { name: 'member', path: '/team/christian' },
