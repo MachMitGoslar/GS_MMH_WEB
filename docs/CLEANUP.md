@@ -9,6 +9,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 4. Tests (PHPUnit + Playwright) als Sicherheitsnetz, **bevor** umgebaut wird.
 
 ## Leitlinien
+- **Production-Code = `main`.** Räume (Rooms/Buchung) sind ein unfertiges Feature und werden nur angefasst, wenn es nicht anders geht. Aufräumen heißt: Zustand erhalten, kein Verhaltenswechsel.
 - Betriebsnotwendige Logik gehört ins Hauptrepo, als lokales Plugin `site/plugins/mmh-site/` (`src/` mit Namespace `Mmh\Site\`, PSR-4).
 - Eigenständige Module bleiben separate Plugins: Raumbuchung, App-Auslieferung (`/app/*`, `api/*-cover`, `latest-update`, `highlights`, Horoskope, Ferienpass), Signage, Newsletter-Versand. Sie hängen nicht von Site-Funktionen ab.
 - Jede Route, jeder Hook, jede Funktion hat genau eine Quelle.
@@ -47,7 +48,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [x] `public/index.php`: `'./assets'` (fehlender Slash)
 - [x] `home.php`: `block"`-Typo
 - [ ] `sections/hero.php`: picsum-Fallback in Production
-- [ ] `rooms.php` / `room.php`: `cover()->toFile()` auf bereits aufgelöstem File (Hero-Bild rendert vermutlich nie)
+- [ ] `rooms.php` / `room.php`: `cover()->toFile()` auf bereits aufgelöstem File. **Räume sind ein unfertiges Feature, bewusst unberührt**
 - [ ] `ferienpass/events.php` / `event_random.php`: `sort_by_start` ohne Guard doppelt deklariert
 - [ ] `utilities/content-card.php`: `isset($item)` nach Zugriff (wird mit dem Löschen erledigt)
 
@@ -62,9 +63,10 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 
 ### Toter Code
 - [x] Dateien: `debug_test.php` gelöscht; `data_format.txt` → `docs/app-card-format.txt` (App-Card-Format, ist Doku). `DEBUG_SETUP.md` bleibt (README verlinkt sie)
-- [ ] Templates: `calendar.php`, `machmit.php`, `app_performance.php` (Site und Plugin), Plugin-`templates/` und `controllers/`
+- [x] Templates `calendar.php`, `machmit.php` samt Blueprint `machmit.yml` und `layout/mainLayout.php` gelöscht (kaputt: falscher Snippet-Name; in keinem Content-Branch (`production`, `staging`, `main`) verwendet)
+- [ ] Templates offen: `app_performance.php` (Site und Plugin), Plugin-`templates/` und `controllers/` → mit der Plugin-Phase
 - [x] Snippets gelöscht: `utilities/content-card.php`, `newsletter/blogEntries.php`, `projects/projectTimelineEntry.php`, `integrations/performace*`, `ferienpass/csv_helper.php`
-- [ ] Snippets offen: `layout/mainLayout.php` (hängt an calendar/machmit); `blocks/line.php` ist leer, aber **bewusst nicht löschen**: der leere Override unterdrückt das Kirby-Default-`<hr>`, Löschen würde Trennlinien sichtbar machen. Erst klären, ob das gewollt ist
+- [ ] Snippets offen: `blocks/line.php` ist leer, aber **bewusst nicht löschen**: der leere Override unterdrückt das Kirby-Default-`<hr>`, Löschen würde Trennlinien sichtbar machen. Erst klären, ob das gewollt ist
 - [x] `controllers/site.php` (leer) gelöscht
 - [ ] Controller: `about.php` = `team.php` zusammenlegen; `?>` in `error.php`
 - [x] `getArchivedProjects` gelöscht
@@ -74,12 +76,12 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [ ] Signage-Plugin: totes `'panel' => ['js','css']`, Route `signage/assets/js/`
 
 ### Fehlende Referenzen klären
-- [ ] `api/rooms/availability*.json` benötigt `nextcloudCalendarIntegration.php` (fehlt)
-- [ ] `dreamform/forms`-Snippet in `project.php`
+- [ ] `api/rooms/availability*.json` benötigt `nextcloudCalendarIntegration.php` (fehlt). **Räume sind unfertig, bewusst unberührt**
+- [ ] `dreamform/forms`-Snippet in `project.php`: existiert nicht, Kirby rendert nichts (wirkungslos). Bleibt, damit das DOM unverändert bleibt; später zusammen mit der leeren `<section>` entfernen
 - [ ] 5 Signage-Snippets (`signage/player|standby|slide-*`) fehlen
 - [ ] Blocks: `testimonial.yml` ↔ `testimonials.yml`; `box` nicht registriert, aber referenziert; `faq2`; `searchbar` im falschen Ordner
 - [ ] `plugins/kirby3-dotenv/global.php` wird von der Prod-Config verlangt, ist aber nicht im Repo
-- [ ] `kirby`: verwaister Submodul-Pointer → `git rm --cached kirby`
+- [x] `kirby`: verwaisten Submodul-Pointer aus dem Index entfernt (Kirby kommt per Composer)
 - [ ] Event-Model fehlt (`events/(:num)` setzt `model => event`)
 - [ ] Content ohne Blueprint/Template: `3_informations`, `components/page.txt`, `_drafts/...`, `timeline_entries.txt`; `content/rooms/` hat `default.txt` und `rooms.txt`
 
