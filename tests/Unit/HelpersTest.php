@@ -85,4 +85,20 @@ final class HelpersTest extends TestCase
 
         $this->assertTrue(isTimedContentVisible($content));
     }
+
+    public function testTimedContentIsHiddenBeforePublishAndAfterEnd(): void
+    {
+        // KNOWN BUG (documented, not fixed: the cleanup keeps behaviour as is).
+        // isTimedContentVisible() checks method_exists($content, 'publish_date'),
+        // but Kirby blocks, layouts and pages serve fields through __call(), so
+        // that is always false and timed content is always shown. See
+        // docs/CLEANUP.md. Remove this skip when the check is fixed.
+        $this->markTestIncomplete('Known bug: publish_date/end_date are never evaluated.');
+
+        $future = new Kirby\Cms\Block(['type' => 'text', 'content' => ['publish_date' => '2099-01-01 10:00']]);
+        $expired = new Kirby\Cms\Block(['type' => 'text', 'content' => ['end_date' => '2000-01-01 10:00']]);
+
+        $this->assertFalse(isTimedContentVisible($future));
+        $this->assertFalse(isTimedContentVisible($expired));
+    }
 }

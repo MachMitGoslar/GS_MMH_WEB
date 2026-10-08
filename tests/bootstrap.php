@@ -35,3 +35,6 @@ new Kirby\Cms\App([
 
 require_once dirname(__DIR__) . '/site/helpers.php';
 require_once dirname(__DIR__) . '/site/controllers/oveda-event.php';
+require_once dirname(__DIR__) . '/site/controllers/api-images.php';
+require_once dirname(__DIR__) . '/site/controllers/newsletter-email.php';
+require_once dirname(__DIR__) . '/site/models/project.php';

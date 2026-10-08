@@ -91,13 +91,13 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 
 ### PHPUnit
 - [x] `phpunit` 10.5 als Dev-Dependency, `tests/Unit`, `tests/bootstrap.php` (Kirby gegen Fixture-Roots), `composer test` (`.ddev/` ist nicht im Repo, daher kein DDEV-Command; Aufruf: `ddev composer test`)
-- [~] Oveda: Normalisierung, Kategorien, Slug, URL, Datum-/Zeit-/Dauer-/Countdown-Labels getestet. Offen: `mmhOvedaEventMeta`, `Detail`, `Facts`, `OtherDates`, `Ics`
+- [x] Oveda: Normalisierung, Kategorien, Slug, URL, Labels, `Meta`, `Facts`, `Ics` getestet. Nicht getestet: `mmhOvedaEventDetail`/`OtherDates` (holen live von der API; erst testbar, wenn der HTTP-Zugriff injizierbar ist, Phase 4)
 - [x] `mmhColorContrast`, `mmhTimestampValue`, `getProjectStatusColor`
-- [~] `mmhRebaseStylesheetUrls` getestet; `mmhStylesheetBundle` (Fixture-CSS-Baum) offen
-- [ ] `mmhApiHexToRgb`, `mmhApiWrapSvgText`, `mmhApiXmlEscape`
-- [ ] Newsletter-HTML-Transforms (Snapshot)
-- [~] `isTimedContentVisible` (ohne Datumsfelder) getestet; `ProjectPage` offen
-- [ ] Horoskop: Parsing in pure Funktion extrahieren und testen (Sortierung, Attribute 0–8)
+- [x] `mmhRebaseStylesheetUrls` und `mmhInlineStylesheet` (Fixture-CSS-Baum: Hoisting, Deduplizierung, Zyklen, Reihenfolge) getestet
+- [x] `mmhApiHexToRgb`, `mmhApiMixRgb`, `mmhApiRgbColor`, `mmhApiWrapSvgText`, `mmhApiXmlEscape`, `mmhApiCoverFileSlug`
+- [x] Newsletter-HTML-Transforms (Icons→Emoji, Chrome entfernen, Mapbox entfernen, Timeline, Wrapper, Abmelde-Link, Inline-Styles, `mmhAbsoluteUrl`)
+- [x] `ProjectPage` getestet (Farbe, Akzente, Status-Fallback, Schritt-Sortierung, `latestStepDate`, Thema/Tags). `isTimedContentVisible`: nur der Fall ohne Datumsfelder; der Test für das Sollverhalten ist als *incomplete* markiert (bekannter Fehler, siehe Befunde)
+- [x] Horoskop: `mmhHoroscopeSortSigns` und `mmhHoroscopeAttributes` aus `list.php` nach `helpers.php` extrahiert und getestet (Seite rendert unverändert 12 Zeichen × 5 Skalen). Ein Zeichen ohne bekannte Attribut-Keys bekommt jetzt keine leere `<dl>` mehr. Zieht in Phase 4 ins App-Plugin um
 
 ### Playwright
 - [x] `tests/e2e/`, `playwright.config.js`, `baseURL` per `PLAYWRIGHT_BASE_URL` (Default DDEV). Projekte `desktop` (1440) und `mobile` (Pixel 7)
@@ -117,6 +117,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [~] `.github/workflows/ci.yml`: phpunit, ESLint/Stylelint (blockierend), PHPCS (noch nicht blockierend, bekannte Verstöße z. B. `project.php`: mehrere Klassen pro Datei). Job `visual` folgt mit Playwright
 
 **Befunde aus den Tests (nicht verändert, nur dokumentiert):**
+- **Zeitgesteuerte Veröffentlichung wirkt nicht.** `isTimedContentVisible()` (`helpers.php`) fragt `method_exists($content, 'publish_date')` ab. Kirby-Blöcke, -Layouts und -Seiten liefern Felder aber über `__call()`, also ist das immer `false` und Inhalte mit `publish_date` in der Zukunft oder abgelaufenem `end_date` werden **trotzdem angezeigt**. Im Production-Content haben nur `contact` (publish 2026-03-26) und `wie-funktioniert-machmit` (publish 2026-04-15) ein Datum, beide in der Vergangenheit, ein Fix würde heute also nichts sichtbar ändern. Wegen „Zustand erhalten“ **nicht behoben**; Entscheidung offen. Fix: Feldzugriff statt `method_exists` (`$content->content()->has(...)` bzw. `isset`)
 - `sections/hero.php` lädt ohne Cover ein **zufälliges Foto von picsum.photos** (404-Seite, Impressum, Über-uns u. a.): jede Seite sieht bei jedem Aufruf anders aus. Siehe Phase 1 „picsum-Fallback“.
 - `templates/note.php:149`: `shuffle()` bei „Weitere Einträge“ erzeugt wechselnde Seitenhöhe (im Visual-Test per `hide` ausgeblendet).
 - `mmh.debugLock` (neu, Default `true`, in `layout/head.php`): die Debug-Sperre für Gäste lässt sich abschalten. Nur die DDEV-Config setzt `false`, damit Playwright als Gast browsen kann. Staging/Production unverändert.

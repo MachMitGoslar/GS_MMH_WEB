@@ -427,3 +427,47 @@ if (!function_exists('mmhColorContrast')) {
         return ['bg' => $hex, 'on' => $on, 'ink' => $toHex($ink)];
     }
 }
+
+if (!function_exists('mmhHoroscopeSortSigns')) {
+    /**
+     * Sorts the signs of the horoscope API by their `order` field
+     * (aries → pisces). Since the API started to deliver the five attributes
+     * in `order`, an array there counts as 0 and keeps the API's own order.
+     *
+     * @param array<int, array> $signs
+     * @return array<int, array>
+     */
+    function mmhHoroscopeSortSigns(array $signs): array
+    {
+        $key = static fn (array $sign): int => is_numeric($sign['order'] ?? null) ? (int) $sign['order'] : 0;
+        usort($signs, static fn (array $a, array $b): int => $key($a) <=> $key($b));
+
+        return $signs;
+    }
+}
+
+if (!function_exists('mmhHoroscopeAttributes')) {
+    /**
+     * The attribute ratings of one sign, in the order of `$labels`, clamped to
+     * 0..$max. Read from `attributes`, or from `order` while the API still
+     * delivers them there. Attributes the API did not send are left out.
+     *
+     * @param array<string, string> $labels API field name => label
+     * @return array<string, array{label: string, value: int}>
+     */
+    function mmhHoroscopeAttributes(array $sign, array $labels, int $max = 8): array
+    {
+        $source = $sign['attributes'] ?? (is_array($sign['order'] ?? null) ? $sign['order'] : []);
+        $attributes = [];
+
+        foreach ($labels as $key => $label) {
+            if (!isset($source[$key])) {
+                continue;
+            }
+
+            $attributes[$key] = ['label' => $label, 'value' => max(0, min($max, (int) $source[$key]))];
+        }
+
+        return $attributes;
+    }
+}
