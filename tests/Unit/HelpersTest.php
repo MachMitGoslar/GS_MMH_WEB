@@ -86,19 +86,76 @@ final class HelpersTest extends TestCase
         $this->assertTrue(isTimedContentVisible($content));
     }
 
-    public function testTimedContentIsHiddenBeforePublishAndAfterEnd(): void
+    protected function tearDown(): void
     {
-        // KNOWN BUG (documented, not fixed: the cleanup keeps behaviour as is).
-        // isTimedContentVisible() checks method_exists($content, 'publish_date'),
-        // but Kirby blocks, layouts and pages serve fields through __call(), so
-        // that is always false and timed content is always shown. See
-        // docs/CLEANUP.md. Remove this skip when the check is fixed.
-        $this->markTestIncomplete('Known bug: publish_date/end_date are never evaluated.');
+        kirby()->impersonate(null);
+    }
 
-        $future = new Kirby\Cms\Block(['type' => 'text', 'content' => ['publish_date' => '2099-01-01 10:00']]);
-        $expired = new Kirby\Cms\Block(['type' => 'text', 'content' => ['end_date' => '2000-01-01 10:00']]);
+    private static function block(array $content): Kirby\Cms\Block
+    {
+        return new Kirby\Cms\Block(['type' => 'text', 'content' => $content]);
+    }
+
+    public function testBlocksAreHiddenBeforePublishAndAfterEnd(): void
+    {
+        $this->assertFalse(isTimedContentVisible(self::block(['publish_date' => '2099-01-01 10:00'])));
+        $this->assertFalse(isTimedContentVisible(self::block(['end_date' => '2000-01-01 10:00'])));
+    }
+
+    public function testBlocksInsideTheirTimeWindowAreVisible(): void
+    {
+        $this->assertTrue(isTimedContentVisible(self::block(['publish_date' => '2000-01-01 10:00'])));
+        $this->assertTrue(isTimedContentVisible(self::block(['end_date' => '2099-01-01 10:00'])));
+        $this->assertTrue(isTimedContentVisible(self::block([
+            'publish_date' => '2000-01-01 10:00',
+            'end_date' => '2099-01-01 10:00',
+        ])));
+        $this->assertTrue(isTimedContentVisible(self::block(['publish_date' => '', 'end_date' => ''])), 'empty = no restriction');
+        $this->assertTrue(isTimedContentVisible(self::block(['text' => 'no dates at all'])));
+    }
+
+    public function testLayoutsReadTheirDatesFromTheAttributes(): void
+    {
+        $layout = fn (array $attrs) => new Kirby\Cms\Layout(['id' => 'l', 'attrs' => $attrs, 'columns' => []]);
+
+        $this->assertFalse(isTimedContentVisible($layout(['publish_date' => '2099-01-01 10:00'])));
+        $this->assertFalse(isTimedContentVisible($layout(['end_date' => '2000-01-01 10:00'])));
+        $this->assertTrue(isTimedContentVisible($layout(['publish_date' => '', 'end_date' => ''])));
+    }
+
+    public function testPagesAreHiddenOutsideTheirTimeWindow(): void
+    {
+        $page = fn (array $content) => new Kirby\Cms\Page(['slug' => 'p', 'content' => $content]);
+
+        $this->assertFalse(isTimedContentVisible($page(['publish_date' => '2099-01-01 10:00'])));
+        $this->assertFalse(isTimedContentVisible($page(['end_date' => '2000-01-01 10:00'])));
+        $this->assertTrue(isTimedContentVisible($page(['publish_date' => '2000-01-01 10:00'])));
+    }
+
+    public function testTimesAreInterpretedInTheConfiguredTimezone(): void
+    {
+        // 2 hours ahead of now in Berlin is in the future whatever the server timezone is
+        $berlin = new DateTimeZone('Europe/Berlin');
+        $soon = (new DateTimeImmutable('now', $berlin))->modify('+2 hours')->format('Y-m-d H:i');
+        $justPassed = (new DateTimeImmutable('now', $berlin))->modify('-2 hours')->format('Y-m-d H:i');
+
+        $this->assertFalse(isTimedContentVisible(self::block(['publish_date' => $soon])));
+        $this->assertTrue(isTimedContentVisible(self::block(['publish_date' => $justPassed])));
+    }
+
+    public function testAnUnparsableDateDoesNotHideContent(): void
+    {
+        $this->assertTrue(isTimedContentVisible(self::block(['publish_date' => 'bald'])));
+    }
+
+    public function testEditorsAndAdminsAlwaysSeeTimedContent(): void
+    {
+        $future = self::block(['publish_date' => '2099-01-01 10:00']);
 
         $this->assertFalse(isTimedContentVisible($future));
-        $this->assertFalse(isTimedContentVisible($expired));
+
+        kirby()->impersonate('kirby');
+
+        $this->assertTrue(isTimedContentVisible($future));
     }
 }

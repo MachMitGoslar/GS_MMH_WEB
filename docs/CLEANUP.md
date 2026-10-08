@@ -22,7 +22,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 |---|---|---|---|
 | 0 | Dieses Dokument | erledigt | |
 | 1 | Sofort-Fixes & Hygiene | in Arbeit (Routen, Hooks, Kleinbugs erledigt) | |
-| 2 | Test-Fundament (PHPUnit, Playwright, Lint, CI) | weitgehend erledigt (83 Unit-Tests, 46 Smoke, 30 Visual; CI-Visual-Job noch nicht auf GitHub gelaufen) | |
+| 2 | Test-Fundament (PHPUnit, Playwright, Lint, CI) | erledigt, bis auf den ersten GitHub-Lauf des CI-Jobs `visual` (89 Unit-Tests, 46 Smoke, 30 Visual) | |
 | 3 | Content-Submodul entfernen | offen | |
 | 4 | Logik-Struktur (`mmh-site` + Module) | offen | |
 | 5 | Komponenten konsolidieren | offen | |
@@ -96,7 +96,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [x] `mmhRebaseStylesheetUrls` und `mmhInlineStylesheet` (Fixture-CSS-Baum: Hoisting, Deduplizierung, Zyklen, Reihenfolge) getestet
 - [x] `mmhApiHexToRgb`, `mmhApiMixRgb`, `mmhApiRgbColor`, `mmhApiWrapSvgText`, `mmhApiXmlEscape`, `mmhApiCoverFileSlug`
 - [x] Newsletter-HTML-Transforms (Icons→Emoji, Chrome entfernen, Mapbox entfernen, Timeline, Wrapper, Abmelde-Link, Inline-Styles, `mmhAbsoluteUrl`)
-- [x] `ProjectPage` getestet (Farbe, Akzente, Status-Fallback, Schritt-Sortierung, `latestStepDate`, Thema/Tags). `isTimedContentVisible`: nur der Fall ohne Datumsfelder; der Test für das Sollverhalten ist als *incomplete* markiert (bekannter Fehler, siehe Befunde)
+- [x] `ProjectPage` getestet (Farbe, Akzente, Status-Fallback, Schritt-Sortierung, `latestStepDate`, Thema/Tags). `isTimedContentVisible` (Block, Layout, Seite, Zeitzone, ungültiges Datum, Redakteure)
 - [x] Horoskop: `mmhHoroscopeSortSigns` und `mmhHoroscopeAttributes` aus `list.php` nach `helpers.php` extrahiert und getestet (Seite rendert unverändert 12 Zeichen × 5 Skalen). Ein Zeichen ohne bekannte Attribut-Keys bekommt jetzt keine leere `<dl>` mehr. Zieht in Phase 4 ins App-Plugin um
 
 ### Playwright
@@ -118,7 +118,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [~] `.github/workflows/ci.yml`: phpunit, ESLint/Stylelint (blockierend), PHPCS (noch nicht blockierend, bekannte Verstöße z. B. `project.php`: mehrere Klassen pro Datei). Job `visual` folgt mit Playwright
 
 **Befunde aus den Tests (nicht verändert, nur dokumentiert):**
-- **Zeitgesteuerte Veröffentlichung wirkt nicht.** `isTimedContentVisible()` (`helpers.php`) fragt `method_exists($content, 'publish_date')` ab. Kirby-Blöcke, -Layouts und -Seiten liefern Felder aber über `__call()`, also ist das immer `false` und Inhalte mit `publish_date` in der Zukunft oder abgelaufenem `end_date` werden **trotzdem angezeigt**. Im Production-Content haben nur `contact` (publish 2026-03-26) und `wie-funktioniert-machmit` (publish 2026-04-15) ein Datum, beide in der Vergangenheit, ein Fix würde heute also nichts sichtbar ändern. Wegen „Zustand erhalten“ **nicht behoben**; Entscheidung offen. Fix: Feldzugriff statt `method_exists` (`$content->content()->has(...)` bzw. `isset`)
+- **Zeitgesteuerte Veröffentlichung wirkte nicht (behoben).** `isTimedContentVisible()` (`helpers.php`) fragte `method_exists($content, 'publish_date')` ab. Kirby-Blöcke, -Layouts und -Seiten liefern Felder aber über `__call()`, also war das immer `false`, und Inhalte mit `publish_date` in der Zukunft oder abgelaufenem `end_date` wurden **trotzdem angezeigt**. Fix: neuer Helfer `mmhTimedContentFields()` liest Layouts aus `attrs()`, Blöcke und Seiten aus `content()`; Redakteure/Admins und `?preview` sehen weiterhin alles. Im Production- und im lokalen Content haben nur `contact` (publish 2026-03-26) und `wie-funktioniert-machmit` (publish 2026-04-15) ein Datum, beide in der Vergangenheit: heute ändert sich nichts sichtbar. Ab jetzt wirken neu gesetzte Zeiten tatsächlich. Tests für Block, Layout, Seite, Zeitzone, ungültige Daten und Redakteure
 - `sections/hero.php` lädt ohne Cover ein **zufälliges Foto von picsum.photos** (404-Seite, Impressum, Über-uns u. a.): jede Seite sieht bei jedem Aufruf anders aus. Siehe Phase 1 „picsum-Fallback“.
 - `templates/note.php:149`: `shuffle()` bei „Weitere Einträge“ erzeugt wechselnde Seitenhöhe (im Visual-Test per `hide` ausgeblendet).
 - `mmh.debugLock` (neu, Default `true`, in `layout/head.php`): die Debug-Sperre für Gäste lässt sich abschalten. Nur die DDEV-Config setzt `false`, damit Playwright als Gast browsen kann. Staging/Production unverändert.
