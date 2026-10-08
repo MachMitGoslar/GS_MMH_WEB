@@ -24,7 +24,7 @@ module.exports = [
     hide: ['.related-notes'], // shuffle() in templates/note.php
   },
   { name: 'events', path: '/events', visual: false },
-  { name: 'newsletters', path: '/newsletter' },
+  { name: 'newsletter', path: '/newsletter' },
   { name: 'newsletter', path: '/newsletter/november-2025' },
   { name: 'team', path: '/team' },
   { name: 'member', path: '/team/christian' },
@@ -42,5 +42,6 @@ module.exports = [
     known: 'Rooms feature unfinished: HTTP 500',
   },
   { name: 'impressum', path: '/impressum' },
-  { name: 'not-found', path: '/diese-seite-gibt-es-nicht', status: 404 },
+  { name: 'not-allowed', path: '/not-allowed', status: 403 },
+  { name: 'not-found', path: '/not-found', status: 404 },
 ];

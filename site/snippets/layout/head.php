@@ -8,7 +8,7 @@
         <?php snippet('seo/meta') ?>
     <?php else : ?>
         <?php if (!$kirby->user() && $kirby->option('mmh.debugLock', true)) {
-            go('/not-allowed', 404);
+            go('/not-allowed', 403);
         } ?>
 
         <meta name="robots" content="noindex, nofollow" />
