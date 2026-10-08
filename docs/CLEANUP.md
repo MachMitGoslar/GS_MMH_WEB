@@ -127,17 +127,21 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 
 ## Phase 3: Content-Submodul entfernen
 
-Deployment läuft über eine **externe Pipeline** (nicht im Repo). Zu klären: checkt sie Submodule rekursiv aus, synchronisiert sie `content/`, schließt sie `content/` aus?
+**Detaillierte Checkliste pro Instanz: [CONTENT-SUBMODULE-MIGRATION.md](CONTENT-SUBMODULE-MIGRATION.md).**
 
-- [ ] Pipeline prüfen und anpassen (`content/` nie überschreiben/löschen)
-- [ ] Pro Instanz (erst Staging, dann Prod): Backup `content/`, `git -C content status` sauber, `content/` in eigenständigen Clone überführen (`git submodule absorbgitdirs`/Re-Clone), Submodul-Eintrag aus `.git/config`
-- [ ] Hauptrepo: `git rm --cached content`, `.gitmodules` bereinigen, tote DreamForm-`!`-Regeln in `.gitignore` löschen
-- [ ] git-content konfigurieren (`pull`/`push`, `cronHooksSecret`), Cron dokumentieren
-- [ ] README (Zeile 22 und 85) und `DEVELOPMENT_SETUP.md`: `content/` als eigener Clone; optional `.ddev/commands/host/content-sync`
-- [ ] Staging-Config anlegen
-- [ ] Verifikation auf Staging: Panel-Speichern → Commit auf richtigem Branch; erneuter Deploy lässt `content/` unverändert
+Stand der Pipeline (von dir bestätigt): Sie checkt `content` rekursiv als Submodul aus, **kopiert den Ordner aber nicht**, weil er auf den Servern schon liegt. Auf Production gibt es redaktionelle Änderungen, die entweder lokal committet und nicht gepusht sind (git-content pusht nicht) oder außerhalb der Struktur liegen und von Hand committet werden müssen. Als Submodul ergibt `content/` damit keinen Sinn: der Pointer ist veraltet, ein `submodule update` würde den Content zurücksetzen, und der Checkout kostet jedes Mal ~586 MB.
 
-Hinweis: Der Pointer ist veraltet (pinnt `1e85a2a`, lokal `staging@955ef3c`). Ein `submodule update` auf einem Server würde den Content zurücksetzen.
+Reihenfolge (nicht ändern): **Pipeline → Instanz umwandeln → Hauptrepo.**
+
+- [ ] 1 Pipeline: nur noch die Plugin-Submodule holen, `content/` nie anfassen
+- [ ] 2 Pro Instanz Backup und Bestandsaufnahme (Staging, dann Production)
+- [ ] 3 Unpushed Commits (A) sichern, manuelle Änderungen (B) von Hand committen, alles zuerst auf einen `backup/*`-Branch pushen
+- [ ] 4 Losgelösten HEAD in einen Branch (`production` / `staging`) überführen
+- [ ] 5 `content/` zum eigenständigen Repo machen (`.git` aus `.git/modules/content` nach `content/.git`), **ohne** `submodule deinit`
+- [ ] 6 Hauptrepo: `git rm --cached content`, `.gitmodules` und tote `.gitignore`-Regeln bereinigen, README/DEVELOPMENT_SETUP anpassen
+- [ ] 7 Danach: git-content-Secret, Staging-Config, Backups nach einer Woche löschen
+- [ ] Fehlende Staging-Config (`config.<staging-host>.php`) anlegen. Sonst läuft Staging mit `debug => true` und `panel.install => true`; die Debug-Sperre in `layout/head.php` hängt an `debug`, siehe Befunde
+- [ ] Verifikation auf Staging: Panel-Speichern → Commit auf richtigem Branch; erneuter Deploy lässt `content/` unverändert; frischer Dev-Clone funktioniert mit der neuen README-Anleitung
 
 ---
 
