@@ -234,7 +234,7 @@ return [
                 'text/html',
                 403
             );
-            
+
             return $response;
         },
     ],
