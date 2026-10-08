@@ -258,8 +258,22 @@ To enable Google Calendar integration for room bookings:
 |--------------------|----------------------------------------|
 | `npm run serve`    | PHP server + BrowserSync (live reload) |
 | `npm run format`   | Format JS, CSS, PHP (Prettier + php-cs-fixer) |
-| `npm run lint`     | Lint JS, CSS, PHP with auto-fix        |
+| `npm run lint`     | Lint JS, CSS, PHP                      |
+| `npm run lint:js:fix` / `lint:css:fix` | Lint with auto-fix       |
 | `npm run pre-commit` | Format + lint (runs via husky)      |
+
+### Tests
+
+| Command | Description |
+|---------|-------------|
+| `ddev composer test` | PHPUnit unit tests (`tests/Unit`) |
+| `npm run test:e2e` | Playwright smoke tests against `https://gs-mmh-web.ddev.site` (status, JS errors, complete HTML, mobile menu) |
+| `npm run test:visual:update` | Create local screenshot baselines. Run it on the unchanged code **before** a refactoring |
+| `npm run test:visual` | Compare against the local baselines |
+
+In CI every pull request is additionally rendered against its base branch with a pinned content
+snapshot (`tests/e2e/ci-visual.sh`), so no baselines are stored in the repository. The page list
+lives in `tests/e2e/pages.js`. See [docs/CLEANUP.md](docs/CLEANUP.md) for the background.
 
 ### Code Style
 

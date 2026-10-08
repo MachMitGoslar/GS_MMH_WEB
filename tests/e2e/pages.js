@@ -1,9 +1,9 @@
 /**
  * Pages covered by the smoke and visual tests.
  *
- * The paths refer to the content of the `staging` content branch. When the
- * content changes, adjust the paths (a fixed test content set is planned,
- * see docs/CLEANUP.md).
+ * The paths refer to the content of the `staging` content branch. In CI the
+ * visual tests render with the content commit pinned in
+ * .github/workflows/ci.yml (CONTENT_REF); keep the paths valid for it.
  *
  * visual: false  -> smoke only (content depends on time or external APIs)
  * hide: [css]    -> selectors hidden in screenshots (randomised content)

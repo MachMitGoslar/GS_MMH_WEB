@@ -74,3 +74,49 @@ jobs:
       - run: composer install --no-interaction --prefer-dist --no-progress
 
       - run: composer lint
+
+  visual:
+    name: Visual regression (PR vs. base)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # Content the pages are rendered with. Pinned, so content edits never
+      # show up as visual changes. Update it on purpose (public web_content).
+      CONTENT_REF: 72e9eae26021b3f3685421da473983484fbf194d
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/cache@v4
+        with:
+          path: content
+          key: content-${{ env.CONTENT_REF }}
+
+      - run: npm ci
+        env:
+          HUSKY: '0'
+
+      - run: npx playwright install --with-deps chromium
+
+      # Renders the base and the PR with the same content and compares them.
+      - run: tests/e2e/ci-visual.sh ${{ github.event.pull_request.base.sha }} ${{ github.sha }}
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-diffs
+          path: tests/e2e/.results
+          if-no-files-found: ignore
