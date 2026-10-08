@@ -60,6 +60,8 @@ render() {
   composer install --no-interaction --prefer-dist --no-progress --quiet
   write_config
 
+  # Older refs (the base of a PR) have no tests/ directory at all.
+  mkdir -p tests
   rm -rf tests/e2e
   cp -r "$WORK/e2e" tests/e2e
   cp "$WORK/playwright.config.js" playwright.config.js
