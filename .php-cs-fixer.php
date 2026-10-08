@@ -12,12 +12,12 @@ $finder = Finder::create()
         'kirby',
         'storage',
         'node_modules',
+        '.phpunit.cache',
         // Plugin has its own .php-cs-fixer.dist.php
         'site/plugins/gs-mmh-web-plugin',
-        'site/plugins/gs-mmh-signage',
+        'site/plugins/gs-mmh-signage-plugin',
         'site/plugins/kirby-dreamform',
         'site/plugins/locator',
-        'site/plugins/helpers',
         'site/plugins/git-content',
     ])
     ->name('*.php')

@@ -12,8 +12,10 @@
     "format:css": "prettier --write \"**/*.{css,scss}\"",
     "format:php": "ddev exec composer run format",
     "lint": "npm run lint:js && npm run lint:css && npm run lint:php",
-    "lint:js": "eslint -c eslint.config.js --fix",
-    "lint:css": "stylelint \"**/*.{css,scss}\" --fix",
+    "lint:js": "eslint -c eslint.config.js public/assets/js",
+    "lint:js:fix": "eslint -c eslint.config.js public/assets/js --fix",
+    "lint:css": "stylelint \"public/assets/**/*.css\"",
+    "lint:css:fix": "stylelint \"public/assets/**/*.css\" --fix",
     "lint:php": "ddev exec composer run lint",
     "pre-commit": "npm run format && npm run lint",
     "prepare": "husky"
@@ -45,7 +47,7 @@
     "stylelint-config-standard": "^40.0.0"
   },
   "lint-staged": {
-    "site/!(plugins)/*.{js,ts}": [
+    "public/assets/js/*.js": [
       "npx prettier --write",
       "npx eslint --fix"
     ],

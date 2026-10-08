@@ -22,7 +22,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 |---|---|---|---|
 | 0 | Dieses Dokument | erledigt | |
 | 1 | Sofort-Fixes & Hygiene | in Arbeit (Routen, Hooks, Kleinbugs erledigt) | |
-| 2 | Test-Fundament (PHPUnit, Playwright, Lint, CI) | offen | |
+| 2 | Test-Fundament (PHPUnit, Playwright, Lint, CI) | in Arbeit (PHPUnit, Lint, CI-Grundgerüst erledigt; Playwright offen) | |
 | 3 | Content-Submodul entfernen | offen | |
 | 4 | Logik-Struktur (`mmh-site` + Module) | offen | |
 | 5 | Komponenten konsolidieren | offen | |
@@ -90,13 +90,13 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 ## Phase 2: Test-Fundament
 
 ### PHPUnit
-- [ ] `phpunit` als Dev-Dependency, `tests/Unit`, `tests/bootstrap.php`, `.ddev/commands/web/test`
-- [ ] Oveda-Parsing (`events-api.php`, `oveda-event.php`), mit JSON-Fixtures
-- [ ] `mmhColorContrast`, `mmhTimestampValue`
-- [ ] `mmhStylesheetBundle` / `mmhRebaseStylesheetUrls` (Fixture-CSS-Baum)
+- [x] `phpunit` 10.5 als Dev-Dependency, `tests/Unit`, `tests/bootstrap.php` (Kirby gegen Fixture-Roots), `composer test` (`.ddev/` ist nicht im Repo, daher kein DDEV-Command; Aufruf: `ddev composer test`)
+- [~] Oveda: Normalisierung, Kategorien, Slug, URL, Datum-/Zeit-/Dauer-/Countdown-Labels getestet. Offen: `mmhOvedaEventMeta`, `Detail`, `Facts`, `OtherDates`, `Ics`
+- [x] `mmhColorContrast`, `mmhTimestampValue`, `getProjectStatusColor`
+- [~] `mmhRebaseStylesheetUrls` getestet; `mmhStylesheetBundle` (Fixture-CSS-Baum) offen
 - [ ] `mmhApiHexToRgb`, `mmhApiWrapSvgText`, `mmhApiXmlEscape`
 - [ ] Newsletter-HTML-Transforms (Snapshot)
-- [ ] `ProjectPage::effectiveProjectStatus` / `latestStepDate`, `isTimedContentVisible`
+- [~] `isTimedContentVisible` (ohne Datumsfelder) getestet; `ProjectPage` offen
 - [ ] Horoskop: Parsing in pure Funktion extrahieren und testen (Sortierung, Attribute 0–8)
 
 ### Playwright
@@ -108,13 +108,13 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [ ] Baseline-Screenshots erzeugen (vor Phase 4/5)
 
 ### Lint & CI
-- [ ] Stylelint: 14 Fehler (`grid.css`, `eventsList.css`, Leerzeilen)
-- [ ] ESLint: Browser-Globals, `lightbox/` ignorieren, `lint:js` ohne `--fix` aufs ganze Repo
-- [ ] lint-staged-Globs (JS in `public/assets/js` wird nie geprüft; PHP fehlt)
-- [ ] PHP-CS-Fixer / PHPCS-Excludes vereinheitlichen (Signage- und Web-Plugin inkonsistent)
-- [ ] `.editorconfig`; toten Prettier-PHP-Override entfernen
+- [x] Stylelint: 0 Fehler (Autofix: Range-Notation, Leerzeilen, `overflow`-Shorthand; das generierte Bundle `public/media/**` wird ignoriert)
+- [x] ESLint: Browser-Globals, `lightbox/` ignoriert, `lint:js` ohne `--fix` nur auf `public/assets/js` (`lint:js:fix` für Autofix)
+- [~] lint-staged-Glob für `public/assets/js/*.js` korrigiert; PHP im Hook fehlt weiterhin (läuft nur in DDEV)
+- [x] PHP-CS-Fixer-Exclude auf `gs-mmh-signage-plugin` korrigiert (Pfad stimmte nicht, das Plugin wurde mitformatiert); PHPCS prüft zusätzlich `tests/`
+- [x] `.editorconfig` angelegt; toter Prettier-PHP-Override entfernt
 - [ ] Optional: PHPStan Level 1–3
-- [ ] `.github/workflows/ci.yml`: lint, phpunit (PHP 8.4), visual
+- [~] `.github/workflows/ci.yml`: phpunit, ESLint/Stylelint (blockierend), PHPCS (noch nicht blockierend, bekannte Verstöße z. B. `project.php`: mehrere Klassen pro Datei). Job `visual` folgt mit Playwright
 
 ---
 

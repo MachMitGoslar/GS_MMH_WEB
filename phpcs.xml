@@ -4,6 +4,7 @@
 
     <!-- Directories to check -->
     <file>site/</file>
+    <file>tests/</file>
 
     <!-- Only check PHP files -->
     <arg name="extensions" value="php"/>
@@ -59,6 +60,7 @@
     -->
     <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
         <exclude-pattern>*/models/*</exclude-pattern>
+        <exclude-pattern>*/tests/*</exclude-pattern>
     </rule>
 
     <!--
