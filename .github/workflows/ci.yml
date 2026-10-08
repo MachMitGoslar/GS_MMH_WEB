@@ -66,9 +66,7 @@ jobs:
   php-style:
     name: PHP style (PHPCS)
     runs-on: ubuntu-latest
-    # Not blocking yet: the codebase still has known violations
-    # (see docs/CLEANUP.md). Flip to blocking once they are fixed.
-    continue-on-error: true
+    # Errors fail the job; warnings (long lines) are reported only.
     steps:
       - uses: actions/checkout@v4
 
@@ -129,8 +127,10 @@ jobs:
 
       - run: npx playwright install --with-deps chromium
 
+      # Content and plugins follow the environment (production or staging)
       - run: tests/e2e/ci-smoke.sh
         env:
+          ENV_BRANCH: ${{ steps.content.outputs.branch }}
           CONTENT_REF: ${{ steps.content.outputs.ref }}
 
       - uses: actions/upload-artifact@v4
@@ -171,6 +171,7 @@ jobs:
           if [ "$TARGET" = "main" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then BRANCH=production; fi
           REF=${OVERRIDE:-$(git ls-remote https://github.com/MachMitGoslar/web_content "refs/heads/$BRANCH" | cut -f1)}
           [ -n "$REF" ] || { echo "could not resolve web_content/$BRANCH"; exit 1; }
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
           echo "ref=$REF" >> "$GITHUB_OUTPUT"
           echo "Content: web_content/$BRANCH @ ${REF:0:7}" >> "$GITHUB_STEP_SUMMARY"
 
@@ -188,6 +189,7 @@ jobs:
       # Renders the base and the PR with the same content and compares them.
       - run: tests/e2e/ci-visual.sh "${{ github.event.pull_request.base.sha || inputs.base_ref }}" "${{ github.sha }}"
         env:
+          ENV_BRANCH: ${{ steps.content.outputs.branch }}
           CONTENT_REF: ${{ steps.content.outputs.ref }}
 
       - uses: actions/upload-artifact@v4

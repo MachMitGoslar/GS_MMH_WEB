@@ -271,10 +271,11 @@ To enable Google Calendar integration for room bookings:
 | `npm run test:visual:update` | Create local screenshot baselines. Run it on the unchanged code **before** a refactoring |
 | `npm run test:visual` | Compare against the local baselines |
 
-In CI the smoke tests run against the live content of `web_content` (head of `production` for code
-going to `main`, head of `staging` otherwise), and every pull request is additionally rendered against
-its base with that same content (`tests/e2e/ci-visual.sh`), so no baselines are stored in the
-repository. The content commit is resolved once per run. The page list lives in
+In CI the smoke tests run against the live content of `web_content` **and the current plugin heads**
+(`production` for code going to `main`, `staging` otherwise; a plugin without that branch falls back to
+`main`), and every pull request is additionally rendered against its base with the same content and
+plugins (`tests/e2e/ci-visual.sh`), so no baselines are stored in the repository. The commits are
+resolved once per run. The plugin commits pinned by the repository are *not* used for CI. The page list lives in
 `tests/e2e/pages.js`; pages that editors removed are skipped in CI. See
 [docs/CLEANUP.md](docs/CLEANUP.md) for the background.
 

@@ -15,8 +15,8 @@
 # Needs php, composer, node/npm (with `npm ci` done) and Playwright's chromium.
 # The working tree is switched between the refs: run it in a clean clone.
 #
-# Environment: see ci-lib.sh. The content is resolved once, so both renders
-# use the same commit even if editors push while the job runs. Pages that were
+# Environment: see ci-lib.sh. Content and plugins are resolved once, so both
+# renders use the same commits even if someone pushes while the job runs. Pages that were
 # removed from the content are skipped (MMH_SKIP_MISSING=1).
 
 set -euo pipefail
@@ -55,7 +55,7 @@ render() {
 
   echo "==> ${mode} @ ${sha:0:7}"
   git checkout --force --detach "$sha" >/dev/null 2>&1
-  init_plugins
+  prepare_plugins
 
   composer install --no-interaction --prefer-dist --no-progress --quiet
   write_config
@@ -83,6 +83,7 @@ render() {
 }
 
 resolve_content_ref
+resolve_plugin_refs
 prepare_content
 render "$BASE_SHA" baseline
 render "$HEAD_SHA" compare

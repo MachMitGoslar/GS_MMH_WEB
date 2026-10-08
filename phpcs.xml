@@ -6,6 +6,10 @@
     <file>site/</file>
     <file>tests/</file>
 
+    <!-- Warnings (e.g. long lines in templates) stay visible but do not fail
+         the run; only errors give a non-zero exit code. -->
+    <config name="ignore_warnings_on_exit" value="1"/>
+
     <!-- Only check PHP files -->
     <arg name="extensions" value="php"/>
 
