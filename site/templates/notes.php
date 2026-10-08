@@ -41,9 +41,9 @@
     $notes = $page->children()->listed()->sortBy(function ($note) {
         return $note->publishedTimestamp();
     }, 'desc');
-$featuredNotes = $notes->filterBy('featured', true);
-$regularNotes = $notes->filterBy('featured', '!=', true);
-?>
+    $featuredNotes = $notes->filterBy('featured', true);
+    $regularNotes = $notes->filterBy('featured', '!=', true);
+    ?>
 
     <!-- Featured Notes -->
     <?php if ($featuredNotes->count() > 0) : ?>

@@ -42,31 +42,31 @@
           <?php
             $newsletters = $page->children()->listed();
         // Sort by publish_date, then fallback to published date, modified date, or folder number
-        $sortedNewsletters = $newsletters->sortBy(function ($newsletter) {
-            // Primary: use publish_date field if available
-            if ($newsletter->publish_date()->isNotEmpty()) {
-                return mmhTimestampValue($newsletter->publish_date());
-            }
-            // Secondary: use published date if available
-            $published = $newsletter->published();
-            if ($published && !$published->isEmpty()) {
-                return mmhTimestampValue($published);
-            }
-            // Tertiary: use modified date
-            $modified = $newsletter->modified();
-            if ($modified) {
-                return mmhTimestampValue($modified);
-            }
+            $sortedNewsletters = $newsletters->sortBy(function ($newsletter) {
+                // Primary: use publish_date field if available
+                if ($newsletter->publish_date()->isNotEmpty()) {
+                    return mmhTimestampValue($newsletter->publish_date());
+                }
+                // Secondary: use published date if available
+                $published = $newsletter->published();
+                if ($published && !$published->isEmpty()) {
+                    return mmhTimestampValue($published);
+                }
+                // Tertiary: use modified date
+                $modified = $newsletter->modified();
+                if ($modified) {
+                    return mmhTimestampValue($modified);
+                }
 
-            // Final fallback: reverse folder number for manual ordering
-            return -(int) ($newsletter->num());
-        }, 'desc');
+                // Final fallback: reverse folder number for manual ordering
+                return -(int) ($newsletter->num());
+            }, 'desc');
 
-        foreach ($sortedNewsletters as $index => $newsletter) :
-            ?>
-            <?= snippet('content-types/newsletter/newsletterItem', [
-            'newsletter' => $newsletter,
-            'class' => $index === 0 ? 'newsletter-item--featured' : '',
+          foreach ($sortedNewsletters as $index => $newsletter) :
+                ?>
+              <?= snippet('content-types/newsletter/newsletterItem', [
+                'newsletter' => $newsletter,
+                'class' => $index === 0 ? 'newsletter-item--featured' : '',
               ]) ?>
           <?php endforeach ?>
         </ul>
@@ -87,14 +87,14 @@
       <div class="newsletter-cta">
         <h3 class="font-title mb-4">Newsletter abonnieren</h3>
         <p class="font-body newsletter-cta__text mb-6">
-          <?= $page->cta_text() ?>
+            <?= $page->cta_text() ?>
         </p>
         <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regular" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal">
-          <?= $page->cta_button_text() ?>
+            <?= $page->cta_button_text() ?>
         </button>
       </div>
     </div>
-    <?php endif ?>
+     <?php endif ?>
     
   </section>
 
@@ -103,3 +103,4 @@
 </main>
 
 <?php snippet('layout/footer'); ?>
+<?php snippet('layout/foot'); ?>

@@ -9,6 +9,7 @@
  * Drafts are included so a tag someone is currently drafting with shows up
  * as a suggestion right away instead of only after publishing.
  */
+
 return function ($site) {
     $projects = new Kirby\Cms\Pages([]);
 

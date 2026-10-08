@@ -12,7 +12,7 @@ $ratio = $block->ratio()->or('auto');
     <?php foreach ($block->images()->toFiles() as $image) : ?>
     <li class="grid-item grid-item-span4">
     <a href="<?= $image->width() > 1920 ? $image->resize(1920)->url() : $image->url() ?>" data-fslightbox="gallery">
-      <?php snippet('utilities/image', [
+        <?php snippet('utilities/image', [
           'file' => $image,
           'role' => 'card',
           'sizes' => '(min-width: 1024px) 33vw, 100vw',

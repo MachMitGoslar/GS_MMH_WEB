@@ -55,7 +55,7 @@ $allRooms = $roomsPage->children()->listed();
     <div class="grid-item" data-span="1/1">
       <?php if ($cover = $page->cover()->toFile()) : ?>
         <div class="room-main-image">
-          <?php snippet('utilities/image', [
+            <?php snippet('utilities/image', [
               'file' => $cover,
               'role' => 'content',
               'ratio' => '2:1',
@@ -71,7 +71,7 @@ $allRooms = $roomsPage->children()->listed();
         <div class="room-gallery">
             <?php foreach ($gallery as $image) : ?>
             <a href="<?= $image->url() ?>" class="room-gallery-item" data-lightbox="room-gallery">
-              <?php snippet('utilities/image', [
+                <?php snippet('utilities/image', [
                   'file' => $image,
                   'role' => 'thumb',
                   'ratio' => '3:2',
@@ -158,7 +158,7 @@ $allRooms = $roomsPage->children()->listed();
           </div>
             <?php if ($page->nonprofit_discount()->toBool()) : ?>
             <p class="pricing-discount font-footnote">
-              <?php snippet('utilities/icon', ['name' => 'lightbulb']) ?> <?= $page->nonprofit_discount_percent()->or(0) ?>% Rabatt für gemeinnützige Organisationen
+                <?php snippet('utilities/icon', ['name' => 'lightbulb']) ?> <?= $page->nonprofit_discount_percent()->or(0) ?>% Rabatt für gemeinnützige Organisationen
             </p>
             <?php endif ?>
             <?php if ($page->pricing_notes()->isNotEmpty()) : ?>

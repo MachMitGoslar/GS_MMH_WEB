@@ -14,7 +14,7 @@ $showOutlook = $projectStartDate !== null && $projectStartDate > date('Y-m-d');
 <li class="c-projectUpdateTeaser-card">
   <a href="<?= $project_step->parent()->url() ?>" class="hero-wrapper" aria-label="<?= $project->title()->html() ?>">
     <?php if ($projectUpdateCover) : ?>
-      <?php snippet('utilities/image', [
+        <?php snippet('utilities/image', [
           'file' => $projectUpdateCover,
           'role' => 'card',
           'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',

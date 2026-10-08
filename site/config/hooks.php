@@ -11,40 +11,11 @@ use Kirby\Cms\Page;
 
 return [
     /**
-     * Auto-set publish date when content is first published
-     *
-     * Automatically sets the publish date for newsletters and notes
-     * when they are published (listed) for the first time.
+     * Booking request status changes (email and calendar sync).
+     * The publish date for newsletters and notes is set by the
+     * gs-mmh-web-plugin hook of the same name.
      */
     'page.changeStatus:after' => function (Page $newPage, Page $oldPage) {
-        // Auto-set publish date for newsletters when published for the first time
-        if ($newPage->intendedTemplate()->name() === 'newsletter') {
-            // Check if page is being published (listed) and doesn't have a publish date yet
-            if (
-                $newPage->status() === 'listed' &&
-                $oldPage->status() !== 'listed' &&
-                $newPage->published()->isEmpty()
-            ) {
-                $newPage->update([
-                    'published' => date('Y-m-d'),
-                ]);
-            }
-        }
-
-        // Auto-set publish date for notes when published for the first time
-        if ($newPage->intendedTemplate()->name() === 'notes') {
-            // Check if page is being published (listed) and doesn't have a publish date yet
-            if (
-                $newPage->status() === 'listed' &&
-                $oldPage->status() !== 'listed' &&
-                $newPage->published()->isEmpty()
-            ) {
-                $newPage->update([
-                    'published' => date('Y-m-d'),
-                ]);
-            }
-        }
-
         // Handle booking request status changes
         if ($newPage->intendedTemplate()->name() === 'booking-request') {
             $kirby = App::instance();

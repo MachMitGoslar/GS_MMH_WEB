@@ -9,6 +9,7 @@
 use Kirby\Cms\Response;
 use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
+use Kirby\Cms\Page;
 
 require_once __DIR__ . '/../controllers/events-api.php';
 require_once __DIR__ . '/../controllers/oveda-event.php';
@@ -139,7 +140,8 @@ return [
     /**
      * Horoscope Card API
      * Returns the daily Goslarer Horoskope as a JSON app-card payload.
-     * Defined before the `/app/(:any)` tracker so it wins route matching.
+     * The `/app/(:any)` tracker below hands off via NextRouteException,
+     * so the order of these routes does not matter.
      */
     [
         'pattern' => '/app/horoskop_card',
@@ -154,7 +156,8 @@ return [
      * Horoskope List Page
      * Renders the daily Goslarer Horoskope as an HTML list with
      * collapsible texts per zodiac sign.
-     * Defined before the `/app/(:any)` tracker so it wins route matching.
+     * The `/app/(:any)` tracker below hands off via NextRouteException,
+     * so the order of these routes does not matter.
      */
     [
         'pattern' => '/app/horoskope',
@@ -178,6 +181,14 @@ return [
         'pattern' => '/app/(:any)',
         'action' => function ($any) {
             try {
+                Db::execute('CREATE TABLE IF NOT EXISTS `app_requests` (
+                    `id` int(11) NOT NULL AUTO_INCREMENT,
+                    `url` varchar(255) NOT NULL,
+                    `day` date NOT NULL,
+                    `requests` int(11) NOT NULL,
+                    PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+
                 $data = [
                     'url' => $any,
                     'day' => date('Y-m-d'),
@@ -205,11 +216,26 @@ return [
     [
         'pattern' => '/not-allowed',
         'action' => function () {
-            return new Response(
-                '<h1>Not Allowed</h1><p>You are not allowed to access this page on the debug site.</p>',
+            $page = Page::factory([
+                'slug' => 'not-allowed',
+                'template' => 'special',
+                'content' => [
+                    'content_data' => '<div class="grid-item" data-span="1/1">
+                                        <h1> 403 -  Keine Berechtigung </h1>
+                                       </div> 
+                                       <div class="grid-item" data-span="1/1"> 
+                                        <p> Du bist nicht berechtigt diese Seite anzuzeigen </p>
+                                        </div>'
+                ]
+            ]);
+
+            $response = new Response(
+                $page->render(),
                 'text/html',
-                404
+                403
             );
+
+            return $response;
         },
     ],
 

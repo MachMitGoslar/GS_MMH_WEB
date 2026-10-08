@@ -11,7 +11,7 @@
     <!-- Image -->
     <div class="room-card-image-wrapper">
       <?php if ($cover = $room->cover()) : ?>
-        <?php snippet('utilities/image', [
+            <?php snippet('utilities/image', [
             'file' => $cover,
             'role' => 'card',
             'ratio' => '3:2',

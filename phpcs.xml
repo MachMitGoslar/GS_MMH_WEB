@@ -4,6 +4,11 @@
 
     <!-- Directories to check -->
     <file>site/</file>
+    <file>tests/</file>
+
+    <!-- Warnings (e.g. long lines in templates) stay visible but do not fail
+         the run; only errors give a non-zero exit code. -->
+    <config name="ignore_warnings_on_exit" value="1"/>
 
     <!-- Only check PHP files -->
     <arg name="extensions" value="php"/>
@@ -59,6 +64,7 @@
     -->
     <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
         <exclude-pattern>*/models/*</exclude-pattern>
+        <exclude-pattern>*/tests/*</exclude-pattern>
     </rule>
 
     <!--

@@ -1,6 +1,3 @@
-[submodule "content"]
-	path = content
-	url = https://github.com/MachMitGoslar/web_content
 [submodule "site/plugins/gs-mmh-web-plugin"]
 	path = site/plugins/gs-mmh-web-plugin
 	url = https://github.com/MachMitGoslar/GS_MMH_WEB_PLUGIN

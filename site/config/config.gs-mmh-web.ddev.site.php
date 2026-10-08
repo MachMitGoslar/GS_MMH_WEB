@@ -12,6 +12,9 @@ return [
     'ready' => function () {
         return [
             'debug' => true,
+            // Debug sites are locked for guests (see layout/head.php). Locally the
+            // Playwright tests browse as a guest, so the lock is off.
+            'mmh.debugLock' => false,
             'panel' => [
                 'install' => true,
                 'vue.compiler' => false,

@@ -359,8 +359,7 @@ if ($date) {
         <?php else : ?>
             <?php
             // Keep the API's configured order (aries → pisces).
-            $sortKey = fn ($s) => is_numeric($s['order'] ?? null) ? (int) $s['order'] : 0;
-            usort($signs, fn ($a, $b) => $sortKey($a) <=> $sortKey($b));
+            $signs = mmhHoroscopeSortSigns($signs);
             ?>
             <?php foreach ($signs as $sign) : ?>
                 <?php
@@ -372,7 +371,7 @@ if ($date) {
                 $german = $sign['german'] ?? '';
                 $span = $sign['span'] ?? '';
                 $text = $sign['text'] ?? '';
-                $attributes = $sign['attributes'] ?? (is_array($sign['order'] ?? null) ? $sign['order'] : []);
+                $attributes = mmhHoroscopeAttributes($sign, $attributeLabels, $attributeMax);
                 ?>
                 <details class="horoskope__item">
                     <summary class="horoskope__summary">
@@ -390,11 +389,10 @@ if ($date) {
                     <p class="horoskope__text"><?= Escape::html($text) ?></p>
                     <?php if ($attributes) : ?>
                         <dl class="horoskope__attributes">
-                            <?php foreach ($attributeLabels as $attrKey => $attrLabel) : ?>
-                                <?php if (!isset($attributes[$attrKey])) continue; ?>
-                                <?php $value = max(0, min($attributeMax, (int) $attributes[$attrKey])); ?>
-                                <div class="horoskope__attribute" role="img" aria-label="<?= Escape::attr($attrLabel . ': ' . $value . ' von ' . $attributeMax) ?>">
-                                    <dt><?= Escape::html($attrLabel) ?></dt>
+                            <?php foreach ($attributes as $attribute) : ?>
+                                <?php $value = $attribute['value']; ?>
+                                <div class="horoskope__attribute" role="img" aria-label="<?= Escape::attr($attribute['label'] . ': ' . $value . ' von ' . $attributeMax) ?>">
+                                    <dt><?= Escape::html($attribute['label']) ?></dt>
                                     <dd style="--value: <?= $value ?>"></dd>
                                     <span class="horoskope__score" aria-hidden="true"><?= $value ?>/<?= $attributeMax ?></span>
                                 </div>

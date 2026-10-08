@@ -92,7 +92,7 @@ return [
                     return new Kirby\Cms\Response(
                         json_encode(['error' => 'Room not found']),
                         'application/json',
-                        44,
+                        404,
                     );
                 }
 

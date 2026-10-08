@@ -22,11 +22,11 @@ if ($block->location() == 'web') {
 ?>
 <?php if ($file || $src) : ?>
 <figure<?= Html::attr(['data-ratio' => $ratio, 'data-crop' => $crop], null, ' ') ?>>
-  <?php if ($link->isNotEmpty()) : ?>
+    <?php if ($link->isNotEmpty()) : ?>
   <a href="<?= Str::esc($link->toUrl()) ?>">
-  <?php endif ?>
+    <?php endif ?>
     <?php if ($file) : ?>
-      <?php snippet('utilities/image', [
+        <?php snippet('utilities/image', [
           'file' => $file,
           'role' => 'content',
           'sizes' => '(min-width: 1200px) 1200px, 100vw',
@@ -35,14 +35,14 @@ if ($block->location() == 'web') {
     <?php else : ?>
       <img src="<?= $src ?>" alt="<?= $alt->esc() ?>" loading="lazy" decoding="async">
     <?php endif ?>
-  <?php if ($link->isNotEmpty()) : ?>
+    <?php if ($link->isNotEmpty()) : ?>
   </a>
-  <?php endif ?>
+    <?php endif ?>
 
-  <?php if ($caption->isNotEmpty()) : ?>
+    <?php if ($caption->isNotEmpty()) : ?>
   <figcaption>
-    <?= $caption ?>
+        <?= $caption ?>
   </figcaption>
-  <?php endif ?>
+    <?php endif ?>
 </figure>
 <?php endif ?>

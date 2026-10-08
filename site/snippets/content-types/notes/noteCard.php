@@ -19,7 +19,7 @@ $cover = $note->cover();
       <div class="note-card-image-wrapper">
         <div class="note-card-image-link">
           <?php if ($cover) : ?>
-            <?php snippet('utilities/image', [
+                <?php snippet('utilities/image', [
                 'file' => $cover,
                 'role' => 'content',
                 'ratio' => '12:5',
@@ -39,7 +39,7 @@ $cover = $note->cover();
             <?php foreach ($authors->limit(2) as $author) : ?>
               <a href="<?= $author->url() ?>" class="note-card-author" style="--stack-index: <?= $authorIndex++ ?>" title="<?= $author->title()->html() ?>">
                 <?php if ($authorImage = $author->cover()) : ?>
-                  <?php $avatar = mmhAvatarImage($authorImage, 96); ?>
+                    <?php $avatar = mmhAvatarImage($authorImage, 96); ?>
                   <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
                 <?php else : ?>
                   <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
@@ -84,7 +84,7 @@ $cover = $note->cover();
     <div class="note-card-image-wrapper note-card-image-wrapper--has-image">
       <div class="note-card-image-link">
         <?php if ($cover) : ?>
-          <?php snippet('utilities/image', [
+            <?php snippet('utilities/image', [
               'file' => $cover,
               'role' => 'card',
               'ratio' => '3:2',
@@ -103,7 +103,7 @@ $cover = $note->cover();
             <?php foreach ($authors->limit(2) as $author) : ?>
             <a href="<?= $author->url() ?>" class="note-card-author" style="--stack-index: <?= $authorIndex++ ?>" title="<?= $author->title()->html() ?>">
                 <?php if ($authorImage = $author->cover()) : ?>
-                <?php $avatar = mmhAvatarImage($authorImage, 80); ?>
+                    <?php $avatar = mmhAvatarImage($authorImage, 80); ?>
                 <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
                 <?php else : ?>
                 <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>

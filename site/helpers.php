@@ -38,19 +38,6 @@ function getProjectStatusColor(string $status): string
     }
 }
 
-/**
- * Return all projects with status badge "abgeschlossen".
- *
- * @param Site $site
- * @return Pages
- */
-function getArchivedProjects(Site $site)
-{
-    return $site->page('projects')
-        ?->children()
-        ->filter(fn ($project) => $project->effectiveProjectStatus() === 'abgeschlossen');
-}
-
 if (!function_exists('mmhAvatarImage')) {
     /**
      * Resolve an avatar-style image to a URL and the object-fit mode it
@@ -105,6 +92,20 @@ if (!function_exists('mmhTimestampValue')) {
 }
 
 /**
+ * The content that holds the publish/end date fields of a page, block or
+ * layout. Layouts keep them in their attributes, everything else in its
+ * content. Null for objects that have neither.
+ */
+function mmhTimedContentFields(object $content): ?Kirby\Content\Content
+{
+    return match (true) {
+        $content instanceof Kirby\Cms\Layout => $content->attrs(),
+        $content instanceof Kirby\Cms\Block, $content instanceof Kirby\Cms\Page => $content->content(),
+        default => null,
+    };
+}
+
+/**
  * Returns whether timed content should be visible in the current request.
  *
  * Editors/admins and explicit preview requests can always see timed content.
@@ -136,19 +137,28 @@ function isTimedContentVisible(object $content): bool
     $timezone = new DateTimeZone($kirby->option('date.timezone', 'Europe/Berlin'));
     $now = (new DateTimeImmutable('now', $timezone))->getTimestamp();
 
-    $publish = null;
-    if (method_exists($content, 'publish_date') && $content->publish_date()->isNotEmpty()) {
-        $publishValue = $content->publish_date()->toDate('Y-m-d H:i');
-        $publishDate = DateTimeImmutable::createFromFormat('Y-m-d H:i', $publishValue, $timezone);
-        $publish = $publishDate ? $publishDate->getTimestamp() : null;
-    }
+    $fields = mmhTimedContentFields($content);
 
-    $end = null;
-    if (method_exists($content, 'end_date') && $content->end_date()->isNotEmpty()) {
-        $endValue = $content->end_date()->toDate('Y-m-d H:i');
-        $endDate = DateTimeImmutable::createFromFormat('Y-m-d H:i', $endValue, $timezone);
-        $end = $endDate ? $endDate->getTimestamp() : null;
-    }
+    $toTimestamp = static function (string $name) use ($fields, $content, $timezone): ?int {
+        // Pages, blocks and layouts serve their fields through __call(), so
+        // method_exists() cannot be used to detect them.
+        $field = $fields?->get($name)
+            ?? (method_exists($content, $name) ? $content->{$name}() : null);
+
+        if ($field === null || $field->isEmpty()) {
+            return null;
+        }
+
+        $formatted = $field->toDate('Y-m-d H:i');
+        $date = is_string($formatted)
+            ? DateTimeImmutable::createFromFormat('Y-m-d H:i', $formatted, $timezone)
+            : false;
+
+        return $date ? $date->getTimestamp() : null;
+    };
+
+    $publish = $toTimestamp('publish_date');
+    $end = $toTimestamp('end_date');
 
     if (($publish && $publish > $now) || ($end && $end < $now)) {
         return false;
@@ -438,5 +448,49 @@ if (!function_exists('mmhColorContrast')) {
         }
 
         return ['bg' => $hex, 'on' => $on, 'ink' => $toHex($ink)];
+    }
+}
+
+if (!function_exists('mmhHoroscopeSortSigns')) {
+    /**
+     * Sorts the signs of the horoscope API by their `order` field
+     * (aries → pisces). Since the API started to deliver the five attributes
+     * in `order`, an array there counts as 0 and keeps the API's own order.
+     *
+     * @param array<int, array> $signs
+     * @return array<int, array>
+     */
+    function mmhHoroscopeSortSigns(array $signs): array
+    {
+        $key = static fn (array $sign): int => is_numeric($sign['order'] ?? null) ? (int) $sign['order'] : 0;
+        usort($signs, static fn (array $a, array $b): int => $key($a) <=> $key($b));
+
+        return $signs;
+    }
+}
+
+if (!function_exists('mmhHoroscopeAttributes')) {
+    /**
+     * The attribute ratings of one sign, in the order of `$labels`, clamped to
+     * 0..$max. Read from `attributes`, or from `order` while the API still
+     * delivers them there. Attributes the API did not send are left out.
+     *
+     * @param array<string, string> $labels API field name => label
+     * @return array<string, array{label: string, value: int}>
+     */
+    function mmhHoroscopeAttributes(array $sign, array $labels, int $max = 8): array
+    {
+        $source = $sign['attributes'] ?? (is_array($sign['order'] ?? null) ? $sign['order'] : []);
+        $attributes = [];
+
+        foreach ($labels as $key => $label) {
+            if (!isset($source[$key])) {
+                continue;
+            }
+
+            $attributes[$key] = ['label' => $label, 'value' => max(0, min($max, (int) $source[$key]))];
+        }
+
+        return $attributes;
     }
 }

@@ -41,7 +41,7 @@ $backLink = mmhBackLink($page ?? null, $back ?? null);
 
     </div>
 </header>
-<?php if($kirby->option('debug')): ?>
+<?php if ($kirby->option('debug')) : ?>
 <div class="debug-warning">
     Dies ist eine Staging Umgebung. Die angezeigten Inhalte dienen nur zu Testzwecken!
 </div>
