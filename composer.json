@@ -5,19 +5,26 @@
   "keywords": [
     "kirby",
     "cms",
-    "website"
+    "website",
+    "app",
+    "signage"
   ],
   "license": "MIT",
   "authors": [
     {
       "name": "Martin Sänger",
       "email": "stuff@stuffdev.de",
-      "homepage": "https://mmh.goslar.de"
+      "homepage": "https://machmit.goslar.de"
+    },
+    {
+      "name": "Nantke Janssen",
+      "email": "nantke.janssen@goslar.de",
+      "homepage": "https://machmit.goslar.de"
     }
   ],
-  "homepage": "https://mmh.goslar.de",
+  "homepage": "https://machmit.goslar.de",
   "support": {
-    "email": "support@stuffdev.de",
+    "email": "developer@goslar.de",
     "issues": "https://github.com/MMH-Goslar/GS_MMH_WEB/issues",
     "source": "https://github.com/MMH-Goslar/GS_MMH_WEB"
   },
