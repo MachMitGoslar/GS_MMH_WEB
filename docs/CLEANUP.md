@@ -52,12 +52,12 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [ ] `utilities/content-card.php`: `isset($item)` nach Zugriff (wird mit dem Löschen erledigt)
 
 ### Sicherheit
-- [ ] `config.localhost.php`: Remote-DB-Passwort entfernen, nach `.env`, Passwort rotieren
-- [ ] Committete `site/sessions/*.sess` und `site/cache` aus dem Repo
-- [ ] git-content `cronHooksSecret` setzen (Endpunkte `/git-content/push|pull` sind offen)
-- [ ] `member.php`: `addslashes()` → `setHTML` (XSS)
-- [ ] `MemberPage::description()`: Abruf von loripsum.net zur Laufzeit entfernen
-- [ ] `config.php`: `debug => true` und `panel.install => true` als Default entschärfen
+- [x] `config.localhost.php`: Remote-DB-Passwort entfernt (Env-Variablen `MMH_DB_*`). **Offen für dich: Passwort rotieren, es steht in der Git-Historie**
+- [x] Committete `site/sessions/*.sess` aus dem Repo, `/site/sessions/*` in `.gitignore` (`site/cache` war schon ignoriert)
+- [~] git-content `cronHooksSecret`: Option liest `MMH_GIT_CONTENT_SECRET`. **Offen: Variable auf den Instanzen setzen und Cron-Aufrufe um `?secret=` ergänzen**
+- [x] `member.php`: `addslashes()`/`setHTML` durch `json_encode` + `setDOMContent` ersetzt (XSS)
+- [x] `MemberPage::description()`: loripsum-Abruf entfernt
+- [ ] ~~`config.php`: Default `debug => true` ändern~~ **Nicht ändern:** `layout/head.php` sperrt Instanzen mit `debug => true` für Gäste (so ist Staging geschützt). Stattdessen in Phase 3 eine explizite Staging-Config anlegen und die Sperre an eine eigene Option koppeln
 - [ ] Staging: eigene Config anlegen (siehe Phase 3)
 
 ### Toter Code
