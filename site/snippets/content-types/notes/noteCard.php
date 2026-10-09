@@ -38,12 +38,7 @@ $cover = $note->cover();
             <?php $authorIndex = 0; ?>
             <?php foreach ($authors->limit(2) as $author) : ?>
               <a href="<?= $author->url() ?>" class="note-card-author" style="--stack-index: <?= $authorIndex++ ?>" title="<?= $author->title()->html() ?>">
-                <?php if ($authorImage = $author->cover()) : ?>
-                    <?php $avatar = mmhAvatarImage($authorImage, 96); ?>
-                  <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
-                <?php else : ?>
-                  <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
-                <?php endif ?>
+                <?php snippet('utilities/avatar', ['person' => $author, 'name' => $author->title()->value(), 'size' => 96]) ?>
               </a>
             <?php endforeach ?>
             <?php if ($authors->count() > 2) : ?>
@@ -102,12 +97,7 @@ $cover = $note->cover();
             <?php $authorIndex = 0; ?>
             <?php foreach ($authors->limit(2) as $author) : ?>
             <a href="<?= $author->url() ?>" class="note-card-author" style="--stack-index: <?= $authorIndex++ ?>" title="<?= $author->title()->html() ?>">
-                <?php if ($authorImage = $author->cover()) : ?>
-                    <?php $avatar = mmhAvatarImage($authorImage, 80); ?>
-                <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
-                <?php else : ?>
-                <span class="placeholder-avatar-small"><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
-                <?php endif ?>
+                <?php snippet('utilities/avatar', ['person' => $author, 'name' => $author->title()->value(), 'size' => 80]) ?>
             </a>
             <?php endforeach ?>
             <?php if ($authors->count() > 2) : ?>

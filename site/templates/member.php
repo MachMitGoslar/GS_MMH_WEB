@@ -23,17 +23,7 @@
         <div class="member-hero-content">
           <div class="contact-profile-section">
             <div class="profile-image-large">
-              <?php if ($page->cover() && $page->cover()->toFile()) : ?>
-                    <?php $avatar = mmhAvatarImage($page->cover(), 300); ?>
-                <img src="<?= $avatar['url'] ?>"
-                     data-fit="<?= $avatar['fit'] ?>"
-                     alt="<?= $page->name()->html() ?>"
-                     loading="eager">
-              <?php else : ?>
-                <div class="placeholder-avatar-large">
-                  <span><?= strtoupper(substr($page->name()->value(), 0, 1)) ?></span>
-                </div>
-              <?php endif ?>
+              <?php snippet('utilities/avatar', ['person' => $page, 'size' => 300, 'loading' => 'eager']) ?>
             </div>
 
             <div class="member-info">

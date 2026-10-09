@@ -120,14 +120,7 @@
             <?php foreach ($teamMembers as $member) : ?>
               <a href="<?= $member->url() ?>" class="project-team-member" style="--stack-index: <?= $i++ ?>" title="<?= $member->title()->html() ?>">
                 <span class="project-team-avatar">
-                  <?php if ($memberImage = $member->cover()) : ?>
-                        <?php $avatar = mmhAvatarImage($memberImage, 240); ?>
-                    <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $member->title()->html() ?>">
-                  <?php else : ?>
-                    <span class="project-team-placeholder">
-                      <?= strtoupper(substr($member->title()->value(), 0, 1)) ?>
-                    </span>
-                  <?php endif ?>
+                  <?php snippet('utilities/avatar', ['person' => $member, 'name' => $member->title()->value(), 'size' => 240]) ?>
                 </span>
                 <span class="project-team-meta">
                   <span class="project-team-name"><?= $member->title()->html() ?></span>

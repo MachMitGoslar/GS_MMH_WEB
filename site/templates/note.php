@@ -67,14 +67,7 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
             <?php foreach ($authors as $author) : ?>
               <a href="<?= $author->url() ?>" class="author-card">
                 <div class="author-avatar">
-                  <?php if ($authorImage = $author->cover()) : ?>
-                        <?php $avatar = mmhAvatarImage($authorImage, 160); ?>
-                    <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
-                  <?php else : ?>
-                    <div class="placeholder-avatar">
-                      <span><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
-                    </div>
-                  <?php endif ?>
+                  <?php snippet('utilities/avatar', ['person' => $author, 'name' => $author->title()->value(), 'size' => 160]) ?>
                 </div>
                 <div class="author-info">
                   <span class="author-name font-headline"><?= $author->title()->html() ?></span>
