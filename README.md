@@ -22,6 +22,10 @@ Website and application platform for [MachMit!Haus Goslar](https://mmh.goslar.de
 git clone --recurse-submodules https://github.com/MachMitGoslar/GS_MMH_WEB.git
 cd GS_MMH_WEB
 
+# Content is its own repository (not a submodule)
+git clone https://github.com/MachMitGoslar/web_content content
+git -C content switch staging
+
 # 2. Install PHP dependencies
 composer install
 
@@ -74,7 +78,7 @@ See [DEVELOPMENT_SETUP.md](DEVELOPMENT_SETUP.md) for detailed setup, debugging, 
 ```
 GS_MMH_WEB/
 ├── .ddev/                      # DDEV Docker configuration
-├── content/                    # Kirby file-based content (gitignored)
+├── content/                    # Kirby file-based content (own repo web_content, gitignored)
 ├── kirby/                      # Kirby CMS core
 ├── public/                     # Web root (docroot)
 │   ├── assets/

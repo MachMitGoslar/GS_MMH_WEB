@@ -120,7 +120,6 @@ tabs:
               - image
               - video
               - text
-              - box
               - faq
               - card
               - testimonial
