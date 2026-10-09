@@ -54,9 +54,6 @@ return [
                 ],
                 'from' => 'noreply@gs-mmh-web.ddev.site',
             ],
-            'bnomei.dotenv.environment' => function () {
-                return 'local';
-            },
             // Mapbox Access Token - default Token;
             /* */
             'mmh.mapbox.token' => 'pk.eyJ1IjoicmFuZ2FyaWFuIiwiYSI6ImNrZGVxNzNhODI5MTcyenM4dGR5bnZhb3UifQ.7WvcNEBQJn9iV42IiyG8rQ',

@@ -10,6 +10,7 @@
 
 /* Content-Type Components */
 @import url('./components/avatarStack.css');
+@import url('./components/avatar.css');
 @import url('./components/projectTeaserCard.css');
 @import url('./components/projectsListing.css');
 @import url('./components/projectUpdateTeaserCard.css');
@@ -20,6 +21,7 @@
 @import url('./components/newsletter-item.css');
 @import url('./components/blog.css');
 @import url('./components/content-card.css');
+@import url('./components/testimonial.css');
 @import url('./components/notes.css');
 @import url('./components/projectTeamStrip.css');
 @import url('./components/projectFormModal.css');

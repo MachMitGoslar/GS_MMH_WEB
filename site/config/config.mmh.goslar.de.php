@@ -8,8 +8,6 @@
  * All config options: https://getkirby.com/docs/reference/system/options
  */
 
-require_once __DIR__ . '/../plugins/kirby3-dotenv/global.php';
-loadenv();
 
 return [
     'debug' => false,
@@ -21,25 +19,25 @@ return [
     ],
     'cache.oveda' => true,
     'db' => [
-        'host' => env('MMH_DB_Host'),
-        'database' => env('MMH_DB_Database'),
-        'user' => env('MMH_DB_User'),
-        'password' => env('MMH_DB_Password'),
+        'host' => getenv('MMH_DB_Host') ?: null,
+        'database' => getenv('MMH_DB_Database') ?: null,
+        'user' => getenv('MMH_DB_User') ?: null,
+        'password' => getenv('MMH_DB_Password') ?: null,
     ],
     'thumbs' => [
         'driver' => 'im',
         'bin' => '/usr/bin/convert',
     ],
     'content' => [
-        'salt' => env('CONTENT_SALT'),
+        'salt' => getenv('CONTENT_SALT') ?: null,
     ],
     'mmh.mapbox.token' => '',
     'tobimori.dreamform' => [
         'storeSubmissions' => true,
         'log' => true,
         'email' => [
-            'from' => env('EMAIL_FROM'),
-            'name' => env('EMAIL_NAME'),
+            'from' => getenv('EMAIL_FROM') ?: null,
+            'name' => getenv('EMAIL_NAME') ?: null,
         ],
         'guards' => [
             // activated guards

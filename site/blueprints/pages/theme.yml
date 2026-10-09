@@ -50,7 +50,6 @@ tabs:
               - text
               - image
               - gallery
-              - box
               - card
               - cta
               - divider

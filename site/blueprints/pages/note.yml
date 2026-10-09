@@ -108,13 +108,6 @@ tabs:
                         extends: fields/blockPublishDate
                       end_date:
                         extends: fields/blockEndDate
-                  line:
-                    extends: blocks/line
-                    fields:
-                      publish_date:
-                        extends: fields/blockPublishDate
-                      end_date:
-                        extends: fields/blockEndDate
                   button:
                     extends: blocks/button
                     fields:

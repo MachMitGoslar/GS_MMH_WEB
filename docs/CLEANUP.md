@@ -66,7 +66,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [x] Templates `calendar.php`, `machmit.php` samt Blueprint `machmit.yml` und `layout/mainLayout.php` gelöscht (kaputt: falscher Snippet-Name; in keinem Content-Branch (`production`, `staging`, `main`) verwendet)
 - [ ] Templates offen: `app_performance.php` (Site und Plugin), Plugin-`templates/` und `controllers/` → mit der Plugin-Phase
 - [x] Snippets gelöscht: `utilities/content-card.php`, `newsletter/blogEntries.php`, `projects/projectTimelineEntry.php`, `integrations/performace*`, `ferienpass/csv_helper.php`
-- [ ] Snippets offen: `blocks/line.php` ist leer, aber **bewusst nicht löschen**: der leere Override unterdrückt das Kirby-Default-`<hr>`, Löschen würde Trennlinien sichtbar machen. Erst klären, ob das gewollt ist
+- [x] `blocks/line.php` gelöscht und `line` aus `note.yml` entfernt: das Divider-Block-Element hat es abgelöst, kein Content nutzt `line` mehr (Entscheidung)
 - [x] `controllers/site.php` (leer) gelöscht
 - [ ] Controller: `about.php` = `team.php` zusammenlegen; `?>` in `error.php`
 - [x] `getArchivedProjects` gelöscht
@@ -79,8 +79,9 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [ ] `api/rooms/availability*.json` benötigt `nextcloudCalendarIntegration.php` (fehlt). **Räume sind unfertig, bewusst unberührt**
 - [ ] `dreamform/forms`-Snippet in `project.php`: existiert nicht, Kirby rendert nichts (wirkungslos). Bleibt, damit das DOM unverändert bleibt; später zusammen mit der leeren `<section>` entfernen
 - [ ] 5 Signage-Snippets (`signage/player|standby|slide-*`) fehlen
-- [ ] Blocks: `testimonial.yml` ↔ `testimonials.yml`; `box` nicht registriert, aber referenziert; `faq2`; `searchbar` im falschen Ordner
-- [ ] `plugins/kirby3-dotenv/global.php` wird von der Prod-Config verlangt, ist aber nicht im Repo
+- [x] Blocks: `testimonials.yml` → `testimonial.yml` umbenannt (die Registrierung zeigte auf eine nicht vorhandene Datei). `box` entfernt (Blueprint, Snippet, Registrierung, Übersetzungen, README, Einträge in `contact`/`project`/`theme`/`note`-Blueprints und `models/note.php`): **bestehende Box-Blöcke im Content (Earth Hour, Tag der Druckkunst) wurden nie gerendert, sie bleiben unsichtbar und können im Panel gelöscht werden**. `faq2` ist als `blocks/faq` registriert, harmlos; `searchbar` wird von `projects.php` genutzt, bleibt
+- [x] Testimonial-Block neu gestaltet (Vorbild: Quote-Card auf `8_03-machmit-stipendien`): Zitat kursiv in Gewicht 300, Avatar mit Name und Rolle darunter (Person aus dem Team oder freie Angaben), wählbare Textfarbe (Normal, Projektfarbe, Gold), eigener weißer Hintergrund und eigene Textfarbe auch in gefärbten Zeilen. Der globale `blockquote`-Stil (Seitenstrich, Cyan-Glow, feste Breite `40ch`) wird überschrieben. Im Browser auf der Stipendien-Seite geprüft (Desktop und schmal)
+- [x] `kirby3-dotenv` zurückgebaut: Prod-Config nutzt `getenv()`, der DDEV-Eintrag `bnomei.dotenv.environment` ist weg. **Voraussetzung auf dem Server: die Variablen (`MMH_DB_*`, `CONTENT_SALT`, `EMAIL_FROM`, `EMAIL_NAME`) müssen als echte Umgebungsvariablen gesetzt sein; eine `.env`-Datei wird nicht mehr gelesen**
 - [x] `kirby`: verwaisten Submodul-Pointer aus dem Index entfernt (Kirby kommt per Composer)
 - [ ] Event-Model fehlt (`events/(:num)` setzt `model => event`)
 - [ ] Content ohne Blueprint/Template: `3_informations`, `components/page.txt`, `_drafts/...`, `timeline_entries.txt`; `content/rooms/` hat `default.txt` und `rooms.txt`
@@ -101,7 +102,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 
 ### Playwright
 - [x] `tests/e2e/`, `playwright.config.js`, `baseURL` per `PLAYWRIGHT_BASE_URL` (Default DDEV). Projekte `desktop` (1440) und `mobile` (Pixel 7)
-- [ ] Seiten: home, projects, project (mit/ohne Projektfarbe, Highlights), theme(s), notes, note, rooms, room, events, event, newsletters, newsletter, über-uns, member, contact, error, sitemap, `/app/horoskope`
+- [x] Seiten: home, projects, project (mit/ohne Projektfarbe, Highlights), theme(s), notes, note, rooms, room, events, event, newsletters, newsletter, über-uns, member, contact, error, sitemap, `/app/horoskope`
 - [ ] Breakpoints 390 / 768 / 1040 / 1440; Interaktionen: Mobile-Nav, Modals, Kalender-Overlay
 - [x] Smoke-Checks (`npm run test:e2e`): Status, JS-Fehler, `</html>` vorhanden, genau ein `<main>`, Mobile-Menü-Toggle auf den früher defekten Seiten. 46 Tests grün, Räume als bekannt fehlerhaft markiert (HTTP 500 in `bookingForm.php:80`, unfertiges Feature)
 - [x] Visual-Tests (`npm run test:visual`, `test:visual:update`): 15 Seiten × 2 Viewports, 3× hintereinander stabil. **Baselines werden nicht committet** (29 MB, plattformabhängig, Pfad in `.gitignore`): lokal vor einem Refactoring auf dem unveränderten Stand mit `test:visual:update` erzeugen, danach vergleichen
@@ -184,7 +185,7 @@ Reihenfolge nach Nutzen; jeder Schritt gegen die Playwright-Baseline.
 - [ ] **Teaser-Karten**: project, theme, Archiv-Inline in `projects.php`, project-update, newsletter → ein `utilities/teaser-card`; eine CSS-Datei statt zwei
 - [ ] **Heroes**: `c-hero`, rooms-hero, notes-hero (CSS identisch), note-hero, member/event/newsletter-Header → `sections/hero` mit Varianten
 - [ ] **Horizontale Media-Card**: `c-blog-card` + `content-card` (page-card) zusammenführen
-- [ ] **Avatar** (6 Kopien) → `utilities/avatar`
+- [x] **Avatar** → `utilities/avatar` (Member-Seite oder freie Daten) + `avatar.css`: einheitlicher Initialen-Platzhalter (Markenverlauf, weiße Schrift; im Team-Strip weiterhin Projektfarbe). Umgestellt: noteCard, note, teamMemberCard, project-Team-Strip, member, Testimonial. **Offen:** `newsletter.php` (`author-avatar` über `utilities/image`), Größen der Wrapper noch pro Komponente
 - [ ] **Modal-JS** (4 Varianten + Inline-onclick) → ein `modal.js`; `events-calendar-modal` auf `gs-c-modal`
 - [ ] **Mapbox** (4 Init-Kopien) → `event-map.js` über Data-Attribute
 - [ ] **Badges** (5 Vokabulare) → `badge.css`

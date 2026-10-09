@@ -82,13 +82,6 @@ tabs:
                         extends: fields/blockPublishDate
                       end_date:
                         extends: fields/blockEndDate
-                  box:
-                    extends: blocks/box
-                    fields:
-                      publish_date:
-                        extends: fields/blockPublishDate
-                      end_date:
-                        extends: fields/blockEndDate
                   faq:
                     extends: blocks/faq
                     fields:
