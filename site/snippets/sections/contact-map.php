@@ -86,6 +86,5 @@ $mapboxToken = (string) ($mapboxToken ?? '');
             .setLngLat([<?= $lng ?>, <?= $lat ?>])
             .addTo(map);
         
-        console.log("Map loaded", map)
     };
 </script>

@@ -65,16 +65,13 @@ $modalForm = $site->registrationForm();
     });
 
     dialog.addEventListener('close', () => {
-      console.log('Dialog closed');
       openButton?.focus();
     });
 
     if(form && submit) {
       submit.addEventListener('click', (event) => {
-        console.log('Submit button clicked');
         event.preventDefault();
         form.requestSubmit();
-        console.log('Form requested to submit', form);
       });
     }
     if (errors) {

@@ -30,15 +30,8 @@ if (!is_array($json) || !isset($json[0]['start'])) {
 }
 
 $events = $json;
-usort($events, 'sort_by_start');
-//var_dump($events[1]['start']);
-
-function sort_by_start($a, $b)
-{
-
-    //TODO: Exclude Events that are already gone
-    return strnatcmp($a['start'], $b['start']);
-}
+// TODO: Exclude events that are already gone
+usort($events, fn($a, $b) => strnatcmp($a['start'], $b['start']));
 
 $new_events = [];
 $id = 0;
@@ -55,5 +48,4 @@ foreach ($events as $event) {
     array_push($new_events, $json_event);
     $id++;
 }
-//var_dump(json_encode($new_events));
 print json_encode($new_events, JSON_UNESCAPED_SLASHES);
