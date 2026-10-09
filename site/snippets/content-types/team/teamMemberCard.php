@@ -7,17 +7,7 @@
 
 <div class="c-teamMemberCard">
   <a href="<?= $teamMember->url() ?>" class="profile-image" aria-label="<?= $teamMember->name()->html() ?>">
-    <?php if ($teamMember->cover() && $teamMember->cover()->toFile()) : ?>
-        <?php $avatar = mmhAvatarImage($teamMember->cover(), 200); ?>
-      <img src="<?= $avatar['url'] ?>"
-           data-fit="<?= $avatar['fit'] ?>"
-           alt="<?= $teamMember->name()->html() ?>"
-           loading="lazy">
-    <?php else : ?>
-      <div class="placeholder-avatar">
-        <span><?= strtoupper(substr($teamMember->name()->value(), 0, 1)) ?></span>
-      </div>
-    <?php endif ?>
+    <?php snippet('utilities/avatar', ['person' => $teamMember, 'size' => 200, 'loading' => 'lazy']) ?>
   </a>
   <div class="content">
     <h3 class="name"><a href="<?= $teamMember->url() ?>"><?= $teamMember->name()->html() ?></a></h3>
