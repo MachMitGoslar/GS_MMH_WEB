@@ -78,17 +78,6 @@ if (!function_exists('mmhApiCoverMeta')) {
         return url('api/' . ($routes[$kind] ?? $kind . '-cover') . '/' . $slug . '.jpg');
     }
 
-    function mmhApiCoverSvgUrl(string $kind, string $slug): string
-    {
-        $routes = [
-            'newsletter' => 'newsletter-cover',
-            'notes' => 'notes-cover',
-            'app' => 'app-cover',
-        ];
-
-        return url('api/' . ($routes[$kind] ?? $kind . '-cover') . '/' . $slug . '.svg');
-    }
-
     function mmhApiXmlEscape(string $value): string
     {
         return htmlspecialchars($value, ENT_QUOTES | ENT_XML1, 'UTF-8');
