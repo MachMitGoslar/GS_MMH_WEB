@@ -60,7 +60,7 @@ if (!function_exists('mmhAvatarImage')) {
 
         if ($isPortraitOrSquare) {
             return [
-                'url' => $image->crop($size, $size, 'top')->url(),
+                'url' => $image->crop($size, $size)->url(),
                 'fit' => 'cover',
             ];
         }
