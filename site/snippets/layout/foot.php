@@ -33,5 +33,16 @@
     }
   };
 </script>
+<?php  if($kirby->option("neuraflow.active")): ?> 
+?>
+<script async defer>
+window.neurabotConfig = {
+neurabotConfigId: "<?= $kirby->option("neuraflow.botId") ?>",
+mode: "FLOATING",
+};
+</script>
+<script async type="module" src="https://prod-chat-app.neurabot.neuraflow.de/embed-loader.js"></script>
+<?php endif ?>
+
 </body>
 </html>
