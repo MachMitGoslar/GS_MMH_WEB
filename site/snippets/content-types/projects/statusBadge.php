@@ -1,16 +1,17 @@
 <?php
 
-/*** Render Status Badge ****
- * var $status: string
+/**
+ * Badge for a project status.
  *
-*/
+ * @var string $status Status text, e.g. "aktiv"
+ * @var string|null $size regular (default) or large
+ */
 
 $status = trim((string) $status);
 $color = getProjectStatusColor($status);
 
-?>
-
-
-<div class="status-badge mb-2" data-color="<?= $color ?>">
-    <?= $status ?>
-</div>
+snippet('utilities/badge', [
+    'label' => esc($status),
+    'theme' => $color === 'false' ? 'default' : 'project-' . $color,
+    'size' => $size ?? 'regular',
+]);

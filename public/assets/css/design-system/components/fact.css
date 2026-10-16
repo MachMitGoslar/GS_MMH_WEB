@@ -1,0 +1,83 @@
+/* Fact and facts (snippets utilities/fact, utilities/facts): icon in a brand
+   circle, small caption, value. One look for event facts, contacts and the
+   editor block "Fakten". */
+
+.c-facts {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  align-content: start;
+
+  @media (width > 489px) {
+    &[data-columns='2'] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &[data-surface='card'] {
+    padding: 1.25rem;
+    border: 1px solid rgb(0 0 0 / 10%);
+    border-radius: 0.75rem;
+    background: var(--surface-bg, var(--color-white));
+    color: var(--surface-fg, inherit);
+  }
+}
+
+.c-fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.c-fact__icon {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--color-fg-brand-primary);
+  color: var(--color-white);
+}
+
+.c-fact__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+  align-self: center;
+}
+
+.c-fact__label {
+  font-size: var(--typo-size-80);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-dead-pixel-1100);
+}
+
+.c-fact__value {
+  font-size: var(--typo-size-90);
+  line-height: var(--typo-line-height-regular);
+  overflow-wrap: anywhere;
+  color: inherit;
+  text-decoration: none;
+
+  a&:hover {
+    text-decoration: underline;
+  }
+}
+
+.c-fact__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  font-size: var(--typo-size-80);
+  color: var(--color-fg-brand-primary);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

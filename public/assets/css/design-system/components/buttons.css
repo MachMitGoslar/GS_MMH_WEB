@@ -91,14 +91,25 @@ can be
     }
 
     &[data-role='destructive'] {
-      --_background-primary-enabled: var(--color-ferocious-900);
+      --_background-primary-enabled: var(--color-state-error-bg);
       --_background-primary-hover: var(--color-ferocious-500);
-      --_background-primary-pressed: var(--color-ferocious-300);
-      --_background-primary-disabled: var(--color-ferocious-100);
-      --_foreground-primary-enabled: var(--color-white);
-      --_foreground-primary-hover: var(--color-white);
-      --_foreground-primary-pressed: var(--color-white);
+      --_background-primary-pressed: var(--color-state-error-border);
+      --_background-primary-disabled: var(--color-state-error-soft-bg);
+      --_foreground-primary-enabled: var(--color-state-error-fg);
+      --_foreground-primary-hover: var(--color-state-error-fg);
+      --_foreground-primary-pressed: var(--color-state-error-fg);
       --_foreground-primary-disabled: var(--color-ferocious-600);
+    }
+
+    &[data-role='success'] {
+      --_background-primary-enabled: var(--color-state-success-bg);
+      --_background-primary-hover: var(--color-pastel-green-1000);
+      --_background-primary-pressed: var(--color-state-success-border);
+      --_background-primary-disabled: var(--color-state-success-soft-bg);
+      --_foreground-primary-enabled: var(--color-state-success-fg);
+      --_foreground-primary-hover: var(--color-state-success-fg);
+      --_foreground-primary-pressed: var(--color-state-success-soft-fg);
+      --_foreground-primary-disabled: var(--color-pastel-green-300);
     }
   }
 
@@ -140,15 +151,15 @@ can be
 
     &[data-role='destructive'] {
       --_background-primary-enabled: none;
-      --_background-primary-hover: var(--color-ferocious-900);
+      --_background-primary-hover: var(--color-state-error-bg);
       --_background-primary-pressed: none;
       --_background-primary-disabled: none;
-      --_foreground-primary-enabled: var(--color-ferocious-900);
-      --_foreground-primary-hover: var(--color-white);
+      --_foreground-primary-enabled: var(--color-state-error-bg);
+      --_foreground-primary-hover: var(--color-state-error-fg);
       --_foreground-primary-pressed: var(--color-ferocious-500);
       --_foreground-primary-disabled: var(--color-ferocious-500);
       --_border-primary-enabled: var(--_border-width) solid
-        var(--color-ferocious-900);
+        var(--color-state-error-bg);
       --_border-primary-hover: var(--_border-width) solid
         var(--_background-primary-hover);
       --_border-primary-pressed: var(--_border-width) solid

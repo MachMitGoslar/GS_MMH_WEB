@@ -1,53 +1,154 @@
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+/* Badge (snippet utilities/badge): small label with a color theme.
+   Each theme sets a background token (--badge-bg-<theme>), so a change badge
+   can run a gradient between two themes. Add themes here, not in components. */
+
+:root {
+  --badge-bg-default: var(--color-fg-brand-primary);
+  --badge-bg-primary: var(--color-ripe-mango-700);
+  --badge-bg-secondary: var(--color-dead-pixel-400);
+  --badge-bg-success: var(--color-state-success-bg);
+  --badge-bg-warning: var(--color-state-warning-bg);
+  --badge-bg-error: var(--color-state-error-bg);
+  --badge-bg-highlight: var(--color-ripe-mango-200);
+
+  /* project status */
+  --badge-bg-project-planning: var(--color-cornflower-1000);
+  --badge-bg-project-preparing: var(--color-cornflower-1300);
+  --badge-bg-project-active: var(--color-ripe-mango-1200);
+  --badge-bg-project-review: var(--color-violaceous-greti-1200);
+  --badge-bg-project-done: var(--color-ripe-mango-1400);
+
+  /* newsletter kinds */
+  --badge-bg-recap: var(--color-ripe-mango-700);
+  --badge-bg-current: var(--color-violaceous-greti-1300);
+  --badge-bg-upcoming: var(--color-pastel-green-900);
+  --badge-bg-news: var(--color-cornflower-1000);
+
+  /* team kinds */
+  --badge-bg-team-staff: var(--color-ripe-mango-200);
+  --badge-bg-team-volunteer: var(--color-cornflower-200);
+  --badge-bg-team-partner: var(--color-violaceous-greti-200);
+  --badge-bg-team-issuer: var(--color-grey-200);
+}
+
+.c-badge {
+  --badge-bg: var(--badge-bg-default);
+  --badge-fg: var(--color-white);
+  --badge-border: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  font-size: var(--typo-size-80);
+  font-weight: var(--font-weight-semiBold);
+  line-height: 1.4;
   border-radius: 0.375rem;
+  border: 1px solid var(--badge-border);
+  background: var(--badge-bg);
+  color: var(--badge-fg);
   white-space: nowrap;
-}
 
-.badge[data-variant='primary'] {
-  background-color: var(--color-ripe-mango-700);
-  color: var(--color-ripe-mango-1400);
-}
+  & svg {
+    flex-shrink: 0;
+  }
 
-.badge[data-variant='secondary'] {
-  background-color: var(--color-dead-pixel-400);
-  color: var(--color-dead-pixel-1200);
-}
+  &[data-size='large'] {
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--border-radius-pill);
+  }
 
-.badge[data-variant='success'] {
-  background-color: #10b981;
-  color: white;
-}
+  &[data-theme='primary'] {
+    --badge-bg: var(--badge-bg-primary);
+    --badge-fg: var(--color-ripe-mango-1400);
+  }
 
-.badge[data-variant='warning'] {
-  background-color: #f59e0b;
-  color: white;
-}
+  &[data-theme='secondary'] {
+    --badge-bg: var(--badge-bg-secondary);
+    --badge-fg: var(--color-dead-pixel-1200);
+  }
 
-.badge[data-variant='error'] {
-  background-color: #ef4444;
-  color: white;
-}
+  &[data-theme='success'] {
+    --badge-bg: var(--badge-bg-success);
+    --badge-fg: var(--color-state-success-fg);
+  }
 
-.badge[data-variant='review'] {
-  background-color: var(--color-ripe-mango-700);
-  color: var(--color-ripe-mango-1400);
-}
+  &[data-theme='warning'] {
+    --badge-bg: var(--badge-bg-warning);
+    --badge-fg: var(--color-state-warning-fg);
+  }
 
-.badge[data-variant='actual'] {
-  background-color: var(--color-violaceous-greti-1300);
-  color: var(--color-dead-pixel-100);
-}
+  &[data-theme='error'] {
+    --badge-bg: var(--badge-bg-error);
+    --badge-fg: var(--color-state-error-fg);
+  }
 
-.badge[data-variant='upcoming'] {
-  background-color: var(--color-pastel-green-900);
-  color: var(--color-pastel-green-100);
-}
+  &[data-theme='highlight'] {
+    --badge-bg: var(--badge-bg-highlight);
+    --badge-fg: var(--color-ripe-mango-1400);
+    --badge-border: var(--color-ripe-mango-300);
 
-.badge[data-variant='news'] {
-  background-color: var(--color-cornflower-1000);
-  color: var(--color-cornflower-100);
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 16%);
+  }
+
+  &[data-theme='project-planning'] {
+    --badge-bg: var(--badge-bg-project-planning);
+  }
+
+  &[data-theme='project-preparing'] {
+    --badge-bg: var(--badge-bg-project-preparing);
+  }
+
+  &[data-theme='project-active'] {
+    --badge-bg: var(--badge-bg-project-active);
+  }
+
+  &[data-theme='project-review'] {
+    --badge-bg: var(--badge-bg-project-review);
+  }
+
+  &[data-theme='project-done'] {
+    --badge-bg: var(--badge-bg-project-done);
+  }
+
+  &[data-theme='recap'] {
+    --badge-bg: var(--badge-bg-recap);
+    --badge-fg: var(--color-ripe-mango-1400);
+  }
+
+  &[data-theme='current'] {
+    --badge-bg: var(--badge-bg-current);
+    --badge-fg: var(--color-dead-pixel-100);
+  }
+
+  &[data-theme='upcoming'] {
+    --badge-bg: var(--badge-bg-upcoming);
+    --badge-fg: var(--color-pastel-green-100);
+  }
+
+  &[data-theme='news'] {
+    --badge-bg: var(--badge-bg-news);
+    --badge-fg: var(--color-cornflower-100);
+  }
+
+  &[data-theme='team-staff'] {
+    --badge-bg: var(--badge-bg-team-staff);
+    --badge-fg: var(--color-ripe-mango-1400);
+  }
+
+  &[data-theme='team-volunteer'] {
+    --badge-bg: var(--badge-bg-team-volunteer);
+    --badge-fg: var(--color-cornflower-1200);
+  }
+
+  &[data-theme='team-partner'] {
+    --badge-bg: var(--badge-bg-team-partner);
+    --badge-fg: var(--color-violaceous-greti-1200);
+  }
+
+  &[data-theme='team-issuer'] {
+    --badge-bg: var(--badge-bg-team-issuer);
+    --badge-fg: var(--color-black-80);
+  }
 }
