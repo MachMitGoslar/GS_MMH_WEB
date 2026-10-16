@@ -183,6 +183,10 @@ git push origin staging
 | `site/plugins/`          | Kirby-Plugins (gs-mmh-web-plugin etc.)|
 | `public/assets/css/`     | Design System und Seiten-Styles       |
 
+### Karten und andere Komponenten
+
+Jede Karte (Projekt, Notiz, Newsletter, Team, Seite, Kartenblock ...) nutzt das **eine** Grundgerüst `site/snippets/utilities/card.php` mit `public/assets/css/site/components/card.css`. Ein Wrapper-Snippet (z. B. `content-types/notes/noteCard.php`) füllt nur die Teile (Bild, Meta, Titel, Text, Aktionen) und wählt `variant`, `orientation`, `size`. Fehlt etwas, wird das Grundgerüst erweitert, es entsteht kein zweites Karten-Markup und kein eigenes Karten-CSS. Kleinere Bausteine (Avatar, Avatar-Stapel, Bild, Icon) sind eigene Snippets unter `utilities/`.
+
 Mehr Details im [README.md](README.md).
 
 ---

@@ -11,16 +11,14 @@
 /* Content-Type Components */
 @import url('./components/avatarStack.css');
 @import url('./components/avatar.css');
-@import url('./components/projectTeaserCard.css');
+@import url('./components/card.css');
 @import url('./components/projectsListing.css');
-@import url('./components/projectUpdateTeaserCard.css');
 @import url('./components/teamMemberCard.css');
 @import url('./components/eventsList.css');
 @import url('./components/eventDetail.css');
 @import url('./components/newsletter.css');
 @import url('./components/newsletter-item.css');
 @import url('./components/blog.css');
-@import url('./components/content-card.css');
 @import url('./components/testimonial.css');
 @import url('./components/notes.css');
 @import url('./components/projectTeamStrip.css');
@@ -80,9 +78,9 @@
    light text color for its own content, but that would land on the
    card's white fill and become unreadable, so the card resets back to
    the default (dark) text color for its own content. */
-.project-layout-grid[data-highlight='dark'] .c-blog-card,
-.project-layout-grid[data-highlight='primary'] .c-blog-card,
-.project-layout-grid[data-highlight='project'] .c-blog-card {
+.project-layout-grid[data-highlight='dark'] .c-card,
+.project-layout-grid[data-highlight='primary'] .c-card,
+.project-layout-grid[data-highlight='project'] .c-card {
   color: var(--color-fg-default);
 }
 

@@ -51,49 +51,9 @@
   }
 }
 
-/* Themenfeld-Chips auf der Projektdetailseite */
-.project-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-block: 1rem 0;
-}
-
+/* Themenfeld-Buttons auf der Projektdetailseite */
 .project-topic-chip:hover {
   transform: translateY(-2px);
-}
-
-/* Tag-Chips auf der Projektdetailseite: eigenes, dezenteres Aussehen als
-   die Themenfeld-Chips, damit "Hauptthema" vs. "Tags" auf einen Blick
-   unterscheidbar bleiben. */
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-block: 0.5rem 0;
-}
-
-.project-tag-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  border: 1px solid var(--color-dead-pixel-400);
-  border-radius: var(--border-radius-pill, 999px);
-  color: var(--color-fg-muted);
-  font-size: var(--typo-size-80);
-  font-weight: var(--font-weight-semiBold);
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease;
-
-  &::before {
-    content: '#';
-  }
-
-  &:hover {
-    transform: translateY(-2px);
-    border-color: var(--color-fg-brand-primary);
-  }
 }
 
 /* Tag-Pills auf der Projektübersicht: gleiche Filter-Mechanik wie die

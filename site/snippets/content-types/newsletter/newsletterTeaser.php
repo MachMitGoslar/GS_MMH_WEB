@@ -22,7 +22,11 @@ $modalForm = $site->registrationForm();
     <p class="font-body color-fg-light"><?= $site->newsletterTeaserText() ?></p>
   </div>
   <div>
-    <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regualr" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal"><?=$site->newsletterTeaserButtonText()?></button>
+    <?php snippet('utilities/button', [
+        'label' => $site->newsletterTeaserButtonText(),
+        'class' => 'newsletter-subscribe-open',
+        'attrs' => ['aria-haspopup' => 'dialog', 'aria-controls' => 'newsletter-subscribe-modal', 'data-modal-open' => 'newsletter-subscribe-modal'],
+    ]) ?>
   </div>
 </div>
 <?php endif ?>
@@ -50,23 +54,12 @@ $modalForm = $site->registrationForm();
     const dialog = document.getElementById('newsletter-subscribe-modal');
     if (!dialog) return;
 
-    const openButton = document.querySelector('.newsletter-subscribe-open');
     const form = dialog.querySelector('.newsletter-subscribe-form');
-    const firstInput = dialog.querySelector('input[name="vorname"]');
 
     const success = dialog.querySelector('div#<?= Str::replace($modalForm->id(), '- page://', '') ?>');
     const errors = form?.querySelectorAll('.dreamform-error');
     
     const submit = form?.querySelector('button[type="submit"]');
-
-    openButton?.addEventListener('click', () => {
-      dialog.showModal();
-      window.setTimeout(() => firstInput?.focus(), 20);
-    });
-
-    dialog.addEventListener('close', () => {
-      openButton?.focus();
-    });
 
     if(form && submit) {
       submit.addEventListener('click', (event) => {
