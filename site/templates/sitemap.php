@@ -22,14 +22,12 @@ use Kirby\Cms\StructureObject;
 
         <section>
             <div class="grid content">
-                <h1 class="font-titleXXL grid-item" data-span="1/1">
-                    <?= $page->title() ?>
-                </h1>
-                <?php if ($page->subtitle()->isNotEmpty()) : ?>
-                <h2 class="font-titleL grid-item" data-span="1/1">
-                    <?= $page->subtitle() ?>
-                </h2>
-                <?php endif ?>
+                <div class="grid-item" data-span="1/1">
+                    <?php snippet('utilities/page-title', [
+                        'title' => $page->title(),
+                        'subtitle' => $page->subtitle()->isNotEmpty() ? $page->subtitle() : null,
+                    ]) ?>
+                </div>
 
                 <?php if ($page->intro_text()->isNotEmpty()) : ?>
                 <div class="font-body grid-item" data-span="1/1">

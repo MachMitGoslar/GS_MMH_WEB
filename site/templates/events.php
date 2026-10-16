@@ -44,7 +44,7 @@
                         <input type="hidden" name="day" value="<?= esc($selectedDay) ?>">
                     <?php endif ?>
                     <input type="search" name="keyword" value="<?= esc($keyword) ?>" placeholder="Termine durchsuchen...">
-                    <button type="submit" class="gs-c-btn" data-type="secondary" data-size="small">Suchen</button>
+                    <?php snippet('utilities/button', ['label' => 'Suchen', 'variant' => 'secondary', 'size' => 'small', 'type' => 'submit']) ?>
                 </form>
 
                 <div class="events-filter-row">
@@ -169,28 +169,27 @@
                         Die Veranstaltungen werden über die API geladen.
                     <?php endif ?>
                 </p>
-                <a class="gs-c-btn" data-type="secondary" data-size="small" href="<?= $buildUrl(['keyword' => null, 'category' => null, 'day' => null, 'page' => null]) ?>">Filter zurücksetzen</a>
+                <?php snippet('utilities/button', [
+                    'label' => 'Filter zurücksetzen',
+                    'href' => $buildUrl(['keyword' => null, 'category' => null, 'day' => null, 'page' => null]),
+                    'variant' => 'secondary',
+                    'size' => 'small',
+                ]) ?>
             </div>
 
             <div class="pagination events-pagination" data-events-pagination<?= (!$pagination['has_prev'] && !$pagination['has_next']) ? ' disabled' : '' ?>>
-                <a
-                    href="<?= $pagination['prev_url'] ?? $buildUrl(['page' => 1]) ?>"
-                    class="gs-c-btn"
-                    data-type="secondary"
-                    data-size="regular"
-                    data-style="pill"
-                    data-pagination-prev
-                    <?= empty($pagination['prev_url']) ? 'disabled' : '' ?>
-                >Vorherige Seite</a>
-                <a
-                    href="<?= $pagination['next_url'] ?? $buildUrl(['page' => 2]) ?>"
-                    class="gs-c-btn"
-                    data-type="secondary"
-                    data-size="regular"
-                    data-style="pill"
-                    data-pagination-next
-                    <?= empty($pagination['next_url']) ? 'disabled' : '' ?>
-                >Nächste Seite</a>
+                <?php snippet('utilities/button', [
+                    'label' => 'Vorherige Seite',
+                    'href' => $pagination['prev_url'] ?? $buildUrl(['page' => 1]),
+                    'variant' => 'secondary',
+                    'attrs' => ['data-pagination-prev' => true, 'disabled' => empty($pagination['prev_url'])],
+                ]) ?>
+                <?php snippet('utilities/button', [
+                    'label' => 'Nächste Seite',
+                    'href' => $pagination['next_url'] ?? $buildUrl(['page' => 2]),
+                    'variant' => 'secondary',
+                    'attrs' => ['data-pagination-next' => true, 'disabled' => empty($pagination['next_url'])],
+                ]) ?>
             </div>
         </section>
     </section>

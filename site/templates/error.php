@@ -20,13 +20,14 @@ use Kirby\Cms\Pages;
 
         <section>
             <div class="grid content">
-                <h1 class="font-titleXXL grid-item" data-span="1/1">
-                    Da ist etwas schiefgelaufen.
-                </h1>
-            
+                <div class="grid-item" data-span="1/1">
+                    <?php snippet('utilities/page-title', [
+                        'title' => 'Da ist etwas schiefgelaufen.',
+                    ]) ?>
+                </div>
 
                 <p class="font-body grid-item" data-span="1/1">
-                    Leider können wir die, von dir gesuchte Seite nicht finden. 
+                    Leider können wir die, von dir gesuchte Seite nicht finden.
                     Vielleicht findest du die gesuchte Seite hier:
                 </p>
             </div>
