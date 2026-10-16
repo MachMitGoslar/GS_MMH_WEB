@@ -8,23 +8,7 @@
             ?>
         <div class="project-step-timeline-item">
           <div class="project-step-timeline-connector"></div>
-          <div class="project-step-timeline-card">
-            <div class="project-step-timeline-content">
-              <div class="project-step-timeline-date"><?= $project_step->project_start_date()->toDate('d.m.Y') ?></div>
-              <?php if ($project_step->project_status_from()->isNotEmpty() || $project_step->project_status_to()->isNotEmpty()) :
-                    ?>
-                <div class="project-step-timeline-status-pills">
-                    <?= snippet('content-types/projects/stepStatusBadge', [
-                        'from' => $project_step->project_status_from()->value(),
-                        'to' => $project_step->project_status_to()->value(),
-                    ]) ?>
-                </div>
-              <?php endif ?>
-
-              <h4 class="project-step-timeline-title"><?= $project_step->title()->html() ?></h4>
-              <div class="project-step-timeline-text"><?= $project_step->description() ?></div>
-            </div>
-          </div>
+            <?php snippet('content-types/projects/projectStepCard', ['project_step' => $project_step, 'project' => $project_step->parent(), 'context' => 'timeline', 'tag' => 'div']) ?>
         </div>
       <?php endforeach; ?>
     </div>

@@ -5,7 +5,6 @@
 * @var \Kirby\Cms\Page $page
 */
 ?>
-<?php $contentIsVisible = require kirby()->root('controllers') . '/blocks.php'; ?>
 <?php $teamMembers = $page->team()->toPages(); ?>
 <?php $projectColor = $page->projectColor(); ?>
 <?php $projectAccents = $page->useProjectAccents(); ?>
@@ -82,54 +81,59 @@
     <div class="grid-item" data-span="1/1">
 
       <div class="project-title-wrapper">
-        <h1 class="font-titleXXL project-title">
-          <?= $page->headline()->isEmpty() ? $page->title() : $page->headline() ?>
-        </h1>
+        <?php snippet('utilities/page-title', [
+            'title' => $page->headline()->or($page->title()),
+            'subtitle' => $page->subheadline()->isNotEmpty() ? $page->subheadline() : null,
+            'after' => function () use ($page, $site, $teamMembers, $projectAccents) {
+                ?>
+                <?php $themePages = $page->themePages(); ?>
+                <?php if ($themePages->isNotEmpty()) : ?>
+            <p class="c-page-title__group" aria-label="Themenfelder">
+                    <?php foreach ($themePages as $theme) : ?>
+                        <?php snippet('utilities/button', [
+                        'label' => $theme->title()->html(),
+                        'href' => $theme->url(),
+                        'variant' => 'secondary',
+                        'size' => 'small',
+                        'class' => 'project-topic-chip',
+                ]) ?>
+                    <?php endforeach ?>
+            </p>
+                <?php endif ?>
 
-        <h2 class="font-titleXL font-weight-light">
-          <?= $page->subheadline() ?>
-        </h2>
+                <?php $projectTags = $page->tagList(); ?>
+                <?php if (!empty($projectTags)) : ?>
+                    <?php $projectsPage = $site->find('projects'); ?>
+            <p class="c-page-title__group" aria-label="Tags">
+                    <?php foreach ($projectTags as $tag) : ?>
+                        <?php snippet('utilities/chip', [
+                        'label' => esc($tag),
+                        'href' => $projectsPage ? $projectsPage->url() . '?tag=' . urlencode($tag) : '#',
+                        'theme' => 'tag',
+                ]) ?>
+                    <?php endforeach ?>
+            </p>
+                <?php endif ?>
 
-        <?php $themePages = $page->themePages(); ?>
-        <?php if ($themePages->isNotEmpty()) : ?>
-          <p class="project-topics" aria-label="Themenfelder">
-            <?php foreach ($themePages as $theme) : ?>
-              <a href="<?= $theme->url() ?>"
-                 class="project-topic-chip gs-c-btn"
-                 data-type="secondary"
-                 data-size="small"
-                 data-style="pill"><?= $theme->title()->html() ?></a>
-            <?php endforeach ?>
-          </p>
-        <?php endif ?>
-
-        <?php $projectTags = $page->tagList(); ?>
-        <?php if (!empty($projectTags)) : ?>
-            <?php $projectsPage = $site->find('projects'); ?>
-          <p class="project-tags" aria-label="Tags">
-            <?php foreach ($projectTags as $tag) : ?>
-              <a href="<?= $projectsPage ? $projectsPage->url() . '?tag=' . urlencode($tag) : '#' ?>"
-                 class="project-tag-chip"><?= esc($tag) ?></a>
-            <?php endforeach ?>
-          </p>
-        <?php endif ?>
-
-        <?php if ($teamMembers->isNotEmpty()) : ?>
-          <div class="project-team-strip avatar-stack<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?><?= $projectAccents ? ' has-project-accent' : '' ?>" aria-label="Projektteam" data-reveal<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
-            <?php $i = 0; ?>
-            <?php foreach ($teamMembers as $member) : ?>
-              <a href="<?= $member->url() ?>" class="project-team-member" style="--stack-index: <?= $i++ ?>" title="<?= $member->title()->html() ?>">
-                <span class="project-team-avatar">
-                  <?php snippet('utilities/avatar', ['person' => $member, 'name' => $member->title()->value(), 'size' => 240]) ?>
-                </span>
-                <span class="project-team-meta">
-                  <span class="project-team-name"><?= $member->title()->html() ?></span>
-                </span>
-              </a>
-            <?php endforeach ?>
-            <h2 class="project-team-label">#Team</h2>
-          </div>
-        <?php endif ?>
+                <?php if ($teamMembers->isNotEmpty()) : ?>
+            <div class="project-team-strip avatar-stack<?= $teamMembers->count() > 3 ? ' has-overflow' : '' ?><?= $projectAccents ? ' has-project-accent' : '' ?>" aria-label="Projektteam" data-reveal<?= $teamMembers->count() > 3 ? ' data-overflow-count="+' . ($teamMembers->count() - 3) . '"' : '' ?>>
+                    <?php $i = 0; ?>
+                    <?php foreach ($teamMembers as $member) : ?>
+                <a href="<?= $member->url() ?>" class="project-team-member" style="--stack-index: <?= $i++ ?>" title="<?= $member->title()->html() ?>">
+                  <span class="project-team-avatar">
+                        <?php snippet('utilities/avatar', ['person' => $member, 'name' => $member->title()->value(), 'size' => 240]) ?>
+                  </span>
+                  <span class="project-team-meta">
+                    <span class="project-team-name"><?= $member->title()->html() ?></span>
+                  </span>
+                </a>
+                    <?php endforeach ?>
+              <h2 class="project-team-label">#Team</h2>
+            </div>
+                <?php endif ?>
+                <?php
+            },
+        ]) ?>
       </div>
 
     </div>
@@ -137,30 +141,7 @@
     <div id="project-description" class="grid-item" data-span="<?= $page->project_steps()->isNotEmpty() ? '2/3' : '1/1' ?>">
         <h3 class="font-headline"> Projektbeschreibung</h3>
         <div class="designer">
-        <?php foreach ($page->text()->toLayouts() as $layout) : ?>
-            <?php if (!$contentIsVisible($layout)) {
-                continue;
-            } ?>
-          <div class="grid project-layout-grid" data-highlight="<?= esc($layout->highlight()->or('none')) ?>">
-
-            <?php foreach ($layout->columns() as $column) : ?>
-            <div class="grid-item" data-span="<?=$column->width()?>">
-
-                <?php foreach ($column->blocks() as $block) : ?>
-                    <?php if (!$contentIsVisible($block)) {
-                        continue;
-                    } ?>
-                <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-
-                    <?= $block ?>
-                </div>
-                <?php endforeach ?>
-            </div>
-
-            <?php endforeach ?>
-          </div>
-
-        <?php endforeach ?>
+        <?php snippet('utilities/layouts', ['layouts' => $page->text()->toLayouts(), 'wrapperClass' => 'grid project-layout-grid', 'highlight' => true]) ?>
         </div>
         <section>
             <?php snippet('dreamform/forms', ['page' => $page]) ?>
@@ -207,7 +188,6 @@
   <section>
   </section>
   <?php snippet('content-types/projects/formModals') ?>
-  <?= js('assets/js/project-form-modal.js?version=' . filemtime(kirby()->root('index') . '/assets/js/project-form-modal.js')) ?>
 <?php if ($teamMembers->isNotEmpty()) : ?>
 <script>
   document.addEventListener('DOMContentLoaded', () => {

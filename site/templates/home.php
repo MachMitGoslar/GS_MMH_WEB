@@ -20,8 +20,10 @@
         <?php //Welcome Text?>
 
         <div class="grid-item p-tb-4" data-span="1/2">
-            <h1 class="font-titleXXL mb-3"><?=$page->wellcomeHeadline()?></h1>
-            <p class="font-body"><?=$page->wellcomeText()?></p>
+            <?php snippet('utilities/page-title', [
+                'title' => $page->wellcomeHeadline(),
+                'subtitle' => $page->wellcomeText()->isNotEmpty() ? $page->wellcomeText() : null,
+            ]) ?>
         </div>
         <?php //Newsletter Teaser Box?>
         <?=snippet('content-types/newsletter/newsletterTeaser')?>
@@ -35,7 +37,7 @@
                     <?php snippet('content-types/events/eventsListItem', compact('event')) ?>
                 <?php endforeach ?>
             </ul>
-            <a class="gs-c-btn" data-type="secondary" data-size="regualr" data-style="pill" href="<?=$site->page('events')?>" >Zu den Terminen</a>
+            <?php snippet('utilities/button', ['label' => 'Zu den Terminen', 'href' => $site->page('events')->url(), 'variant' => 'secondary']) ?>
         </section>
         <?php //Divider?>
         <div class="divider grid-item" data-span="1/1"></div>
@@ -46,10 +48,10 @@
             <ul class="grid mb-4">
                 <?php foreach ($kirby->collection('project-updates')->paginate(6) as $project_step) : ?>
                     <?php $project = $project_step->parent() ?>
-                    <?php snippet('content-types/projects/projectUpdateTeaserCard', compact(['project', 'project_step'])) ?>
+                    <?php snippet('content-types/projects/projectStepCard', compact(['project', 'project_step'])) ?>
                 <?php endforeach ?>
             </ul>
-            <a class="gs-c-btn" data-type="secondary" data-size="regualr" data-style="pill" href=<?=$site->page('projects')?> >Zu den Projekten</a>
+            <?php snippet('utilities/button', ['label' => 'Zu den Projekten', 'href' => $site->page('projects')->url(), 'variant' => 'secondary']) ?>
         </section>
 
     </section>
