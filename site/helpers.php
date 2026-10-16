@@ -397,6 +397,30 @@ if (!function_exists('mmhMapboxToken')) {
     }
 }
 
+if (!function_exists('mmhOnce')) {
+    /**
+     * True the first time a key is asked within one Kirby instance (one request),
+     * false afterwards. For things a snippet may be rendered several times for
+     * but must only output once, e.g. a script tag.
+     */
+    function mmhOnce(string $key): bool
+    {
+        static $seen = null;
+        $seen ??= new WeakMap();
+        $app = kirby();
+        $keys = $seen[$app] ?? [];
+
+        if (isset($keys[$key])) {
+            return false;
+        }
+
+        $keys[$key] = true;
+        $seen[$app] = $keys;
+
+        return true;
+    }
+}
+
 if (!function_exists('mmhColorContrast')) {
     /**
      * Derives readable colors from a free-form hex color (WCAG 2.x contrast).

@@ -1,0 +1,99 @@
+/* Glance (snippet sections/glance): fact grid plus map, three columns from
+   tablet up. Used by event details and the contact page. */
+
+.c-glance {
+  --glance-gap: 1.5rem;
+  --glance-radius: 0.75rem;
+  --glance-border: 1px solid rgb(0 0 0 / 10%);
+
+  display: grid;
+  gap: var(--glance-gap);
+  grid-template-columns: 1fr;
+
+  @media (width > 767px) {
+    & {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+/* Facts: the look comes from utilities/facts; here only the place in the grid */
+
+/* Beside the map the facts sit in the vertical middle when they are shorter than
+   the map; with more facts than that the row grows and the map stretches along */
+.c-glance__facts {
+  @media (width > 767px) {
+    & {
+      grid-column: span 2;
+      align-content: space-evenly;
+    }
+  }
+}
+
+/* Without a map the facts use the full row */
+.c-glance[data-has-map='false'] .c-glance__facts {
+  @media (width > 767px) {
+    & {
+      grid-column: span 3;
+    }
+  }
+}
+
+.c-glance__map {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.c-glance__mapCanvas {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border: var(--glance-border);
+  border-radius: var(--glance-radius);
+  overflow: hidden;
+  background: var(--color-dead-pixel-100);
+
+  /* Next to the facts the map fills the row instead of keeping its ratio */
+  @media (width > 767px) {
+    & {
+      flex: 1;
+      aspect-ratio: auto;
+      min-height: 14rem;
+    }
+  }
+}
+
+.c-glance__mapLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  align-self: flex-start;
+  font-size: var(--typo-size-80);
+  color: var(--color-fg-brand-primary);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Contact page: header, glance and blocks stacked like the event details */
+.c-contact {
+  --contact-gap: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--contact-gap);
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+/* Blocks below the glance get room between each other (heading, text, card) */
+.c-contact .designer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.c-contact .designer > .c-blog-heading {
+  margin-top: 1rem;
+}

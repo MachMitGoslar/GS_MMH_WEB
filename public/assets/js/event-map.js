@@ -1,55 +1,58 @@
 /**
- * Mapbox map with a single marker on the event detail view.
+ * Mapbox maps with a single marker each (event details, contact page, glance
+ * block): every element with data-event-map.
  *
  * All parameters come from data attributes on the container, so the template
  * stays free of inline scripts.
  */
 (() => {
-  const container = document.querySelector('[data-event-map]');
+  if (typeof mapboxgl === 'undefined') return;
 
-  if (!container || typeof mapboxgl === 'undefined') return;
+  document.querySelectorAll('[data-event-map]').forEach(initMap);
 
-  const lat = Number.parseFloat(container.dataset.lat);
-  const lng = Number.parseFloat(container.dataset.lng);
-  const token = container.dataset.token;
+  function initMap(container) {
+    const lat = Number.parseFloat(container.dataset.lat);
+    const lng = Number.parseFloat(container.dataset.lng);
+    const token = container.dataset.token;
 
-  if (!token || Number.isNaN(lat) || Number.isNaN(lng)) return;
+    if (!token || Number.isNaN(lat) || Number.isNaN(lng)) return;
 
-  mapboxgl.accessToken = token;
+    mapboxgl.accessToken = token;
 
-  const map = new mapboxgl.Map({
-    container,
-    style: 'mapbox://styles/mapbox/standard',
-    center: [lng, lat],
-    zoom: 15,
-    attributionControl: false,
-    cooperativeGestures: true,
-  });
+    const map = new mapboxgl.Map({
+      container,
+      style: 'mapbox://styles/mapbox/standard',
+      center: [lng, lat],
+      zoom: 15,
+      attributionControl: false,
+      cooperativeGestures: true,
+    });
 
-  // cooperativeGestures already keeps the map from hijacking page scroll:
-  // ctrl + wheel to zoom on desktop, two fingers to pan on touch
-  map.addControl(
-    new mapboxgl.NavigationControl({ showCompass: false }),
-    'top-right'
-  );
-
-  const marker = new mapboxgl.Marker({
-    color:
-      window
-        .getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-fg-brand-primary')
-        .trim() || '#866811',
-  }).setLngLat([lng, lat]);
-
-  if (container.dataset.label) {
-    marker.setPopup(
-      new mapboxgl.Popup({ offset: 24 }).setText(container.dataset.label)
+    // cooperativeGestures already keeps the map from hijacking page scroll:
+    // ctrl + wheel to zoom on desktop, two fingers to pan on touch
+    map.addControl(
+      new mapboxgl.NavigationControl({ showCompass: false }),
+      'top-right'
     );
+
+    const marker = new mapboxgl.Marker({
+      color:
+        window
+          .getComputedStyle(document.documentElement)
+          .getPropertyValue('--color-fg-brand-primary')
+          .trim() || '#866811',
+    }).setLngLat([lng, lat]);
+
+    if (container.dataset.label) {
+      marker.setPopup(
+        new mapboxgl.Popup({ offset: 24 }).setText(container.dataset.label)
+      );
+    }
+
+    marker.addTo(map);
+
+    // The map is created inside a grid cell that may still be resizing
+    const observer = new window.ResizeObserver(() => map.resize());
+    observer.observe(container);
   }
-
-  marker.addTo(map);
-
-  // The map is created inside a grid cell that may still be resizing
-  const observer = new window.ResizeObserver(() => map.resize());
-  observer.observe(container);
 })();

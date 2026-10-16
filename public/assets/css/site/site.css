@@ -12,9 +12,11 @@
 @import url('./components/avatarStack.css');
 @import url('./components/avatar.css');
 @import url('./components/card.css');
+@import url('./components/profile-header.css');
 @import url('./components/projectsListing.css');
 @import url('./components/teamMemberCard.css');
 @import url('./components/eventsList.css');
+@import url('./components/glance.css');
 @import url('./components/eventDetail.css');
 @import url('./components/newsletter.css');
 @import url('./components/newsletter-item.css');

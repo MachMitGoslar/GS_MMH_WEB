@@ -133,37 +133,39 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
 
     <?php snippet('utilities/back-link', ['back' => $eventBack, 'class' => 'c-event__back']) ?>
 
-    <div class="c-event__header">
-      <div class="c-event__media">
+    <?php snippet('sections/profile-header', ['shape' => 'wide'], slots: true) ?>
+      <?php slot('media') ?>
         <?php if ($photo['url']) : ?>
-          <img class="c-event__image" src="<?= esc($photo['url']) ?>" alt="<?= esc($detail['title']) ?>" loading="lazy">
+          <img src="<?= esc($photo['url']) ?>" alt="<?= esc($detail['title']) ?>" loading="lazy">
         <?php else : ?>
             <?php snippet('utilities/imagePlaceholder') ?>
         <?php endif ?>
+      <?php endslot() ?>
 
-        <div class="c-event__dateBadge" aria-hidden="true">
+      <?php slot('overlay') ?>
+        <div class="c-profile-header__badge" aria-hidden="true">
           <span><?= esc($detail['start']->format('M')) ?></span>
           <strong><?= esc($detail['start']->format('d')) ?></strong>
         </div>
-      </div>
+      <?php endslot() ?>
 
-      <div class="c-event__intro">
-        <div class="c-event__pills">
-          <?php if ($detail['countdown_label'] !== null && $detail['is_past'] === false) : ?>
-            <span class="c-event__pill c-event__pill--accent"><?= esc($detail['countdown_label']) ?></span>
-          <?php endif ?>
-          <?php if ($detail['is_free'] === true) : ?>
-            <span class="c-event__pill c-event__pill--free">Kostenlos</span>
-          <?php endif ?>
-          <?php foreach ($detail['categories'] as $category) : ?>
-            <span class="c-event__pill"><?= esc($category) ?></span>
-          <?php endforeach ?>
-        </div>
-
-        <h1 class="font-titleXXL c-event__title"><?= esc($detail['title']) ?></h1>
-
-      </div>
-    </div>
+      <?php slot('intro') ?>
+        <?php snippet('utilities/page-title', [
+          'title' => esc($detail['title']),
+          'before' => function () use ($detail) {
+            if ($detail['countdown_label'] !== null && $detail['is_past'] === false) {
+                snippet('utilities/chip', ['label' => esc($detail['countdown_label']), 'theme' => 'accent']);
+            }
+            if ($detail['is_free'] === true) {
+                snippet('utilities/chip', ['label' => 'Kostenlos', 'theme' => 'free']);
+            }
+            foreach ($detail['categories'] as $category) {
+                snippet('utilities/chip', ['label' => esc($category)]);
+            }
+          },
+        ]) ?>
+      <?php endslot() ?>
+    <?php endsnippet() ?>
 
     <?php if ($notices !== []) : ?>
       <div class="c-event__notices">
@@ -176,49 +178,29 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
       </div>
     <?php endif ?>
 
-    <section class="c-event__glance" data-has-map="<?= $hasMap ? 'true' : 'false' ?>" aria-label="Auf einen Blick">
-      <div class="c-event__facts">
-          <?php foreach ($detail['facts'] as $fact) : ?>
-            <div class="c-event__fact">
-              <span class="c-event__factIcon">
-                <?php snippet('content-types/events/eventIcon', ['icon' => $fact['icon']]) ?>
-              </span>
-              <span class="c-event__factBody">
-                <span class="c-event__factLabel"><?= esc($fact['label']) ?></span>
-                <span class="c-event__factValue"><?= esc($fact['value']) ?></span>
-                <?php if (isset($fact['href'])) : ?>
-                  <a class="c-event__factLink" href="<?= esc($fact['href']) ?>" target="_blank" rel="noopener noreferrer">
-                    <?= esc($fact['href_label'] ?? 'Öffnen') ?>
-                    <?php snippet('content-types/events/eventIcon', ['icon' => 'external-link', 'size' => 14]) ?>
-                  </a>
-                <?php endif ?>
-              </span>
-            </div>
-          <?php endforeach ?>
-      </div>
-
-      <?php if ($hasMap) : ?>
-        <div class="c-event__map">
-          <div
-            class="c-event__mapCanvas"
-            id="event-map"
-            data-event-map
-            data-lat="<?= esc($place['latitude']) ?>"
-            data-lng="<?= esc($place['longitude']) ?>"
-            data-token="<?= esc($mapboxToken) ?>"
-            data-label="<?= esc($place['name'] ?: implode(', ', $detail['address_lines'])) ?>"
-            role="img"
-            aria-label="Karte: <?= esc(implode(', ', $detail['address_lines'])) ?>"
-          ></div>
-            <?php if ($detail['maps_url'] !== null) : ?>
-            <a class="c-event__mapLink" href="<?= esc($detail['maps_url']) ?>" target="_blank" rel="noopener noreferrer">
-                <?php snippet('content-types/events/eventIcon', ['icon' => 'map-pin', 'size' => 14]) ?>
-              <span>Route planen</span>
-            </a>
-            <?php endif ?>
-        </div>
-      <?php endif ?>
-    </section>
+    <?php snippet('sections/glance', [
+        'map' => $hasMap ? [
+            'lat' => $place['latitude'],
+            'lng' => $place['longitude'],
+            'token' => $mapboxToken,
+            'label' => $place['name'] ?: implode(', ', $detail['address_lines']),
+            'aria' => 'Karte: ' . implode(', ', $detail['address_lines']),
+            'href' => $detail['maps_url'],
+        ] : null,
+    ], slots: true) ?>
+      <?php foreach ($detail['facts'] as $fact) : ?>
+            <?php snippet('utilities/fact', [
+            'icon' => $fact['icon'],
+            'label' => esc($fact['label']),
+            'value' => esc($fact['value']),
+            'link' => isset($fact['href']) ? [
+                'href' => $fact['href'],
+                'label' => esc($fact['href_label'] ?? 'Öffnen'),
+                'external' => true,
+            ] : null,
+        ]) ?>
+      <?php endforeach ?>
+    <?php endsnippet() ?>
 
     <div class="c-event__body">
       <div class="c-event__main">
@@ -268,22 +250,26 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
           <h2 class="font-subheadline mb-2">Jetzt merken</h2>
           <div class="c-event__actions">
             <?php if ($detail['ticket_link'] !== null) : ?>
-              <a class="gs-c-btn" data-type="primary" data-size="regular" data-style="pill" href="<?= esc($detail['ticket_link']) ?>" target="_blank" rel="noopener noreferrer">
-                <?php snippet('content-types/events/eventIcon', ['icon' => 'ticket', 'size' => 18]) ?>
-                <span>Tickets</span>
-              </a>
+                <?php snippet('utilities/button', [
+                  'label' => snippet('content-types/events/eventIcon', ['icon' => 'ticket', 'size' => 18], true) . '<span>Tickets</span>',
+                  'href' => $detail['ticket_link'],
+                  'attrs' => ['target' => '_blank', 'rel' => 'noopener noreferrer'],
+              ]) ?>
             <?php endif ?>
 
-            <a class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill" href="<?= esc($detail['ics_url']) ?>">
-              <?php snippet('content-types/events/eventIcon', ['icon' => 'download', 'size' => 18]) ?>
-              <span>In den Kalender</span>
-            </a>
+            <?php snippet('utilities/button', [
+                'label' => snippet('content-types/events/eventIcon', ['icon' => 'download', 'size' => 18], true) . '<span>In den Kalender</span>',
+                'href' => $detail['ics_url'],
+                'variant' => 'secondary',
+            ]) ?>
 
             <?php if ($detail['external_link'] !== null) : ?>
-              <a class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill" href="<?= esc($detail['external_link']) ?>" target="_blank" rel="noopener noreferrer">
-                <?php snippet('content-types/events/eventIcon', ['icon' => 'external-link', 'size' => 18]) ?>
-                <span>Mehr Infos</span>
-              </a>
+                <?php snippet('utilities/button', [
+                  'label' => snippet('content-types/events/eventIcon', ['icon' => 'external-link', 'size' => 18], true) . '<span>Mehr Infos</span>',
+                  'href' => $detail['external_link'],
+                  'variant' => 'secondary',
+                  'attrs' => ['target' => '_blank', 'rel' => 'noopener noreferrer'],
+              ]) ?>
             <?php endif ?>
           </div>
         </div>
