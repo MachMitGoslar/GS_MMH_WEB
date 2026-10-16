@@ -29,13 +29,13 @@ $image = $image ?? null;
 $initial = mb_strtoupper(mb_substr($name, 0, 1));
 ?>
 <?php if ($image) : ?>
-    <?php 
+    <?php
       $avatar = mmhAvatarImage($image, $size);
-      $focus = $image->focus()->isNotEmpty() ? $image->focus() : null; 
-      if ($focus) {
+      $focus = $image->focus()->isNotEmpty() ? $image->focus() : null;
+    if ($focus) {
         [$fx, $fy] = array_pad(explode(' ', trim($focus->value())), 2, '50%');
         $style = 'object-position: ' . $fx . ' ' . $fy;
-      }  
+    }
 
     ?>
   <img style="<?= isset($style) ? esc($style) : '' ?>" src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= esc($name) ?>"<?= $loading ? ' loading="' . esc($loading) . '"' : '' ?>>
