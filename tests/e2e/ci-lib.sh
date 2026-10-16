@@ -108,9 +108,8 @@ resolve_plugin_refs() {
   fi
 }
 
-# Replaces the submodule checkouts by the resolved plugin commits. Called
-# after every `git checkout` of the working tree, because the checked-out ref
-# may pin something else.
+# Clones the resolved plugin commits into site/plugins/. Called after every
+# `git checkout` of the working tree, which may remove them again.
 clone_plugin() {
   local dir=$1 repo=$2 ref=$3
   if [ -e "$dir/.git" ] && [ "$(git -C "$dir" rev-parse HEAD 2>/dev/null)" = "$ref" ]; then
@@ -152,6 +151,8 @@ return [
     'url' => 'http://localhost:${PORT}',
     'panel' => ['install' => false],
     'cache' => ['pages' => ['active' => false]],
+    // never let git-content commit while rendering
+    'thathoff.git-content.disable' => true,
 ];
 PHP
 }

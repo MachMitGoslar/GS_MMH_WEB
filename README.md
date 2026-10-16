@@ -22,6 +22,11 @@ Website and application platform for [MachMit!Haus Goslar](https://mmh.goslar.de
 git clone --recurse-submodules https://github.com/MachMitGoslar/GS_MMH_WEB.git
 cd GS_MMH_WEB
 
+# The custom plugins are their own repositories (not submodules), like the content
+git clone https://github.com/MachMitGoslar/GS_MMH_WEB_PLUGIN site/plugins/gs-mmh-web-plugin
+git clone https://github.com/MachMitGoslar/GS_MMH_SIGNAGE_PLUGIN site/plugins/gs-mmh-signage-plugin
+git -C site/plugins/gs-mmh-web-plugin switch staging   # production: main
+
 # Content is its own repository (not a submodule)
 git clone https://github.com/MachMitGoslar/web_content content
 git -C content switch staging
@@ -178,7 +183,7 @@ GS_MMH_WEB/
 
 | Plugin              | Description                                        |
 |---------------------|----------------------------------------------------|
-| `gs-mmh-web-plugin` | Main custom plugin: blocks, writer marks, SEO/social metadata, routes, hooks (git submodule, see its [README](site/plugins/gs-mmh-web-plugin/README.md)) |
+| `gs-mmh-web-plugin` | Main custom plugin: blocks, writer marks, SEO/social metadata, routes, hooks (own repository, see its [README](site/plugins/gs-mmh-web-plugin/README.md)) |
 | `gs-mmh-signage`    | Digital signage screen management                  |
 | `git-content`       | Automatic git versioning of content changes        |
 | `kirby-dreamform`   | Form builder and submission handler (v2.1)         |
@@ -304,7 +309,7 @@ before/after/diff images are attached to the run (artifact `visual-diffs`) and l
 
 ### Plugin Development
 
-The main custom plugin (`gs-mmh-web-plugin`) is a git submodule with its own build pipeline:
+The main custom plugin (`gs-mmh-web-plugin`) is its own repository (cloned into `site/plugins/`) with its own build pipeline:
 
 ```bash
 cd site/plugins/gs-mmh-web-plugin
