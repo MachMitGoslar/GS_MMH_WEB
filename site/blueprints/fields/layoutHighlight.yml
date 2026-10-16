@@ -1,0 +1,9 @@
+label: Hervorhebung
+type: select
+default: none
+options:
+  none: Normal
+  dark: Dark (wie Newsletter-Teaser)
+  primary: Primary
+  project: Projektfarbe (Fallback Primary)
+  light: Hellgrau

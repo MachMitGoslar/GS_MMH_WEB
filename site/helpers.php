@@ -60,7 +60,7 @@ if (!function_exists('mmhAvatarImage')) {
 
         if ($isPortraitOrSquare) {
             return [
-                'url' => $image->crop($size, $size, 'top')->url(),
+                'url' => $image->crop($size, $size)->url(),
                 'fit' => 'cover',
             ];
         }
@@ -394,6 +394,60 @@ if (!function_exists('mmhMapboxToken')) {
         }
 
         return $token;
+    }
+}
+
+if (!function_exists('mmhVersion')) {
+    /**
+     * Version of the running website (SemVer, e.g. "1.2.0").
+     *
+     * Order: environment variable MMH_VERSION (the deployment sets it, e.g.
+     * "1.2.0-rc.3" on staging), the file VERSION in the project root (written
+     * at deploy time), the version in package.json (kept current by the release
+     * workflow), else "unknown".
+     */
+    function mmhVersion(): string
+    {
+        $env = trim((string) getenv('MMH_VERSION'));
+
+        if ($env !== '') {
+            return $env;
+        }
+
+        $root = dirname(__DIR__);
+        $file = $root . '/VERSION';
+
+        if (is_file($file) && ($value = trim((string) file_get_contents($file))) !== '') {
+            return $value;
+        }
+
+        $package = is_file($root . '/package.json') ? json_decode((string) file_get_contents($root . '/package.json'), true) : null;
+
+        return is_array($package) && !empty($package['version']) ? (string) $package['version'] : 'unknown';
+    }
+}
+
+if (!function_exists('mmhOnce')) {
+    /**
+     * True the first time a key is asked within one Kirby instance (one request),
+     * false afterwards. For things a snippet may be rendered several times for
+     * but must only output once, e.g. a script tag.
+     */
+    function mmhOnce(string $key): bool
+    {
+        static $seen = null;
+        $seen ??= new WeakMap();
+        $app = kirby();
+        $keys = $seen[$app] ?? [];
+
+        if (isset($keys[$key])) {
+            return false;
+        }
+
+        $keys[$key] = true;
+        $seen[$app] = $keys;
+
+        return true;
     }
 }
 

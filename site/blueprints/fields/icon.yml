@@ -1,0 +1,36 @@
+# One icon of the site's icon set (snippets/utilities/icon.php).
+label: Icon
+type: select
+default: info
+options:
+  mail: E-Mail
+  phone: Telefon
+  globe: Web
+  link: Link
+  map-pin: Ort
+  home: Haus
+  calendar: Datum
+  clock: Uhrzeit
+  ticket: Ticket
+  tag: Schlagwort
+  user: Person
+  users: Gruppe
+  info: Info
+  lightbulb: Idee
+  check-circle: Haken
+  alert-triangle: Hinweis
+  camera: Kamera
+  video: Video
+  mic: Mikrofon
+  coffee: Kaffee
+  parking: Parken
+  wifi: WLAN
+  accessibility: Barrierefrei
+  download: Download
+  book-open: Buch
+  newspaper: Zeitung
+  smile: Smiley
+  printer: Drucker
+  zap: Blitz
+  repeat: Wiederholung
+  edit: Stift

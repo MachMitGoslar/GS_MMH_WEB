@@ -6,13 +6,14 @@
 
 ?>
 
-<div class="statusheader">
-      <div>
-      <?= snippet('content-types/projects/stepStatusBadge', [
-          'from' => $project_step->project_status_from()->value(),
-          'to' => $project_step->project_status_to()->value(),
-      ]) ?>
-      </div>
-
-      <time class="font-footnote"><?=$project_step->project_start_date()->toDate('d.m.Y', $fallback = null) ?: ''?></time>
-</div>
+<?php snippet('utilities/meta-line', slots: true) ?>
+  <?php slot('start') ?>
+    <?php snippet('content-types/projects/stepStatusBadge', [
+        'from' => $project_step->project_status_from()->value(),
+        'to' => $project_step->project_status_to()->value(),
+    ]) ?>
+  <?php endslot() ?>
+  <?php slot('end') ?>
+    <time class="font-footnote"><?=$project_step->project_start_date()->toDate('d.m.Y', $fallback = null) ?: ''?></time>
+  <?php endslot() ?>
+<?php endsnippet() ?>

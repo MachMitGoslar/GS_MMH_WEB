@@ -1,0 +1,64 @@
+/* Chip (snippet utilities/chip): light pill for tags and short facts.
+   Themes only change colors; add themes here, not in components. */
+
+.c-chip {
+  --chip-bg: var(--color-dead-pixel-100);
+  --chip-fg: var(--color-dead-pixel-1300);
+  --chip-border: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid var(--chip-border);
+  border-radius: var(--border-radius-pill, 999px);
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-size: var(--typo-size-80);
+  font-weight: var(--font-weight-semiBold);
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &[data-size='small'] {
+    padding: 0 0.5rem;
+  }
+
+  &[data-theme='accent'] {
+    --chip-bg: var(--color-fg-brand-primary);
+    --chip-fg: var(--color-white);
+  }
+
+  &[data-theme='free'] {
+    --chip-bg: var(--color-ripe-mango-200);
+    --chip-fg: var(--color-ripe-mango-1400);
+  }
+
+  &[data-theme='tag'] {
+    --chip-bg: transparent;
+    --chip-fg: var(--color-fg-muted);
+    --chip-border: var(--color-dead-pixel-400);
+
+    padding-block: 0.25rem;
+
+    &::before {
+      content: '#';
+    }
+  }
+
+  &[data-size='small'][data-theme='tag'] {
+    padding-block: 0;
+  }
+
+  a&,
+  a&:visited {
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  a&:hover {
+    transform: translateY(-2px);
+
+    --chip-border: var(--color-fg-brand-primary);
+  }
+}

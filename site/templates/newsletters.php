@@ -21,9 +21,9 @@
     <!-- Header with Title and Description -->
     <div class="grid-item mb-6" data-span="1/1">
       <div class="newsletter-listing__intro">
-        <h1 class="font-titleXXL mb-4">
-          <?= $page->headline()->or($page->title())->html() ?>
-        </h1>
+        <div class="mb-4">
+          <?php snippet('utilities/page-title', ['title' => $page->headline()->or($page->title())->html()]) ?>
+        </div>
         
         <?php if ($page->description()->isNotEmpty()) : ?>
           <p class="font-body">
@@ -38,8 +38,7 @@
       <div class="grid-item" data-span="1/1">
         <h2 class="font-title mb-6">Alle Newsletter-Ausgaben</h2>
         
-        <ul class="grid">
-          <?php
+        <?php
             $newsletters = $page->children()->listed();
         // Sort by publish_date, then fallback to published date, modified date, or folder number
             $sortedNewsletters = $newsletters->sortBy(function ($newsletter) {
@@ -61,15 +60,8 @@
                 // Final fallback: reverse folder number for manual ordering
                 return -(int) ($newsletter->num());
             }, 'desc');
-
-          foreach ($sortedNewsletters as $index => $newsletter) :
-                ?>
-              <?= snippet('content-types/newsletter/newsletterItem', [
-                'newsletter' => $newsletter,
-                'class' => $index === 0 ? 'newsletter-item--featured' : '',
-              ]) ?>
-          <?php endforeach ?>
-        </ul>
+        ?>
+        <?php snippet('utilities/card-list', ['pages' => $sortedNewsletters, 'columns' => 4, 'featured' => 'first']) ?>
       </div>
     <?php else : ?>
       <div class="grid-item" data-span="1/1">
@@ -89,9 +81,11 @@
         <p class="font-body newsletter-cta__text mb-6">
             <?= $page->cta_text() ?>
         </p>
-        <button class="gs-c-btn newsletter-subscribe-open" data-type="primary" data-size="regular" data-style="pill" type="button" aria-haspopup="dialog" aria-controls="newsletter-subscribe-modal">
-            <?= $page->cta_button_text() ?>
-        </button>
+            <?php snippet('utilities/button', [
+            'label' => $page->cta_button_text(),
+            'class' => 'newsletter-subscribe-open',
+            'attrs' => ['aria-haspopup' => 'dialog', 'aria-controls' => 'newsletter-subscribe-modal', 'data-modal-open' => 'newsletter-subscribe-modal'],
+        ]) ?>
       </div>
     </div>
      <?php endif ?>

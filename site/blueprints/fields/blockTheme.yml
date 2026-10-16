@@ -1,0 +1,14 @@
+# Color theme of a block: one vocabulary for every block that offers it.
+# The block wrapper gets data-theme="<value>" (snippets/utilities/blocks.php);
+# design-system/components/theme.css turns it into surface tokens that atoms
+# (card, facts ...) consume. "default" sets nothing.
+label: Farbwelt
+type: select
+default: default
+empty: false
+options:
+  default: Normal (weiß)
+  soft: Hell (grau)
+  brand: Akzent (gold)
+  dark: Dunkel
+  project: Projektfarbe

@@ -38,3 +38,36 @@
     }
   }
 }
+
+/* Brand placeholder instead of a photo: same proportions as the image */
+.c-hero .c-image-placeholder {
+  aspect-ratio: 16/9;
+
+  @media (width > 767px) {
+    & {
+      aspect-ratio: 24/9;
+    }
+  }
+
+  @media (width > 1039px) {
+    & {
+      aspect-ratio: 28/9;
+    }
+  }
+
+  & img {
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+}
+
+/* Variant standard: 16:9 on every screen size (the hero block) */
+.c-hero[data-variant='standard'] img {
+  --aspected-ration: 16/9;
+
+  @media (width > 767px) {
+    & {
+      --aspected-ration: 16/9;
+    }
+  }
+}

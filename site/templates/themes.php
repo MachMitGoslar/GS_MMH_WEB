@@ -17,24 +17,19 @@
     </div>
 
     <section class="grid content mb-7">
-        <h1 class="font-titleXXL grid-item" data-span="1/1">
-            <?= $page->headline()->or($page->title()) ?>
-        </h1>
-
-        <?php if ($page->subheadline()->isNotEmpty()) : ?>
-            <p class="grid-item font-body" data-span="1/1">
-                <?= $page->subheadline() ?>
-            </p>
-        <?php endif; ?>
+        <div class="grid-item" data-span="1/1">
+            <?php snippet('utilities/page-title', [
+                'title' => $page->headline()->or($page->title()),
+                'subtitle' => $page->subheadline()->isNotEmpty() ? $page->subheadline() : null,
+            ]) ?>
+        </div>
     </section>
 
     <section class="grid content mb-7">
         <section class="grid-item" data-span="1/1">
-            <ul class="grid mb-4">
-                <?php foreach ($page->children()->listed() as $theme) : ?>
-                    <?php snippet('content-types/themes/themeTeaserCard', ['theme' => $theme]) ?>
-                <?php endforeach ?>
-            </ul>
+            <div class="mb-4">
+                <?php snippet('utilities/card-list', ['pages' => $page->children()->listed()]) ?>
+            </div>
         </section>
     </section>
 

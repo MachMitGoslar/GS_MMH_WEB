@@ -643,46 +643,6 @@
   min-height: 32px;
 }
 
-.timeline-container--constrained .timeline-status-pills .status-badge {
-  --color-project-planning: var(--color-cornflower-1000);
-  --color-project-preparing: var(--color-cornflower-1300);
-  --color-project-active: var(--color-ripe-mango-1200);
-  --color-project-review: var(--color-violaceous-greti-1200);
-  --color-project-done: var(--color-ripe-mango-1400);
-
-  display: inline-flex;
-  align-items: center;
-  font-size: var(--typo-size-80);
-  padding: 0.375rem 0.75rem;
-  border-radius: var(--border-radius-pill);
-  margin: 0;
-  font-weight: var(--font-weight-semiBold);
-  background: var(--color-fg-brand-primary);
-  color: var(--color-white);
-  white-space: nowrap;
-  flex-shrink: 0;
-
-  &[data-color='preparing'] {
-    background-color: var(--color-project-preparing);
-  }
-
-  &[data-color='planning'] {
-    background-color: var(--color-project-planning);
-  }
-
-  &[data-color='active'] {
-    background-color: var(--color-project-active);
-  }
-
-  &[data-color='review'] {
-    background-color: var(--color-project-review);
-  }
-
-  &[data-color='done'] {
-    background-color: var(--color-project-done);
-  }
-}
-
 .timeline-container--constrained .timeline-status-arrow {
   color: var(--color-fg-default);
   width: 16px;
@@ -806,7 +766,6 @@
 
 /* Project step timeline is completely isolated from the generic timeline block */
 .project-step-timeline {
-  --project-step-card-width: min(100%, 340px);
   --project-step-marker-size: 16px;
 
   width: 100%;
@@ -844,144 +803,9 @@
   padding-top: 14px;
 }
 
-.project-step-timeline-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background: #f2f2f2;
-  border-radius: 1rem;
-  padding: 1rem 1rem 1.1rem;
-  border: 1px solid rgb(0 0 0 / 10%);
-  box-shadow:
-    0 1px 2px rgb(0 0 0 / 8%),
-    0 10px 24px rgb(0 0 0 / 8%);
-  z-index: 1;
-}
-
-.project-step-timeline-card::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: -14px;
-  width: 2px;
-  height: 14px;
-  background: var(--color-ripe-mango-600);
-  transform: translateX(-50%);
-}
-
-.project-step-timeline-content {
+/* The step itself is the shared card (snippet projectStepCard) */
+.project-step-timeline-item > .c-card {
   width: 100%;
-  padding-top: 1.5rem;
-  margin-bottom: 1rem;
-  position: relative;
-}
-
-.project-step-timeline-date {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  color: var(--color-fg-muted);
-  font-size: var(--typo-size-80);
-  font-weight: var(--font-weight-regular);
-  text-align: right;
-  white-space: nowrap;
-  padding: 0;
-  border-radius: 0;
-  border: 0;
-}
-
-.project-step-timeline-status-pills {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  flex-wrap: nowrap;
-  min-height: 32px;
-}
-
-.project-step-timeline-status-pills .status-badge {
-  --color-project-planning: var(--color-cornflower-1000);
-  --color-project-preparing: var(--color-cornflower-1300);
-  --color-project-active: var(--color-ripe-mango-1200);
-  --color-project-review: var(--color-violaceous-greti-1200);
-  --color-project-done: var(--color-ripe-mango-1400);
-
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: var(--typo-size-80);
-  padding: 0.375rem 0.75rem;
-  border-radius: var(--border-radius-pill);
-  margin: 0;
-  font-weight: var(--font-weight-semiBold);
-  background: var(--color-fg-brand-primary);
-  color: var(--color-white);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* Change badge (Anfangs- zu Endzustand): ein Badge, Farbverlauf per Inline-Style
-   aus den obigen --color-project-* Tokens, Pfeil erbt die weiße Textfarbe. */
-.project-step-timeline-status-pills .status-badge--change svg {
-  flex-shrink: 0;
-}
-
-.project-step-timeline-status-pills .status-badge[data-color='preparing'] {
-  background-color: var(--color-project-preparing);
-}
-
-.project-step-timeline-status-pills .status-badge[data-color='planning'] {
-  background-color: var(--color-project-planning);
-}
-
-.project-step-timeline-status-pills .status-badge[data-color='active'] {
-  background-color: var(--color-project-active);
-}
-
-.project-step-timeline-status-pills .status-badge[data-color='review'] {
-  background-color: var(--color-project-review);
-}
-
-.project-step-timeline-status-pills .status-badge[data-color='done'] {
-  background-color: var(--color-project-done);
-}
-
-.project-step-timeline-image {
-  margin: 0.75rem 0 0;
-  border-radius: var(--radius-medium, 0.75rem);
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-  background: var(--color-bg-subtle, var(--color-bg-default));
-}
-
-.project-step-timeline-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.project-step-timeline-title {
-  margin: 0.5rem 0;
-  color: var(--color-fg-emphasis);
-  font-size: var(--typo-size-200);
-  line-height: var(--typo-line-height-narrow);
-}
-
-.project-step-timeline-text {
-  color: var(--color-fg-default);
-  line-height: var(--typo-line-height-regular);
-  font-size: var(--typo-size-100);
-}
-
-.project-step-timeline-text a {
-  color: var(--color-fg-muted);
-  text-decoration: underline;
-  text-underline-offset: 0.12em;
 }
 
 .project-step-timeline-connector {
@@ -1015,16 +839,6 @@
     padding-top: 12px;
   }
 
-  .project-step-timeline-card {
-    padding: 0.9rem 0.9rem 1rem;
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .project-step-timeline-card::before {
-    content: none;
-  }
-
   .project-step-timeline-connector {
     left: 50%;
     top: 4px;
@@ -1046,7 +860,6 @@
   );
 }
 
-.has-project-accent .project-step-timeline-card::before,
 .has-project-accent .project-step-timeline-connector {
   background: var(--color-project);
 }

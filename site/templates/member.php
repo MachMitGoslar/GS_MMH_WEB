@@ -15,99 +15,76 @@
 <?php snippet('layout/header'); ?>
 
 <main>
+  <?php
+    $memberCover = $page->cover();
+    $memberTeam = $page->teams()->isNotEmpty() ? ($page->teams()->split()[0] ?? null) : null;
+    ?>
   <section class="member-detail">
+    <?php snippet('sections/profile-backdrop', ['person' => $page, 'team' => $memberTeam]) ?>
     <div class="grid content">
       
       <!-- Hero Section -->
       <div class="grid-item member-hero" data-span="1/1">
         <div class="member-hero-content">
-          <div class="contact-profile-section">
-            <div class="profile-image-large">
-              <?php if ($page->cover() && $page->cover()->toFile()) : ?>
-                    <?php $avatar = mmhAvatarImage($page->cover(), 300); ?>
-                <img src="<?= $avatar['url'] ?>"
-                     data-fit="<?= $avatar['fit'] ?>"
-                     alt="<?= $page->name()->html() ?>"
-                     loading="eager">
-              <?php else : ?>
-                <div class="placeholder-avatar-large">
-                  <span><?= strtoupper(substr($page->name()->value(), 0, 1)) ?></span>
-                </div>
-              <?php endif ?>
-            </div>
+          <?php snippet('sections/profile-header', ['shape' => 'round'], slots: true) ?>
+            <?php slot('media') ?>
+              <?php snippet('utilities/avatar', ['person' => $page, 'size' => 480, 'loading' => 'eager']) ?>
+            <?php endslot() ?>
 
-            <div class="member-info">
-              <h1 class="font-titleXXL member-name"><?= $page->name()->html() ?></h1>
+            <?php slot('intro') ?>
+              <?php snippet('utilities/page-title', [
+                  'title' => $page->name()->html(),
+                  'subtitle' => $page->role()->isNotEmpty() ? $page->role()->html() : null,
+                  'after' => $page->teams()->isNotEmpty() ? function () use ($page) {
+                      $teamLabels = [
+                          'staff' => 'Hauptamtliches Team',
+                          'volunteer' => 'Ehrenamtliches Team',
+                          'partner' => 'Partner',
+                          'issuer' => 'Auftraggeber',
+                      ];
+                      foreach ($page->teams()->split() as $teamTag) {
+                          snippet('utilities/badge', [
+                              'label' => esc($teamLabels[$teamTag] ?? ucfirst($teamTag)),
+                              'theme' => 'team-' . $teamTag,
+                              'size' => 'large',
+                          ]);
+                      }
+                  } : null,
+              ]) ?>
+            <?php endslot() ?>
+          <?php endsnippet() ?>
 
-              <?php if ($page->role()->isNotEmpty()) : ?>
-                <div class="member-role"><?= $page->role()->html() ?></div>
-              <?php endif ?>
-
-              <?php if ($page->teams()->isNotEmpty()) : ?>
-                <div class="team-badges team-badges--profile">
-                    <?php foreach ($page->teams()->split() as $teamTag) : ?>
-                    <span class="team-badge" data-team="<?= $teamTag ?>">
-                        <?php
-                        $teamLabels = [
-                        'staff' => 'Hauptamtliches Team',
-                        'volunteer' => 'Ehrenamtliches Team',
-                        'partner' => 'Partner',
-                        'issuer' => 'Auftraggeber',
-                        ];
-                        echo $teamLabels[$teamTag] ?? ucfirst($teamTag);
-                        ?>
-                    </span>
-                    <?php endforeach ?>
-                </div>
-              <?php endif ?>
-            </div>
-          </div>
-
-          <?php if ($page->hasAnyContactInfo() || $page->address()->isNotEmpty()) : ?>
-          <div class="contact-section-unified">
-            <div class="unified-contact-card">
-              <div class="contact-content-grid<?= $page->address()->isNotEmpty() ? ' contact-content-grid--with-map' : ' contact-content-grid--without-map' ?>">
-                <div class="contact-info-section">
-                  <div class="contact-items">
-                    <?php if ($page->email()->isNotEmpty()) : ?>
-                      <a href="mailto:<?= $page->email()->value() ?>" class="contact-item-inline">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
-                        <span><?= $page->email()->value() ?></span>
-                      </a>
-                    <?php endif ?>
-
-                    <?php if ($page->phone()->isNotEmpty()) : ?>
-                      <a href="tel:<?= $page->phone()->value() ?>" class="contact-item-inline">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                        </svg>
-                        <span><?= $page->phone()->value() ?></span>
-                      </a>
-                    <?php endif ?>
-
-                    <?php if ($page->address()->isNotEmpty()) : ?>
-                      <div class="contact-item-inline">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                        </svg>
-                        <span><?= $page->address()->value() ?></span>
-                      </div>
-                    <?php endif ?>
-                  </div>
-                </div>
-
-                <?php if ($page->address()->isNotEmpty()) : ?>
-                <div class="map-info-section">
-                  <div class="map-container">
-                    <div id="member-map" class="member-map"></div>
-                  </div>
-                </div>
+          <?php if ($page->hasAnyContactInfo() || $page->address()->isNotEmpty() || $page->hasSocialMedia()) : ?>
+                <?php
+                $coords = $page->geo()->toObject();
+                $hasCoords = $coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty();
+                $mapboxToken = mmhMapboxToken();
+                $hasMap = $page->address()->isNotEmpty() && $mapboxToken !== '';
+                ?>
+                <?php snippet('sections/glance', [
+                'label' => 'Kontakt',
+                'map' => $hasMap ? [
+                    // without stored coordinates the map shows the MachMit!Haus
+                    'lat' => $hasCoords ? $coords->latitude()->value() : 51.906169,
+                    'lng' => $hasCoords ? $coords->longitude()->value() : 10.429327,
+                    'token' => $mapboxToken,
+                    'label' => $page->name()->value() . ', ' . $page->address()->value(),
+                    'aria' => 'Karte: ' . $page->address()->value(),
+                ] : null,
+            ], slots: true) ?>
+                <?php if ($page->email()->isNotEmpty()) : ?>
+                    <?php snippet('utilities/fact', ['icon' => 'mail', 'label' => 'E-Mail', 'value' => esc($page->email()->value()), 'href' => 'mailto:' . $page->email()->value()]) ?>
                 <?php endif ?>
-              </div>
-            </div>
-          </div>
+                <?php if ($page->phone()->isNotEmpty()) : ?>
+                    <?php snippet('utilities/fact', ['icon' => 'phone', 'label' => 'Telefon', 'value' => esc($page->phone()->value()), 'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $page->phone()->value())]) ?>
+                <?php endif ?>
+                <?php if ($page->address()->isNotEmpty()) : ?>
+                    <?php snippet('utilities/fact', ['icon' => 'map-pin', 'label' => 'Adresse', 'value' => esc($page->address()->value())]) ?>
+                <?php endif ?>
+                <?php foreach ($page->socialLinks() as $social) : ?>
+                    <?php snippet('utilities/fact', ['icon' => $social['icon'], 'label' => esc($social['label']), 'value' => esc($social['value']), 'href' => $social['href'], 'external' => true]) ?>
+                <?php endforeach ?>
+                <?php endsnippet() ?>
           <?php endif ?>
         </div>
       </div>
@@ -126,11 +103,7 @@
       <?php if ($memberProjects->count() > 0) : ?>
         <div class="grid-item member-projects" data-span="1/1">
           <h2>Aktuelle Projekte</h2>
-          <div class="projects-grid">
-            <?php foreach ($memberProjects as $project) : ?>
-                <?= snippet('content-types/projects/projectTeaserCard', ['project' => $project]) ?>
-            <?php endforeach ?>
-          </div>
+            <?php snippet('utilities/card-list', ['pages' => $memberProjects]) ?>
         </div>
       <?php endif ?>
       
@@ -138,22 +111,7 @@
       <?php if ($memberNewsletters->count() > 0) : ?>
         <div class="grid-item member-newsletters" data-span="1/1">
           <h2>Newsletter-Ausgaben</h2>
-          <div class="newsletters-grid">
-            <?php foreach ($memberNewsletters as $newsletter) : ?>
-              <article class="newsletter-card">
-                <div class="newsletter-meta">
-                  <time datetime="<?= $newsletter->publishDate()->toDate('c') ?>">
-                    <?= $newsletter->publishDate()->toDate('F Y') ?>
-                  </time>
-                </div>
-                <h3><a href="<?= $newsletter->url() ?>"><?= $newsletter->title()->html() ?></a></h3>
-                <?php if ($newsletter->greetingText()->isNotEmpty()) : ?>
-                  <p class="newsletter-excerpt"><?= $newsletter->greetingText()->excerpt(150) ?></p>
-                <?php endif ?>
-                <a href="<?= $newsletter->url() ?>" class="newsletter-link gs-c-icon-text">Newsletter lesen <?php snippet('utilities/icon', ['name' => 'arrow-right']) ?></a>
-              </article>
-            <?php endforeach ?>
-          </div>
+            <?php snippet('utilities/card-list', ['pages' => $memberNewsletters]) ?>
         </div>
       <?php endif ?>
       
@@ -161,142 +119,16 @@
       <?php if ($memberNotes->count() > 0) : ?>
         <div class="grid-item member-notes" data-span="1/1">
           <h2>Blog-Artikel</h2>
-          <div class="notes-grid">
-            <?php foreach ($memberNotes as $note) : ?>
-              <article class="note-card">
-                <div class="note-meta">
-                  <time datetime="<?= $note->published('c') ?>">
-                    <?= $note->published() ?>
-                  </time>
-                  <?php if ($note->tags()->isNotEmpty()) : ?>
-                    <div class="note-tags">
-                        <?php foreach ($note->tags()->split() as $tag) : ?>
-                        <span class="tag">#<?= $tag ?></span>
-                        <?php endforeach ?>
-                    </div>
-                  <?php endif ?>
-                </div>
-                <h3><a href="<?= $note->url() ?>"><?= $note->title()->html() ?></a></h3>
-                <?php if ($note->text()->isNotEmpty()) : ?>
-                    <p class="note-excerpt"><?= $note->string_content()->body()->excerpt(150) ?></p>
-                <?php endif ?>
-                <a href="<?= $note->url() ?>" class="note-link gs-c-icon-text">Artikel lesen <?php snippet('utilities/icon', ['name' => 'arrow-right']) ?></a>
-              </article>
-            <?php endforeach ?>
-          </div>
+            <?php snippet('utilities/card-list', ['pages' => $memberNotes]) ?>
         </div>
       <?php endif ?>
-      
-      <!-- Social Media Links -->
-      <?php if ($page->hasSocialMedia()) : ?>
-        <div class="grid-item member-social" data-span="1/1">
-          <h2>Social Media</h2>
-          <div class="social-links">
-            <?php if ($page->facebook()->isNotEmpty()) : ?>
-              <a href="https://facebook.com/<?= $page->facebook()->value() ?>" target="_blank" rel="noopener" class="social-link facebook">
-                <span>Facebook</span>
-              </a>
-            <?php endif ?>
-            
-            <?php if ($page->instagram()->isNotEmpty()) : ?>
-              <a href="https://instagram.com/<?= $page->instagram()->value() ?>" target="_blank" rel="noopener" class="social-link instagram">
-                <span>Instagram</span>
-              </a>
-            <?php endif ?>
-            
-            <?php if ($page->linkedin()->isNotEmpty()) : ?>
-              <a href="https://linkedin.com/in/<?= $page->linkedin()->value() ?>" target="_blank" rel="noopener" class="social-link linkedin">
-                <span>LinkedIn</span>
-              </a>
-            <?php endif ?>
-            
-            <?php if ($page->github()->isNotEmpty()) : ?>
-              <a href="https://github.com/<?= $page->github()->value() ?>" target="_blank" rel="noopener" class="social-link github">
-                <span>GitHub</span>
-              </a>
-            <?php endif ?>
-            
-            <?php if ($page->youtube()->isNotEmpty()) : ?>
-              <a href="https://youtube.com/<?= $page->youtube()->value() ?>" target="_blank" rel="noopener" class="social-link youtube">
-                <span>YouTube</span>
-              </a>
-            <?php endif ?>
-          </div>
-        </div>
-      <?php endif ?>
-      
+
     </div>
   </section>
 </main>
 
-<?php if ($page->address()->isNotEmpty()) : ?>
-<script>
-  // Initialize map when page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    // Only initialize if map container exists
-    if (document.getElementById('member-map')) {
-      mapboxgl.accessToken = '<?= esc(mmhMapboxToken(), 'js') ?>';
-      <?php $coords = $page->geo()->toObject(); ?>
-      <?php if ($coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty()) : ?>
-      let coordinates = [<?= $coords->longitude()->value() ?>, <?= $coords->latitude()->value() ?>];
-      <?php else : ?>
-      // Geocode the address (simple fallback to MachMit!Haus coordinates)
-      let coordinates = [10.429327, 51.906169]; // Default to MachMit!Haus
-      <?php endif ?>
-      let address = <?= json_encode($page->address()->value(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
-      
-      const map = new mapboxgl.Map({
-        container: 'member-map',
-        style: 'mapbox://styles/mapbox/standard',
-        projection: 'globe',
-        attributionControl: false,
-        zoomControl: false,
-        zoom: 15,
-        center: coordinates
-      });
-      
-      map.scrollZoom.disable();
-      
-      const popup = new mapboxgl.Popup({
-        anchor: "top",
-        closeButton: false
-      })
-      .setDOMContent((() => {
-        const box = document.createElement('div');
-        const title = document.createElement('h4');
-        title.textContent = <?= json_encode($page->name()->value(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
-        const line = document.createElement('p');
-        line.textContent = address;
-        box.append(title, line);
-        return box;
-      })());
-      
-      const el = document.createElement('div');
-            el.className = 'custom-marker';
-            el.innerHTML = `
-              <img src="/assets/svg/map_pin.svg" alt="Marker" style="width:32px;height:32px;">
-            `;
-
-      const marker = new mapboxgl.Marker({
-        element: el
-      })
-      .setLngLat(coordinates)
-      .addTo(map);
-      
-      marker.setPopup(popup);
-      
-      map.on('style.load', () => {
-        map.setFog({});
-      });
-      
-      // Simple geocoding fallback for Goslar addresses
-      if (address.toLowerCase().includes('goslar')) {
-        // You could integrate with a geocoding service here
-        // For now, we'll keep the default coordinates
-      }
-    }
-  });
-</script>
+<?php if (!empty($hasMap)) : ?>
+    <?= js('assets/js/event-map.js?version=' . filemtime(kirby()->root('index') . '/assets/js/event-map.js')) ?>
 <?php endif ?>
 
 <?php snippet('layout/footer'); ?>

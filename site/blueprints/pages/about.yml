@@ -40,8 +40,7 @@ tabs:
         type: text
         label: Subtitel
       layout:
-        label: Inhalt
-        type: layout
+        extends: fields/layout
         layouts:
           - "1/1"
           - "1/2, 1/2"

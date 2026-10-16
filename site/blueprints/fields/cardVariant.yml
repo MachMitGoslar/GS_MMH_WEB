@@ -1,0 +1,8 @@
+# Layout variant of the card block.
+label: Anordnung
+type: select
+default: auto
+empty: false
+options:
+  auto: Automatisch (Bild links, wenn die Karte breit genug ist)
+  vertical: Bild immer oben

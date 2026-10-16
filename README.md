@@ -22,6 +22,15 @@ Website and application platform for [MachMit!Haus Goslar](https://mmh.goslar.de
 git clone --recurse-submodules https://github.com/MachMitGoslar/GS_MMH_WEB.git
 cd GS_MMH_WEB
 
+# The custom plugins are their own repositories (not submodules), like the content
+git clone https://github.com/MachMitGoslar/GS_MMH_WEB_PLUGIN site/plugins/gs-mmh-web-plugin
+git clone https://github.com/MachMitGoslar/GS_MMH_SIGNAGE_PLUGIN site/plugins/gs-mmh-signage-plugin
+git -C site/plugins/gs-mmh-web-plugin switch staging   # production: main
+
+# Content is its own repository (not a submodule)
+git clone https://github.com/MachMitGoslar/web_content content
+git -C content switch staging
+
 # 2. Install PHP dependencies
 composer install
 
@@ -74,7 +83,7 @@ See [DEVELOPMENT_SETUP.md](DEVELOPMENT_SETUP.md) for detailed setup, debugging, 
 ```
 GS_MMH_WEB/
 ├── .ddev/                      # DDEV Docker configuration
-├── content/                    # Kirby file-based content (gitignored)
+├── content/                    # Kirby file-based content (own repo web_content, gitignored)
 ├── kirby/                      # Kirby CMS core
 ├── public/                     # Web root (docroot)
 │   ├── assets/
@@ -174,7 +183,7 @@ GS_MMH_WEB/
 
 | Plugin              | Description                                        |
 |---------------------|----------------------------------------------------|
-| `gs-mmh-web-plugin` | Main custom plugin: blocks, writer marks, SEO/social metadata, routes, hooks (git submodule, see its [README](site/plugins/gs-mmh-web-plugin/README.md)) |
+| `gs-mmh-web-plugin` | Main custom plugin: blocks, writer marks, SEO/social metadata, routes, hooks (own repository, see its [README](site/plugins/gs-mmh-web-plugin/README.md)) |
 | `gs-mmh-signage`    | Digital signage screen management                  |
 | `git-content`       | Automatic git versioning of content changes        |
 | `kirby-dreamform`   | Form builder and submission handler (v2.1)         |
@@ -250,6 +259,39 @@ To enable Google Calendar integration for room bookings:
    ```
 4. Share each room's Google Calendar with the service account email
 
+## Versioning and Releases
+
+The website is released as **1.0.0**. From there on the version rises with every deployment to production, following [Semantic Versioning](https://semver.org/):
+
+| Bump | When | Example |
+|------|------|---------|
+| **MAJOR** | The content model or URL structure changes so that content has to be migrated, or a redesign | `2.0.0` |
+| **MINOR** | A new visible feature, block or page type | `1.3.0` |
+| **PATCH** | Fixes and hotfixes | `1.2.1` |
+
+**One source of truth: the Git tag `vX.Y.Z` on `main`.** `package.json` mirrors it.
+
+### How a release happens
+
+1. Work lands on `staging` and is promoted to `main` through a PR, as before. Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `refactor:` ...). `feat` raises MINOR, `fix` raises PATCH, `feat!:` or a `BREAKING CHANGE:` footer raises MAJOR.
+2. The workflow `.github/workflows/release-please.yml` keeps a **release PR** up to date on `main`. It contains the next version in `package.json` and the new section of `CHANGELOG.md`, built from the commits since the last tag.
+3. Merging the release PR creates the tag `vX.Y.Z` and the GitHub release. **The tag is the trigger for the production deployment.**
+4. A hotfix branches from `main`, goes back into `main` and becomes a patch release (`1.2.1`). The workflow `sync-main-to-staging` carries it over to `staging`.
+
+Staging shows pre-release versions (for example `1.3.0-rc.2`), set by the deployment through `MMH_VERSION`.
+
+The first release PR only considers commits after `bootstrap-sha` in `release-please-config.json` (the state released as 1.0.0). Set that sha to the commit that is live on production before the first release.
+
+For CI runs inside the release PR create the secret `RELEASE_PLEASE_TOKEN` (a personal access token or app token with `contents` and `pull-requests` write access). The default token does not trigger other workflows.
+
+### Plugins
+
+`gs-mmh-web-plugin` and `gs-mmh-signage-plugin` are their own repositories and have their own tags (SemVer). **`plugins.json`** says which state a release needs: an empty `ref` follows the branch of the environment, a tag or commit pins it. A release pins the plugin tags it was tested with; CI (`tests/e2e/ci-lib.sh`) and the deployment resolve them from this file.
+
+### Showing the version
+
+`mmhVersion()` (`site/helpers.php`) returns the running version: environment variable `MMH_VERSION`, else the file `VERSION` in the project root (written at deploy time), else the version in `package.json`. It shows up as `<meta name="generator">` in every page and as `/version.json` (`{"version": "1.2.0"}`).
+
 ## Development
 
 ### NPM Scripts
@@ -300,7 +342,7 @@ before/after/diff images are attached to the run (artifact `visual-diffs`) and l
 
 ### Plugin Development
 
-The main custom plugin (`gs-mmh-web-plugin`) is a git submodule with its own build pipeline:
+The main custom plugin (`gs-mmh-web-plugin`) is its own repository (cloned into `site/plugins/`) with its own build pipeline:
 
 ```bash
 cd site/plugins/gs-mmh-web-plugin

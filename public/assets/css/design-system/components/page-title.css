@@ -1,0 +1,80 @@
+/* Page title (snippet utilities/page-title): the same heading block on every
+   page. Type comes from the type system (fonts.css: font-titleXXL for the
+   title, font-subheadline for subtitle and eyebrow); this file only sets the
+   tight spacing between the lines, alignment and the tone on hero images. */
+
+.c-page-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  &[data-align='center'] {
+    align-items: center;
+    text-align: center;
+  }
+
+  &[data-tone='inverse'] {
+    color: var(--color-fg-light, #fff);
+  }
+}
+
+.c-page-title__eyebrow,
+.c-page-title__title,
+.c-page-title__subtitle {
+  margin: 0;
+  color: inherit;
+}
+
+.c-page-title__eyebrow {
+  color: var(--color-fg-muted);
+}
+
+.c-page-title[data-tone='inverse'] .c-page-title__eyebrow,
+.c-page-title[data-tone='inverse'] .c-page-title__subtitle {
+  opacity: 0.9;
+}
+
+.c-page-title[data-tone='inverse'] .c-page-title__eyebrow {
+  color: inherit;
+}
+
+/* Metas next to the title (date, tags, facts above; topics, team below).
+   The content comes from atoms (chip, badge, time); this only lines them up. */
+.c-page-title__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-fg-muted);
+}
+
+.c-page-title__meta--before {
+  margin-bottom: 0.25rem;
+
+  /* a meta line takes the whole row, so its end (the date) sits on the right */
+  & > .c-meta-line {
+    flex: 1;
+  }
+}
+
+.c-page-title__meta--after {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0.75rem;
+}
+
+/* A row of chips, buttons or badges inside the metas */
+.c-page-title__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.c-page-title[data-align='center'] .c-page-title__meta {
+  justify-content: center;
+}
+
+.c-page-title[data-tone='inverse'] .c-page-title__meta {
+  color: inherit;
+}

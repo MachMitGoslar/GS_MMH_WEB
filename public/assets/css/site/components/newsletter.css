@@ -71,17 +71,6 @@
   display: block;
 }
 
-.newsletter-title {
-  color: var(--color-white);
-  margin-block-end: var(--size-8);
-  text-shadow: 0 2px 4px rgb(0 0 0 / 30%);
-}
-
-.newsletter-date {
-  color: var(--color-accent-light);
-  text-shadow: 0 1px 2px rgb(0 0 0 / 30%);
-}
-
 /* Newsletter Author Section */
 .newsletter-author-section {
   background: var(--color-dead-pixel-1200);
@@ -576,33 +565,6 @@
 }
 
 /* Contact Info */
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-2);
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: var(--size-2);
-}
-
-.contact-item span {
-  width: 20px;
-  text-align: center;
-}
-
-.contact-item a {
-  color: var(--color-ripe-mango-1000);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.contact-item a:hover {
-  color: var(--color-ripe-mango-1200);
-  text-decoration: underline;
-}
 
 /* Social Info */
 .main--newsletter .social-info {

@@ -332,7 +332,6 @@ document.addEventListener('DOMContentLoaded', function() {
     submitBtn.textContent = 'Wird gesendet...';
 
     const formData = new FormData(form);
-    console.log('Submitting form data:', Array.from(formData.entries()));
     try {
       const response = await fetch(form.action, {
         method: 'POST',
@@ -343,7 +342,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       const result = await response.json();
-      console.log('Server response:', result);
       // Show feedback
       form.style.display = 'none';
       feedback.style.display = 'block';

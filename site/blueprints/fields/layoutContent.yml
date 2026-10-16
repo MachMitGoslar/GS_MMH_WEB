@@ -1,0 +1,54 @@
+# Layout field with the shared block list, grouped by purpose. Pages that need
+# no special blocks use it with `extends: fields/layoutContent`; a page with
+# special needs extends fields/layout and lists its own `fieldsets`.
+extends: fields/layout
+fieldsets:
+  content:
+    label: Text
+    type: group
+    fieldsets:
+      - heading
+      - text
+      - list
+      - quote
+      - faq
+  media:
+    label: Medien
+    type: group
+    fieldsets:
+      - image
+      - hero
+      - gallery
+      - video
+      - download
+  action:
+    label: Aktion
+    type: group
+    fieldsets:
+      card:
+        extends: blocks/card
+        fields:
+          variant: fields/cardVariant
+          theme: fields/blockTheme
+      testimonial:
+        extends: blocks/testimonial
+      cta:
+        extends: blocks/cta
+      button:
+        extends: blocks/button
+      form:
+        extends: blocks/form
+  structure:
+    label: Struktur
+    type: group
+    fieldsets:
+      timeline:
+        extends: blocks/timeline
+      table:
+        extends: blocks/table
+      facts:
+        extends: blocks/facts
+      card-list:
+        extends: blocks/card-list
+      divider:
+        extends: blocks/divider

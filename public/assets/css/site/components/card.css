@@ -1,0 +1,357 @@
+/* Card (snippet utilities/card): the one base layout of every card.
+     media  = image (or placeholder) with an optional overlay on its edge
+     body   = meta line, title, subtitle, text, free body, actions
+   Variants (data-variant), orientation and size only add what really differs.
+   New card needs: extend this file, do not write another card stylesheet. */
+
+/* Width in a 12-column grid: 4 columns, unless the caller sets data-span */
+.grid > .c-card:not([data-span]) {
+  @media (width >= 768px) {
+    & {
+      grid-column: span 4;
+    }
+  }
+}
+
+.c-card {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(0 0 0 / 10%);
+  background: var(--surface-bg, #fff);
+  color: var(--surface-fg, inherit);
+  overflow: hidden;
+  contain: content;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgb(0 0 0 / 15%);
+  }
+
+  & .c-card__title {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  & a:not(.gs-c-btn) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Horizontal cards switch to image-left once they are wide enough */
+  &[data-orientation='horizontal'] {
+    container-type: inline-size;
+    container-name: card;
+  }
+}
+
+.c-card__inner {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1rem;
+
+  @container card (width >= 642px) {
+    & {
+      flex-direction: row;
+      gap: 0;
+    }
+
+    & > .c-card__media {
+      flex: 0 0 25%;
+    }
+
+    & > .c-card__media .c-card__image {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+  }
+}
+
+/* Media */
+.c-card__media {
+  position: relative;
+}
+
+.c-card__image {
+  --aspected-ration: 24/9;
+
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--aspected-ration);
+  overflow: hidden;
+
+  @media (width > 489px) {
+    & {
+      --aspected-ration: 21/9;
+    }
+  }
+
+  /* the brand logo of the placeholder keeps its own size */
+  & img:not(.c-image-placeholder img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    &[data-fit='contain'] {
+      object-fit: contain;
+    }
+  }
+}
+
+.c-card[data-size='featured'] .c-card__image {
+  --aspected-ration: 21/9;
+
+  /* darken the lower edge of a large image */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(0 0 0 / 40%) 0%, transparent 50%);
+    pointer-events: none;
+  }
+}
+
+/* Overlay sits on the lower edge of the image, half outside (avatars) */
+.c-card__overlay {
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+  z-index: 2;
+  transform: translateY(50%);
+}
+
+/* Badge laid on the image, top right */
+.c-card__overlay:has(.c-badge) {
+  top: 0.75rem;
+  right: 0.75rem;
+  bottom: auto;
+  transform: none;
+}
+
+/* Body */
+.c-card__body {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  padding: 0 1rem 1.25rem;
+
+  & > * + * {
+    margin-top: 0.5rem;
+  }
+
+  /* Title and text */
+  & .c-card__title a:hover {
+    color: var(--color-fg-brand-primary);
+  }
+
+  & .c-card__subtitle {
+    color: var(--color-fg-muted);
+  }
+
+  & .c-card__text {
+    color: var(--color-gray-700);
+  }
+
+  /* Call to action stays on the bottom edge so buttons line up across a row */
+  & .c-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+  }
+}
+
+/* No image: the text starts with some air */
+.c-card__inner:not(:has(.c-card__media)) .c-card__body {
+  padding-top: 1.25rem;
+}
+
+/* An avatar stack on the image edge needs room above the text */
+.c-card__inner:has(.c-avatar-stack) {
+  gap: 0;
+}
+
+.c-card__media:has(.c-avatar-stack) + .c-card__body {
+  padding-top: 1.5rem;
+}
+
+.c-card[data-size='featured'] .c-card__body {
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+
+.c-card[data-size='featured'] .c-card__media:has(.c-avatar-stack) {
+  & .c-avatar-stack__item {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  & .c-card__overlay {
+    right: 2rem;
+  }
+
+  & + .c-card__body {
+    padding-top: 2rem;
+  }
+}
+
+/* Variant newsletter: long titles are clamped */
+.c-card[data-variant='newsletter'] .c-card__title {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Variant person: round avatar instead of an image, everything centered */
+.c-card[data-variant='person'] {
+  grid-column: auto;
+
+  & .c-card__inner {
+    align-items: center;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+
+  & .c-card__media {
+    flex: none;
+  }
+
+  & .c-card__image {
+    width: 5rem;
+    height: 5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  & .c-card__body {
+    width: 100%;
+    flex: none;
+    align-items: center;
+    padding: 0;
+  }
+
+  & .c-card__title {
+    font-size: var(--typo-size-200);
+    font-weight: var(--font-weight-semiBold);
+    color: var(--color-black);
+  }
+
+  & .c-card__subtitle {
+    font-size: var(--typo-size-90);
+    color: var(--color-cornflower-1000);
+  }
+
+  & .c-card__text {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    & p {
+      display: inline;
+      margin: 0;
+    }
+  }
+}
+
+@media (width <= 640px) {
+  .c-card {
+    & .c-card__body {
+      padding-inline: 0.75rem;
+    }
+  }
+}
+
+/* Children list of a page card */
+.c-card__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+
+  & a:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Cards in one layout row grow to the same height */
+.grid-item:has(> .c-card) {
+  align-content: stretch;
+}
+
+/* Rich text from editor blocks (card block) */
+.c-card__richtext {
+  & ul,
+  & ol {
+    margin-left: 0;
+    padding-left: 1.5rem;
+    list-style-position: outside;
+  }
+
+  & ul {
+    list-style-type: disc;
+  }
+
+  & ol {
+    list-style-type: decimal;
+  }
+
+  & li {
+    margin-left: 0;
+  }
+}
+
+/* The card block sits in the generic block wrapper: let the card fill it */
+.c-blog-card {
+  height: 100%;
+
+  & > .c-card {
+    height: 100%;
+  }
+}
+
+/* Card list block: 2 to 4 cards per row. One column on mobile, 8 columns
+   from 768px (2 per row), 12 columns from 1040px (data-columns decides). */
+.grid.c-card-list > .c-card:not([data-span]) {
+  @media (width >= 768px) {
+    & {
+      grid-column: span 4;
+    }
+  }
+
+  @media (width >= 1040px) {
+    & {
+      grid-column: span 4;
+    }
+
+    .c-card-list[data-columns='2'] > & {
+      grid-column: span 6;
+    }
+
+    .c-card-list[data-columns='4'] > & {
+      grid-column: span 3;
+    }
+  }
+}
+
+/* A featured card (e.g. a note) takes the whole row on wider screens */
+.grid.c-card-list > .c-card[data-size='featured']:not([data-span]) {
+  @media (width > 767px) {
+    & {
+      grid-column: span 12;
+    }
+  }
+}

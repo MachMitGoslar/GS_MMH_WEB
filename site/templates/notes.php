@@ -9,29 +9,16 @@
 <?php snippet('layout/header'); ?>
 
 <main class="main">
-  <!-- Hero Section -->
-  <section class="notes-hero">
-    <?php if ($cover = $page->cover()) : ?>
-      <div class="notes-hero-image">
-        <?php snippet('utilities/image', [
-            'file' => $cover,
-            'role' => 'hero',
-            'ratio' => '16:5',
-            'lazy' => false,
-            'alt' => $page->title()->value(),
+  <div class="mb-4">
+    <?= snippet('sections/hero') ?>
+  </div>
+
+  <section class="grid content mb-7">
+    <div class="grid-item" data-span="1/1">
+        <?php snippet('utilities/page-title', [
+            'title' => $page->title()->html(),
+            'subtitle' => $page->subheadline()->isNotEmpty() ? $page->subheadline()->html() : null,
         ]) ?>
-        <div class="notes-hero-overlay"></div>
-      </div>
-    <?php endif ?>
-    <div class="notes-hero-content">
-      <div class="grid content">
-        <div class="grid-item" data-span="1/1">
-          <h1 class="font-titleXXL"><?= $page->title()->html() ?></h1>
-          <?php if ($page->subheadline()->isNotEmpty()) : ?>
-            <p class="font-titleXL font-weight-light"><?= $page->subheadline()->html() ?></p>
-          <?php endif ?>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -48,35 +35,23 @@
     <!-- Featured Notes -->
     <?php if ($featuredNotes->count() > 0) : ?>
       <div class="grid-item" data-span="1/1">
-        <h2 class="font-title section-title">Hervorgehobene Einträge</h2>
+        <h2 class="font-title section-title">Im Fokus</h2>
       </div>
       <div class="grid-item" data-span="1/1">
-        <ul class="grid notes-grid notes-grid--featured">
-          <?php foreach ($featuredNotes as $note) : ?>
-            <li class="note-card-wrapper note-card-wrapper--featured">
-                <?= snippet('content-types/notes/noteCard', ['note' => $note, 'featured' => true]) ?>
-            </li>
-          <?php endforeach ?>
-        </ul>
+        <?php snippet('utilities/card-list', ['pages' => $featuredNotes, 'columns' => 1, 'featured' => 'all']) ?>
       </div>
     <?php endif ?>
 
     <!-- All Notes -->
     <div class="grid-item" data-span="1/1">
-      <h2 class="font-title section-title">
+      <h4 class="font-headline section-title">
         <?= $featuredNotes->count() > 0 ? 'Alle Einträge' : 'Tagebucheinträge' ?>
-      </h2>
+      </h4>
     </div>
 
     <?php if ($regularNotes->count() > 0) : ?>
       <div class="grid-item" data-span="1/1">
-        <ul class="grid notes-grid">
-          <?php foreach ($regularNotes as $note) : ?>
-            <li class="note-card-wrapper">
-                <?= snippet('content-types/notes/noteCard', ['note' => $note]) ?>
-            </li>
-          <?php endforeach ?>
-        </ul>
+        <?php snippet('utilities/card-list', ['pages' => $regularNotes]) ?>
       </div>
     <?php else : ?>
       <div class="grid-item" data-span="1/1">

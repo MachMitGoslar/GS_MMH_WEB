@@ -1,0 +1,55 @@
+/* Themes (field fields/blockTheme.yml, data-theme on the block wrapper):
+   one vocabulary for the color world of a block. A theme only sets surface
+   tokens; atoms inside (card, facts ...) consume them, so no atom needs its
+   own dark or gold variant. "default" sets nothing. */
+
+[data-theme='soft'] {
+  --surface-bg: var(--color-dead-pixel-100);
+  --surface-fg: var(--color-fg-default);
+}
+
+[data-theme='brand'] {
+  --surface-bg: var(--color-ripe-mango-700);
+  --surface-fg: var(--color-ripe-mango-1400);
+}
+
+[data-theme='dark'] {
+  --surface-bg: var(--color-dead-pixel-1200);
+  --surface-fg: var(--color-dead-pixel-10);
+}
+
+[data-theme='project'] {
+  --surface-bg: var(--color-project, var(--color-bg-brand-primary));
+  --surface-fg: var(--color-project-on, var(--color-white));
+}
+
+/* Text inside a themed surface follows the surface color */
+[data-theme] {
+  & .c-card__text,
+  & .c-card__subtitle,
+  & .c-fact__label {
+    color: inherit;
+    opacity: 0.85;
+  }
+
+  & .c-card .c-card__title a:hover {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+/* Buttons on dark surfaces follow the surface text color */
+[data-theme='dark'],
+[data-theme='project'] {
+  & .gs-c-btn[data-type='tertiary'] {
+    --_foreground: var(--surface-fg);
+  }
+
+  & .gs-c-btn[data-type='secondary'] {
+    --_foreground-primary-enabled: var(--surface-fg);
+    --_border-primary-enabled: var(--_border-width) solid var(--surface-fg);
+    --_background-primary-hover: var(--surface-fg);
+    --_foreground-primary-hover: var(--surface-bg);
+    --_border-primary-hover: var(--_border-width) solid var(--surface-fg);
+  }
+}

@@ -5,7 +5,6 @@
  * @var \Kirby\Cms\Page $page
  */
 
-$blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
 
 $roomsPage = $page->parent();
 $allRooms = $roomsPage->children()->listed();
@@ -102,7 +101,7 @@ $allRooms = $roomsPage->children()->listed();
         <div class="room-description">
           <h2 class="font-title">Beschreibung</h2>
             <?php foreach ($page->description()->toBlocks() as $block) : ?>
-                <?php if ($blockIsVisible($block)) : ?>
+                <?php if ($block->isVisible()) : ?>
                 <div class="c-blog c-blog-<?= $block->type() ?>">
                     <?= $block ?>
                 </div>
