@@ -1,0 +1,91 @@
+name: Card
+icon: info-card
+fields:
+  cardType:
+    label: Card Type
+    type: radio
+    default: page
+    options:
+      page: Create card from page
+      manual: Create manual card
+  page:
+    type: pages
+    max: 1
+    query: kirby.page('photography').children.listed
+    when:
+      cardType: page
+
+  image:
+    label: Image
+    type: files
+    uploads: image
+    when:
+      cardType: manual
+  headline:
+    label: Titel
+    inline: true
+    required: true
+    marks: false
+    type: writer
+    when:
+      cardType: manual
+  subheadline:
+    label: Untertitel
+    inline: true
+    marks: false
+    type: writer
+    when:
+      cardType: manual
+  description_content:
+    label: Inhalt
+    type: blocks
+    marks: false
+    nodes: false
+
+    fieldsets:
+      - quote
+      - text
+      - list
+      - button
+    when:
+      cardType: manual
+  color:
+    type: select
+    label: Farbe
+    default: primary
+    options:
+      primary: Hell
+      secondary: Dunkel
+
+  linkMode:
+    label: Verlinkung
+    type: select
+    default: none
+    empty: false
+    help: Bei einem Button ist nur der Button klickbar. Header-Verlinkung nur verwenden, wenn kein Button angezeigt wird.
+    options:
+      none: Keine Verlinkung
+      header: Header verlinken
+      button: Button im Footer
+  link:
+    label: Linkziel
+    type: link
+    help: Nur nötig, wenn die Karte nicht aus einer Seite erstellt wird.
+    when:
+      cardType: manual
+  linktext:
+    label: Linktext
+    type: text
+    default: Mehr erfahren
+    placeholder: Mehr erfahren
+    when:
+      linkMode: button
+  buttontype:
+    extends: fields/buttonType
+    label: Button-Stil
+    default:
+      color: primary
+      size: regular
+      style: pill
+    when:
+      linkMode: button

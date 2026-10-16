@@ -1,0 +1,61 @@
+name: Kartenliste
+icon: grid
+fields:
+  title:
+    label: Überschrift
+    type: text
+  source:
+    label: Quelle
+    type: toggles
+    default: pages
+    options:
+      pages: Seiten auswählen
+      children: Unterseiten einer Seite
+  pages:
+    label: Seiten
+    type: pages
+    layout: list
+    help: Jede Seite erscheint als Karte, passend zu ihrem Typ (Projekt, Themenfeld, Eintrag, Newsletter, Person, sonst allgemein).
+    when:
+      source: pages
+  parentPage:
+    label: Seite
+    type: pages
+    max: 1
+    when:
+      source: children
+  sortBy:
+    label: Sortierung
+    type: select
+    default: manual
+    empty: false
+    width: 1/3
+    options:
+      manual: Wie ausgewählt / im Panel
+      newest: Zuletzt geändert zuerst
+      title: Nach Titel
+  limit:
+    label: Höchstens
+    type: number
+    min: 1
+    width: 1/3
+  featured:
+    label: Hervorhebung
+    type: select
+    default: none
+    empty: false
+    width: 1/3
+    help: Wirkt bei Einträgen (groß) und Newsletter-Ausgaben (Rahmen).
+    options:
+      none: Keine
+      first: Erste Karte
+      all: Alle Karten
+  columns:
+    label: Spalten
+    type: toggles
+    default: 3
+    width: 1/3
+    options:
+      2: 2
+      3: 3
+      4: 4

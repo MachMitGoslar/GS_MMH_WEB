@@ -1,0 +1,19 @@
+name: Hero-Bild
+icon: image
+fields:
+  image:
+    label: Bild
+    type: files
+    layout: list
+    max: 1
+    required: true
+    uploads:
+      template: image
+  variant:
+    label: Format
+    type: select
+    default: wide
+    empty: false
+    options:
+      wide: Breit (Panorama)
+      standard: Standard (16:9)
