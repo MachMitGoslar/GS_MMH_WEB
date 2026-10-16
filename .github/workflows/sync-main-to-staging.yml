@@ -41,10 +41,10 @@ jobs:
       - name: Create sync PR
         if: steps.compare.outputs.ahead != '0' && steps.existing.outputs.number == ''
         env:
-          GH_TOKEN: ${{ secrets.SYNC_PR_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
-            echo "::error::Configure the SYNC_PR_TOKEN repository secret with a token allowed to create pull requests."
+            echo "::error::Configure the RELEASE_PLEASE_TOKEN repository secret with a token allowed to create pull requests."
             exit 1
           fi
 
