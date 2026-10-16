@@ -7,6 +7,7 @@
  * @var string|null                     $modifier     extra CSS class (e.g. 'newsletter-entry-modal')
  * @var \Kirby\Cms\File|string|null     $hero         hero image — File object or URL string
  * @var string|null                     $heroAlt      alt text for hero image
+ * @var int|null                        $autoOpen     opens on load after this many milliseconds
  * @var string|null                     $ariaLabel    aria-labelledby value (ID of a title element inside a slot)
  * @var callable|null                   $slotTitle    title section slot
  * @var callable|null                   $slotContent  main body content slot
@@ -16,6 +17,7 @@
 $modifier = $modifier ?? '';
 $heroAlt = $heroAlt ?? '';
 $ariaLabel = $ariaLabel ?? null;
+$autoOpen = $autoOpen ?? null;
 $slotTitle = $slotTitle ?? null;
 $slotContent = $slotContent ?? null;
 $slotFooter = $slotFooter ?? null;
@@ -36,10 +38,10 @@ $classes = trim('gs-c-modal ' . $modifier . ($heroUrl ? ' gs-c-modal--has-hero' 
   class="<?= esc($classes, 'attr') ?>"
   id="<?= esc($id, 'attr') ?>"
   <?= $ariaLabel ? 'aria-labelledby="' . esc($ariaLabel, 'attr') . '"' : '' ?>
-  onclick="if(event.target===this)this.close()"
+  <?= $autoOpen !== null ? 'data-modal-auto-open="' . (int) $autoOpen . '"' : '' ?>
 >
   <div class="gs-c-modal__close-bar">
-    <button class="gs-c-modal__close" type="button" onclick="this.closest('dialog').close()" aria-label="Schließen"><?php snippet('utilities/icon', ['name' => 'x']) ?></button>
+    <button class="gs-c-modal__close" type="button" data-modal-close aria-label="Schließen"><?php snippet('utilities/icon', ['name' => 'x']) ?></button>
   </div>
 
   <?php if ($heroUrl) : ?>
@@ -56,7 +58,7 @@ $classes = trim('gs-c-modal ' . $modifier . ($heroUrl ? ' gs-c-modal--has-hero' 
         <?php endif ?>
   <?php endif ?>
 
-  <div class="gs-c-modal__body" onclick="event.stopPropagation()">
+  <div class="gs-c-modal__body">
     <?php if ($slotTitle) : ?>
       <div class="gs-c-modal__title-section">
         <?php ($slotTitle)() ?>

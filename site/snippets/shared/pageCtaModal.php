@@ -25,6 +25,7 @@ $titleId = $modalId . '-title';
 snippet('shared/modal', [
     'id' => $modalId,
     'modifier' => 'page-cta-modal',
+    'autoOpen' => 250,
     'ariaLabel' => $titleId,
 
     'slotTitle' => function () use ($headline, $titleId) {
@@ -44,17 +45,12 @@ snippet('shared/modal', [
     'slotFooter' => function () use ($continueText, $continueUrl) {
         ?>
         <?php if ($continueUrl !== '') : ?>
-          <a class="gs-c-btn" data-type="primary" data-size="regular" data-style="pill" href="<?= esc($continueUrl, 'attr') ?>">
-            <?= esc($continueText) ?>
-          </a>
+            <?php snippet('utilities/button', ['label' => esc($continueText), 'href' => $continueUrl]) ?>
         <?php else : ?>
-          <button class="gs-c-btn" data-type="primary" data-size="regular" data-style="pill" type="button" data-cta-modal-close>
-            <?= esc($continueText) ?>
-          </button>
+            <?php snippet('utilities/button', ['label' => esc($continueText), 'attrs' => ['data-modal-close' => true]]) ?>
         <?php endif ?>
         <?php
     },
 ]);
 ?>
 
-<?= js('assets/js/page-cta-modal.js?version=' . filemtime(kirby()->root('index') . '/assets/js/page-cta-modal.js')) ?>

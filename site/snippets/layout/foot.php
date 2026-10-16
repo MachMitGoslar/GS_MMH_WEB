@@ -1,6 +1,7 @@
 
 <?php // move to a separate js file and call it in the head snippet?>
 
+<?= js('assets/js/modal.js?version=' . filemtime(kirby()->root('index') . '/assets/js/modal.js')) ?>
 <?= js('assets/js/avatar-stack.js?version=' . filemtime(kirby()->root('index') . '/assets/js/avatar-stack.js')) ?>
 
 <script async defer>
@@ -33,7 +34,7 @@
     }
   };
 </script>
-<?php  if($kirby->option("neuraflow.active")): ?> 
+<?php  if ($kirby->option("neuraflow.active")) : ?> 
 ?>
 <script async defer>
 window.neurabotConfig = {
