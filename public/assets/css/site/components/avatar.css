@@ -1,0 +1,23 @@
+/* Avatar (snippet utilities/avatar): image or initial placeholder.
+   The wrapper around it sets size and shape, the placeholder fills it. */
+
+.c-avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  background: linear-gradient(
+    135deg,
+    var(--color-fg-brand-primary),
+    var(--color-bg-brand-primary)
+  );
+  color: #fff;
+}
+
+.c-avatar-initial {
+  font-size: 45cqmin;
+  font-weight: var(--font-weight-semiBold);
+  line-height: 1;
+}

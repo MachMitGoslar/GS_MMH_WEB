@@ -4,18 +4,18 @@
  * @var \Kirby\Cms\StructureObject $entry
  * @var string $badge        Badge label, e.g. 'Rückblick'
  * @var string|null $badgeIcon   Icon key for the badge, see snippets/utilities/icon.php
- * @var string|null $badgeColor  data-color value for status-badge, e.g. 'active'
+ * @var string|null $badgeTheme  set from $badge, see utilities/badge.php
  * @var string|null $footerText  Footnote line passed from the section (date, location…)
  * @var string|null $footerIcon  Icon key placed in front of $footerText
  */
 
-$badgeColors = [
-  "Rückblick" => "review",
-  "Aktuell" => "actual",
+$badgeThemes = [
+  "Rückblick" => "recap",
+  "Aktuell" => "current",
   "Vorschau" => "upcoming",
   "Nachrichten" => "news",
 ];
-$badgeColor = $badgeColors[$badge] ?? "review";
+$badgeTheme = $badgeThemes[$badge] ?? "recap";
 $badgeIcon = $badgeIcon ?? null;
 $footerText = $footerText ?? null;
 $footerIcon = $footerIcon ?? null;
@@ -31,56 +31,55 @@ $hasActions = $entryLink || $entryMailto;
 
 $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
 
+// Footnote line: optional icon, then the text (date, location ...)
+$footerLine = function () use ($footerText, $footerIcon) {
+    echo '<p class="font-footnote">';
+    if ($footerIcon) {
+        snippet('utilities/icon', ['name' => $footerIcon, 'size' => 14]);
+        echo ' ';
+    }
+    echo $footerText . '</p>';
+};
+
+// E-mail and website buttons, shared by the card and the modal
+$contactButtons = function () use ($entryMailto, $entryLink) {
+    if ($entryMailto) {
+        snippet('utilities/button', ['label' => 'E-Mail', 'icon' => 'mail', 'href' => 'mailto:' . $entryMailto, 'variant' => 'secondary', 'size' => 'small']);
+    }
+    if ($entryLink) {
+        snippet('utilities/button', ['label' => 'Website', 'icon' => 'link', 'href' => $entryLink, 'variant' => 'secondary', 'size' => 'small', 'attrs' => ['target' => '_blank', 'rel' => 'noopener']]);
+    }
+};
+
 ?>
-<li class="grid-item" data-span="1/3">
-  <div class="c-blog-card c-newsletterEntryCard">
-    <?php if ($imageFile) : ?>
-      <figure>
-        <?php snippet('utilities/image', [
-            'file' => $imageFile,
-            'role' => 'card',
-            'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
-            'class' => 'hero',
-            'alt' => $entry->headline()->value(),
-        ]) ?>
-      </figure>
-    <?php endif ?>
-    <div class="content">
-      <div class="heading">
-      <div class="statusheader mb-2">
-        <div class="badge"<?= ' data-variant="' . $badgeColor . '"' ?>><?php if ($badgeIcon) :
-            ?><?php snippet('utilities/icon', ['name' => $badgeIcon, 'size' => 14]) ?> <?php
-                          endif ?><?= $badge ?></div>
-      </div>
-      <h3 class="font-headline font-line-height-narrow mb-2"><?= $entry->headline() ?></h3>
-      <?php if ($entry->subheadline()->isNotEmpty()) : ?>
-        <h4 class="font-subheadline font-line-height-narrow mb-2"><?= $entry->subheadline() ?></h4>
-      <?php endif ?>
-      </div>
-      <div class="body">
-      <p class="font-footnote"><?= $hasMore ? $entry->content_text()->excerpt($excerptLimit) : $rawText ?></p>
-      <?php if ($footerText) : ?>
-        <p class="font-footnote mt-2"><?php if ($footerIcon) :
-            ?><?php snippet('utilities/icon', ['name' => $footerIcon, 'size' => 14]) ?> <?php
-                                      endif ?><?= $footerText ?></p>
-      <?php endif ?>
-      <?php if ($hasActions || $hasMore) : ?>
-        <div class="newsletter-entry-card__actions mt-3">
-            <?php if ($entryMailto) : ?>
-            <a href="mailto:<?= $entryMailto ?>" class="gs-c-btn" data-type="secondary" data-size="small"><?php snippet('utilities/icon', ['name' => 'mail', 'size' => 16]) ?> E-Mail</a>
-            <?php endif ?>
-            <?php if ($entryLink) : ?>
-            <a href="<?= $entryLink ?>" class="gs-c-btn" data-type="secondary" data-size="small" target="_blank" rel="noopener"><?php snippet('utilities/icon', ['name' => 'link', 'size' => 16]) ?> Website</a>
-            <?php endif ?>
-            <?php if ($hasMore) : ?>
-            <button class="gs-c-btn" data-type="secondary" data-size="small" onclick="document.getElementById('<?= $modalId ?>').showModal()">Mehr lesen</button>
-            <?php endif ?>
-        </div>
-      <?php endif ?>
-    </div>
-    </div>
-  </div>
-</li>
+<?php snippet('utilities/card', [
+    'variant' => 'entry',
+    'class' => 'c-newsletterEntryCard grid-item',
+    'attrs' => ['data-span' => '1/3'],
+    'orientation' => 'horizontal',
+    'image' => $imageFile,
+    'imageOptions' => ['alt' => $entry->headline()->value()],
+    'placeholder' => false,
+    'meta' => function () use ($badge, $badgeIcon, $badgeTheme) {
+        ?>
+        <?php snippet('utilities/meta-line', slots: true) ?>
+          <?php slot('start') ?>
+            <?php snippet('utilities/badge', ['label' => esc($badge), 'theme' => $badgeTheme, 'icon' => $badgeIcon]) ?>
+          <?php endslot() ?>
+        <?php endsnippet() ?>
+        <?php
+    },
+    'title' => $entry->headline(),
+    'subtitle' => $entry->subheadline()->isNotEmpty() ? $entry->subheadline() : null,
+    'text' => $hasMore ? $entry->content_text()->excerpt($excerptLimit) : $rawText,
+    'body' => $footerText ? $footerLine : null,
+    'actions' => $hasActions || $hasMore ? function () use ($contactButtons, $hasMore, $modalId) {
+        $contactButtons();
+        if ($hasMore) {
+            snippet('utilities/button', ['label' => 'Mehr lesen', 'variant' => 'secondary', 'size' => 'small', 'attrs' => ['data-modal-open' => $modalId]]);
+        }
+    } : null,
+]) ?>
 
 <?php if ($hasMore) :
     $titleId = $modalId . '-title';
@@ -92,12 +91,14 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
         'heroAlt' => $entry->headline()->value(),
         'ariaLabel' => $titleId,
 
-        'slotTitle' => function () use ($entry, $badge, $badgeIcon, $badgeColor, $titleId) {
+        'slotTitle' => function () use ($entry, $badge, $badgeIcon, $badgeTheme, $titleId) {
             ?>
-            <div class="statusheader mb-3">
-              <div class="status-badge"<?= $badgeColor ? ' data-color="' . $badgeColor . '"' : '' ?>><?php if ($badgeIcon) :
-                    ?><?php snippet('utilities/icon', ['name' => $badgeIcon, 'size' => 14]) ?> <?php
-                                       endif ?><?= $badge ?></div>
+            <div class="mb-3">
+              <?php snippet('utilities/meta-line', slots: true) ?>
+                <?php slot('start') ?>
+                  <?php snippet('utilities/badge', ['label' => esc($badge), 'theme' => $badgeTheme, 'icon' => $badgeIcon]) ?>
+                <?php endslot() ?>
+              <?php endsnippet() ?>
             </div>
             <h3 class="font-headline font-line-height-narrow mb-2" id="<?= $titleId ?>"><?= $entry->headline() ?></h3>
             <?php if ($entry->subheadline()->isNotEmpty()) : ?>
@@ -112,23 +113,14 @@ $imageFile = ($entry->image()->isNotEmpty()) ? $entry->image()->toFile() : null;
             <?php
         },
 
-        'slotFooter' => function () use ($entry, $entryLink, $entryMailto, $footerText, $footerIcon) {
-            ?>
-            <div class="newsletter-entry-modal__footer-meta">
-              <?php if ($footerText) : ?>
-                <p class="font-footnote"><?php if ($footerIcon) :
-                    ?><?php snippet('utilities/icon', ['name' => $footerIcon, 'size' => 14]) ?> <?php
-                                         endif ?><?= $footerText ?></p>
-              <?php endif ?>
-              <?php if ($entryMailto) : ?>
-                <a href="mailto:<?= $entryMailto ?>" class="gs-c-btn" data-type="secondary" data-size="small"><?php snippet('utilities/icon', ['name' => 'mail', 'size' => 16]) ?> E-Mail</a>
-              <?php endif ?>
-              <?php if ($entryLink) : ?>
-                <a href="<?= $entryLink ?>" class="gs-c-btn" data-type="secondary" data-size="small" target="_blank" rel="noopener"><?php snippet('utilities/icon', ['name' => 'link', 'size' => 16]) ?> Website</a>
-              <?php endif ?>
-            </div>
-            <button class="gs-c-btn" data-type="secondary" data-size="small" onclick="this.closest('dialog').close()">Schließen</button>
-            <?php
+        'slotFooter' => function () use ($footerText, $footerLine, $contactButtons) {
+            echo '<div class="newsletter-entry-modal__footer-meta">';
+            if ($footerText) {
+                $footerLine();
+            }
+            $contactButtons();
+            echo '</div>';
+            snippet('utilities/button', ['label' => 'Schließen', 'variant' => 'secondary', 'size' => 'small', 'attrs' => ['data-modal-close' => true]]);
         },
     ]);
 endif ?>

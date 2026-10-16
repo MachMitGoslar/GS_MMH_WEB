@@ -138,12 +138,25 @@
   --color-fg-muted: var(--color-dead-pixel-1000);
   --color-bg-default: var(--color-white);
   --color-border-default: var(--color-dead-pixel-300);
+  --color-state-success-bg: var(--color-pastel-green-900);
+  --color-state-success-fg: var(--color-white);
+  --color-state-success-soft-bg: var(--color-pastel-green-100);
+  --color-state-success-soft-fg: var(--color-pastel-green-1100);
+  --color-state-success-border: var(--color-pastel-green-300);
+  --color-state-warning-bg: var(--color-ripe-mango-700);
+  --color-state-warning-fg: var(--color-ripe-mango-1400);
+  --color-state-warning-soft-bg: var(--color-ripe-mango-200);
+  --color-state-warning-soft-fg: var(--color-ripe-mango-1400);
+  --color-state-warning-border: var(--color-ripe-mango-300);
+  --color-state-error-bg: var(--color-ferocious-900);
+  --color-state-error-fg: var(--color-white);
+  --color-state-error-soft-bg: var(--color-ferocious-100);
+  --color-state-error-soft-fg: var(--color-ferocious-1100);
+  --color-state-error-border: var(--color-ferocious-300);
   --shadow-sm: 0 1px 3px rgb(0 0 0 / 10%);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%);
 }
 
-/* Aliase fuer Namen, die in Komponenten benutzt, aber nie definiert wurden.
-   Sie zeigen auf die Dead-Pixel-Graustufe bzw. Ripe Mango. */
 :root {
   --color-grey-50: var(--color-dead-pixel-25);
   --color-grey-200: var(--color-dead-pixel-200);

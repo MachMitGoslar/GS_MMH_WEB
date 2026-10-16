@@ -1,0 +1,36 @@
+name: Release
+
+# Haelt auf `main` einen Release-PR aktuell: Aus den Conventional Commits
+# (feat, fix, refactor ...) seit dem letzten Tag entstehen die naechste Version
+# und der CHANGELOG. Das Mergen dieses PR legt den Tag `vX.Y.Z` und das GitHub-
+# Release an, und der Tag ist der Ausloeser fuer das Deployment nach production.
+#
+# Regeln, Zusammenhang und Ablauf: README.md, Abschnitt "Versionierung und Releases".
+#
+# Hinweis: Mit dem Standard-Token (GITHUB_TOKEN) loesen die vom Workflow
+# angelegten PRs keine weiteren Workflows aus (also auch nicht die CI). Fuer
+# CI-Laeufe im Release-PR das Secret RELEASE_PLEASE_TOKEN (Personal Access Token
+# oder GitHub-App-Token mit contents/pull-requests: write) anlegen.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-please
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

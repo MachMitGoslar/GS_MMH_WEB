@@ -1,0 +1,27 @@
+/* Meta line (snippet utilities/meta-line): the row above a title, classifying
+   things (badge, kind, date) left and secondary things (date, tags) right. */
+
+.c-meta-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+
+  /* same date color everywhere */
+  & time {
+    color: var(--color-fg-muted);
+  }
+}
+
+.c-meta-line__end {
+  margin-left: auto;
+}
+
+.c-meta-line__start,
+.c-meta-line__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+}

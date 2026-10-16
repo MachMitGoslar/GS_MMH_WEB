@@ -67,18 +67,6 @@
   object-fit: contain;
 }
 
-.project-team-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: var(--color-fg-brand-primary);
-  color: #111;
-  font-size: 1rem;
-  font-weight: 700;
-}
-
 .project-team-meta {
   display: none;
 }
@@ -432,7 +420,7 @@ html.js
   --color-fg-brand-primary: var(--color-project-ink);
 }
 
-.project-team-strip.has-project-accent .project-team-placeholder {
+.project-team-strip.has-project-accent .c-avatar-placeholder {
   background: var(--color-project);
   color: var(--color-project-on);
 }

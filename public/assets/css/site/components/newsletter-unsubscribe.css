@@ -18,13 +18,13 @@
 }
 
 .newsletter-unsubscribe__notice[data-type='success'] {
-  background: #e6f3ef;
-  color: #245f53;
+  background: var(--color-state-success-soft-bg);
+  color: var(--color-state-success-soft-fg);
 }
 
 .newsletter-unsubscribe__notice[data-type='error'] {
-  background: #fdeceb;
-  color: #b3261e;
+  background: var(--color-state-error-soft-bg);
+  color: var(--color-state-error-soft-fg);
 }
 
 .newsletter-unsubscribe__intro {

@@ -4,13 +4,6 @@
 * @var string | null $query
 * @uses Kirby\Http\Remote
 */
-
-function sort_by_start($a, $b)
-{
-
-    //TODO: Exclude Events that are already gone
-    return strnatcmp($a['start'], $b['start']);
-}
 $query = kirby()->request()->query()->get('data');
 $program_id = (int) $query ?: 74;
 
@@ -36,8 +29,8 @@ if (!is_array($json) || !isset($json[0]['start'])) {
 //$json = Remote::get('https://crawler.goslar.app/events.json')->json();
 
 $events = $json;
-usort($events, 'sort_by_start');
-//var_dump($events[1]['start']);
+// TODO: Exclude events that are already gone
+usort($events, fn($a, $b) => strnatcmp($a['start'], $b['start']));
 
 $rand = random_int(0, count($events) - 1);
 $event = $events[$rand];

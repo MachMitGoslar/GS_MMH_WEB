@@ -49,7 +49,7 @@ class NotePage extends Page
     {
         $string_content = '';
         foreach ($this->text()->toBlocks() as $block) {
-            if ($block->type() === 'text' || $block->type() === 'accordion' || $block->type() === 'box' || $block->type() === 'heading') {
+            if ($block->type() === 'text' || $block->type() === 'accordion' || $block->type() === 'heading') {
                 $string_content .= $block->text()->body();
             }
         }

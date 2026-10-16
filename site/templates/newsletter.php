@@ -24,8 +24,13 @@
   <section class="newsletter-cover">
     <div class="newsletter-cover-content">
       <img class="newsletter-logo" src="/assets/svg/RZ-RGB_MM!2_iv.svg" alt="MachMit!Haus Logo">
-      <h1 class="font-title3XXL newsletter-title">Newsletter</h1>
-      <h2 class="font-titleXL newsletter-date"><?= $page->title() ?></h2>
+      <?php snippet('utilities/page-title', [
+          'title' => 'Newsletter',
+          'subtitle' => $page->title(),
+          'tone' => 'inverse',
+          'align' => 'center',
+          'subtitleTag' => 'h2',
+      ]) ?>
     </div>
   </section>
 
@@ -35,16 +40,9 @@
       <div class="newsletter-author-section grid-item" data-span="1/1">
         <div class="newsletter-author-content">
           <div class="newsletter-author-profile">
-            <?php if ($authorImage = $author->cover()) : ?>
-                <?php snippet('utilities/image', [
-                  'file' => $authorImage,
-                  'role' => 'thumb',
-                  'sizes' => '120px',
-                  'class' => 'author-avatar',
-                  'lazy' => false,
-                  'alt' => $author->title()->value(),
-              ]) ?>
-            <?php endif ?>
+            <div class="author-avatar">
+              <?php snippet('utilities/avatar', ['person' => $author, 'size' => 120]) ?>
+            </div>
             <div class="author-info">
               <h3 class="font-headline author-name"><?= $author->title() ?></h3>
               <p class="font-footnote author-role">Autor</p>
@@ -333,14 +331,10 @@
       <?php if ($page->closingsinfos() && $page->closingsinfos()->isNotEmpty()) : ?>
         <div class="c-newsletter-teaser grid-item" data-span="1/1">
           <div class="flex items-center mb-5">
-            <?php if (isset($authorImage) && $authorImage) : ?>
-                <?php snippet('utilities/image', [
-                  'file' => $authorImage,
-                  'role' => 'thumb',
-                  'sizes' => '120px',
-                  'class' => 'author-avatar',
-                  'alt' => 'Kontakt',
-              ]) ?>
+            <?php if (isset($author) && $author) : ?>
+              <div class="author-avatar">
+                <?php snippet('utilities/avatar', ['person' => $author, 'size' => 120, 'name' => 'Kontakt']) ?>
+              </div>
             <?php endif ?>
             <div>
               <h3 class="font-headline color-fg-light mb-1">Mehr Informationen?</h3>
@@ -355,16 +349,12 @@
       
       <div class="grid-item" data-span="1/2">
         <h3 class="font-title mb-3">MachMit!Haus Kontakt</h3>
-        <div class="contact-info mb-4">
-          <div class="contact-item font-body mb-2">
-            <span><?php snippet('utilities/icon', ['name' => 'mail']) ?></span> <a href="mailto:machmit@goslar.de">machmit@goslar.de</a>
-          </div>
-          <div class="contact-item font-body mb-2">
-            <span><?php snippet('utilities/icon', ['name' => 'globe']) ?></span> <a href="https://machmit.goslar.de">machmit.goslar.de</a>
-          </div>
-          <div class="contact-item font-body mb-2">
-            <span><?php snippet('utilities/icon', ['name' => 'phone']) ?></span> <a href="tel:05321704525">05321 704 525</a>
-          </div>
+        <div class="mb-4">
+          <?php snippet('utilities/facts', ['columns' => 1, 'surface' => 'plain'], slots: true) ?>
+            <?php snippet('utilities/fact', ['icon' => 'mail', 'label' => 'E-Mail', 'value' => 'machmit@goslar.de', 'href' => 'mailto:machmit@goslar.de']) ?>
+            <?php snippet('utilities/fact', ['icon' => 'globe', 'label' => 'Web', 'value' => 'machmit.goslar.de', 'href' => 'https://machmit.goslar.de']) ?>
+            <?php snippet('utilities/fact', ['icon' => 'phone', 'label' => 'Telefon', 'value' => '05321 704 525', 'href' => 'tel:05321704525']) ?>
+          <?php endsnippet() ?>
         </div>
         <div class="social-info">
           <p class="font-footnote">Folgen Sie uns: <strong>@machmitgoslar</strong></p>

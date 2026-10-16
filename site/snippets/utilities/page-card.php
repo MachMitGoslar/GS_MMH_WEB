@@ -1,59 +1,44 @@
 <?php
+
 /**
- * Page card snippet
- * Same markup and styling as the content card, for whole pages
+ * Page card: a whole page as a card (image left on wide cards).
+ *
  * @var \Kirby\Cms\Page $page
  * @var string $class
  * @var string $dataSpan
+ * @var bool $withChildren List the page's children below the text
  */
 
-$dataSpan = $dataSpan ?? '1/1';
-$class = trim('content-card ' . ($class ?? 'grid-item'));
+$dataSpan ??= '1/1';
+$withChildren ??= false;
 $cover = $page ? $page->cover() : null;
-$withChildren = $withChildren ?? false;
 ?>
-
-<article data-span="<?= $dataSpan ?>" class="<?= $class ?>">
-    <div class="content-card__content">
-        <div class="content-card__image content-card__image--left">
-            <?php if ($cover && $cover->isNotEmpty()) : ?>
-                <?php snippet('utilities/image', [
-                    'file' => $cover,
-                    'role' => 'card',
-                    'sizes' => '(min-width: 768px) 33vw, 100vw',
-                    'alt' => (string) $cover->alt(),
-                ]) ?>
-            <?php else : ?>
-                <?php snippet('utilities/imagePlaceholder') ?>
-            <?php endif ?>
-        </div>
-
-        <div class="content-card__text">
-            <div class="content-card__title">
-                <a href="<?= $page->url() ?>" class="content-card__title-link"><?= $page->title()->html() ?></a>
-            </div>
-
-            <?php if ($page->subheadline()->isNotEmpty()) : ?>
-                <div class="content-card__subtitle"><?= $page->subheadline()->html() ?></div>
-            <?php endif ?>
-
-            <?php if ($page->content_text()->isNotEmpty()) : ?>
-                <div class="content-card__description"><?= $page->content_text()->kt() ?></div>
-            <?php endif ?>
-
-            <?php if ($page->date()->isNotEmpty()) : ?>
-                <div class="content-card__date"><?= $page->date()->toDate('d.m.Y') ?></div>
-            <?php endif ?>
-
-            <?php if ($page->children()->isNotEmpty() && $withChildren) : ?>
-                <div class="content-card__footer">
-                    <ul class="content-card__list">
-                        <?php foreach ($page->children() as $child) : ?>
-                            <a href="<?= $child->url() ?>"><li class="content-card__list-item"><?= $child->title()->html() ?></li></a>
-                        <?php endforeach ?>
-                    </ul>
-                </div>
-            <?php endif ?>
-        </div>
-    </div>
-</article>
+<?php snippet('utilities/card', [
+    'variant' => 'page',
+    'tag' => $tag ?? 'article',
+    'orientation' => 'horizontal',
+    'class' => $class ?? 'grid-item',
+    'attrs' => ['data-span' => $dataSpan],
+    'image' => $cover && $cover->isNotEmpty() ? $cover : null,
+    'imageOptions' => ['sizes' => '(min-width: 768px) 33vw, 100vw', 'alt' => $cover ? (string) $cover->alt() : ''],
+    'meta' => $page->date()->isNotEmpty() ? function () use ($page) {
+        ?>
+        <?php snippet('utilities/meta-line', slots: true) ?>
+          <?php slot('end') ?>
+            <time class="font-footnote"><?= $page->date()->toDate('d.m.Y') ?></time>
+          <?php endslot() ?>
+        <?php endsnippet() ?>
+        <?php
+    } : null,
+    'title' => $page->title()->html(),
+    'titleHref' => $page->url(),
+    'subtitle' => $page->subheadline()->isNotEmpty() ? $page->subheadline()->html() : null,
+    'text' => $page->content_text()->isNotEmpty() ? $page->content_text()->kt() : null,
+    'body' => $withChildren && $page->children()->isNotEmpty() ? function () use ($page) {
+        echo '<ul class="c-card__list">';
+        foreach ($page->children() as $child) {
+            echo '<li><a href="' . esc($child->url()) . '">' . $child->title()->html() . '</a></li>';
+        }
+        echo '</ul>';
+    } : null,
+]) ?>

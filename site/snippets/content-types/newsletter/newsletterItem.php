@@ -6,9 +6,10 @@
  *
  * @var \Kirby\Cms\Page $newsletter - The newsletter page object
  * @var string $class - Additional CSS classes (optional)
+ * @var bool $featured - Highlighted look (optional)
  */
 
-$class = $class ?? '';
+$class = trim(($class ?? '') . (($featured ?? false) ? ' newsletter-item--featured' : ''));
 // Use publish_date if available, otherwise fallback to published/modified date
 $publishDate = null;
 if ($newsletter->publish_date()->isNotEmpty()) {
@@ -27,42 +28,29 @@ if ($heroImage && !$heroImage->exists()) {
     $heroImage = $newsletter->images()->last();
 }
 ?>
-
-<li class="c-newsletterTeaserCard grid-item <?= $class ?>" data-span="1/4">
-  <div class="newsletter-card-image-link">
-    <?php if ($heroImage && $heroImage->isNotEmpty()) : ?>
-        <?php snippet('utilities/image', [
-          'file' => $heroImage,
-          'role' => 'card',
-          'ratio' => '2:1',
-          'sizes' => '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw',
-          'class' => 'hero',
-          'alt' => $newsletter->title()->value(),
-      ]) ?>
-    <?php else : ?>
-        <?php snippet('utilities/imagePlaceholder', ['class' => 'hero']) ?>
-    <?php endif ?>
-  </div>
-  
-  <div class="content">
-    <div class="statusheader">
-      <div class="newsletter-badge">
-        <span class="newsletter-badge-icon"><?php snippet('utilities/icon', ['name' => 'mail', 'size' => 14]) ?></span>
-        <span class="newsletter-badge-text">Newsletter</span>
-      </div>
-      <time class="font-footnote" datetime="<?= date('Y-m-d', $publishTimestamp) ?>">
-        <?= date('d.m.Y', $publishTimestamp) ?>
-      </time>
-    </div>
-
-    <h3 class="font-headline font-line-height-narrow mb-2"><?= $newsletter->title()->html() ?></h3>
-    
-    <?php if ($newsletter->greeting_text()->isNotEmpty()) : ?>
-      <p class="font-footnote"><?= $newsletter->greeting_text()->excerpt(120) ?></p>
-    <?php endif ?>
-    
-    <a href="<?= $newsletter->url() ?>" class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill">
-      Newsletter lesen
-    </a>
-  </div>
-</li>
+<?php snippet('utilities/card', [
+    'variant' => 'newsletter',
+    'class' => trim('c-newsletterTeaserCard grid-item ' . $class),
+    'attrs' => ['data-span' => '1/4'],
+    'image' => $heroImage && $heroImage->isNotEmpty() ? $heroImage : null,
+    'imageOptions' => [
+        'ratio' => '2:1',
+        'sizes' => '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw',
+        'alt' => $newsletter->title()->value(),
+    ],
+    'meta' => function () use ($publishTimestamp) {
+        ?>
+        <?php snippet('utilities/meta-line', slots: true) ?>
+          <?php slot('start') ?>
+            <?php snippet('utilities/badge', ['label' => 'Newsletter', 'theme' => 'news', 'icon' => 'mail']) ?>
+          <?php endslot() ?>
+          <?php slot('end') ?>
+            <time class="font-footnote" datetime="<?= date('Y-m-d', $publishTimestamp) ?>"><?= date('d.m.Y', $publishTimestamp) ?></time>
+          <?php endslot() ?>
+        <?php endsnippet() ?>
+        <?php
+    },
+    'title' => $newsletter->title()->html(),
+    'subtitle' => $newsletter->greeting_text()->isNotEmpty() ? $newsletter->greeting_text()->excerpt(120) : null,
+    'action' => ['label' => 'Newsletter lesen', 'href' => $newsletter->url()],
+]) ?>

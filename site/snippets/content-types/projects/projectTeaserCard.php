@@ -1,34 +1,27 @@
 <?php
 
 /**
-* @var \Kirby\Cms\Site $site
-* @var \Kirby\Cms\Page $page
-*/
-
-$projectCover = $project->cover();
+ * Card for one project.
+ *
+ * @var \Kirby\Cms\Page $project
+ */
 ?>
-<li class="c-projectTeaserCard">
-  <div class="hero-wrapper">
-    <?php if ($projectCover) : ?>
-        <?php snippet('utilities/image', [
-          'file' => $projectCover,
-          'role' => 'card',
-          'sizes' => '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
-          'class' => 'hero',
-      ]) ?>
-    <?php else : ?>
-        <?php snippet('utilities/imagePlaceholder') ?>
-    <?php endif; ?>
-  </div>
-  <div class="content">
-    <div class="statusheader">
-    <?= snippet('content-types/projects/statusBadge', ['status' => $project->effectiveProjectStatus()]) ?>
-    <time class="font-footnote" datetime="<?= $project->modified('c') ?>"><?= $project->modified('d.m.Y') ?></time>
-    </div>
-
-    <h3 class="font-headline font-line-height-narrow"><?= $project->title() ?></h3>
-    <p class="font-footnote mb-3"><?=$project->subheadline()?></p>
-    <!-- <p class="font-body"><?=$project->text()->excerpt()?></p> -->
-    <a href="<?=$project?>" class="gs-c-btn" data-type="secondary" data-size="regular" data-style="pill">Zum Projekt</a>
-  </div>
-</li>
+<?php snippet('utilities/card', [
+    'variant' => 'project',
+    'image' => $project->cover(),
+    'meta' => function () use ($project) {
+        ?>
+        <?php snippet('utilities/meta-line', slots: true) ?>
+          <?php slot('start') ?>
+            <?php snippet('content-types/projects/statusBadge', ['status' => $project->effectiveProjectStatus()]) ?>
+          <?php endslot() ?>
+          <?php slot('end') ?>
+            <time class="font-footnote" datetime="<?= $project->modified('c') ?>"><?= $project->modified('d.m.Y') ?></time>
+          <?php endslot() ?>
+        <?php endsnippet() ?>
+        <?php
+    },
+    'title' => $project->title(),
+    'subtitle' => $project->subheadline(),
+    'action' => ['label' => 'Zum Projekt', 'href' => $project->url()],
+]) ?>

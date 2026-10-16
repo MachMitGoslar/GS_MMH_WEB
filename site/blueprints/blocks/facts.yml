@@ -1,0 +1,89 @@
+name: Auf einen Blick
+icon: list-bullet
+fields:
+  items:
+    label: Fakten
+    type: structure
+    help: Icon, Beschriftung und Wert, z. B. Ort, Zeit, Kontakt.
+    columns:
+      icon:
+        width: 1/6
+      label:
+        width: 1/4
+      value:
+        width: 1/3
+    fields:
+      icon:
+        extends: fields/icon
+        width: 1/4
+      label:
+        label: Beschriftung
+        type: text
+        width: 1/4
+      value:
+        label: Wert
+        type: text
+        required: true
+        width: 1/2
+      link:
+        label: Link (optional)
+        type: link
+        options:
+          - url
+          - page
+          - email
+          - tel
+        help: Macht den Wert zum Link, z. B. E-Mail oder Telefonnummer.
+  columns:
+    label: Spalten
+    type: toggles
+    default: 2
+    width: 1/2
+    options:
+      1: einspaltig
+      2: zweispaltig
+  surface:
+    label: Darstellung
+    type: toggles
+    default: card
+    width: 1/2
+    options:
+      card: Karte
+      plain: schlicht
+  theme:
+    extends: fields/blockTheme
+    width: 1/2
+  map:
+    label: Karte neben den Fakten
+    type: toggle
+    text:
+      - nein
+      - ja
+    width: 1/2
+  mapLabel:
+    label: Beschriftung des Markers
+    type: text
+    placeholder: z. B. MachMit!Haus, Markt 7
+    width: 1/2
+    when:
+      map: true
+  lat:
+    label: Breitengrad
+    type: number
+    step: 0.000001
+    width: 1/2
+    when:
+      map: true
+  lng:
+    label: Längengrad
+    type: number
+    step: 0.000001
+    width: 1/2
+    when:
+      map: true
+  mapHref:
+    label: Link zur Route (optional)
+    type: url
+    help: z. B. ein Kartenlink, erscheint unter der Karte als „Route planen“.
+    when:
+      map: true

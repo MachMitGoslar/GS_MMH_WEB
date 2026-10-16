@@ -5,12 +5,7 @@
  */
 ?>
 <?php
-/**
- * Shared visibility closure for timed pages, layouts and blocks.
- */
-$contentIsVisible = require kirby()->root('controllers') . '/blocks.php';
-
-if (!$contentIsVisible($page)) {
+if (!$page->isVisible()) {
     go(site()->errorPage()->url(), 404);
 }
 ?>
@@ -25,35 +20,15 @@ if (!$contentIsVisible($page)) {
 
         <section>
             <div class="grid content">
-                <h1 class="font-titleXXL grid-item" data-span="1/1">
-                    <?= $page->title() ?>
-                </h1>
+                <div class="grid-item" data-span="1/1">
+                    <?php snippet('utilities/page-title', [
+                        'title' => $page->headline()->or($page->title()),
+                        'subtitle' => $page->subheadline()->isNotEmpty() ? $page->subheadline() : null,
+                    ]) ?>
+                </div>
             </div>
 
-            <?php foreach ($page->layout()->toLayouts() as $layout) : ?>
-                <?php if (!$contentIsVisible($layout)) {
-                    continue;
-                } ?>
-                <div class="grid content">
-
-                    <?php foreach ($layout->columns() as $column) : ?>
-                        <div class="grid-item" data-span="<?= $column->width() ?>">
-
-                            <?php foreach ($column->blocks() as $block) : ?>
-                                <?php if (!$contentIsVisible($block)) {
-                                    continue;
-                                } ?>
-                                <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-                                    <?= $block ?>
-                                </div>
-
-                            <?php endforeach ?>
-
-                        </div>
-                    <?php endforeach ?>
-
-                </div>
-            <?php endforeach ?>
+            <?php snippet('utilities/layouts', ['layouts' => $page->layout()->toLayouts()]) ?>
 
         </section>
     </main>

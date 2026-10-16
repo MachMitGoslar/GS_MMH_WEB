@@ -1,0 +1,123 @@
+# Blocks field with the shared block list, grouped like fields/layoutContent,
+# and a publish/end date on every block (timed content, see isVisible()).
+# Keep the block types in sync with fields/layoutContent (BlueprintLayoutTest).
+type: blocks
+fieldsets:
+  content:
+    label: Text
+    type: group
+    fieldsets:
+      heading:
+        extends: blocks/heading
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      text:
+        extends: blocks/text
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      list:
+        extends: blocks/list
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      quote:
+        extends: blocks/quote
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      faq:
+        extends: blocks/faq
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+  media:
+    label: Medien
+    type: group
+    fieldsets:
+      image:
+        extends: blocks/image
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      hero:
+        extends: blocks/hero
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      gallery:
+        extends: blocks/gallery
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      video:
+        extends: blocks/video
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      download:
+        extends: blocks/download
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+  action:
+    label: Aktion
+    type: group
+    fieldsets:
+      card:
+        extends: blocks/card
+        fields:
+          variant: fields/cardVariant
+          theme: fields/blockTheme
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      testimonial:
+        extends: blocks/testimonial
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      cta:
+        extends: blocks/cta
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      button:
+        extends: blocks/button
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      form:
+        extends: blocks/form
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+  structure:
+    label: Struktur
+    type: group
+    fieldsets:
+      timeline:
+        extends: blocks/timeline
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      table:
+        extends: blocks/table
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      facts:
+        extends: blocks/facts
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      card-list:
+        extends: blocks/card-list
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate
+      divider:
+        extends: blocks/divider
+        fields:
+          publish_date: fields/blockPublishDate
+          end_date: fields/blockEndDate

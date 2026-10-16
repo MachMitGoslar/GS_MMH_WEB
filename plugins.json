@@ -1,0 +1,13 @@
+{
+  "_comment": "Die eigenen Plugins sind Repositories, keine Submodule. Dieses Manifest sagt, welchen Stand ein Release braucht. Leeres `ref` = Kopf des Branches der Umgebung (production: main, staging: staging, sonst main). Ein Release pinnt hier einen Tag (z. B. v1.2.0) oder Commit; die CI loest ihn auf und rendert damit.",
+  "plugins": {
+    "gs-mmh-web-plugin": {
+      "repo": "MachMitGoslar/GS_MMH_WEB_PLUGIN",
+      "ref": ""
+    },
+    "gs-mmh-signage-plugin": {
+      "repo": "MachMitGoslar/GS_MMH_SIGNAGE_PLUGIN",
+      "ref": ""
+    }
+  }
+}

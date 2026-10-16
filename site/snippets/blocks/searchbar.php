@@ -6,6 +6,6 @@
         value="<?= esc(get('q') ?? '') ?>"
         aria-label="Projekte durchsuchen"
     >
-    <button class="gs-c-btn" data-type="secondary" data-size="regular" type="submit">Suchen</button>
+    <?php snippet('utilities/button', ['label' => 'Suchen', 'variant' => 'secondary', 'type' => 'submit']) ?>
 </form>
 

@@ -1,0 +1,15 @@
+# Base of every layout field (rows of columns that hold blocks).
+# Use it with `extends: fields/layout` and override only what differs:
+# `label`, `layouts`, `fieldsets` (a list replaces the base list; a map is merged by key) and
+# `settings` (fields are merged by key; reuse fields/layoutHighlight,
+# fields/blockPublishDate, fields/blockEndDate).
+type: layout
+size: huge
+label: Inhalt
+layouts:
+  - "1/1"
+  - "1/2, 1/2"
+  - "1/4, 1/4, 1/4, 1/4"
+  - "1/3, 2/3"
+  - "2/3, 1/3"
+  - "1/3, 1/3, 1/3"

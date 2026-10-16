@@ -6,7 +6,6 @@
  * @var \Kirby\Cms\Page $page
  */
 
-$blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
 ?>
 <?php snippet('layout/head'); ?>
 <?php snippet('layout/header'); ?>
@@ -14,47 +13,32 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
 <main class="main">
   <article class="note-article">
 
-    <!-- Hero Section with Cover Image -->
-      <section class="note-hero">
-        <div class="note-hero-image">
-          <?php if ($cover = $page->cover()) : ?>
-                <?php snippet('utilities/image', [
-                'file' => $cover,
-                'role' => 'hero',
-                'ratio' => '12:5',
-                'lazy' => false,
-                'alt' => $page->title()->value(),
-          ]) ?>
-          <?php else : ?>
-              <?php snippet('utilities/imagePlaceholder', ['class' => 'note-hero-default']) ?>
-          <?php endif ?>
+    <div class="mb-4">
+      <?= snippet('sections/hero', ['placeholder' => true]) ?>
+    </div>
 
-
-          <div class="note-hero-overlay"></div>
-        </div>
-        <div class="note-hero-content">
-          <div class="grid content">
-            <div class="grid-item" data-span="1/1">
-              <div class="note-meta-hero">
-                <time datetime="<?= $page->published('c') ?>" class="note-date">
-                  <?= $page->published() ?>
-                </time>
-                <?php if ($page->tags()->isNotEmpty()) : ?>
-                  <div class="note-tags">
+    <section class="grid content mb-5">
+      <div class="grid-item" data-span="1/1">
+        <?php snippet('utilities/page-title', [
+            'title' => $page->title()->html(),
+            'subtitle' => $page->headline()->isNotEmpty() ? $page->headline()->html() : null,
+            'before' => function () use ($page) {
+                ?>
+                <?php snippet('utilities/meta-line', slots: true) ?>
+                  <?php slot('start') ?>
                     <?php foreach ($page->tags()->split() as $tag) : ?>
-                      <span class="tag">#<?= $tag ?></span>
+                        <?php snippet('utilities/chip', ['label' => esc($tag), 'theme' => 'tag']) ?>
                     <?php endforeach ?>
-                  </div>
-                <?php endif ?>
-              </div>
-              <h1 class="font-titleXXL note-title"><?= $page->title()->html() ?></h1>
-              <?php if ($page->headline()->isNotEmpty()) : ?>
-                <h2 class="font-titleXL font-weight-light note-subtitle"><?= $page->headline()->html() ?></h2>
-              <?php endif ?>
-            </div>
-          </div>
-        </div>
-      </section>
+                  <?php endslot() ?>
+                  <?php slot('end') ?>
+                    <time datetime="<?= $page->published('c') ?>" class="font-footnote"><?= $page->published() ?></time>
+                  <?php endslot() ?>
+                <?php endsnippet() ?>
+                <?php
+            },
+        ]) ?>
+      </div>
+    </section>
 
     <!-- Author Section -->
     <?php
@@ -67,14 +51,7 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
             <?php foreach ($authors as $author) : ?>
               <a href="<?= $author->url() ?>" class="author-card">
                 <div class="author-avatar">
-                  <?php if ($authorImage = $author->cover()) : ?>
-                        <?php $avatar = mmhAvatarImage($authorImage, 160); ?>
-                    <img src="<?= $avatar['url'] ?>" data-fit="<?= $avatar['fit'] ?>" alt="<?= $author->title()->html() ?>">
-                  <?php else : ?>
-                    <div class="placeholder-avatar">
-                      <span><?= strtoupper(substr($author->title()->value(), 0, 1)) ?></span>
-                    </div>
-                  <?php endif ?>
+                  <?php snippet('utilities/avatar', ['person' => $author, 'name' => $author->title()->value(), 'size' => 160]) ?>
                 </div>
                 <div class="author-info">
                   <span class="author-name font-headline"><?= $author->title()->html() ?></span>
@@ -93,13 +70,7 @@ $blockIsVisible = require kirby()->root('controllers') . '/blocks.php';
     <section class="note-content grid content">
       <div class="grid-item" data-span="2/3">
         <div class="note-body">
-          <?php foreach ($page->text()->toBlocks() as $block) : ?>
-                <?php if ($blockIsVisible($block)) : ?>
-              <div id="<?= $block->id() ?>" class="c-blog c-blog-<?= $block->type() ?>">
-                    <?= $block ?>
-              </div>
-                <?php endif ?>
-          <?php endforeach ?>
+          <?php snippet('utilities/blocks', ['blocks' => $page->text()->toBlocks()]) ?>
         </div>
       </div>
 

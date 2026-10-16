@@ -52,14 +52,18 @@ if (kirby()->request()->is('POST')) {
 
   <div class="newsletter-unsubscribe">
   <section class="content newsletter-unsubscribe__content">
-    <p class="font-subheadline mb-2">MachMit!Haus Newsletter</p>
-    <h1 class="font-titleXXL mb-4"><?= esc($page->headline()->or('Newsletter abmelden')) ?></h1>
+    <div class="mb-4">
+      <?php snippet('utilities/page-title', [
+          'eyebrow' => 'MachMit!Haus Newsletter',
+          'title' => esc($page->headline()->or('Newsletter abmelden')),
+      ]) ?>
+    </div>
 
     <?php if ($status === 'success') : ?>
       <div class="newsletter-unsubscribe__notice" data-type="success">
         <?= esc($message) ?>
       </div>
-      <a class="gs-c-btn" data-type="primary" data-size="regular" data-style="pill" href="<?= url() ?>">Zur Startseite</a>
+        <?php snippet('utilities/button', ['label' => 'Zur Startseite', 'href' => url()]) ?>
     <?php else : ?>
         <?php if ($status === 'error') : ?>
         <div class="newsletter-unsubscribe__notice" data-type="error">
@@ -89,7 +93,7 @@ if (kirby()->request()->is('POST')) {
           </div>
         <?php endif ?>
 
-        <button class="gs-c-btn" data-type="primary" data-size="regular" data-style="pill" type="submit">Vom Newsletter abmelden</button>
+        <?php snippet('utilities/button', ['label' => 'Vom Newsletter abmelden', 'type' => 'submit']) ?>
       </form>
     <?php endif ?>
   </section>

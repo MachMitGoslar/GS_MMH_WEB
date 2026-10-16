@@ -29,6 +29,17 @@ const MMH_MERGED_PROJECTS = [
 
 return [
     /**
+     * Version of the running website, for support ("which version is on
+     * staging?"). Only the version, nothing about content or setup.
+     */
+    [
+        'pattern' => 'version.json',
+        'action' => function () {
+            return Response::json(['version' => mmhVersion()]);
+        },
+    ],
+
+    /**
     * HOTFIX
     * 301 für alte Linksstruktur
     */
@@ -85,7 +96,6 @@ return [
             $page = Kirby\Cms\Page::factory([
                 'slug' => (string) $detail['id'],
                 'template' => 'event',
-                'model' => 'event',
                 'parent' => $parent,
                 'num' => null,
                 'content' => [
@@ -264,39 +274,6 @@ return [
             $content = snippet('content-types/ferienpass/events', ['query' => $query], true);
 
             return new Response($content, 'application/json');
-        },
-    ],
-
-    /**
-     * Room Booking Request API
-     * Handles room booking form submissions
-     */
-    [
-        'pattern' => 'booking-request.json',
-        'method' => 'POST',
-        'action' => function () {
-            require_once kirby()->root('snippets') . '/content-types/rooms/bookingRequestHandler.php';
-
-            $result = handleBookingRequest();
-
-            return new Response(
-                json_encode($result, JSON_UNESCAPED_UNICODE),
-                'application/json',
-                $result['success'] ? 200 : 400,
-            );
-        },
-    ],
-    /**
-     * Room Booking Request API (GET fallback for debugging)
-     */
-    [
-        'pattern' => 'booking-request.json',
-        'method' => 'GET',
-        'action' => function () {
-            return new Response(
-                json_encode(['status' => 'ok', 'message' => 'Booking API endpoint. Use POST to submit.']),
-                'application/json',
-            );
         },
     ],
 ];

@@ -18,15 +18,12 @@
     </div>
 
     <section class="grid content mb-7">
-        <h1 class="font-titleXXL grid-item" data-span="1/1">
-            <?= $page->headline()->or($page->title()) ?>
-        </h1>
-
-        <?php if ($page->subheadline()->isNotEmpty()) : ?>
-            <p class="grid-item font-body" data-span="1/1">
-                <?= $page->subheadline() ?>
-            </p>
-        <?php endif; ?>
+        <div class="grid-item" data-span="1/1">
+            <?php snippet('utilities/page-title', [
+                'title' => $page->headline()->or($page->title()),
+                'subtitle' => $page->subheadline()->isNotEmpty() ? $page->subheadline() : null,
+            ]) ?>
+        </div>
     </section>
 
 
@@ -107,12 +104,9 @@
                             <?= esc($group['label']) ?>
                         <?php endif ?>
                     </h2>
-                    <ul class="grid mb-6">
-                        <?php foreach ($group['projects'] as $project) : ?>
-                            <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
-                        <?php endforeach ?>
-                        
-                    </ul>
+                    <div class="mb-6">
+                        <?php snippet('utilities/card-list', ['pages' => $group['projects']]) ?>
+                    </div>
                     
                 <?php endforeach ?>
 
@@ -125,33 +119,13 @@
                     <h2 id="archive" class="font-title2 section-title">Projektarchiv</h2>
 
                     <ul class="grid mb-4">
-                        <li class="c-projectTeaserCard">
-
-                            <div class="hero-wrapper">
-                                <?php snippet('utilities/imagePlaceholder') ?>
-                            </div>
-
-
-                            <div class="content">
-                                <h3 class="font-headline font-line-height-narrow"><?= $archivePage->title() ?></h3>
-
-                                <?php if ($archivePage->subheadline()->isNotEmpty()) : ?>
-                                    <p class="font-footnote mb-3">
-                                        <?= $archivePage->subheadline() ?>
-                                    </p>
-                                <?php endif; ?>
-
-                                <a href="<?= $archivePage->url() ?>"
-                                   class="gs-c-btn"
-                                   data-type="secondary"
-                                   data-size="regular"
-                                   data-style="pill">
-                                    Zum Projektarchiv
-                                </a>
-                            </div>
-
-                        </li>
-                                </ul>
+                        <?php snippet('utilities/card', [
+                            'variant' => 'project',
+                            'title' => $archivePage->title(),
+                            'subtitle' => $archivePage->subheadline()->isNotEmpty() ? $archivePage->subheadline() : null,
+                            'action' => ['label' => 'Zum Projektarchiv', 'href' => $archivePage->url()],
+                        ]) ?>
+                    </ul>
                         </section>
         <?php endif; ?>
 
@@ -159,11 +133,9 @@
             <section class="grid-item" data-span="1/1">
 
                 <?php if ($archiveProjects->count()) : ?>
-                    <ul class="grid mb-4">
-                        <?php foreach ($archiveProjects as $project) : ?>
-                            <?php snippet('content-types/projects/projectTeaserCard', compact('project')) ?>
-                        <?php endforeach; ?>
-                    </ul>
+                    <div class="mb-4">
+                        <?php snippet('utilities/card-list', ['pages' => $archiveProjects]) ?>
+                    </div>
                 <?php else : ?>
                     <p>Keine abgeschlossenen Projekte gefunden.</p>
                 <?php endif; ?>
