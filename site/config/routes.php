@@ -29,6 +29,17 @@ const MMH_MERGED_PROJECTS = [
 
 return [
     /**
+     * Version of the running website, for support ("which version is on
+     * staging?"). Only the version, nothing about content or setup.
+     */
+    [
+        'pattern' => 'version.json',
+        'action' => function () {
+            return Response::json(['version' => mmhVersion()]);
+        },
+    ],
+
+    /**
     * HOTFIX
     * 301 für alte Linksstruktur
     */

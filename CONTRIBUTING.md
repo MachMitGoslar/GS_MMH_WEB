@@ -183,6 +183,10 @@ git push origin staging
 | `site/plugins/`          | Kirby-Plugins (gs-mmh-web-plugin etc.)|
 | `public/assets/css/`     | Design System und Seiten-Styles       |
 
+### Commit messages and releases
+
+Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): summary`, types `feat`, `fix`, `refactor`, `style`, `build`, `docs`, `test`, `chore`. The type decides the next version: `fix` raises PATCH, `feat` raises MINOR, `!` after the type or a `BREAKING CHANGE:` footer raises MAJOR. Write the body so that it explains *why* the change is made; it ends up in the changelog and in the release notes. How releases work: [README, Versioning and Releases](README.md#versioning-and-releases).
+
 ### Karten und andere Komponenten
 
 Jede Karte (Projekt, Notiz, Newsletter, Team, Seite, Kartenblock ...) nutzt das **eine** Grundgerüst `site/snippets/utilities/card.php` mit `public/assets/css/site/components/card.css`. Ein Wrapper-Snippet (z. B. `content-types/notes/noteCard.php`) füllt nur die Teile (Bild, Meta, Titel, Text, Aktionen) und wählt `variant`, `orientation`, `size`. Fehlt etwas, wird das Grundgerüst erweitert, es entsteht kein zweites Karten-Markup und kein eigenes Karten-CSS. Kleinere Bausteine (Avatar, Avatar-Stapel, Bild, Icon) sind eigene Snippets unter `utilities/`.

@@ -1,6 +1,6 @@
 {
   "name": "gs_mmh_web",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "The new Web-Site and App for the MachMit!Haus in Goslar",
   "main": "index.php",
   "scripts": {

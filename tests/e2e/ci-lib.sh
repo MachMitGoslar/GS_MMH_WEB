@@ -11,9 +11,10 @@
 #   WEB_PLUGIN_REF, SIGNAGE_PLUGIN_REF
 #                 exact plugin commits, to reproduce a run
 #
-# The plugins (gs-mmh-web-plugin, gs-mmh-signage-plugin) are NOT taken from
-# the commit the repository pins, but from the head of the plugin branch of
-# the same environment, like the content. A plugin without that branch falls
+# The plugins (gs-mmh-web-plugin, gs-mmh-signage-plugin) are own repositories.
+# A release pins the state it was tested with in plugins.json (`ref`: tag,
+# branch or commit). Without a pin they follow the head of the plugin branch of
+# the same environment, like the content; a plugin without that branch falls
 # back to `main`. The refs are resolved once per run.
 #   PORT          port of the PHP built-in server (default 8001)
 
@@ -65,12 +66,43 @@ remote_sha() {
   echo ""
 }
 
-# Prints "<sha> <branch>" for the environment branch of a plugin repo,
-# or for `main` if the plugin has no such branch.
+# The ref a release pins for a plugin in plugins.json (a tag, branch or commit).
+# Empty when nothing is pinned or jq is missing: the plugin then follows the
+# environment branch (see resolve_plugin).
+manifest_ref() {
+  local name=$1
+  [ -f plugins.json ] && command -v jq > /dev/null 2>&1 || return 0
+  jq -r --arg n "$name" '.plugins[$n].ref // ""' plugins.json
+}
+
+# Resolves a tag, branch or full commit to a commit SHA ("" if it does not exist).
+remote_ref_sha() {
+  local url=$1 ref=$2 sha
+  if [[ "$ref" =~ ^[0-9a-f]{40}$ ]]; then
+    echo "$ref"
+    return
+  fi
+  # an annotated tag is peeled (^{}) to the commit it points at
+  sha=$(git ls-remote "$url" "refs/tags/$ref^{}" "refs/tags/$ref" "refs/heads/$ref" 2>/dev/null | head -n1 | cut -f1)
+  echo "$sha"
+}
+
+# Prints "<sha> <source>" for a plugin: the ref pinned in plugins.json, else the
+# head of the environment branch, else of `main` if the plugin has no such branch.
 resolve_plugin() {
-  local repo=$1 override=${2:-} sha
+  local name=$1 repo=$2 override=${3:-} sha pin
   if [ -n "$override" ]; then
     echo "$override override"
+    return
+  fi
+  pin=$(manifest_ref "$name")
+  if [ -n "$pin" ]; then
+    sha=$(remote_ref_sha "$PLUGIN_ORG/$repo" "$pin")
+    if [ -z "$sha" ]; then
+      echo "Could not resolve pinned ref '$pin' of $repo (plugins.json)" >&2
+      exit 1
+    fi
+    echo "$sha pinned:$pin"
     return
   fi
   sha=$(remote_sha "$PLUGIN_ORG/$repo" "$ENV_BRANCH")
@@ -88,10 +120,10 @@ resolve_plugin() {
 
 resolve_plugin_refs() {
   local line
-  line=$(resolve_plugin GS_MMH_WEB_PLUGIN "${WEB_PLUGIN_REF:-}") || exit 1
+  line=$(resolve_plugin gs-mmh-web-plugin GS_MMH_WEB_PLUGIN "${WEB_PLUGIN_REF:-}") || exit 1
   WEB_PLUGIN_REF=${line%% *}
   WEB_PLUGIN_FROM=${line##* }
-  line=$(resolve_plugin GS_MMH_SIGNAGE_PLUGIN "${SIGNAGE_PLUGIN_REF:-}") || exit 1
+  line=$(resolve_plugin gs-mmh-signage-plugin GS_MMH_SIGNAGE_PLUGIN "${SIGNAGE_PLUGIN_REF:-}") || exit 1
   SIGNAGE_PLUGIN_REF=${line%% *}
   SIGNAGE_PLUGIN_FROM=${line##* }
   export WEB_PLUGIN_REF SIGNAGE_PLUGIN_REF

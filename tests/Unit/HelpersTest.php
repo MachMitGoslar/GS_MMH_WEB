@@ -158,4 +158,24 @@ final class HelpersTest extends TestCase
 
         $this->assertTrue(isTimedContentVisible($future));
     }
+
+    public function testVersionFollowsTheEnvironmentOverride(): void
+    {
+        putenv('MMH_VERSION=1.2.0-rc.3');
+
+        try {
+            $this->assertSame('1.2.0-rc.3', mmhVersion());
+        } finally {
+            putenv('MMH_VERSION');
+        }
+    }
+
+    public function testVersionFallsBackToTheVersionOfPackageJson(): void
+    {
+        putenv('MMH_VERSION');
+        $package = json_decode((string) file_get_contents(dirname(__DIR__, 2) . '/package.json'), true);
+
+        $this->assertMatchesRegularExpression('/^\d+\.\d+\.\d+/', mmhVersion());
+        $this->assertSame($package['version'], mmhVersion());
+    }
 }
