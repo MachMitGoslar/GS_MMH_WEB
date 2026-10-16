@@ -85,7 +85,6 @@ return [
             $page = Kirby\Cms\Page::factory([
                 'slug' => (string) $detail['id'],
                 'template' => 'event',
-                'model' => 'event',
                 'parent' => $parent,
                 'num' => null,
                 'content' => [
