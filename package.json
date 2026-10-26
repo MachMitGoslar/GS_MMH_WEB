@@ -4,9 +4,6 @@
   "description": "The new Web-Site and App for the MachMit!Haus in Goslar",
   "main": "index.php",
   "scripts": {
-    "serve": "concurrently \"npm run serve-php\" \"npm run sync\"",
-    "serve-php": "composer start",
-    "sync": "node browsersync.js",
     "format": "npm run format:js && npm run format:css && npm run format:php",
     "format:js": "prettier --write \"**/*.{js,ts,json}\"",
     "format:css": "prettier --write \"**/*.{css,scss}\"",
@@ -23,7 +20,7 @@
     "test:tools": "node --test \"tests/tools/*.test.js\"",
     "pr-template": "node tests/tools/pr-template.js --write",
     "pr-template:check": "node tests/tools/pr-template.js --check",
-    "pre-commit": "npm run format && npm run lint",
+    "pre-commit": "npm run format && npm run lint && npm run test:e2e",
     "prepare": "husky"
   },
   "repository": {
@@ -43,11 +40,8 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.0",
-    "browser-sync": "^3.0.4",
-    "concurrently": "^10.0.5",
     "eslint": "^10.11.0",
     "husky": "^9.1.7",
-    "kirbyup": "^3.5.0",
     "lint-staged": "^17.5.1",
     "prettier": "^3.9.8",
     "stylelint": "^17.15.0",
