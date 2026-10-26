@@ -7,18 +7,20 @@
  * Timed content: pages, layouts and blocks share one question, "may this be
  * shown now?" (publish_date / end_date, editors and ?preview see everything).
  * Templates and snippets ask `$block->isVisible()` and never check dates
- * themselves. The rule lives in isTimedContentVisible() (site/helpers.php).
+ * themselves. The rule lives in Mmh\Site\Visibility (src/Visibility.php).
  */
+
+use Mmh\Site\Visibility;
 
 return [
     'blockMethods' => [
-        'isVisible' => fn () => isTimedContentVisible($this),
+        'isVisible' => fn () => Visibility::isVisible($this),
     ],
     'layoutMethods' => [
-        'isVisible' => fn () => isTimedContentVisible($this),
+        'isVisible' => fn () => Visibility::isVisible($this),
     ],
     'pageMethods' => [
-        'isVisible' => fn () => isTimedContentVisible($this),
+        'isVisible' => fn () => Visibility::isVisible($this),
     ],
     // Panel labels of the card block (blueprints/blocks/card.yml)
     'translations' => [
