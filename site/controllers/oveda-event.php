@@ -1,106 +1,9 @@
 <?php
 
-use Kirby\Http\Remote;
 use Kirby\Toolkit\Str;
+use Mmh\Site\Oveda\Client;
 
 require_once __DIR__ . '/events-api.php';
-
-const MMH_OVEDA_API = 'https://oveda.de/api/v1';
-const MMH_OVEDA_BASE = 'https://oveda.de';
-const MMH_OVEDA_TIMEZONE = new DateTimeZone('Europe/Berlin');
-/**
- * Cached GET against the Oveda API. Returns null on any transport or
- * decoding problem, so callers only have to check for null.
- */
-function mmhOvedaGet(string $url, int $ttl = 15): array|null
-{
-    $cache = kirby()->cache('oveda');
-    $cacheKey = 'get/' . hash('sha256', $url);
-    $cached = $cache->get($cacheKey);
-
-    if (is_array($cached) === true) {
-        return $cached['data'] ?? null;
-    }
-
-    try {
-        $response = Remote::get($url);
-
-        if ($response->code() !== 200) {
-            $cache->set($cacheKey, ['data' => null], 1);
-
-            return null;
-        }
-
-        $data = $response->json();
-    } catch (Throwable $e) {
-        return null;
-    }
-
-    if (is_array($data) === false) {
-        return null;
-    }
-
-    $cache->set($cacheKey, ['data' => $data], $ttl);
-
-    return $data;
-}
-
-/**
- * A single event date. Only carries start/end plus an event stub, which is
- * why the full event has to be fetched separately.
- */
-function mmhOvedaEventDateById(int $id): array|null
-{
-    return mmhOvedaGet(MMH_OVEDA_API . '/event-dates/' . $id);
-}
-
-function mmhOvedaEventById(int $id): array|null
-{
-    return mmhOvedaGet(MMH_OVEDA_API . '/events/' . $id);
-}
-
-function mmhOvedaPlaceById(int $id): array|null
-{
-    return mmhOvedaGet(MMH_OVEDA_API . '/places/' . $id, 3600);
-}
-
-/**
- * `/events/{id}` returns the place without its location, while the search
- * endpoint and `/places/{id}` both include street and coordinates. Resolve
- * the place separately whenever the location is missing.
- */
-function mmhOvedaResolvePlace(array $place): array
-{
-    if (is_array($place['location'] ?? null) === true) {
-        return $place;
-    }
-
-    $placeId = (int) ($place['id'] ?? 0);
-
-    if ($placeId <= 0) {
-        return $place;
-    }
-
-    $resolved = mmhOvedaPlaceById($placeId);
-
-    return is_array($resolved) === true ? $resolved : $place;
-}
-
-function mmhOvedaAbsoluteUrl(string|null $path): string|null
-{
-    $path = trim((string) $path);
-
-    if ($path === '') {
-        return null;
-    }
-
-    return str_starts_with($path, '/') ? MMH_OVEDA_BASE . $path : $path;
-}
-
-function mmhOvedaCleanString(mixed $value): string
-{
-    return trim((string) ($value ?? ''));
-}
 
 /**
  * Internal detail page URL for an event date.
@@ -115,14 +18,14 @@ function mmhOvedaEventUrl(int|string|null $eventDateId): string
  */
 function mmhOvedaEventDetail(int $eventDateId): array|null
 {
-    $eventDate = mmhOvedaEventDateById($eventDateId);
+    $eventDate = Client::eventDateById($eventDateId);
 
     if ($eventDate === null) {
         return null;
     }
 
     $eventId = (int) ($eventDate['event']['id'] ?? 0);
-    $event = $eventId > 0 ? mmhOvedaEventById($eventId) : null;
+    $event = $eventId > 0 ? Client::eventById($eventId) : null;
 
     if ($event === null) {
         return null;
@@ -135,29 +38,29 @@ function mmhOvedaEventDetail(int $eventDateId): array|null
      */
 
     $start = new DateTimeImmutable((string) ($eventDate['start'] ?? 'now'));
-    $start = $start->setTimezone(MMH_OVEDA_TIMEZONE);
+    $start = $start->setTimezone(Client::timezone());
     $end = empty($eventDate['end'])
         ? null
-        : (new DateTimeImmutable((string) $eventDate['end']))->setTimezone(MMH_OVEDA_TIMEZONE);
+        : (new DateTimeImmutable((string) $eventDate['end']))->setTimezone(Client::timezone());
     $allday = (bool) ($eventDate['allday'] ?? false);
-    $now = new DateTimeImmutable('now', MMH_OVEDA_TIMEZONE);
+    $now = new DateTimeImmutable('now', Client::timezone());
     $today = $now->format('Y-m-d');
 
-    $place = mmhOvedaResolvePlace($event['place'] ?? []);
+    $place = Client::resolvePlace($event['place'] ?? []);
     $placeLocation = $place['location'] ?? [];
-    $latitude = mmhOvedaCleanString($placeLocation['latitude'] ?? null);
-    $longitude = mmhOvedaCleanString($placeLocation['longitude'] ?? null);
+    $latitude = Client::cleanString($placeLocation['latitude'] ?? null);
+    $longitude = Client::cleanString($placeLocation['longitude'] ?? null);
 
     $photo = $event['photo'] ?? [];
     $license = $photo['license'] ?? [];
 
-    $status = mmhOvedaCleanString($event['status'] ?? 'scheduled');
+    $status = Client::cleanString($event['status'] ?? 'scheduled');
 
     $detail = [
         'id' => (int) ($eventDate['id'] ?? $eventDateId),
         'event_id' => $eventId,
-        'title' => mmhOvedaCleanString($event['name'] ?? '') ?: 'Veranstaltung',
-        'description' => mmhOvedaCleanString($event['description'] ?? ''),
+        'title' => Client::cleanString($event['name'] ?? '') ?: 'Veranstaltung',
+        'description' => Client::cleanString($event['description'] ?? ''),
         'status' => $status,
         'is_cancelled' => $status === 'cancelled',
         'is_postponed' => $status === 'postponed',
@@ -173,40 +76,40 @@ function mmhOvedaEventDetail(int $eventDateId): array|null
         'categories' => mmhOvedaEventCategories(['event' => $event]),
         'tags' => array_values(array_filter(array_map(
             'trim',
-            explode(',', mmhOvedaCleanString($event['tags'] ?? '')),
+            explode(',', Client::cleanString($event['tags'] ?? '')),
         ))),
         'photo' => [
-            'url' => mmhOvedaAbsoluteUrl($photo['image_url'] ?? null),
-            'copyright' => mmhOvedaCleanString($photo['copyright_text'] ?? null),
-            'license_code' => mmhOvedaCleanString($license['code'] ?? null),
-            'license_name' => mmhOvedaCleanString($license['name'] ?? null),
-            'license_url' => mmhOvedaCleanString($license['url'] ?? null) ?: null,
+            'url' => Client::absoluteUrl($photo['image_url'] ?? null),
+            'copyright' => Client::cleanString($photo['copyright_text'] ?? null),
+            'license_code' => Client::cleanString($license['code'] ?? null),
+            'license_name' => Client::cleanString($license['name'] ?? null),
+            'license_url' => Client::cleanString($license['url'] ?? null) ?: null,
         ],
         'place' => [
-            'name' => mmhOvedaCleanString($place['name'] ?? null),
-            'street' => mmhOvedaCleanString($placeLocation['street'] ?? null),
-            'zip' => mmhOvedaCleanString($placeLocation['postalCode'] ?? null),
-            'city' => mmhOvedaCleanString($placeLocation['city'] ?? null),
+            'name' => Client::cleanString($place['name'] ?? null),
+            'street' => Client::cleanString($placeLocation['street'] ?? null),
+            'zip' => Client::cleanString($placeLocation['postalCode'] ?? null),
+            'city' => Client::cleanString($placeLocation['city'] ?? null),
             'latitude' => $latitude !== '' ? (float) $latitude : null,
             'longitude' => $longitude !== '' ? (float) $longitude : null,
-            'url' => mmhOvedaCleanString($place['url'] ?? null) ?: null,
+            'url' => Client::cleanString($place['url'] ?? null) ?: null,
         ],
         'organizer' => mmhOvedaContact($event['organizer'] ?? []),
         'organization' => mmhOvedaContact($event['organization'] ?? []),
-        'price_info' => mmhOvedaCleanString($event['price_info'] ?? null),
+        'price_info' => Client::cleanString($event['price_info'] ?? null),
         'is_free' => (bool) ($event['accessible_for_free'] ?? false),
-        'ticket_link' => mmhOvedaCleanString($event['ticket_link'] ?? null) ?: null,
-        'external_link' => mmhOvedaCleanString($event['external_link'] ?? null) ?: null,
+        'ticket_link' => Client::cleanString($event['ticket_link'] ?? null) ?: null,
+        'external_link' => Client::cleanString($event['external_link'] ?? null) ?: null,
         'registration_required' => (bool) ($event['registration_required'] ?? false),
         'booked_up' => (bool) ($event['booked_up'] ?? false),
         'kid_friendly' => (bool) ($event['kid_friendly'] ?? false),
         'age_from' => $event['age_from'] !== null ? (int) $event['age_from'] : null,
         'age_to' => $event['age_to'] !== null ? (int) $event['age_to'] : null,
-        'attendance_mode' => mmhOvedaCleanString($event['attendance_mode'] ?? null),
+        'attendance_mode' => Client::cleanString($event['attendance_mode'] ?? null),
         'expected_participants' => $event['expected_participants'] !== null
             ? (int) $event['expected_participants']
             : null,
-        'source_url' => MMH_OVEDA_BASE . '/eventdate/' . ($eventDate['id'] ?? $eventDateId),
+        'source_url' => Client::BASE . '/eventdate/' . ($eventDate['id'] ?? $eventDateId),
         'ics_url' => url('events/' . ($eventDate['id'] ?? $eventDateId) . '.ics'),
     ];
 
@@ -227,11 +130,11 @@ function mmhOvedaContact(array $contact): array
     $location = $contact['location'] ?? [];
 
     return [
-        'name' => mmhOvedaCleanString($contact['name'] ?? null),
-        'email' => mmhOvedaCleanString($contact['email'] ?? null) ?: null,
-        'phone' => mmhOvedaCleanString($contact['phone'] ?? null) ?: null,
-        'url' => mmhOvedaCleanString($contact['url'] ?? null) ?: null,
-        'city' => mmhOvedaCleanString($location['city'] ?? null),
+        'name' => Client::cleanString($contact['name'] ?? null),
+        'email' => Client::cleanString($contact['email'] ?? null) ?: null,
+        'phone' => Client::cleanString($contact['phone'] ?? null) ?: null,
+        'url' => Client::cleanString($contact['url'] ?? null) ?: null,
+        'city' => Client::cleanString($location['city'] ?? null),
     ];
 }
 
@@ -508,10 +411,10 @@ function mmhOvedaEventOtherDates(array $detail, int $limit = 8): array
             continue;
         }
 
-        $start = (new DateTimeImmutable((string) ($item['start'] ?? 'now')))->setTimezone(MMH_OVEDA_TIMEZONE);
+        $start = (new DateTimeImmutable((string) ($item['start'] ?? 'now')))->setTimezone(Client::timezone());
         $end = empty($item['end'])
             ? null
-            : (new DateTimeImmutable((string) $item['end']))->setTimezone(MMH_OVEDA_TIMEZONE);
+            : (new DateTimeImmutable((string) $item['end']))->setTimezone(Client::timezone());
 
         $dates[] = [
             'id' => $itemId,

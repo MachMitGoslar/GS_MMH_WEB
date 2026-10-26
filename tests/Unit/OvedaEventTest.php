@@ -1,5 +1,6 @@
 <?php
 
+use Mmh\Site\Oveda\Client;
 use PHPUnit\Framework\TestCase;
 
 final class OvedaEventTest extends TestCase
@@ -91,10 +92,10 @@ final class OvedaEventTest extends TestCase
 
     public function testAbsoluteUrl(): void
     {
-        $this->assertNull(mmhOvedaAbsoluteUrl(null));
-        $this->assertNull(mmhOvedaAbsoluteUrl('   '));
-        $this->assertSame('https://oveda.de/a.jpg', mmhOvedaAbsoluteUrl('/a.jpg'));
-        $this->assertSame('https://x.test/a.jpg', mmhOvedaAbsoluteUrl('https://x.test/a.jpg'));
+        $this->assertNull(Client::absoluteUrl(null));
+        $this->assertNull(Client::absoluteUrl('   '));
+        $this->assertSame('https://oveda.de/a.jpg', Client::absoluteUrl('/a.jpg'));
+        $this->assertSame('https://x.test/a.jpg', Client::absoluteUrl('https://x.test/a.jpg'));
     }
 
     public function testGermanDate(): void

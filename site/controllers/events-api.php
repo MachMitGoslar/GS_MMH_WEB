@@ -1,7 +1,7 @@
 <?php
 
-use Kirby\Http\Remote;
 use Kirby\Toolkit\Str;
+use Mmh\Site\Oveda\Client;
 
 /**
  * @return array{
@@ -40,7 +40,7 @@ function mmhOvedaEventDatePage(
         return $cached;
     }
 
-    $result = mmhFetchOvedaEventDatePage($url, $pageNumber, $perPage);
+    $result = Client::fetchEventDatePage($url, $pageNumber, $perPage);
     $cache->set($cacheKey, $result, $result['error'] === null ? 60 : 5);
 
     return $result;
@@ -92,77 +92,6 @@ function mmhOvedaEventDateOverview(string $dateFrom, string $searchKeyword = '')
         'complete' => $complete,
         'error' => $error,
     ];
-}
-
-/**
- * @return array{
- *   items: array,
- *   has_next: bool,
- *   total: int|null,
- *   page: int,
- *   per_page: int,
- *   error: string|null,
- *   rate_limit: array
- * }
- */
-function mmhEmptyOvedaEventDatePage(
-    int $pageNumber,
-    int $perPage,
-    string|null $error = null,
-    array $rateLimit = [],
-): array {
-    return [
-        'items' => [],
-        'has_next' => false,
-        'total' => 0,
-        'page' => $pageNumber,
-        'per_page' => $perPage,
-        'error' => $error,
-        'rate_limit' => $rateLimit,
-    ];
-}
-
-function mmhFetchOvedaEventDatePage(string $url, int $pageNumber, int $perPage): array
-{
-    try {
-        $response = Remote::get($url);
-        $data = $response->json();
-        $rateLimit = mmhOvedaRateLimitHeaders($response);
-
-        if (is_array($data) === false || is_array($data['items'] ?? null) === false) {
-            $message = (string) ($data['name'] ?? $data['message'] ?? 'Invalid response');
-            if ($response->code()) {
-                $message .= ' (' . $response->code() . ')';
-            }
-
-            return mmhEmptyOvedaEventDatePage($pageNumber, $perPage, $message, $rateLimit);
-        }
-    } catch (Throwable $e) {
-        return mmhEmptyOvedaEventDatePage($pageNumber, $perPage, $e->getMessage());
-    }
-
-    return [
-        'items' => array_values($data['items']),
-        'has_next' => (bool) ($data['has_next'] ?? false),
-        'total' => isset($data['total']) ? (int) $data['total'] : null,
-        'page' => $pageNumber,
-        'per_page' => $perPage,
-        'error' => null,
-        'rate_limit' => $rateLimit,
-    ];
-}
-
-function mmhOvedaRateLimitHeaders(Remote $response): array
-{
-    $headers = [];
-
-    foreach ($response->headers() as $key => $value) {
-        if (str_starts_with(strtolower($key), 'x-ratelimit-')) {
-            $headers[$key] = trim((string) $value);
-        }
-    }
-
-    return $headers;
 }
 
 /**
