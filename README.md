@@ -298,7 +298,6 @@ For CI runs inside the release PR create the secret `RELEASE_PLEASE_TOKEN` (a pe
 
 | Command            | Description                            |
 |--------------------|----------------------------------------|
-| `npm run serve`    | PHP server + BrowserSync (live reload) |
 | `npm run format`   | Format JS, CSS, PHP (Prettier + php-cs-fixer) |
 | `npm run lint`     | Lint JS, CSS, PHP                      |
 | `npm run lint:js:fix` / `lint:css:fix` | Lint with auto-fix       |

@@ -17,8 +17,8 @@
 <main>
   <?php
     $memberCover = $page->cover();
-    $memberTeam = $page->teams()->isNotEmpty() ? ($page->teams()->split()[0] ?? null) : null;
-    ?>
+$memberTeam = $page->teams()->isNotEmpty() ? ($page->teams()->split()[0] ?? null) : null;
+?>
   <section class="member-detail">
     <?php snippet('sections/profile-backdrop', ['person' => $page, 'team' => $memberTeam]) ?>
     <div class="grid content">
@@ -33,44 +33,44 @@
 
             <?php slot('intro') ?>
               <?php snippet('utilities/page-title', [
-                  'title' => $page->name()->html(),
-                  'subtitle' => $page->role()->isNotEmpty() ? $page->role()->html() : null,
-                  'after' => $page->teams()->isNotEmpty() ? function () use ($page) {
-                      $teamLabels = [
-                          'staff' => 'Hauptamtliches Team',
-                          'volunteer' => 'Ehrenamtliches Team',
-                          'partner' => 'Partner',
-                          'issuer' => 'Auftraggeber',
-                      ];
-                      foreach ($page->teams()->split() as $teamTag) {
-                          snippet('utilities/badge', [
-                              'label' => esc($teamLabels[$teamTag] ?? ucfirst($teamTag)),
-                              'theme' => 'team-' . $teamTag,
-                              'size' => 'large',
-                          ]);
-                      }
-                  } : null,
-              ]) ?>
+              'title' => $page->name()->html(),
+              'subtitle' => $page->role()->isNotEmpty() ? $page->role()->html() : null,
+              'after' => $page->teams()->isNotEmpty() ? function () use ($page) {
+                  $teamLabels = [
+                      'staff' => 'Hauptamtliches Team',
+                      'volunteer' => 'Ehrenamtliches Team',
+                      'partner' => 'Partner',
+                      'issuer' => 'Auftraggeber',
+                  ];
+                  foreach ($page->teams()->split() as $teamTag) {
+                      snippet('utilities/badge', [
+                          'label' => esc($teamLabels[$teamTag] ?? ucfirst($teamTag)),
+                          'theme' => 'team-' . $teamTag,
+                          'size' => 'large',
+                      ]);
+                  }
+              } : null,
+          ]) ?>
             <?php endslot() ?>
           <?php endsnippet() ?>
 
           <?php if ($page->hasAnyContactInfo() || $page->address()->isNotEmpty() || $page->hasSocialMedia()) : ?>
                 <?php
                 $coords = $page->geo()->toObject();
-                $hasCoords = $coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty();
-                $mapboxToken = mmhMapboxToken();
-                $hasMap = $page->address()->isNotEmpty() && $mapboxToken !== '';
-                ?>
+              $hasCoords = $coords->latitude()->isNotEmpty() && $coords->longitude()->isNotEmpty();
+              $mapboxToken = mmhMapboxToken();
+              $hasMap = $page->address()->isNotEmpty() && $mapboxToken !== '';
+              ?>
                 <?php snippet('sections/glance', [
-                'label' => 'Kontakt',
-                'map' => $hasMap ? [
-                    // without stored coordinates the map shows the MachMit!Haus
-                    'lat' => $hasCoords ? $coords->latitude()->value() : 51.906169,
-                    'lng' => $hasCoords ? $coords->longitude()->value() : 10.429327,
-                    'token' => $mapboxToken,
-                    'label' => $page->name()->value() . ', ' . $page->address()->value(),
-                    'aria' => 'Karte: ' . $page->address()->value(),
-                ] : null,
+              'label' => 'Kontakt',
+              'map' => $hasMap ? [
+                  // without stored coordinates the map shows the MachMit!Haus
+                  'lat' => $hasCoords ? $coords->latitude()->value() : 51.906169,
+                  'lng' => $hasCoords ? $coords->longitude()->value() : 10.429327,
+                  'token' => $mapboxToken,
+                  'label' => $page->name()->value() . ', ' . $page->address()->value(),
+                  'aria' => 'Karte: ' . $page->address()->value(),
+              ] : null,
             ], slots: true) ?>
                 <?php if ($page->email()->isNotEmpty()) : ?>
                     <?php snippet('utilities/fact', ['icon' => 'mail', 'label' => 'E-Mail', 'value' => esc($page->email()->value()), 'href' => 'mailto:' . $page->email()->value()]) ?>
@@ -102,6 +102,7 @@
       <!-- Projects Section -->
       <?php if ($memberProjects->count() > 0) : ?>
         <div class="grid-item member-projects" data-span="1/1">
+          <?php snippet('utilities/divider') ?>
           <h2>Aktuelle Projekte</h2>
             <?php snippet('utilities/card-list', ['pages' => $memberProjects]) ?>
         </div>
@@ -110,6 +111,7 @@
       <!-- Newsletter Section -->
       <?php if ($memberNewsletters->count() > 0) : ?>
         <div class="grid-item member-newsletters" data-span="1/1">
+          <?php snippet('utilities/divider') ?>
           <h2>Newsletter-Ausgaben</h2>
             <?php snippet('utilities/card-list', ['pages' => $memberNewsletters]) ?>
         </div>
@@ -118,6 +120,7 @@
       <!-- Notes/Blog Articles Section -->
       <?php if ($memberNotes->count() > 0) : ?>
         <div class="grid-item member-notes" data-span="1/1">
+          <?php snippet('utilities/divider') ?>
           <h2>Blog-Artikel</h2>
             <?php snippet('utilities/card-list', ['pages' => $memberNotes]) ?>
         </div>
