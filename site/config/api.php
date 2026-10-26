@@ -1,10 +1,11 @@
 <?php
 
+use GsMmh\WebPlugin\CoverImages;
+
 /**
  * Custom API Routes
  * These routes have higher priority and won't be intercepted by plugins
  */
-require_once __DIR__ . '/../controllers/api-images.php';
 require_once __DIR__ . '/../controllers/latest-update.php';
 
 /**
@@ -161,7 +162,7 @@ return [
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-            return mmhApiCoverJpegResponse('newsletter', $slug);
+            return CoverImages::coverJpegResponse('newsletter', $slug);
         },
         ],
         [
@@ -169,7 +170,7 @@ return [
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-            return mmhApiCoverSvgResponse('newsletter', $slug);
+            return CoverImages::coverSvgResponse('newsletter', $slug);
         },
         ],
         /**
@@ -180,7 +181,7 @@ return [
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-            return mmhApiCoverJpegResponse('notes', $slug);
+            return CoverImages::coverJpegResponse('notes', $slug);
         },
         ],
         [
@@ -188,7 +189,7 @@ return [
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-            return mmhApiCoverSvgResponse('notes', $slug);
+            return CoverImages::coverSvgResponse('notes', $slug);
         },
         ],
         [
@@ -196,7 +197,7 @@ return [
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-            return mmhApiCoverJpegResponse('app', $slug);
+            return CoverImages::coverJpegResponse('app', $slug);
         },
         ],
         [
@@ -204,7 +205,7 @@ return [
         'method' => 'GET',
         'auth' => false,
         'action' => function ($slug) {
-            return mmhApiCoverSvgResponse('app', $slug);
+            return CoverImages::coverSvgResponse('app', $slug);
         },
         ],
 
@@ -263,7 +264,7 @@ return [
                     }
                     $coverFile = $p->content()->get('cover')?->toFile();
 
-                    return mmhApiJpegImageUrl($coverFile);
+                    return CoverImages::jpegImageUrl($coverFile);
                 };
 
                 $highlights = [
@@ -294,7 +295,7 @@ return [
                         'title' => 'Newsletter',
                         'description' => 'Entdecke unseren Newsletter.',
                         'image_url' => $latestNewsletter
-                            ? mmhApiCoverFileUrl('newsletter', $latestNewsletter->slug())
+                            ? CoverImages::coverFileUrl('newsletter', $latestNewsletter->slug())
                             : null,
                         'call_to_action_url' => $newsletterPage?->url(),
                         'published_at' => $now,
@@ -306,7 +307,7 @@ return [
                     'title' => 'Tagebuch',
                     'description' => 'Berichte aus unserem Alltag.',
                     'image_url' => $latestDiary
-                        ? mmhApiCoverFileUrl('notes', $latestDiary->slug())
+                        ? CoverImages::coverFileUrl('notes', $latestDiary->slug())
                         : null,
                     'call_to_action_url' => $diaryPage?->url(),
                     'published_at' => $now,
@@ -323,7 +324,7 @@ return [
                     'id' => 7,
                     'title' => 'WhatsApp Community',
                     'description' => 'Tritt unserer WhatsApp Community bei und bleibe immer auf dem Laufenden!',
-                    'image_url' => mmhApiCoverFileUrl('app', 'whatsapp-community'),
+                    'image_url' => CoverImages::coverFileUrl('app', 'whatsapp-community'),
                     'call_to_action_url' => 'https://chat.whatsapp.com/IxjUee7gVOY3KfQhvdUsA3?mode=gi_t',
                 ];
 

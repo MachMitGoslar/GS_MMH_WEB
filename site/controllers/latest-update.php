@@ -1,5 +1,6 @@
 <?php
 
+use GsMmh\WebPlugin\CoverImages;
 use Kirby\Cms\Pages;
 use Kirby\Toolkit\Str;
 
@@ -105,11 +106,11 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
 
     // Bild bestimmen
     if ($isNewsletter) {
-        $image_url = mmhApiCoverFileUrl('newsletter', $update->slug());
+        $image_url = CoverImages::coverFileUrl('newsletter', $update->slug());
     } else {
         $project = $update->parent();
         $coverFile = $project->content()->get('cover')?->toFile();
-        $image_url = mmhApiJpegImageUrl($coverFile);
+        $image_url = CoverImages::jpegImageUrl($coverFile);
     }
 
     // 🔹 URL bestimmen
