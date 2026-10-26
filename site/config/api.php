@@ -1,12 +1,12 @@
 <?php
 
 use GsMmh\WebPlugin\CoverImages;
+use GsMmh\WebPlugin\LatestUpdate;
 
 /**
  * Custom API Routes
  * These routes have higher priority and won't be intercepted by plugins
  */
-require_once __DIR__ . '/../controllers/latest-update.php';
 
 /**
  * Mobile newsletter HTML as a download. Shared by both newsletter URLs.
@@ -217,7 +217,7 @@ return [
             'method' => 'GET',
             'auth' => false,
             'action' => function () {
-                $data = latestUpdateData(true);
+                $data = LatestUpdate::data(true);
 
                 if (!$data) {
                     return [
@@ -239,9 +239,9 @@ return [
             'action' => function () {
 
                 // get updates dynamically
-                $latestUpdate = latestUpdate();
+                $latestUpdate = LatestUpdate::latest();
                 $isLatestNewsletter = $latestUpdate?->intendedTemplate()->name() === 'newsletter';
-                $dynamic = latestUpdateToArray($latestUpdate);
+                $dynamic = LatestUpdate::toArray($latestUpdate);
 
                 if ($dynamic) {
                     $dynamic['id'] = 2;
