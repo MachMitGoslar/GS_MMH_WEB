@@ -110,7 +110,6 @@ $memberTeam = $page->teams()->isNotEmpty() ? ($page->teams()->split()[0] ?? null
       
       <!-- Newsletter Section -->
       <?php if ($memberNewsletters->count() > 0) : ?>
-
         <div class="grid-item member-newsletters" data-span="1/1">
           <?php snippet('utilities/divider') ?>
           <h2>Newsletter-Ausgaben</h2>

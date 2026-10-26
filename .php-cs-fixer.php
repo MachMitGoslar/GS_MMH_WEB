@@ -5,20 +5,18 @@ declare(strict_types=1);
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
+// Keep scope and exclusions in sync with phpcs.xml.
 $finder = Finder::create()
-    ->in(__DIR__)
+    ->in([__DIR__ . '/site', __DIR__ . '/tests'])
     ->exclude([
-        'vendor',
-        'kirby',
-        'storage',
-        'node_modules',
-        '.phpunit.cache',
-        // Plugin has its own .php-cs-fixer.dist.php
-        'site/plugins/gs-mmh-web-plugin',
-        'site/plugins/gs-mmh-signage-plugin',
-        'site/plugins/kirby-dreamform',
-        'site/plugins/locator',
-        'site/plugins/git-content',
+        // Third-party plugins: not our code
+        'plugins/kirby-dreamform',
+        'plugins/locator',
+        'plugins/git-content',
+        'plugins/helpers',
+        // Own plugins with their own repo and standards
+        'plugins/gs-mmh-signage-plugin',
+        'plugins/gs-mmh-web-plugin',
     ])
     ->name('*.php')
     ->ignoreDotFiles(true)
