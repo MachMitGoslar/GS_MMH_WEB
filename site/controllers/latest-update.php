@@ -121,9 +121,10 @@ function latestUpdateToArray($update, bool $for_highlights_link = false): ?array
             : $update->parent()->url();
     }
 
-    $description = $update->description()->isNotEmpty()
-        ? $update->description()->value()
-        : $update->text()->excerpt(160)->value();
+    $descriptionSource = $update->description()->isNotEmpty()
+        ? $update->description()->kirbytext()->value()
+        : $update->text()->kirbytext()->value();
+    $description = trim(preg_replace('/\s+/', ' ', strip_tags($descriptionSource)));
 
     //Remove remaining html tags from description string
     $description = Str::unhtml($description);
