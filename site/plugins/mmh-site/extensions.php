@@ -10,6 +10,7 @@
  * themselves. The rule lives in Mmh\Site\Visibility (src/Visibility.php).
  */
 
+use Mmh\Site\Blocks\CardBlock;
 use Mmh\Site\PublishDates;
 use Mmh\Site\Visibility;
 
@@ -25,6 +26,10 @@ return [
         'page.update:before' => function ($newPage, $values, $strings) {
             PublishDates::assertOrder($values);
         },
+    ],
+    // Block types with logic of their own (blueprints/blocks/<type>.yml)
+    'blockModels' => [
+        'card' => CardBlock::class,
     ],
     'blockMethods' => [
         'isVisible' => fn () => Visibility::isVisible($this),
