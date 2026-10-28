@@ -14,6 +14,9 @@ use Throwable;
  */
 final class BlockPreview
 {
+    /** The panel shows blocks smaller than the page does, to keep the overview. */
+    public const ZOOM = 0.75;
+
     /**
      * Block types the panel may preview: those with a snippet of their own.
      */
@@ -42,7 +45,7 @@ final class BlockPreview
         return '<!doctype html><html lang="de"><head><meta charset="utf-8">'
             . '<base href="' . esc(kirby()->url('index'), 'attr') . '/" target="_blank">'
             . css(Stylesheet::bundle())
-            . '<style>html,body{background:transparent;margin:0}body{overflow:hidden}</style>'
+            . '<style>html,body{background:transparent;margin:0}body{overflow:hidden;zoom:' . self::ZOOM . '}</style>'
             . '</head><body><main class="main"><section class="grid content">'
             . '<div class="grid-item" data-span="1/1">' . $html . '</div>'
             . '</section></main></body></html>';

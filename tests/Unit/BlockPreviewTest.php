@@ -41,6 +41,7 @@ final class BlockPreviewTest extends TestCase
         $this->assertStringContainsString('<link', $html);
         $this->assertStringContainsString('c-blog-divider', $html);
         $this->assertStringContainsString('class="grid content"', $html);
+        $this->assertStringContainsString('zoom:' . BlockPreview::ZOOM, $html);
     }
 
     public function testTheDocumentIsCompleteWithoutAParentPage(): void
