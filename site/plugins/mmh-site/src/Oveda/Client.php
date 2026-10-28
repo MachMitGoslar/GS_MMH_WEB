@@ -45,7 +45,7 @@ final class Client
             }
 
             $data = $response->json();
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             return null;
         }
 
@@ -158,7 +158,7 @@ final class Client
 
                 return self::emptyEventDatePage($pageNumber, $perPage, $message, $rateLimit);
             }
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             return self::emptyEventDatePage($pageNumber, $perPage, $e->getMessage());
         }
 
