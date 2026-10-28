@@ -68,8 +68,4 @@ return [
 
     // Load custom API routes (higher priority)
     'api' => require __DIR__ . '/api.php',
-
-    // Load custom hooks
-    'hooks' => require __DIR__ . '/hooks.php',
-
 ];
