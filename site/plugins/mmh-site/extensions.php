@@ -27,6 +27,10 @@ return [
             PublishDates::assertOrder($values);
         },
     ],
+    // Template of the block catalog (route in routes.php)
+    'templates' => [
+        'catalog' => __DIR__ . '/templates/catalog.php',
+    ],
     // Block types with logic of their own (blueprints/blocks/<type>.yml)
     'blockModels' => [
         'card' => CardBlock::class,

@@ -9,6 +9,7 @@
 use Kirby\Cms\Page;
 use Kirby\Cms\Response;
 use Kirby\Http\Exceptions\NextRouteException;
+use Mmh\Site\Catalog;
 use Mmh\Site\MergedProjects;
 use Mmh\Site\Oveda\EventDetail;
 use Mmh\Site\Oveda\Events;
@@ -157,6 +158,23 @@ return [
             );
 
             return $response;
+        },
+    ],
+
+    /**
+     * Block catalog: every block type in every variant, for editors only
+     * (guests get the normal 404). Not linked anywhere and not indexed.
+     */
+    [
+        'pattern' => 'catalog',
+        'action' => function () {
+            if (!Catalog::allowedFor(kirby()->user())) {
+                throw new NextRouteException();
+            }
+
+            $sample = page('projects')?->children()->listed()->first();
+
+            return Catalog::page()->render(['groups' => Catalog::entries($sample)]);
         },
     ],
 ];
