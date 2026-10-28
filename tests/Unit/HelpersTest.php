@@ -1,5 +1,6 @@
 <?php
 
+use Mmh\Site\Stylesheet;
 use Mmh\Site\Visibility;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -59,7 +60,7 @@ final class HelpersTest extends TestCase
 
         $this->assertSame(
             '.a{background:url("/assets/css/site/img/a.png")} .b{background:url("/assets/css/site/components/b.svg")}',
-            mmhRebaseStylesheetUrls($css, $dir),
+            Stylesheet::rebaseUrls($css, $dir),
         );
     }
 
@@ -69,14 +70,14 @@ final class HelpersTest extends TestCase
         $css = '.a{background:url(/abs.png)} .b{background:url(data:image/png;base64,AAAA)} '
             . '.c{background:url(https://example.com/x.png)} .d{background:url(#frag)}';
 
-        $this->assertSame($css, mmhRebaseStylesheetUrls($css, $dir));
+        $this->assertSame($css, Stylesheet::rebaseUrls($css, $dir));
     }
 
     public function testRebaseStylesheetUrlsIgnoresDirectoriesOutsideTheIndexRoot(): void
     {
         $css = '.a{background:url(a.png)}';
 
-        $this->assertSame($css, mmhRebaseStylesheetUrls($css, '/somewhere/else'));
+        $this->assertSame($css, Stylesheet::rebaseUrls($css, '/somewhere/else'));
     }
 
     public function testTimedContentIsVisibleWithoutDates(): void

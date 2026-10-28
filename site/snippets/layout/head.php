@@ -20,7 +20,7 @@
     <?php endif ?>
     
     <?= $slots->head() ?>
-    <?= css(mmhStylesheetBundle()) ?>
+    <?= css(\Mmh\Site\Stylesheet::bundle()) ?>
 
 </head>
 <body>
