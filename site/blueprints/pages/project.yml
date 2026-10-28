@@ -128,6 +128,14 @@ tabs:
             
       - width: 1/3
         sections:
+         integrations:
+           type: fields
+           fields:
+            app_widget:
+              type: toggle
+              label: Goslar-App
+              text: Updates im App-Dashboard anbieten
+              help: Stellt Karte und Update-Liste dieses Projekts unter /api/projects/{{ page.slug }}/ bereit (Format siehe docs/APP-API.md).
          entries:
            type: pages
            label: Projektschritte

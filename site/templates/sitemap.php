@@ -1,7 +1,5 @@
 <?php
 
-use Kirby\Cms\Structure;
-use Kirby\Cms\StructureObject;
 /**
  * Blueprint template for HTML Sitemap
  * @var \Kirby\Cms\Site $site

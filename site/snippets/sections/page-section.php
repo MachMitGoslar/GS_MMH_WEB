@@ -12,7 +12,7 @@
             'page' => $page,
             'class' => 'grid-item',
             'dataSpan' => '1/1',
-            'withChildren' => true
+            'withChildren' => true,
         ]) ?>
     <?php endforeach ?>
 </div>

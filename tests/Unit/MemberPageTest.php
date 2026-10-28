@@ -18,7 +18,7 @@ final class MemberPageTest extends TestCase
                 ['label' => 'Instagram', 'icon' => 'instagram', 'value' => '@machmitgoslar', 'href' => 'https://instagram.com/machmitgoslar'],
                 ['label' => 'GitHub', 'icon' => 'github', 'value' => '@rangarius', 'href' => 'https://github.com/rangarius'],
             ],
-            $links
+            $links,
         );
     }
 

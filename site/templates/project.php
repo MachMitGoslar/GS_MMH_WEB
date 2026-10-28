@@ -143,9 +143,6 @@
         <div class="designer">
         <?php snippet('utilities/layouts', ['layouts' => $page->text()->toLayouts(), 'wrapperClass' => 'grid project-layout-grid', 'highlight' => true]) ?>
         </div>
-        <section>
-            <?php snippet('dreamform/forms', ['page' => $page]) ?>
-        </section>
 
         <section class="project-update-gallery">
           <?php if ($page->show_project_step_pictures() == 'true' && count($page->projectUpdatePictures()) > 0) : ?>
@@ -164,9 +161,9 @@
                     ],
                 );
 
-                print snippet('blocks/gallery', ['block' => $block]);
+              print snippet('blocks/gallery', ['block' => $block]);
 
-                ?>
+              ?>
           <?php endif ?>
   
 

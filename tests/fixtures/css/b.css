@@ -1,3 +1,5 @@
 /* b imports a again: a cycle that must not loop */
 @import url('./a.css');
-.b { color: red; }
+.b {
+  color: red;
+}
