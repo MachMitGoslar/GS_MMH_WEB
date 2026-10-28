@@ -1,0 +1,44 @@
+name: Trenner
+icon: divider
+fields:
+  lineStyle:
+    label: Linienstil
+    type: select
+    default: solid
+    empty: false
+    width: 1/2
+    options:
+      solid: Durchgezogen
+      dashed: Gestrichelt
+      dotted: Gepunktet
+  thickness:
+    label: Stärke
+    type: select
+    default: thin
+    empty: false
+    width: 1/2
+    options:
+      thin: Dünn
+      regular: Normal
+      thick: Dick
+  color:
+    label: Farbe
+    type: select
+    default: light
+    empty: false
+    width: 1/2
+    options:
+      light: Hell
+      dark: Dunkel
+      brand: Akzent
+      project: Projektfarbe
+  spacing:
+    label: Abstand
+    type: select
+    default: regular
+    empty: false
+    width: 1/2
+    options:
+      small: Klein
+      regular: Normal
+      large: Groß

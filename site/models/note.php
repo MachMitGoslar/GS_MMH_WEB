@@ -19,13 +19,11 @@
  */
 
 use Kirby\Cms\Page;
+use Mmh\Site\Models\HasCover;
 
 class NotePage extends Page
 {
-    public function cover()
-    {
-        return $this->content()->cover()->toFile() ?? $this->image();
-    }
+    use HasCover;
 
     public function published($format = null)
     {

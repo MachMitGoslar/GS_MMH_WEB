@@ -4,13 +4,17 @@ use Kirby\Cms\Page;
 
 class MemberPage extends Page
 {
-    public function cover()
+    /**
+     * Unlike the other models: once the `cover` field exists, an empty value
+     * means "no cover" (no fallback to the first image).
+     */
+    public function cover(): ?Kirby\Cms\File
     {
         if ($this->content()->cover() && $this->content()->cover()->exists()) {
             return $this->content()->cover()->toFile();
-        } else {
-            return $this->image();
         }
+
+        return $this->image();
     }
 
     public function hasAnyContactInfo()

@@ -10,7 +10,7 @@
  *          no link (the page is the project itself)
  *
  * The class c-projectUpdateTeaser-card is a hook of the newsletter e-mail
- * styles (controllers/newsletter-email.php), keep it.
+ * styles (Mmh\Site\Newsletter\EmailHtml), keep it.
  *
  * @var \Kirby\Cms\Page $project_step
  * @var \Kirby\Cms\Page|null $project Defaults to the step's parent

@@ -1,0 +1,12 @@
+name: field.blocks.accordion.name
+icon: bars
+fields:
+  question:
+    label: Question
+    type: writer
+    marks: false
+    placeholder: Enter question…
+  answer:
+    label: Answer
+    type: writer
+    marks: true

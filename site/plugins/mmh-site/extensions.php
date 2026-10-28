@@ -7,22 +7,102 @@
  * Timed content: pages, layouts and blocks share one question, "may this be
  * shown now?" (publish_date / end_date, editors and ?preview see everything).
  * Templates and snippets ask `$block->isVisible()` and never check dates
- * themselves. The rule lives in isTimedContentVisible() (site/helpers.php).
+ * themselves. The rule lives in Mmh\Site\Visibility (src/Visibility.php).
  */
 
+use Kirby\Cms\Page;
+use Mmh\Site\BlockPreview;
+use Mmh\Site\Blocks\CardBlock;
+use Mmh\Site\ProjectStatus;
+use Mmh\Site\PublishDates;
+use Mmh\Site\PublishedDate;
+use Mmh\Site\SeoMetadata;
+use Mmh\Site\Visibility;
+
 return [
+    // Routes of the website (version, redirects, events, feed, not-allowed)
+    'routes' => require __DIR__ . '/routes.php',
+    // Panel area to send a newsletter (uses the recipients of gs-mmh-web-plugin)
+    'areas' => [
+        'newsletter-mail' => require __DIR__ . '/areas/newsletter-mail.php',
+    ],
+    // Hooks of the website: dates, project archive
+    'hooks' => [
+        'page.update:before' => function ($newPage, $values, $strings) {
+            PublishDates::assertOrder($values);
+        },
+        // A finished project moves to the archive, a step can set its project's status
+        'page.update:after' => function (Page $newPage, Page $oldPage) {
+            ProjectStatus::afterUpdate($newPage, $oldPage);
+        },
+        'page.changeStatus:after' => function (Page $newPage, Page $oldPage) {
+            PublishedDate::afterStatusChange($newPage, $oldPage);
+        },
+    ],
+    // Panel: the preview of a block is the website's own rendering (index.js)
+    'api' => [
+        'routes' => [
+            [
+                'pattern' => 'mmh-site/block-preview',
+                'method' => 'POST',
+                'auth' => true,
+                'action' => function () {
+                    $type = (string) kirby()->request()->get('type');
+                    $content = kirby()->request()->get('content');
+                    $model = (string) kirby()->request()->get('model');
+
+                    if (!BlockPreview::isPreviewable($type)) {
+                        throw new Kirby\Exception\NotFoundException('No preview for this block type');
+                    }
+
+                    $parent = null;
+
+                    if ($model !== '') {
+                        $found = $this->parent(trim($model, '/'));
+                        $parent = $found instanceof Page ? $found : null;
+                    }
+
+                    return [
+                        'html' => BlockPreview::document(
+                            $type,
+                            BlockPreview::storedValues($type, is_array($content) ? $content : [], $parent),
+                            $parent,
+                        ),
+                    ];
+                },
+            ],
+        ],
+    ],
+    // Template of the block catalog (route in routes.php)
+    'templates' => [
+        'catalog' => __DIR__ . '/templates/catalog.php',
+    ],
+    // Block types with logic of their own (blueprints/blocks/<type>.yml)
+    'blockModels' => [
+        'card' => CardBlock::class,
+    ],
     'blockMethods' => [
-        'isVisible' => fn () => isTimedContentVisible($this),
+        'isVisible' => fn () => Visibility::isVisible($this),
     ],
     'layoutMethods' => [
-        'isVisible' => fn () => isTimedContentVisible($this),
+        'isVisible' => fn () => Visibility::isVisible($this),
     ],
     'pageMethods' => [
-        'isVisible' => fn () => isTimedContentVisible($this),
+        'isVisible' => fn () => Visibility::isVisible($this),
+        // Resolved SEO and social sharing values of this page
+        'seo' => fn (): SeoMetadata => new SeoMetadata($this),
     ],
-    // Panel labels of the card block (blueprints/blocks/card.yml)
+    // Site-wide SEO defaults, where no page context exists
+    'siteMethods' => [
+        'seo' => fn (): SeoMetadata => new SeoMetadata(null),
+    ],
+    // Panel labels of the block types (blueprints/blocks/<type>.yml)
     'translations' => [
         'en' => [
+            'field.blocks.accordion.name' => 'Accordion block',
+            'field.blocks.divider.name' => 'Divider',
+            'field.blocks.faq.name' => 'FAQ Section',
+            'field.blocks.testimonial.name' => 'Testimonial',
             'field.blocks.card.name' => 'Card',
             'field.blocks.card.fields.cardType.options.page' => 'Create card from page',
             'field.blocks.card.fields.cardType.options.manual' => 'Create manual card',
@@ -32,6 +112,10 @@ return [
             'field.blocks.card.fields.linkMode.options.button' => 'Button in the footer',
         ],
         'de' => [
+            'field.blocks.accordion.name' => 'Akkordion Block',
+            'field.blocks.divider.name' => 'Trenner',
+            'field.blocks.faq.name' => 'FAQ Sektion',
+            'field.blocks.testimonial.name' => 'Testimonial',
             'field.blocks.card.name' => 'Karte',
             'field.blocks.card.fields.cardType.label' => 'Kartentyp',
             'field.blocks.card.fields.cardType.options.page' => 'Aus Seite erstellen',

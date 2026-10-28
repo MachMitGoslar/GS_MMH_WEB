@@ -1,0 +1,27 @@
+type: object
+default:
+  color: primary
+  size: regular
+  style: pill
+fields:
+  color:
+    type: select
+    options:
+      primary: Gelb
+      secondary: Dunkel
+      tertiary: Lila
+    default: primary
+  size:
+    type: select
+    default: regular
+    options:
+      small: Klein
+      regular: Normal  
+      large: Groß
+  style:
+    type: select
+    default: pill
+    options:
+      pill: Pille
+      rounded-corners: Abgerundet
+      square: Rechteckig
