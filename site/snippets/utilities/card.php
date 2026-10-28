@@ -71,7 +71,7 @@ $titleClass = $size === 'featured' ? 'font-titleXL' : 'font-headline';
       <div class="c-card__media">
         <<?= $imageTag ?> class="c-card__image"<?= $imageHref ? ' href="' . esc($imageHref) . '"' : '' ?><?= $imageHref && $imageLabel ? ' aria-label="' . esc($imageLabel) . '"' : '' ?>>
           <?php if ($media) :
-                $media();
+              $media();
           elseif ($image) :
               snippet('utilities/image', $imageOptions + [
                   'file' => $image,
@@ -90,14 +90,13 @@ $titleClass = $size === 'featured' ? 'font-titleXL' : 'font-headline';
     <?php endif ?>
     <div class="c-card__body">
       <?php if ($meta) :
-            $meta();
+          $meta();
       endif ?>
       <?php if ($title) : ?>
         <h3 class="c-card__title <?= $titleClass ?> font-line-height-narrow"><?php if ($titleHref) :
-            ?><a href="<?= esc($titleHref) ?>"><?= $title ?></a><?php
-                                 else :
-                                        ?><?= $title ?><?php
-                                 endif ?></h3>
+            ?><a href="<?= esc($titleHref) ?>"><?= $title ?></a><?php else :
+                ?><?= $title ?><?php
+            endif ?></h3>
       <?php endif ?>
       <?php if ($subtitle) : ?>
         <p class="c-card__subtitle font-footnote"><?= $subtitle ?></p>
@@ -106,7 +105,7 @@ $titleClass = $size === 'featured' ? 'font-titleXL' : 'font-headline';
         <div class="c-card__text font-footnote"><?= $text ?></div>
       <?php endif ?>
       <?php if ($body) :
-            $body();
+          $body();
       endif ?>
       <?php if ($actions) : ?>
         <div class="c-card__actions"><?php $actions() ?></div>

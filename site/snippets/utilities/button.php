@@ -46,4 +46,4 @@ $target = $href !== null ? ' href="' . esc($href) . '"' : ' type="' . esc($type)
 ?>
 <<?= $tag ?><?= $target ?><?= $common ?><?= $attrHtml ?>><?php if ($icon) :
     snippet('utilities/icon', ['name' => $icon, 'size' => 16]);
- endif ?><?= $label ?></<?= $tag ?>>
+endif ?><?= $label ?></<?= $tag ?>>

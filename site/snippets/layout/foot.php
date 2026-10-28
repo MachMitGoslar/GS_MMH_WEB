@@ -34,11 +34,11 @@
     }
   };
 </script>
-<?php  if ($kirby->option("neuraflow.active")) : ?> 
+<?php  if ($kirby->option('neuraflow.active')) : ?> 
 ?>
 <script async defer>
 window.neurabotConfig = {
-neurabotConfigId: "<?= $kirby->option("neuraflow.botId") ?>",
+neurabotConfigId: "<?= $kirby->option('neuraflow.botId') ?>",
 mode: "FLOATING",
 };
 </script>

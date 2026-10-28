@@ -35,7 +35,7 @@ $style = $isChange
 ?>
 <<?= $tag ?> class="<?= esc(trim('c-badge ' . ($class ?? ''))) ?>" data-theme="<?= esc($theme) ?>" data-size="<?= esc($size) ?>"<?= $style ?>>
   <?php if ($icon) :
-        snippet('utilities/icon', ['name' => $icon, 'size' => 14]);
+      snippet('utilities/icon', ['name' => $icon, 'size' => 14]);
   endif ?>
   <span><?= $label ?></span>
   <?php if ($isChange) : ?>
