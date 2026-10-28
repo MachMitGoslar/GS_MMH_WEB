@@ -64,7 +64,15 @@
 
   window.panel.plugin('gs-mmh/mmh-site', {
     blocks: {
+      accordion: Preview,
+      button: Preview,
       card: Preview,
+      cta: Preview,
+      divider: Preview,
+      download: Preview,
+      faq: Preview,
+      testimonial: Preview,
+      timeline: Preview,
     },
   });
 })();
