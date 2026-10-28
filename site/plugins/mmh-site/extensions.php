@@ -16,6 +16,10 @@ use Mmh\Site\Visibility;
 return [
     // Routes of the website (version, redirects, events, feed, not-allowed)
     'routes' => require __DIR__ . '/routes.php',
+    // Panel area to send a newsletter (uses the recipients of gs-mmh-web-plugin)
+    'areas' => [
+        'newsletter-mail' => require __DIR__ . '/areas/newsletter-mail.php',
+    ],
     // The end of a timed page must not lie before its start
     'hooks' => [
         'page.update:before' => function ($newPage, $values, $strings) {

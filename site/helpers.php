@@ -244,22 +244,3 @@ if (!function_exists('mmhColorContrast')) {
         return ['bg' => $hex, 'on' => $on, 'ink' => $toHex($ink)];
     }
 }
-
-/*
- * Global entry points used by gs-mmh-web-plugin (newsletter mail, recipients).
- * They only delegate; remove them together with the plugin's dependency on the
- * site (docs/CLEANUP.md, phase 4: "Web-Plugin entkoppeln").
- */
-if (!function_exists('mmhAbsoluteUrl')) {
-    function mmhAbsoluteUrl(string $url): string
-    {
-        return Mmh\Site\Url::absolute($url);
-    }
-}
-
-if (!function_exists('mmhNewsletterMobileHtml')) {
-    function mmhNewsletterMobileHtml(Kirby\Cms\Page $page, array $data = []): string
-    {
-        return Mmh\Site\Newsletter\EmailHtml::mobileHtml($page, $data);
-    }
-}
