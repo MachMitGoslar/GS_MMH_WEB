@@ -25,7 +25,7 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 | 1 | Sofort-Fixes & Hygiene | in Arbeit (Routen, Hooks, Kleinbugs, toter Code erledigt; offen: Secret, Raum-Referenzen, Content ohne Template) | |
 | 2 | Test-Fundament (PHPUnit, Playwright, Lint, CI) | erledigt, bis auf den ersten GitHub-Lauf des CI-Jobs `visual` (120 Unit-Tests, 46 Smoke, 30 Visual); beide Plugin-Repos haben jetzt dieselbe Strategie | |
 | 3 | Content-Submodul entfernen | Hauptrepo-Seite und Pipeline erledigt; offen sind die Schritte auf den Instanzen (2–5, 7) und die Verifikation, alle bei dir | |
-| 4 | Logik-Struktur (`mmh-site` + Module) | erledigt (2026-10-28). Offen nur die Panel-Prüfung der Block-Vorschauen (außer `card`) und die Deploy-Reihenfolge (erst Hauptrepo für SEO und Hooks, erst Plugin sonst); `/newsletter.xml` liefert weiter 500 (Befund, nicht Teil von Phase 4) | |
+| 4 | Logik-Struktur (`mmh-site` + Module) | erledigt (2026-10-28). Panel-Prüfung der Block-Vorschauen erledigt (2026-10-28, alle außer `form`, das als Vue im Plugin bleibt). Offen nur die Deploy-Reihenfolge (erst Hauptrepo für SEO und Hooks, erst Plugin sonst); `/newsletter.xml` liefert weiter 500 (Befund, nicht Teil von Phase 4) | |
 | 5 | Komponenten konsolidieren | offen | |
 | 6 | Konventionen festschreiben | offen |
 | 7 | Atomares Komponenten-System entlang der Kirby-Struktur (Feld → Block → Layout → Seite) | Recherche und Plan angelegt | |
