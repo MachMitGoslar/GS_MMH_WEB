@@ -13,7 +13,9 @@
 use Kirby\Cms\Page;
 use Mmh\Site\BlockPreview;
 use Mmh\Site\Blocks\CardBlock;
+use Mmh\Site\ProjectStatus;
 use Mmh\Site\PublishDates;
+use Mmh\Site\PublishedDate;
 use Mmh\Site\SeoMetadata;
 use Mmh\Site\Visibility;
 
@@ -24,10 +26,17 @@ return [
     'areas' => [
         'newsletter-mail' => require __DIR__ . '/areas/newsletter-mail.php',
     ],
-    // The end of a timed page must not lie before its start
+    // Hooks of the website: dates, project archive
     'hooks' => [
         'page.update:before' => function ($newPage, $values, $strings) {
             PublishDates::assertOrder($values);
+        },
+        // A finished project moves to the archive, a step can set its project's status
+        'page.update:after' => function (Page $newPage, Page $oldPage) {
+            ProjectStatus::afterUpdate($newPage, $oldPage);
+        },
+        'page.changeStatus:after' => function (Page $newPage, Page $oldPage) {
+            PublishedDate::afterStatusChange($newPage, $oldPage);
         },
     ],
     // Panel: the preview of a block is the website's own rendering (index.js)
