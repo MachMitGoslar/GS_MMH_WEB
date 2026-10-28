@@ -9,7 +9,7 @@ use Kirby\Http\Remote;
 /**
  * Access to the Oveda event API (https://oveda.de): cached GET requests,
  * the paged event-date search and small helpers shared by the event code.
- * Moved from controllers/oveda-event.php and controllers/events-api.php.
+ * Moved from the former controllers oveda-event.php and events-api.php.
  */
 final class Client
 {

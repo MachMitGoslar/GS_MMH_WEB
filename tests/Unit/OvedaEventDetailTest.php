@@ -1,5 +1,6 @@
 <?php
 
+use Mmh\Site\Oveda\EventDetail;
 use Mmh\Site\Oveda\Events;
 use PHPUnit\Framework\TestCase;
 
@@ -91,7 +92,7 @@ final class OvedaEventDetailTest extends TestCase
 
     public function testFactsForAFullEvent(): void
     {
-        $facts = mmhOvedaEventFacts(self::detail());
+        $facts = EventDetail::facts(self::detail());
 
         $this->assertSame(
             ['Datum', 'Uhrzeit', 'Ort', 'Eintritt', 'Veranstalter'],
@@ -105,7 +106,7 @@ final class OvedaEventDetailTest extends TestCase
 
     public function testFactsDropEntriesWithoutData(): void
     {
-        $facts = mmhOvedaEventFacts(self::detail([
+        $facts = EventDetail::facts(self::detail([
             'duration_label' => null,
             'address_lines' => [],
             'is_free' => false,
@@ -118,7 +119,7 @@ final class OvedaEventDetailTest extends TestCase
 
     public function testFactsPriceAgeFormatAndGuests(): void
     {
-        $facts = mmhOvedaEventFacts(self::detail([
+        $facts = EventDetail::facts(self::detail([
             'is_free' => false,
             'price_info' => '5 € pro Person',
             'registration_required' => true,
@@ -141,7 +142,7 @@ final class OvedaEventDetailTest extends TestCase
     public function testFactsAgeVariants(): void
     {
         $age = fn (?int $from, ?int $to) => array_column(
-            mmhOvedaEventFacts(self::detail(['age_from' => $from, 'age_to' => $to])),
+            EventDetail::facts(self::detail(['age_from' => $from, 'age_to' => $to])),
             'value',
             'label',
         )['Alter'] ?? null;
@@ -153,7 +154,7 @@ final class OvedaEventDetailTest extends TestCase
 
     public function testIcsIsAWellFormedEscapedCalendarEntry(): void
     {
-        $ics = mmhOvedaEventIcs(self::detail());
+        $ics = EventDetail::ics(self::detail());
         $lines = explode("\r\n", $ics);
 
         $this->assertSame('BEGIN:VCALENDAR', $lines[0]);
@@ -170,7 +171,7 @@ final class OvedaEventDetailTest extends TestCase
 
     public function testIcsMarksCancelledEventsAndDefaultsToOneHour(): void
     {
-        $ics = mmhOvedaEventIcs(self::detail(['end' => null, 'is_cancelled' => true, 'description' => '', 'address_lines' => []]));
+        $ics = EventDetail::ics(self::detail(['end' => null, 'is_cancelled' => true, 'description' => '', 'address_lines' => []]));
 
         $this->assertStringContainsString("STATUS:CANCELLED\r\n", $ics);
         $this->assertStringContainsString("DTEND:20260307T183000Z\r\n", $ics);

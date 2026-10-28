@@ -1,6 +1,7 @@
 <?php
 
 use Mmh\Site\Oveda\Client;
+use Mmh\Site\Oveda\EventDetail;
 use Mmh\Site\Oveda\Events;
 use PHPUnit\Framework\TestCase;
 
@@ -103,7 +104,7 @@ final class OvedaEventTest extends TestCase
     {
         $this->assertSame(
             'Samstag, 7. März 2026',
-            mmhOvedaGermanDate(new DateTimeImmutable('2026-03-07 12:00')),
+            EventDetail::germanDate(new DateTimeImmutable('2026-03-07 12:00')),
         );
     }
 
@@ -111,25 +112,25 @@ final class OvedaEventTest extends TestCase
     {
         $start = new DateTimeImmutable('2026-03-07 18:30');
 
-        $this->assertSame('Ganztägig', mmhOvedaTimeLabel($start, null, true));
-        $this->assertSame('18:30 Uhr', mmhOvedaTimeLabel($start, null, false));
+        $this->assertSame('Ganztägig', EventDetail::timeLabel($start, null, true));
+        $this->assertSame('18:30 Uhr', EventDetail::timeLabel($start, null, false));
         $this->assertSame(
             '18:30 – 20:00 Uhr',
-            mmhOvedaTimeLabel($start, new DateTimeImmutable('2026-03-07 20:00'), false),
+            EventDetail::timeLabel($start, new DateTimeImmutable('2026-03-07 20:00'), false),
         );
         $this->assertSame(
             '18:30 Uhr bis 08.03.2026, 01:00 Uhr',
-            mmhOvedaTimeLabel($start, new DateTimeImmutable('2026-03-08 01:00'), false),
+            EventDetail::timeLabel($start, new DateTimeImmutable('2026-03-08 01:00'), false),
         );
     }
 
     public function testDurationLabel(): void
     {
         $start = new DateTimeImmutable('2026-03-07 10:00');
-        $at = fn (string $end) => mmhOvedaDurationLabel($start, new DateTimeImmutable($end), false);
+        $at = fn (string $end) => EventDetail::durationLabel($start, new DateTimeImmutable($end), false);
 
-        $this->assertNull(mmhOvedaDurationLabel($start, null, false));
-        $this->assertNull(mmhOvedaDurationLabel($start, new DateTimeImmutable('2026-03-07 12:00'), true));
+        $this->assertNull(EventDetail::durationLabel($start, null, false));
+        $this->assertNull(EventDetail::durationLabel($start, new DateTimeImmutable('2026-03-07 12:00'), true));
         $this->assertNull($at('2026-03-07 09:00'), 'end before start');
         $this->assertSame('45 Minuten', $at('2026-03-07 10:45'));
         $this->assertSame('1 Stunde', $at('2026-03-07 11:00'));
@@ -141,7 +142,7 @@ final class OvedaEventTest extends TestCase
     public function testCountdownLabel(): void
     {
         $now = new DateTimeImmutable('2026-03-07 15:00');
-        $label = fn (string $start) => mmhOvedaCountdownLabel(new DateTimeImmutable($start), $now);
+        $label = fn (string $start) => EventDetail::countdownLabel(new DateTimeImmutable($start), $now);
 
         $this->assertSame('Heute', $label('2026-03-07 20:00'));
         $this->assertSame('Morgen', $label('2026-03-08 09:00'));

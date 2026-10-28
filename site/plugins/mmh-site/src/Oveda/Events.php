@@ -9,7 +9,7 @@ use Kirby\Toolkit\Str;
 /**
  * Oveda events as the site shows them: paged searches, normalised event
  * records, categories and the payload of events.json. Moved from
- * controllers/events-api.php; API access is in Client.
+ * the former controllers/events-api.php; API access is in Client.
  */
 final class Events
 {

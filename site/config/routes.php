@@ -10,9 +10,8 @@ use Kirby\Cms\Page;
 use Kirby\Cms\Response;
 use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
+use Mmh\Site\Oveda\EventDetail;
 use Mmh\Site\Oveda\Events;
-
-require_once __DIR__ . '/../controllers/oveda-event.php';
 
 /**
  * Projekte, die als echte Dublette in einem anderen Projekt aufgegangen sind.
@@ -69,13 +68,13 @@ return [
         'pattern' => 'events/(:num).ics',
         'method' => 'GET',
         'action' => function (string $eventDateId) {
-            $detail = mmhOvedaEventDetail((int) $eventDateId);
+            $detail = EventDetail::detail((int) $eventDateId);
 
             if ($detail === null) {
                 throw new NextRouteException();
             }
 
-            return new Response(mmhOvedaEventIcs($detail), 'text/calendar', 200, [
+            return new Response(EventDetail::ics($detail), 'text/calendar', 200, [
                 'Content-Disposition' => 'attachment; filename="veranstaltung-' . $detail['id'] . '.ics"',
             ]);
         },
@@ -85,7 +84,7 @@ return [
         'pattern' => 'events/(:num)',
         'method' => 'GET',
         'action' => function (string $eventDateId) {
-            $detail = mmhOvedaEventDetail((int) $eventDateId);
+            $detail = EventDetail::detail((int) $eventDateId);
 
             if ($detail === null) {
                 throw new NextRouteException();
