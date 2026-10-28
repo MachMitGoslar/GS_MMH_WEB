@@ -9,6 +9,7 @@
 use Kirby\Cms\Page;
 use Kirby\Cms\Response;
 use Kirby\Http\Exceptions\NextRouteException;
+use Kirby\Toolkit\Escape;
 use Mmh\Site\Catalog;
 use Mmh\Site\MergedProjects;
 use Mmh\Site\Oveda\EventDetail;
@@ -175,6 +176,50 @@ return [
             $sample = page('projects')?->children()->listed()->first();
 
             return Catalog::page()->render(['groups' => Catalog::entries($sample)]);
+        },
+    ],
+
+    /**
+     * Sitemap and robots.txt (indexability comes from `$page->seo()`).
+     */
+    [
+        'pattern' => 'sitemap.xml',
+        'action' => function () {
+            $pages = site()->index()->filter(
+                fn (Page $page) => $page->seo()->isIndexable(),
+            );
+
+            $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+            $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+
+            foreach ($pages as $page) {
+                $xml .= '  <url>' . PHP_EOL;
+                $xml .= '    <loc>' . Escape::html($page->url()) . '</loc>' . PHP_EOL;
+
+                if ($modified = $page->modified('c')) {
+                    $xml .= '    <lastmod>' . $modified . '</lastmod>' . PHP_EOL;
+                }
+
+                $xml .= '  </url>' . PHP_EOL;
+            }
+
+            $xml .= '</urlset>';
+
+            return new Response($xml, 'application/xml');
+        },
+    ],
+    [
+        'pattern' => 'robots.txt',
+        'action' => function () {
+            $lines = [
+                'User-agent: *',
+                'Disallow: /panel',
+                'Disallow: /signage',
+                '',
+                'Sitemap: ' . site()->url() . '/sitemap.xml',
+            ];
+
+            return new Response(implode(PHP_EOL, $lines) . PHP_EOL, 'text/plain');
         },
     ],
 ];

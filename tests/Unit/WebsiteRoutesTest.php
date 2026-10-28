@@ -25,6 +25,8 @@ final class WebsiteRoutesTest extends TestCase
             '"events\/(:num)"',
             '"events.json"',
             '"newsletter.xml"',
+            '"sitemap.xml"',
+            '"robots.txt"',
             '"catalog"',
             '"\/not-allowed"',
         ], $patterns);

@@ -135,6 +135,8 @@ final class CatalogTest extends TestCase
                 'blueprints' => self::root() . '/site/blueprints',
             ],
             'templates' => $extensions['templates'],
+            'pageMethods' => $extensions['pageMethods'],
+            'siteMethods' => $extensions['siteMethods'],
             'blockMethods' => $extensions['blockMethods'],
             'blockModels' => $extensions['blockModels'],
             'options' => ['mmh.mapbox.token' => ''],

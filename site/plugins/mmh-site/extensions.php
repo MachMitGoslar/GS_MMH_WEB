@@ -14,6 +14,7 @@ use Kirby\Cms\Page;
 use Mmh\Site\BlockPreview;
 use Mmh\Site\Blocks\CardBlock;
 use Mmh\Site\PublishDates;
+use Mmh\Site\SeoMetadata;
 use Mmh\Site\Visibility;
 
 return [
@@ -75,6 +76,12 @@ return [
     ],
     'pageMethods' => [
         'isVisible' => fn () => Visibility::isVisible($this),
+        // Resolved SEO and social sharing values of this page
+        'seo' => fn (): SeoMetadata => new SeoMetadata($this),
+    ],
+    // Site-wide SEO defaults, where no page context exists
+    'siteMethods' => [
+        'seo' => fn (): SeoMetadata => new SeoMetadata(null),
     ],
     // Panel labels of the block types (blueprints/blocks/<type>.yml)
     'translations' => [
