@@ -1,5 +1,7 @@
 <?php
 
+use Mmh\Site\Newsletter\EmailHtml;
+
 /**
  * Custom API Routes
  * These routes have higher priority and won't be intercepted by plugins
@@ -13,7 +15,7 @@ $newsletterHtmlResponse = function ($page) {
         return new Kirby\Cms\Response('Not found', 'text/plain', 404);
     }
 
-    $content = mmhNewsletterMobileHtml($page);
+    $content = EmailHtml::mobileHtml($page);
     $filename = preg_replace('/[^a-z0-9-]+/i', '-', $page->slug()) ?: 'newsletter';
 
     return new Kirby\Cms\Response($content, 'text/html', 200, [
