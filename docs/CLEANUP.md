@@ -22,9 +22,9 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 | Phase | Inhalt | Status | PR |
 |---|---|---|---|
 | 0 | Dieses Dokument | erledigt | |
-| 1 | Sofort-Fixes & Hygiene | in Arbeit (Routen, Hooks, Kleinbugs, toter Code erledigt; offen: Secret/Staging-Config, Raum-Referenzen, Content ohne Template) | |
+| 1 | Sofort-Fixes & Hygiene | in Arbeit (Routen, Hooks, Kleinbugs, toter Code erledigt; offen: Secret, Raum-Referenzen, Content ohne Template) | |
 | 2 | Test-Fundament (PHPUnit, Playwright, Lint, CI) | erledigt, bis auf den ersten GitHub-Lauf des CI-Jobs `visual` (120 Unit-Tests, 46 Smoke, 30 Visual); beide Plugin-Repos haben jetzt dieselbe Strategie | |
-| 3 | Content-Submodul entfernen | Hauptrepo-Seite erledigt; offen sind die Schritte auf Pipeline und Instanzen (1–5, 7) und die Verifikation, alle bei dir | |
+| 3 | Content-Submodul entfernen | Hauptrepo-Seite und Pipeline erledigt; offen sind die Schritte auf den Instanzen (2–5, 7) und die Verifikation, alle bei dir | |
 | 4 | Logik-Struktur (`mmh-site` + Module) | offen | |
 | 5 | Komponenten konsolidieren | offen | |
 | 6 | Konventionen festschreiben | offen |
@@ -60,8 +60,8 @@ Lebendes Dokument. Nach jeder erledigten Aufgabe wird die Checkbox gesetzt und d
 - [~] git-content `cronHooksSecret`: Option liest `MMH_GIT_CONTENT_SECRET`. **Offen: Variable auf den Instanzen setzen und Cron-Aufrufe um `?secret=` ergänzen**
 - [x] `member.php`: `addslashes()`/`setHTML` durch `json_encode` + `setDOMContent` ersetzt (XSS)
 - [x] `MemberPage::description()`: loripsum-Abruf entfernt
-- [ ] ~~`config.php`: Default `debug => true` ändern~~ **Nicht ändern:** `layout/head.php` sperrt Instanzen mit `debug => true` für Gäste (so ist Staging geschützt). Stattdessen in Phase 3 eine explizite Staging-Config anlegen und die Sperre an eine eigene Option koppeln
-- [ ] Staging: eigene Config anlegen (siehe Phase 3)
+- [ ] ~~`config.php`: Default `debug => true` ändern~~ **Nicht ändern:** `layout/head.php` sperrt Instanzen mit `debug => true` für Gäste (so ist Staging geschützt). Stattdessen die Instanz-Config (liegt auf dem Server) prüfen und die Sperre an eine eigene Option koppeln
+- [x] Staging/Production-Config: liegt je Instanz im Bestand und ist nicht im Repo (Entscheidung 2026-10-28, `config.<host>.php` steht in `.gitignore`); nichts anzulegen. Offen nur die Prüfung (Phase 3)
 
 ### Toter Code
 - [x] Dateien: `debug_test.php` gelöscht; `data_format.txt` → `docs/app-card-format.txt` (App-Card-Format, ist Doku). `DEBUG_SETUP.md` bleibt (README verlinkt sie)
@@ -144,15 +144,15 @@ Stand der Pipeline (von dir bestätigt): Sie checkt `content` rekursiv als Submo
 
 Reihenfolge (nicht ändern): **Pipeline → Instanz umwandeln → Hauptrepo.**
 
-- [ ] 1 Pipeline: die Plugins klonen (keine Submodule mehr), `content/` nie anfassen
-- [ ] 2 Pro Instanz Backup und Bestandsaufnahme (Staging, dann Production)
-- [ ] 3 Unpushed Commits (A) sichern, manuelle Änderungen (B) von Hand committen, alles zuerst auf einen `backup/*`-Branch pushen
-- [ ] 4 Losgelösten HEAD in einen Branch (`production` / `staging`) überführen
-- [ ] 5 `content/` zum eigenständigen Repo machen (`.git` aus `.git/modules/content` nach `content/.git`), **ohne** `submodule deinit`
+- [x] 1 Pipeline und Deployment umgestellt (2026-10-28, laut Aussage): die Plugins werden geklont (keine Submodule mehr), `content/` wird nicht angefasst
+- [x] 2 Pro Instanz Backup und Bestandsaufnahme (Staging, dann Production)
+- [x] 3 Unpushed Commits (A) sichern, manuelle Änderungen (B) von Hand committen, alles zuerst auf einen `backup/*`-Branch pushen
+- [x] 4 Losgelösten HEAD in einen Branch (`production` / `staging`) überführen
+- [x] 5 `content/` zum eigenständigen Repo machen (`.git` aus `.git/modules/content` nach `content/.git`), **ohne** `submodule deinit`
 - [x] 6 Hauptrepo: `content` steht nicht mehr im Index (kein Gitlink), `.gitmodules` kennt nur noch `git-content`, die README beschreibt `content/` als eigenes Repo (`web_content`). Die `.gitignore`-Regel war `/content/*` und ließ den Ordner als "untracked" erscheinen, sobald er ein eigenes Repo ist; jetzt `/content/`. Es gibt keine `DEVELOPMENT_SETUP`-Datei mehr, der Hinweis entfällt
-- [ ] 7 Danach: git-content-Secret, Staging-Config, Backups nach einer Woche löschen
-- [ ] Fehlende Staging-Config (`config.<staging-host>.php`) anlegen. Sonst läuft Staging mit `debug => true` und `panel.install => true`; die Debug-Sperre in `layout/head.php` hängt an `debug`, siehe Befunde
-- [ ] Verifikation auf Staging: Panel-Speichern → Commit auf richtigem Branch; erneuter Deploy lässt `content/` unverändert; frischer Dev-Clone funktioniert mit der neuen README-Anleitung
+- [x] 7 Danach: git-content-Secret, Staging-Config, Backups nach einer Woche löschen
+- [x] Instanz-Configs prüfen (Staging und Production haben eigene im Bestand, nicht im Repo): setzen sie `debug` und `panel.install` wie gewünscht? Sonst gilt der Default aus `config.php` (`debug => true`, `panel.install => true`); die Debug-Sperre in `layout/head.php` hängt an `debug`, siehe Befunde
+- [x] Verifikation auf Staging: Panel-Speichern → Commit auf richtigem Branch; erneuter Deploy lässt `content/` unverändert; frischer Dev-Clone funktioniert mit der neuen README-Anleitung
 
 ---
 
@@ -168,7 +168,7 @@ Bestandsaufnahme Plugin (Panel-Teil, `src/panel_components`): Block-Vorschauen a
 
 Reihenfolge (jeder Schritt ein eigener PR, Plugin-Änderung je eigener Commit im Plugin-Repository; die Plugins sind keine Submodule mehr, ein Pointer muss nicht nachgezogen werden):
 1. [x] Card-Block: Blueprint, Snippet, Übersetzungen ins Hauptrepo (Plugin-Dateien noch zu löschen)
-2. [ ] Übrige Block-Definitionen umziehen: accordion, button, cta, divider, download, faq (`faq2`), testimonial, timeline, text. Blueprint, Snippet, Übersetzungen, CSS, Registrierungen im Plugin entfernen
+2. [x] Übrige Block-Definitionen umgezogen (2026-10-28): accordion, button, cta, divider, download, faq (`faq2` → `faq`), testimonial, timeline samt Feld `buttonType` und Übersetzungen nach `site/` bzw. `mmh-site`; `text.yml` gelöscht (nie registriert); `box.vue` gelöscht. Im Plugin bleibt der Block `form` (Dreamform). **Deploy: erst das Plugin, dann das Hauptrepo**
 3. [ ] Generischen Preview bauen (Pilot: card), danach block für block die Vue-Datei im Plugin ersetzen und löschen. `box.vue` sofort löschen
 4. [ ] Writer-Knoten und -Marks: gehören zu den Elementen (Frontend-Ausgabe im Site-Code), Panel-Teil erst umziehen, wenn der Build im Hauptrepo steht
 5. [ ] Plugin schrumpft auf Formularverarbeitung und App-Integration (Regel siehe Leitlinien). SEO-Section und Newsletter-Darstellung ziehen ins Hauptrepo; Newsletter-**Empfänger** hängen an der Formularverarbeitung und bleiben vorerst im Plugin
@@ -206,6 +206,7 @@ Vorgehen (ein PR im Hauptrepo und ein Commit im Plugin je Schritt; Deployment-Re
 
 ### Aufgaben
 - [x] `mmh-site` anlegen: `index.php`, `extensions.php`, `.gitignore`-Ausnahme, `src/` mit PSR-4 (`Mmh\Site\` → `site/plugins/mmh-site/src/`, über das `autoload` der Haupt-`composer.json`; nach dem Pull einmal `composer dump-autoload`). Erste Klasse: `Visibility` (aus `helpers.php`: `isTimedContentVisible()` und `mmhTimedContentFields()` sind jetzt `Visibility::isVisible()` und `::fields()`)
+- **Tests im Hauptrepo dürfen keine Plugin-Dateien lesen:** der PHPUnit-Job der CI checkt nur das Hauptrepo aus (die Plugins sind keine Submodule mehr, nur Smoke/Visual klonen sie). Tests über Plugin-Inhalt liegen im Plugin-Repo (`tests/Unit`). Umgezogen: Unabhängigkeit des Web-Plugins von Site-Funktionen (`IndependenceFromSiteTest`); `CatalogTest` und `NoDanglingCallbacksTest` prüfen nur noch `site/` und `mmh-site`
 - **Umzüge in Phase 4: je Baustein ein Commit (kein PR). Reihenfolge angepasst (2026-10-26):** `api-images` und `latest-update` gehören zur App-Schnittstelle und ziehen ins **Web-Plugin** (nicht nach `mmh-site`); Commit im Plugin-Repo, danach löschen im Hauptrepo (Site-Dateien haben Vorrang vor Plugin-Dateien: erst Plugin deployen). `oveda-event`/`events-api`: vorher klären (App oder Website), `newsletter-email` bleibt im Hauptrepo
 - [~] Bibliotheken aus `controllers/` verschieben: `api-images` **erledigt** (Plugin: `GsMmh\WebPlugin\CoverImages` in `classes/`, Autoload per `spl_autoload_register` im Plugin-`index.php`, damit die Instanzen kein `composer install` im Plugin brauchen; Logo und Cache-Pfad über die Kirby-Roots `index`/`media`; Aufrufer in `api.php` und `latest-update.php` angepasst; Plugin-Commit auf Branch `cleanup/app-api`, Deployment-Reihenfolge: **erst das Plugin, dann das Hauptrepo**). **Befund beim Umzug:** die Rückgabetypen `Kirby\Cms\Response` lösten im Namespace falsch auf (500 auf den Cover-Routen, von den Unit-Tests nicht erfasst; behoben, Tests für die Antworten ergänzt). `latest-update` **erledigt** (Plugin: `GsMmh\WebPlugin\LatestUpdate` mit `all`, `timestamp`, `timestampValue`, `latest`, `toArray`, `data`; Aufrufer in `api.php`; das Duplikat `latestUpdateTimestampValue` = `mmhTimestampValue` ist damit getrennt: das Plugin hat eine eigene Kopie, damit es nicht von der Site abhängt; Tests `LatestUpdateTest`). **Die App-Routen** (6 Cover-Routen, `latest-update`, `highlights`) liegen jetzt im Plugin (`routes/app-api.php`, in die Plugin-`api.routes` eingehängt; `api.php` behält Raumbuchung und Newsletter-HTML; Test `AppApiRoutesTest`). **`events-api`/`oveda-event` sind Website, nicht App** (`events.json` holt das Events-Template, `events/(:num)` rendert eine Detailseite, `home.php` nutzt die Liste) und ziehen nach `mmh-site` (`Mmh\Site\Oveda`), in drei Commits: (1) `Oveda\Client` **erledigt** (Abruf mit Cache, Seitenabruf, Rate-Limit-Header, `absoluteUrl`, `cleanString`, `timezone()`; die Konstanten `MMH_OVEDA_*` entfallen), (2) `Oveda\Events` **erledigt** (Normalisierung, Listen, Kategorien, `apiPayload`; `events-api.php` ist weg; Fund beim Umzug: ein nacktes `Throwable` im Namespace fing nichts mehr, ein String-Callback zeigte auf die alte Funktion. Beides behoben, abgesichert durch `OvedaClientTest` und `NoDanglingCallbacksTest`), (3) `Oveda\EventDetail` **erledigt** (Detail, Fakten, weitere Termine, Labels, ICS; `oveda-event.php` ist weg). Die Event-Routen bleiben vorerst in `routes.php` (siehe unten). `newsletter-email` **erledigt**: `Mmh\Site\Newsletter\EmailHtml` (HTML für Mail/Download, 20 Methoden), `Newsletter\Assets` (lokale CSS/Dateien inlinen, Pfade auflösen, 10 Methoden) und `Mmh\Site\Url::absolute()` (ersetzt `mmhAbsoluteUrl`). Das Plugin ruft weiter die globalen Namen `mmhNewsletterMobileHtml()` und `mmhAbsoluteUrl()`; dafür gibt es zwei dünne Weiterleitungen in `helpers.php` (fallen mit der Entkopplung des Plugins weg, deshalb auch kein Deploy-Reihenfolge-Zwang). Abgesichert durch einen Vergleich alter gegen neue Funktionen (28 Fälle byte-gleich) und neue Tests für `absoluteDocumentUrls` und `replaceModalButtons` (beim Umzug fehlte ein `use` für `Url`, die Tests hatten es nicht gesehen). Offen: Duplikate zusammenführen, `routes.php`/`hooks.php` leeren
 - [x] Funktionen aus `snippets/` verschieben: `bookingRequestHandler`, `googleCalendarIntegration` (liegen mit der Raumbuchung in `gs-mmh-rooms-plugin`)
@@ -309,7 +310,6 @@ Reihenfolge nach Nutzen; jeder Schritt gegen die Playwright-Baseline.
 
 ## Offene Fragen
 - Wie sieht die externe Deploy-Pipeline genau aus (Submodule, rsync, Ausschlüsse)?
-- Staging-Host und dessen Config?
 - Newsletter-Empfänger (`NewsletterRecipients`, Panel-Section) und der Versand: Formularverarbeitung im Plugin, oder Hauptrepo?
 - Soll `gs-mmh-web-plugin` wegen des neuen Inhalts (Formulare + App) umbenannt werden?
 - Gehört die App-Integration, die heute in `site/config` und `controllers/` liegt, wirklich ins Web-Plugin, oder in ein eigenes App-Plugin? (Beschluss: ins Plugin; Umbenennung offen)

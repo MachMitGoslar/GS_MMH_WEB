@@ -12,10 +12,7 @@ final class NoDanglingCallbacksTest extends TestCase
     public function testClassesDoNotUseStringCallbacksToGlobalMmhFunctions(): void
     {
         $root = dirname(__DIR__, 2) . '/site/plugins';
-        $files = [
-            ...glob($root . '/mmh-site/src/{,*/}*.php', GLOB_BRACE),
-            ...glob($root . '/gs-mmh-web-plugin/classes/{,*/}*.php', GLOB_BRACE),
-        ];
+        $files = glob($root . '/mmh-site/src/{,*/}*.php', GLOB_BRACE);
 
         $this->assertNotEmpty($files);
 

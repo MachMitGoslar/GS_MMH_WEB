@@ -1,0 +1,37 @@
+name: Call to Action
+icon: alert
+fields:
+  alignment:
+    type: toggles
+    width: 1/2
+    labels: false
+    grow: false
+    options:
+      - value: left
+        icon: text-left
+      - value: center
+        icon: text-center
+      - value: right
+        icon: text-right
+  title:
+    label: Title
+    type: writer
+    placeholder: Eine aussagekräftige Überschrift
+    nodes:
+      - titleXXL
+      - titleXL
+      - title
+  description:
+    label: Description
+    type: writer
+    placeholder: Beschreibe mich
+    inline: true
+    marks: true
+  buttons:
+    max: 1
+    label: Link
+    type: blocks
+    default:
+      - type: button
+    fieldsets:
+      - button

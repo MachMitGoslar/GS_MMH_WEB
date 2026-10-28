@@ -26,8 +26,7 @@ final class Catalog
         'card-list' => 'lists real pages',
         'cta' => 'contains buttons',
         'download' => 'needs a file',
-        'faq2' => 'needs questions',
-        'form' => 'needs a DreamForm form',
+        'faq' => 'needs questions',
         'gallery' => 'needs images',
         'hero' => 'needs an image',
         'image' => 'needs an image',
@@ -125,7 +124,7 @@ final class Catalog
     }
 
     /**
-     * The block types that have a snippet in the site or in the web plugin.
+     * The block types that have a snippet in the given directories.
      *
      * @param list<string> $snippetDirs directories holding blocks/<type>.php
      * @return list<string>

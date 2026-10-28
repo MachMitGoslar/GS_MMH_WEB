@@ -33,19 +33,4 @@ final class NewsletterMailAreaTest extends TestCase
         $this->assertContains('newsletter-mail/send/(:all)', array_keys($area['dialogs']));
         $this->assertContains('newsletter-mail/send-all/(:all)', array_keys($area['dialogs']));
     }
-
-    public function testTheWebPluginNoLongerNeedsSiteFunctions(): void
-    {
-        $classes = glob(dirname(__DIR__, 2) . '/site/plugins/gs-mmh-web-plugin/{classes,areas,routes}/*.php', GLOB_BRACE);
-
-        $this->assertNotEmpty($classes);
-
-        foreach ($classes as $file) {
-            $this->assertDoesNotMatchRegularExpression(
-                '/\bmmh(?:AbsoluteUrl|NewsletterMobileHtml|Version|BackLink|ColorContrast)\(/',
-                (string) file_get_contents($file),
-                basename($file) . ' calls a function of the website',
-            );
-        }
-    }
 }

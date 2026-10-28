@@ -44,9 +44,13 @@ return [
     'pageMethods' => [
         'isVisible' => fn () => Visibility::isVisible($this),
     ],
-    // Panel labels of the card block (blueprints/blocks/card.yml)
+    // Panel labels of the block types (blueprints/blocks/<type>.yml)
     'translations' => [
         'en' => [
+            'field.blocks.accordion.name' => 'Accordion block',
+            'field.blocks.divider.name' => 'Divider',
+            'field.blocks.faq.name' => 'FAQ Section',
+            'field.blocks.testimonial.name' => 'Testimonial',
             'field.blocks.card.name' => 'Card',
             'field.blocks.card.fields.cardType.options.page' => 'Create card from page',
             'field.blocks.card.fields.cardType.options.manual' => 'Create manual card',
@@ -56,6 +60,10 @@ return [
             'field.blocks.card.fields.linkMode.options.button' => 'Button in the footer',
         ],
         'de' => [
+            'field.blocks.accordion.name' => 'Akkordion Block',
+            'field.blocks.divider.name' => 'Trenner',
+            'field.blocks.faq.name' => 'FAQ Sektion',
+            'field.blocks.testimonial.name' => 'Testimonial',
             'field.blocks.card.name' => 'Karte',
             'field.blocks.card.fields.cardType.label' => 'Kartentyp',
             'field.blocks.card.fields.cardType.options.page' => 'Aus Seite erstellen',

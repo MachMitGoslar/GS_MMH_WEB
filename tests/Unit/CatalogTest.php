@@ -12,13 +12,10 @@ final class CatalogTest extends TestCase
         return dirname(__DIR__, 2);
     }
 
-    /** Block snippets of the site and of the web plugin (where the blocks of the plugin live). */
+    /** Block snippets of the site; the plugins are not part of this repository (CI has none). */
     private static function snippetDirs(): array
     {
-        return [
-            self::root() . '/site/snippets/blocks',
-            self::root() . '/site/plugins/gs-mmh-web-plugin/snippets/blocks',
-        ];
+        return [self::root() . '/site/snippets/blocks'];
     }
 
     public function testEveryBlockTypeIsShownOrExcusedOnPurpose(): void
@@ -69,10 +66,6 @@ final class CatalogTest extends TestCase
             'roots' => [
                 'snippets' => self::root() . '/site/snippets',
                 'blueprints' => self::root() . '/site/blueprints',
-            ],
-            'snippets' => [
-                'blocks/divider' => self::root() . '/site/plugins/gs-mmh-web-plugin/snippets/blocks/divider.php',
-                'blocks/testimonial' => self::root() . '/site/plugins/gs-mmh-web-plugin/snippets/blocks/testimonial.php',
             ],
             'blockMethods' => $extensions['blockMethods'],
             'blockModels' => $extensions['blockModels'],
@@ -142,10 +135,6 @@ final class CatalogTest extends TestCase
                 'blueprints' => self::root() . '/site/blueprints',
             ],
             'templates' => $extensions['templates'],
-            'snippets' => [
-                'blocks/divider' => self::root() . '/site/plugins/gs-mmh-web-plugin/snippets/blocks/divider.php',
-                'blocks/testimonial' => self::root() . '/site/plugins/gs-mmh-web-plugin/snippets/blocks/testimonial.php',
-            ],
             'blockMethods' => $extensions['blockMethods'],
             'blockModels' => $extensions['blockModels'],
             'options' => ['mmh.mapbox.token' => ''],
