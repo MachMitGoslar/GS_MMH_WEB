@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mmh\Site;
 
+use Kirby\Cms\Fieldsets;
 use Kirby\Cms\Page;
 use Throwable;
 
@@ -27,7 +28,26 @@ final class BlockPreview
     }
 
     /**
-     * @param array<string, mixed> $content the block's field values as the panel holds them
+     * The panel holds field values in its own form (a pages or files field is a
+     * list of objects); the snippets read what is stored (a list of ids).
+     * Kirby's form converts one into the other.
+     *
+     * @param array<string, mixed> $content
+     * @return array<string, mixed>
+     */
+    public static function storedValues(string $type, array $content, ?Page $parent = null): array
+    {
+        try {
+            $fieldset = Fieldsets::factory([$type], ['parent' => $parent ?? Catalog::page()])->first();
+
+            return $fieldset->form($fieldset->fields(), $content)->toStoredValues();
+        } catch (Throwable) {
+            return $content;
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $content the block's field values as stored
      * @param Page|null $parent the page being edited, so blocks can use their page
      */
     public static function document(string $type, array $content, ?Page $parent = null): string
@@ -41,6 +61,9 @@ final class BlockPreview
         } catch (Throwable $e) {
             $html = '<p>' . esc($e->getMessage()) . '</p>';
         }
+
+        // Folded content (accordion, FAQ) is shown unfolded, so the editor sees all of it
+        $html = preg_replace('~<details(?![^>]*\sopen)~', '<details open', $html) ?? $html;
 
         return '<!doctype html><html lang="de"><head><meta charset="utf-8">'
             . '<base href="' . esc(kirby()->url('index'), 'attr') . '/" target="_blank">'

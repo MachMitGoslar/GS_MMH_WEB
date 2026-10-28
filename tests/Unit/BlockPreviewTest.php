@@ -17,6 +17,9 @@ final class BlockPreviewTest extends TestCase
             'blockMethods' => $extensions['blockMethods'],
             'blockModels' => $extensions['blockModels'],
             'options' => ['mmh.mapbox.token' => ''],
+            'site' => ['children' => [
+                ['slug' => 'team', 'children' => [['slug' => 'anna', 'template' => 'member']]],
+            ]],
         ]);
     }
 
@@ -51,5 +54,45 @@ final class BlockPreviewTest extends TestCase
         $html = BlockPreview::document('divider', ['thickness' => 'thick']);
 
         $this->assertStringContainsString('</html>', $html);
+    }
+
+    public function testPanelValuesOfPageFieldsBecomeStoredIds(): void
+    {
+        self::boot();
+
+        $stored = BlockPreview::storedValues('testimonial', [
+            'quote' => 'Toll',
+            'source' => 'member',
+            'member' => [['id' => 'team/anna', 'title' => 'Anna']],
+        ]);
+
+        $this->assertSame('Toll', $stored['quote']);
+        $this->assertCount(1, $stored['member']);
+        $this->assertIsString($stored['member'][0]);
+    }
+
+    public function testATestimonialWithATeamMemberRenders(): void
+    {
+        self::boot();
+
+        $values = [
+            'quote' => 'Toll',
+            'source' => 'member',
+            'member' => [['id' => 'team/anna', 'title' => 'Anna']],
+        ];
+        $html = BlockPreview::document('testimonial', BlockPreview::storedValues('testimonial', $values));
+
+        $this->assertStringContainsString('Toll', $html);
+        $this->assertStringNotContainsString('must be of type', $html);
+    }
+
+    public function testAnAccordionIsShownUnfolded(): void
+    {
+        self::boot();
+
+        $html = BlockPreview::document('accordion', ['question' => 'Warum?', 'answer' => 'Darum.']);
+
+        $this->assertStringContainsString('<details open class="accordion-details">', $html);
+        $this->assertSame(1, substr_count($html, '<details'));
     }
 }

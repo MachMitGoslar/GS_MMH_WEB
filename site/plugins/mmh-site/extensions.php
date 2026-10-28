@@ -63,7 +63,11 @@ return [
                     }
 
                     return [
-                        'html' => BlockPreview::document($type, is_array($content) ? $content : [], $parent),
+                        'html' => BlockPreview::document(
+                            $type,
+                            BlockPreview::storedValues($type, is_array($content) ? $content : [], $parent),
+                            $parent,
+                        ),
                     ];
                 },
             ],

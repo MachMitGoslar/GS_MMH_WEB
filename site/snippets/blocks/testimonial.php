@@ -7,9 +7,9 @@ if ($block->quote()->isEmpty()) {
 }
 
 $member = $block->source()->value() === 'member' ? $block->member()->toPage() : null;
-$name = $member ? ($member->name()->or($member->title())->value()) : $block->name()->value();
+$name = (string) ($member ? $member->name()->or($member->title())->value() : $block->name()->value());
 $role = $member
-    ? $member->role()->value()
+    ? (string) $member->role()->value()
     : implode(', ', array_filter([$block->jobPosition()->value(), $block->company()->value()]));
 $color = in_array($block->color()->value(), ['project', 'gold'], true) ? $block->color()->value() : 'default';
 $hasPerson = $name !== '' || $role !== '';
