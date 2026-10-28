@@ -19,13 +19,11 @@ use Kirby\Content\Content;
 use Kirby\Panel\Field;
 use Kirby\Panel\Page as PanelPage;
 use Kirby\Toolkit\Str;
+use Mmh\Site\Models\HasCover;
 
 class ProjectPage extends Page
 {
-    public function cover()
-    {
-        return $this->content()->get('cover')->toFile() ?? $this->image();
-    }
+    use HasCover;
 
     /**
      * Optional project color with derived text/ink colors, or null when unset/invalid.

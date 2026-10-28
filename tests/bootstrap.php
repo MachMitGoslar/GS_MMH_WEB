@@ -36,3 +36,7 @@ new Kirby\Cms\App([
 require_once dirname(__DIR__) . '/site/helpers.php';
 require_once dirname(__DIR__) . '/site/models/project.php';
 require_once dirname(__DIR__) . '/site/models/member.php';
+require_once dirname(__DIR__) . '/site/models/note.php';
+require_once dirname(__DIR__) . '/site/models/default.php';
+require_once dirname(__DIR__) . '/site/models/home.php';
+require_once dirname(__DIR__) . '/site/models/theme.php';
