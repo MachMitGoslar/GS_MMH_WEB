@@ -13,6 +13,8 @@
 use Mmh\Site\Visibility;
 
 return [
+    // Routes of the website (version, redirects, events, feed, not-allowed)
+    'routes' => require __DIR__ . '/routes.php',
     'blockMethods' => [
         'isVisible' => fn () => Visibility::isVisible($this),
     ],
