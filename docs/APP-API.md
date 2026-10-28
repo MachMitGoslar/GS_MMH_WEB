@@ -94,6 +94,19 @@ HTTP 404
 {"status": "error", "message": "Projekt nicht gefunden"}
 ```
 
+## Seiten und Karten unter /app/
+
+Neben den JSON-Endpunkten unter `/api/` liefert das Plugin ein paar Routen unter `/app/` (Code: `routes/app.php`):
+
+| Endpunkt | Liefert |
+|---|---|
+| `GET /app/horoskop_card` | Karte „Goslarer Horoskope“ (Entry View) mit zufälligem Sternzeichen-Bild; `call_to_action_url` ist `/app/horoskope` |
+| `GET /app/horoskope` | HTML-Seite (Webview) mit den zwölf Tageshoroskopen, Daten von einem n8n-Webhook |
+| `GET /app/ferienpass.json?data=<Programm>` | zufälliger Ferienpass-Termin als Karte; Programm 74, wenn `data` fehlt |
+| `GET /app/ferienpass_index.json?data=<Programm>` | alle Termine des Programms (Index View) |
+
+Fehler der Ferienpass-Schnittstelle kommen als `{"error": "…"}` mit HTTP 200. Anfragen an `/app/*` werden pro URL und Tag in der Tabelle `app_requests` gezählt (die Horoskop-Routen aktuell nicht, siehe `docs/CLEANUP.md`).
+
 ## Die übrigen Endpunkte
 
 - **`/api/latest-update`**: Entry View des neuesten Newsletters oder Projektschritts (`call_to_action_url` verweist auf `/api/highlights`).
@@ -114,6 +127,7 @@ HTTP 404
 | Project Updates | `…/classes/ProjectWidget.php` |
 | Latest Update | `…/classes/LatestUpdate.php` |
 | Titelbilder | `…/classes/CoverImages.php` |
+| Horoskope, Ferienpass, Zähler | `…/classes/Horoscope.php`, `Ferienpass.php`, `AppRequests.php`; Seite `…/snippets/app/horoscope-list.php`; Routen `…/routes/app.php` |
 | Freigabe-Schalter | `site/blueprints/pages/project.yml` (`app_widget`) |
 | Tests | `…/tests/Unit/` (`ProjectWidgetTest`, `AppApiRoutesTest`, `LatestUpdateTest`, `CoverImagesTest`) |
 
