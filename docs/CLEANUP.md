@@ -199,6 +199,9 @@ Vorgehen (ein PR im Hauptrepo und ein Commit im Plugin je Schritt; Deployment-Re
 4. [ ] CSS: das Plugin liefert `rooms.css` über das Bundle des Hauptrepos oder über eigene Assets (offen, siehe Stylesheet-Bundle)
 5. [ ] Tests der Raumbuchung ins Plugin (PHPUnit), E2E-Seiten `rooms`/`room` bleiben im Hauptrepo, bis das Feature fertig ist
 
+### Feature: Project Updates für das App-Dashboard (2026-10-28)
+[APP-API.md](APP-API.md) beschreibt die Schnittstelle. Je freigegebenem Projekt (`app_widget` am Projekt) `GET /api/projects/<slug>/card.json` (Karte) und `…/index.json` (Update-Liste), dazu `GET /api/projects/index.json`. Entscheidungen: Opt-in je Projekt, Karte + Index (kein Detail-JSON, Einträge öffnen die Projektseite im Webview), stabile `id` aus der UUID. Code im Web-Plugin (`ProjectWidget`).
+
 ### Aufgaben
 - [x] `mmh-site` anlegen: `index.php`, `extensions.php`, `.gitignore`-Ausnahme, `src/` mit PSR-4 (`Mmh\Site\` → `site/plugins/mmh-site/src/`, über das `autoload` der Haupt-`composer.json`; nach dem Pull einmal `composer dump-autoload`). Erste Klasse: `Visibility` (aus `helpers.php`: `isTimedContentVisible()` und `mmhTimedContentFields()` sind jetzt `Visibility::isVisible()` und `::fields()`)
 - **Umzüge in Phase 4: je Baustein ein Commit (kein PR). Reihenfolge angepasst (2026-10-26):** `api-images` und `latest-update` gehören zur App-Schnittstelle und ziehen ins **Web-Plugin** (nicht nach `mmh-site`); Commit im Plugin-Repo, danach löschen im Hauptrepo (Site-Dateien haben Vorrang vor Plugin-Dateien: erst Plugin deployen). `oveda-event`/`events-api`: vorher klären (App oder Website), `newsletter-email` bleibt im Hauptrepo

@@ -42,6 +42,11 @@ tabs:
           subheadline:
             label: Subtitel
             type: text
+          app_widget:
+            type: toggle
+            label: Goslar-App
+            text: Updates im App-Dashboard anbieten
+            help: Stellt Karte und Update-Liste dieses Projekts unter /api/projects/{{ page.slug }}/ bereit (Format siehe docs/APP-API.md).
           project_status:
             type: select
             label: Projektzustand
