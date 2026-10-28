@@ -3,7 +3,9 @@
 /**
  * Site Hooks Configuration
  *
- * Define custom hooks for the MachMit!Haus website
+ * Only the room booking hook is left here; it moves into the plugin together
+ * with the rest of the (unfinished) room booking (docs/CLEANUP.md, phase 4).
+ * The other hooks: gs-mmh-web-plugin (forms) and mmh-site (publish dates).
  */
 
 use Kirby\Cms\App;
@@ -120,37 +122,6 @@ return [
                     }
                 }
             }
-        }
-    },
-    'dreamform.submitted:after' => function ($submission, $form) {
-        if (!$form) {
-            return;
-        }
-
-        // DreamForm stores new entries as drafts below the actual form page.
-        $entry = $form->drafts()
-            ->filterBy('intendedTemplate', 'submission')
-            ->sortBy('created', 'desc')
-            ->first();
-
-        if (!$entry) {
-            return;
-        }
-
-        if ($entry->status() === 'draft') {
-            $entry->changeStatus('unlisted');
-        }
-    },
-    /**
-     * Make sure that the publishing date of a content page is lower than the ending date
-     */
-    'page.update:before' => function ($newPage, $values, $strings) {
-
-        $publish = isset($values['publish_date']) ? strtotime($values['publish_date']) : null;
-        $end = isset($values['end_date']) ? strtotime($values['end_date']) : null;
-
-        if ($publish && $end && $end < $publish) {
-            throw new Exception('Das Enddatum darf nicht vor dem Veröffentlichungsdatum liegen.');
         }
     },
 ];

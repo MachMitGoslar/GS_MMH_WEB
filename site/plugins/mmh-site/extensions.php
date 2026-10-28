@@ -10,11 +10,18 @@
  * themselves. The rule lives in Mmh\Site\Visibility (src/Visibility.php).
  */
 
+use Mmh\Site\PublishDates;
 use Mmh\Site\Visibility;
 
 return [
     // Routes of the website (version, redirects, events, feed, not-allowed)
     'routes' => require __DIR__ . '/routes.php',
+    // The end of a timed page must not lie before its start
+    'hooks' => [
+        'page.update:before' => function ($newPage, $values, $strings) {
+            PublishDates::assertOrder($values);
+        },
+    ],
     'blockMethods' => [
         'isVisible' => fn () => Visibility::isVisible($this),
     ],

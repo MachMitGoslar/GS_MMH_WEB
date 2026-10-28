@@ -105,7 +105,7 @@ Neben den JSON-Endpunkten unter `/api/` liefert das Plugin ein paar Routen unter
 | `GET /app/ferienpass.json?data=<Programm>` | zufälliger Ferienpass-Termin als Karte; Programm 74, wenn `data` fehlt |
 | `GET /app/ferienpass_index.json?data=<Programm>` | alle Termine des Programms (Index View) |
 
-Fehler der Ferienpass-Schnittstelle kommen als `{"error": "…"}` mit HTTP 200. Anfragen an `/app/*` werden pro URL und Tag in der Tabelle `app_requests` gezählt (die Horoskop-Routen aktuell nicht, siehe `docs/CLEANUP.md`).
+Fehler der Ferienpass-Schnittstelle kommen als `{"error": "…"}` mit HTTP 200. Anfragen an `/app/*` werden pro URL und Tag in der Tabelle `app_requests` gezählt.
 
 ## Die übrigen Endpunkte
 
