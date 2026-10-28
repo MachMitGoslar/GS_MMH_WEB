@@ -2,8 +2,7 @@
 
 use Kirby\Toolkit\Str;
 use Mmh\Site\Oveda\Client;
-
-require_once __DIR__ . '/events-api.php';
+use Mmh\Site\Oveda\Events;
 
 /**
  * Internal detail page URL for an event date.
@@ -73,7 +72,7 @@ function mmhOvedaEventDetail(int $eventDateId): array|null
         'time_label' => mmhOvedaTimeLabel($start, $end, $allday),
         'duration_label' => mmhOvedaDurationLabel($start, $end, $allday),
         'countdown_label' => mmhOvedaCountdownLabel($start, $now),
-        'categories' => mmhOvedaEventCategories(['event' => $event]),
+        'categories' => Events::categories(['event' => $event]),
         'tags' => array_values(array_filter(array_map(
             'trim',
             explode(',', Client::cleanString($event['tags'] ?? '')),
@@ -392,7 +391,7 @@ function mmhOvedaEventOtherDates(array $detail, int $limit = 8): array
     }
 
     $today = (new DateTimeImmutable('today'))->format('Y-m-d');
-    $page = mmhOvedaEventDatePage($today, 1, $detail['title'], 50);
+    $page = Events::datePage($today, 1, $detail['title'], 50);
 
     if ($page['error'] !== null) {
         return [];

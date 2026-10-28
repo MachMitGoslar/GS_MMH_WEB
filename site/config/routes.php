@@ -1,5 +1,6 @@
 <?php
 
+use Kirby\Cms\Page;
 /**
  * Site Routes Configuration
  *
@@ -9,9 +10,8 @@
 use Kirby\Cms\Response;
 use Kirby\Database\Db;
 use Kirby\Http\Exceptions\NextRouteException;
-use Kirby\Cms\Page;
+use Mmh\Site\Oveda\Events;
 
-require_once __DIR__ . '/../controllers/events-api.php';
 require_once __DIR__ . '/../controllers/oveda-event.php';
 
 /**
@@ -119,7 +119,7 @@ return [
         'method' => 'GET',
         'action' => function () {
             $payload = json_encode(
-                mmhEventsApiPayload(),
+                Events::apiPayload(),
                 JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
             );
 

@@ -1,12 +1,13 @@
 <?php
 
+use Mmh\Site\Oveda\Events;
 use PHPUnit\Framework\TestCase;
 
 final class OvedaEventDetailTest extends TestCase
 {
     private static function normalized(string $date, array $overrides = []): array
     {
-        return mmhNormalizeOvedaEvent(array_replace_recursive([
+        return Events::normalize(array_replace_recursive([
             'id' => 1,
             'start' => $date . 'T10:00:00+01:00',
             'event' => [
@@ -26,7 +27,7 @@ final class OvedaEventDetailTest extends TestCase
             self::normalized('2030-01-01', ['id' => 3, 'event' => ['categories' => [['name' => 'Kinder']]]]),
         ];
 
-        $meta = mmhOvedaEventMeta($events, 40);
+        $meta = Events::meta($events, 40);
 
         $this->assertSame(
             [
@@ -56,7 +57,7 @@ final class OvedaEventDetailTest extends TestCase
             self::normalized('2030-01-03', ['id' => 3, 'event' => ['categories' => [['name' => 'Mitte']]]]),
         ];
 
-        $labels = array_column(array_slice(mmhOvedaEventMeta($events, 3)['filters'], 2), 'label');
+        $labels = array_column(array_slice(Events::meta($events, 3)['filters'], 2), 'label');
 
         $this->assertSame(['Zebra', 'Alpha', 'Mitte'], $labels);
     }

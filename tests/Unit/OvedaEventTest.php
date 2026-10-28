@@ -1,6 +1,7 @@
 <?php
 
 use Mmh\Site\Oveda\Client;
+use Mmh\Site\Oveda\Events;
 use PHPUnit\Framework\TestCase;
 
 final class OvedaEventTest extends TestCase
@@ -29,7 +30,7 @@ final class OvedaEventTest extends TestCase
 
     public function testNormalizeBuildsDisplayFields(): void
     {
-        $e = mmhNormalizeOvedaEvent(self::event(), '2026-03-07');
+        $e = Events::normalize(self::event(), '2026-03-07');
 
         $this->assertSame('Repair-Café', $e['title']);
         $this->assertSame('Bring kaputte Geräte mit.', $e['description']);
@@ -48,14 +49,14 @@ final class OvedaEventTest extends TestCase
 
     public function testNormalizeMarksOtherDaysAsNotToday(): void
     {
-        $e = mmhNormalizeOvedaEvent(self::event(), '2026-03-08');
+        $e = Events::normalize(self::event(), '2026-03-08');
 
         $this->assertFalse($e['is_today']);
     }
 
     public function testNormalizeHandlesAllDayEventsAndMissingData(): void
     {
-        $e = mmhNormalizeOvedaEvent([
+        $e = Events::normalize([
             'id' => 5,
             'start' => '2026-12-24T00:00:00+01:00',
             'allday' => true,
@@ -72,7 +73,7 @@ final class OvedaEventTest extends TestCase
 
     public function testNormalizeKeepsAbsolutePhotoUrls(): void
     {
-        $e = mmhNormalizeOvedaEvent(self::event([
+        $e = Events::normalize(self::event([
             'event' => ['photo' => ['image_url' => 'https://cdn.example/x.jpg']],
         ]), '2026-03-07');
 
@@ -81,13 +82,13 @@ final class OvedaEventTest extends TestCase
 
     public function testCategoriesAreDeduplicatedAndSonstigeAndOtherAreDropped(): void
     {
-        $this->assertSame(['Workshop', 'Kinder'], mmhOvedaEventCategories(self::event()));
+        $this->assertSame(['Workshop', 'Kinder'], Events::categories(self::event()));
     }
 
     public function testCategorySlug(): void
     {
-        $this->assertSame('kunst-kultur', mmhOvedaCategorySlug('Kunst & Kultur'));
-        $this->assertSame('familie-kinder', mmhOvedaCategorySlug('Familie & Kinder'));
+        $this->assertSame('kunst-kultur', Events::categorySlug('Kunst & Kultur'));
+        $this->assertSame('familie-kinder', Events::categorySlug('Familie & Kinder'));
     }
 
     public function testAbsoluteUrl(): void
