@@ -10,6 +10,8 @@
  * themselves. The rule lives in Mmh\Site\Visibility (src/Visibility.php).
  */
 
+use Kirby\Cms\Page;
+use Mmh\Site\BlockPreview;
 use Mmh\Site\Blocks\CardBlock;
 use Mmh\Site\PublishDates;
 use Mmh\Site\Visibility;
@@ -26,6 +28,36 @@ return [
         'page.update:before' => function ($newPage, $values, $strings) {
             PublishDates::assertOrder($values);
         },
+    ],
+    // Panel: the preview of a block is the website's own rendering (index.js)
+    'api' => [
+        'routes' => [
+            [
+                'pattern' => 'mmh-site/block-preview',
+                'method' => 'POST',
+                'auth' => true,
+                'action' => function () {
+                    $type = (string) kirby()->request()->get('type');
+                    $content = kirby()->request()->get('content');
+                    $model = (string) kirby()->request()->get('model');
+
+                    if (!BlockPreview::isPreviewable($type)) {
+                        throw new Kirby\Exception\NotFoundException('No preview for this block type');
+                    }
+
+                    $parent = null;
+
+                    if ($model !== '') {
+                        $found = $this->parent(trim($model, '/'));
+                        $parent = $found instanceof Page ? $found : null;
+                    }
+
+                    return [
+                        'html' => BlockPreview::document($type, is_array($content) ? $content : [], $parent),
+                    ];
+                },
+            ],
+        ],
     ],
     // Template of the block catalog (route in routes.php)
     'templates' => [
