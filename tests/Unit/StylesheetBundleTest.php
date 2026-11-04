@@ -1,12 +1,13 @@
 <?php
 
+use Mmh\Site\Stylesheet;
 use PHPUnit\Framework\TestCase;
 
 final class StylesheetBundleTest extends TestCase
 {
     private static function bundle(): string
     {
-        return mmhInlineStylesheet(__DIR__ . '/../fixtures/css/index.css');
+        return Stylesheet::inline(__DIR__ . '/../fixtures/css/index.css');
     }
 
     public function testRemoteImportsAreHoistedAndDeduplicated(): void
@@ -46,7 +47,7 @@ final class StylesheetBundleTest extends TestCase
 
     public function testStylesheetVersionIsTheNewestMtimeOfTheCssTree(): void
     {
-        $version = mmhStylesheetVersion();
+        $version = Stylesheet::version();
 
         $this->assertGreaterThan(1_600_000_000, $version);
         $this->assertLessThanOrEqual(time(), $version);

@@ -20,13 +20,12 @@
 
 use Kirby\Cms\Page;
 use Kirby\Cms\Site;
+use Mmh\Site\Models\HasCover;
 
 class HomePage extends Page
 {
-    public function cover()
-    {
-        return $this->content()->cover()->toFile() ?? $this->image();
-    }
+    use HasCover;
+
     public function projects(): Kirby\Cms\Pages
     {
         return $this->site()->page('projects')->children();

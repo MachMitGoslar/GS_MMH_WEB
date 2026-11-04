@@ -19,11 +19,9 @@
  */
 
 use Kirby\Cms\Page;
+use Mmh\Site\Models\HasCover;
 
 class DefaultPage extends Page
 {
-    public function cover()
-    {
-        return $this->content()->cover()->toFile() ?? $this->image();
-    }
+    use HasCover;
 }

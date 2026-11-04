@@ -1,0 +1,58 @@
+name: field.blocks.testimonial.name
+icon: account
+preview: testimonial
+fields:
+  quote:
+    label: Zitat
+    type: writer
+    marks: false
+    inline: false
+  color:
+    label: Textfarbe
+    type: radio
+    default: default
+    columns: 3
+    options:
+      default: Normal
+      project: Projektfarbe
+      gold: Gold
+  source:
+    label: Person
+    type: radio
+    default: free
+    columns: 2
+    options:
+      free: Freie Angaben
+      member: Aus dem Team
+  member:
+    label: Teammitglied
+    type: pages
+    max: 1
+    template: member
+    templates: member
+    query: site.find("team")
+    when:
+      source: member
+  image:
+    label: Portrait
+    type: files
+    layout: list
+    max: 1
+    uploads: image
+    when:
+      source: free
+  name:
+    label: Name
+    type: text
+    when:
+      source: free
+  jobPosition:
+    label: Position
+    type: text
+    when:
+      source: free
+  company:
+    label: Organisation
+    type: text
+    when:
+      source: free

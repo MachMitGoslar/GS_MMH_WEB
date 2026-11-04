@@ -30,11 +30,11 @@ $cards = [
   <?php foreach ($pages as $page) : ?>
         <?php
         [$snippet, $name] = $cards[$page->intendedTemplate()->name()] ?? ['utilities/page-card', 'page'];
-        snippet($snippet, [
-        $name => $page,
-        'tag' => 'li',
-        'featured' => $featured === 'all' || ($featured === 'first' && $page === $pages->first()),
-        ]);
-        ?>
+      snippet($snippet, [
+      $name => $page,
+      'tag' => 'li',
+      'featured' => $featured === 'all' || ($featured === 'first' && $page === $pages->first()),
+      ]);
+      ?>
   <?php endforeach ?>
 </ul>

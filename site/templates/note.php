@@ -43,8 +43,8 @@
     <!-- Author Section -->
     <?php
     $authors = $page->author()->toPages();
-    if ($authors->count() > 0) :
-        ?>
+if ($authors->count() > 0) :
+    ?>
       <section class="note-authors grid content">
         <div class="grid-item" data-span="1/1">
           <div class="authors-list">
@@ -116,9 +116,9 @@
 
         <!-- Related Notes -->
         <?php
-        $relatedNotes = $page->siblings(false)->listed()->shuffle()->limit(3);
-        if ($relatedNotes->count() > 0) :
-            ?>
+    $relatedNotes = $page->siblings(false)->listed()->shuffle()->limit(3);
+if ($relatedNotes->count() > 0) :
+    ?>
           <div class="sidebar-section">
             <h4 class="font-subheadline sidebar-title">Weitere Einträge</h4>
             <div class="related-notes">

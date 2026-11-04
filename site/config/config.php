@@ -7,7 +7,6 @@
 
 // Load site helper functions
 require_once __DIR__ . '/../helpers.php';
-require_once __DIR__ . '/../controllers/newsletter-email.php';
 
 return [
     'debug' => true,
@@ -69,11 +68,4 @@ return [
 
     // Load custom API routes (higher priority)
     'api' => require __DIR__ . '/api.php',
-
-    // Load custom routes
-    'routes' => require __DIR__ . '/routes.php',
-
-    // Load custom hooks
-    'hooks' => require __DIR__ . '/hooks.php',
-
 ];

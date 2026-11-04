@@ -1,0 +1,33 @@
+name: Button
+icon: circle
+default:
+  link: https://machmit.goslar.de
+  linktext: Jetzt anmelden!
+  target: false
+  buttontype:
+    color: primary
+    size: regular
+    style: pill
+
+tabs:
+  hyperlink:
+    fields:
+      link:
+        type: link
+        placeholder: Test
+      linktext:
+          type: text
+          placeholder: Link Button Text
+          marks: false
+      target:
+        type: toggle
+        text: Open in new window?
+  style:
+    fields:
+      buttontype:
+        extends: fields/buttonType
+        label: Link Button
+        default:
+          color: primary
+          size: regular
+          style: pill

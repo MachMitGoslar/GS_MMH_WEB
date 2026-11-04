@@ -84,7 +84,7 @@ if ($timeLabel === '') {
           <div>
             <p class="eventsListItem__meta-line"><?= esc($timeLabel) ?><?php if ($location !== '') :
                 ?> · <?= esc(Str::short($location, 34, '…')) ?><?php
-                                                 endif ?></p>
+            endif ?></p>
             <h3 class="font-subheadline"><?= esc(Str::short($title, 68, '…')) ?></h3>
             <?php if ($description !== '') : ?>
               <p class="eventsListItem__description"><?= esc(Str::short($description, 110, '…')) ?></p>
@@ -100,13 +100,13 @@ if ($timeLabel === '') {
   <?php else : ?>
       <?php
         $displayTitle = $variant === 'event-list' ? $title : Str::short($title, 50, '…');
-        $listTimeLabel = trim((string) ($event['list_time_label'] ?? ''));
-        if ($listTimeLabel === '') {
-            $listTimeLabel = ($eventData['allday'] ?? false)
-              ? $start->format('d.m.Y') . ', ganztägig'
-              : $start->format('d.m.Y, H:i') . ' Uhr';
-        }
-        ?>
+      $listTimeLabel = trim((string) ($event['list_time_label'] ?? ''));
+      if ($listTimeLabel === '') {
+          $listTimeLabel = ($eventData['allday'] ?? false)
+            ? $start->format('d.m.Y') . ', ganztägig'
+            : $start->format('d.m.Y, H:i') . ' Uhr';
+      }
+      ?>
     <a href="<?= esc($url) ?>">
       <time class="font-footnote mb-2"><?= esc($listTimeLabel) ?></time>
       <h3 class="font-subheadline mb-2"><?= esc($displayTitle) ?></h3>

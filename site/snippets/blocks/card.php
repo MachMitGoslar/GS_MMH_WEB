@@ -7,42 +7,15 @@
  * @var \Kirby\Cms\Block $block
  */
 
-use Kirby\Cms\File;
+$link = $block->link();
+$linkStyle = $block->linkStyle();
+$hasButtonLink = $linkStyle === 'button';
+$hasHeaderLink = $linkStyle === 'header';
 
-$cardType = $block->cardType()->value();
-$page = $cardType === 'page' ? $block->page()->toPage() : null;
-
-// Link target: page cards link to the selected page, manual cards to the link field
-$link = $page ? $page->url() : $block->link()->toUrl();
-$linkMode = $block->linkMode()->or('none')->value();
-
-if (empty($link)) {
-    $linkMode = 'none';
-}
-
-$hasButtonLink = $linkMode === 'button';
-$hasHeaderLink = $linkMode === 'header' && $hasButtonLink === false;
-
-// Cover image: page models may return a File, a Field or nothing at all
-if ($page) {
-    $cover = $page->cover();
-
-    if ($cover instanceof File) {
-        $image = $cover;
-    } elseif (is_object($cover) === true && method_exists($cover, 'toFile') === true) {
-        $image = $cover->toFile();
-    } else {
-        $image = null;
-    }
-
-    $image ??= $page->image();
-} else {
-    $image = $block->image()->toFile();
-}
-
-$headline = $page ? $page->headline()->or($page->title()) : $block->headline();
-$subheadline = $page ? $page->subheadline() : $block->subheadline();
-$text = $cardType === 'manual' ? $block->description_content() : ($page ? $page->text() : null);
+$image = $block->image();
+$headline = $block->headline();
+$subheadline = $block->subheadline();
+$text = $block->body();
 
 // Footer button styling, same structure as the button block
 $buttonType = $block->buttontype()->toObject();

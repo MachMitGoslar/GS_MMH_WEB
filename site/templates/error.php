@@ -1,6 +1,7 @@
 <?php
 
 use Kirby\Cms\Pages;
+
 /**
  * Error page template
  * @var Pages $navigation

@@ -153,15 +153,15 @@ if ($detail['is_free'] === true || $detail['price_info'] !== '') {
         <?php snippet('utilities/page-title', [
           'title' => esc($detail['title']),
           'before' => function () use ($detail) {
-            if ($detail['countdown_label'] !== null && $detail['is_past'] === false) {
-                snippet('utilities/chip', ['label' => esc($detail['countdown_label']), 'theme' => 'accent']);
-            }
-            if ($detail['is_free'] === true) {
-                snippet('utilities/chip', ['label' => 'Kostenlos', 'theme' => 'free']);
-            }
-            foreach ($detail['categories'] as $category) {
-                snippet('utilities/chip', ['label' => esc($category)]);
-            }
+              if ($detail['countdown_label'] !== null && $detail['is_past'] === false) {
+                  snippet('utilities/chip', ['label' => esc($detail['countdown_label']), 'theme' => 'accent']);
+              }
+              if ($detail['is_free'] === true) {
+                  snippet('utilities/chip', ['label' => 'Kostenlos', 'theme' => 'free']);
+              }
+              foreach ($detail['categories'] as $category) {
+                  snippet('utilities/chip', ['label' => esc($category)]);
+              }
           },
         ]) ?>
       <?php endslot() ?>

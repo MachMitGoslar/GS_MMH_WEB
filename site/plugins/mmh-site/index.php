@@ -6,4 +6,4 @@
  * Might be a starting point to reintegrate distributed logic back from gs-mmh-web-repository.
  */
 
-Kirby::plugin('mmh/site', require __DIR__ . '/extensions.php');
+Kirby::plugin('gs-mmh/mmh-site', require __DIR__ . '/extensions.php');

@@ -10,12 +10,12 @@
  */
 
 $badgeThemes = [
-  "Rückblick" => "recap",
-  "Aktuell" => "current",
-  "Vorschau" => "upcoming",
-  "Nachrichten" => "news",
+  'Rückblick' => 'recap',
+  'Aktuell' => 'current',
+  'Vorschau' => 'upcoming',
+  'Nachrichten' => 'news',
 ];
-$badgeTheme = $badgeThemes[$badge] ?? "recap";
+$badgeTheme = $badgeThemes[$badge] ?? 'recap';
 $badgeIcon = $badgeIcon ?? null;
 $footerText = $footerText ?? null;
 $footerIcon = $footerIcon ?? null;

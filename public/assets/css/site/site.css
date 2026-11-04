@@ -27,7 +27,6 @@
 @import url('./components/projectTeamStrip.css');
 @import url('./components/projectFormModal.css');
 @import url('./components/pageCtaModal.css');
-@import url('./components/rooms.css');
 
 /* Project color: falls back to the primary brand color unless a project
    sets its own (see templates/project.php). */

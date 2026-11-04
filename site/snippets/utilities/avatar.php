@@ -31,7 +31,7 @@ $initial = mb_strtoupper(mb_substr($name, 0, 1));
 <?php if ($image) : ?>
     <?php
       $avatar = mmhAvatarImage($image, $size);
-      $focus = $image->focus()->isNotEmpty() ? $image->focus() : null;
+    $focus = $image->focus()->isNotEmpty() ? $image->focus() : null;
     if ($focus) {
         [$fx, $fy] = array_pad(explode(' ', trim($focus->value())), 2, '50%');
         $style = 'object-position: ' . $fx . ' ' . $fy;

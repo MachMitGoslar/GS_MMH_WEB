@@ -3,7 +3,7 @@
 /**
  * Blocks: renders the visible blocks, each in its anchor wrapper.
  *
- * Blocks hidden by their publish/end dates are skipped (isTimedContentVisible).
+ * Blocks hidden by their publish/end dates are skipped (Mmh\Site\Visibility).
  *
  * A block's `theme` and `variant` fields (fields/blockTheme.yml, per-block variants)
  * become data-theme / data-variant on the wrapper: themes set surface tokens

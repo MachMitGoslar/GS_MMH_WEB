@@ -1,5 +1,7 @@
 <?php
 
+use Mmh\Site\Models\HasCover;
+
 /**
  * A "Themenfeld" — a topic landing page that gathers the projects assigned to
  * it. Projects are NOT children of this page: they keep living under
@@ -8,10 +10,7 @@
  */
 class ThemePage extends Page
 {
-    public function cover()
-    {
-        return $this->content()->get('cover')->toFile() ?? $this->image();
-    }
+    use HasCover;
 
     /**
      * All projects assigned to this topic, newest project step first.

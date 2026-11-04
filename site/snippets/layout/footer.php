@@ -44,6 +44,13 @@
             </ul>
         </section>
         <?php endif ?>
+        <section class="flex flex-column grid-item-span2 footer-credit">
+            <h3 class="font-subheadline mb-2">Powered by:</h3>
+            <a href="https://getkirby.com" target="_blank" rel="noopener" class="footer-credit__link" aria-label="Kirby CMS – getkirby.com">
+                <img src="<?= url('assets/svg/kirby-logo.svg') ?>" alt="Kirby CMS" class="footer-credit__logo" width="36" height="42" loading="lazy">
+            </a>
+            <p class="font-footnote mt-2"><a href="https://getkirby.com" target="_blank" rel="noopener">getkirby.com</a></p>
+        </section>
     </section>
     <?= js('assets/js/lightbox/fslightbox.js') ?>
 
