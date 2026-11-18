@@ -50,15 +50,36 @@
     },
     render(h) {
       if (!this.html) {
-        return h('div', { class: 'k-block-type-preview' }, this.loaded ? 'Keine Vorschau' : '');
+        return h(
+          'div',
+          { class: 'k-block-type-preview' },
+          this.loaded ? 'Keine Vorschau' : ''
+        );
       }
-      return h('div', { class: 'k-block-type-preview', on: { dblclick: () => this.$emit('open') } }, [
-        h('iframe', {
-          attrs: { srcdoc: this.html, sandbox: 'allow-same-origin', tabindex: -1, title: 'Vorschau' },
-          style: { width: '100%', height: this.height + 'px', border: 0, pointerEvents: 'none' },
-          on: { load: this.fit },
-        }),
-      ]);
+      return h(
+        'div',
+        {
+          class: 'k-block-type-preview',
+          on: { dblclick: () => this.$emit('open') },
+        },
+        [
+          h('iframe', {
+            attrs: {
+              srcdoc: this.html,
+              sandbox: 'allow-same-origin',
+              tabindex: -1,
+              title: 'Vorschau',
+            },
+            style: {
+              width: '100%',
+              height: this.height + 'px',
+              border: 0,
+              pointerEvents: 'none',
+            },
+            on: { load: this.fit },
+          }),
+        ]
+      );
     },
   };
 
