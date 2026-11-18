@@ -1,7 +1,7 @@
 <?php
 
-use Mmh\Site\SeoMetadata;
 use Kirby\Cms\Page;
+use Mmh\Site\SeoMetadata;
 use PHPUnit\Framework\TestCase;
 
 class SeoMetadataTest extends TestCase
