@@ -6,7 +6,6 @@ namespace Mmh\Site;
 
 use Kirby\Cms\Fieldsets;
 use Kirby\Cms\Page;
-use Throwable;
 
 /**
  * Panel preview of a block: the same snippet the website uses, inside the
@@ -41,7 +40,7 @@ final class BlockPreview
             $fieldset = Fieldsets::factory([$type], ['parent' => $parent ?? Catalog::page()])->first();
 
             return $fieldset->form($fieldset->fields(), $content)->toStoredValues();
-        } catch (Throwable) {
+        } catch (\Throwable) {
             return $content;
         }
     }
@@ -58,7 +57,7 @@ final class BlockPreview
             $html = snippet('utilities/blocks', [
                 'blocks' => Catalog::blocks($type, $content, $parent),
             ], true);
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             $html = '<p>' . esc($e->getMessage()) . '</p>';
         }
 
