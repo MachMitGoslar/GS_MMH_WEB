@@ -1,14 +1,15 @@
 <?php
 
-use Kirby\Cms\File;
-use Kirby\Exception\NotFoundException;
-use Mmh\Site\Mediathek;
-
 /**
  * Mediathek in the panel: a view button "In Album verschieben" on library
  * images (files/mediathek-image.yml → buttons) and its dialog. Kirby itself
  * cannot move files between pages; Mediathek::move() does.
  */
+
+use Kirby\Cms\File;
+use Kirby\Exception\NotFoundException;
+use Mmh\Site\Mediathek;
+
 return function () {
     $find = function (string $uuid): File {
         $file = kirby()->file('file://' . $uuid);
