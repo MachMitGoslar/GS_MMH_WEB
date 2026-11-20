@@ -74,4 +74,19 @@ final class ModelCoverTest extends TestCase
         // Current behaviour (kept): once the field exists, an empty value means "no cover".
         $this->assertNull(self::page(MemberPage::class, ['cover' => ''])->cover());
     }
+
+    #[DataProvider('models')]
+    public function testCoverFocusBelongsToTheChosenCover(string $class): void
+    {
+        $page = self::page($class, ['cover' => 'anderes.jpg', 'cover_focus' => '20% 80%']);
+
+        $this->assertSame('20% 80%', $page->coverFocus());
+    }
+
+    #[DataProvider('models')]
+    public function testNoCoverFocusWithoutAChosenCover(string $class): void
+    {
+        $this->assertNull(self::page($class, ['cover_focus' => '20% 80%'])->coverFocus());
+        $this->assertNull(self::page($class, ['cover' => 'anderes.jpg'])->coverFocus());
+    }
 }

@@ -33,6 +33,8 @@ class SeoMetadata
         'booking-requests',
         'error',
         'forms',
+        'mediathek',
+        'mediathek-album',
         'newsletter-modal',
         'newsletter-unsubscribe',
         'signage',

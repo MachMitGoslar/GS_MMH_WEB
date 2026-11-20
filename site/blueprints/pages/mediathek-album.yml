@@ -1,0 +1,33 @@
+title: Album
+icon: folder
+num: zero
+options:
+  changeTemplate: false
+status:
+  unlisted:
+    label: Aktiv
+    text: Album ist in der Mediathek sichtbar.
+
+columns:
+  - width: 1/1
+    sections:
+      meta:
+        type: fields
+        fields:
+          description:
+            label: Beschreibung
+            type: text
+            placeholder: Wofür ist dieses Album gedacht?
+      images:
+        label: Bilder
+        type: files
+        template: mediathek-image
+        layout: cards
+        size: small
+        search: true
+        limit: 60
+        sortBy: filename asc
+        text: "{{ file.alt.or(file.filename) }}"
+        info: "{{ file.tags }}"
+        image:
+          cover: true

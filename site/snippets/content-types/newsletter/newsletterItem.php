@@ -37,6 +37,7 @@ if ($heroImage && !$heroImage->exists()) {
         'ratio' => '2:1',
         'sizes' => '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw',
         'alt' => $newsletter->title()->value(),
+        'focus' => method_exists($newsletter, 'coverFocus') ? $newsletter->coverFocus() : null,
     ],
     'meta' => function () use ($publishTimestamp) {
         ?>

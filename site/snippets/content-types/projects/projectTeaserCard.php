@@ -9,6 +9,7 @@
 <?php snippet('utilities/card', [
     'variant' => 'project',
     'image' => $project->cover(),
+    'imageOptions' => ['focus' => $project->coverFocus()],
     'meta' => function () use ($project) {
         ?>
         <?php snippet('utilities/meta-line', slots: true) ?>

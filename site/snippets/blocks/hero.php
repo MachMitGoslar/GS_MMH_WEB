@@ -16,5 +16,6 @@ if ($image === null) {
 
 snippet('sections/hero', [
     'image' => $image,
+    'focus' => $block->image_focus()->value() ?: null,
     'variant' => $block->variant()->or('wide')->value(),
 ]);

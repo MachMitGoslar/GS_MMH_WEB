@@ -13,6 +13,7 @@
 use Kirby\Cms\Page;
 use Mmh\Site\BlockPreview;
 use Mmh\Site\Blocks\CardBlock;
+use Mmh\Site\Mediathek;
 use Mmh\Site\ProjectStatus;
 use Mmh\Site\PublishDates;
 use Mmh\Site\PublishedDate;
@@ -37,6 +38,16 @@ return [
         },
         'page.changeStatus:after' => function (Page $newPage, Page $oldPage) {
             PublishedDate::afterStatusChange($newPage, $oldPage);
+        },
+        // Mediathek: no duplicate uploads, no deleting images still in use
+        'file.create:before' => function (Kirby\Cms\File $file, $upload) {
+            Mediathek::beforeCreate($file, $upload);
+        },
+        'file.create:after' => function (Kirby\Cms\File $file) {
+            Mediathek::afterCreate($file);
+        },
+        'file.delete:before' => function (Kirby\Cms\File $file) {
+            Mediathek::guardDelete($file);
         },
     ],
     // Panel: the preview of a block is the website's own rendering (index.js)
@@ -87,6 +98,14 @@ return [
     'layoutMethods' => [
         'isVisible' => fn () => Visibility::isVisible($this),
     ],
+    'fileMethods' => [
+        // "Verwendet in: …" for the panel (files/mediathek-image.yml)
+        'mediathekUsage' => fn (): string => Mediathek::usageInfo($this),
+    ],
+    // Panel field: focus point of an image for one usage (index.js)
+    'fields' => [
+        'image-focus' => require __DIR__ . '/fields/image-focus.php',
+    ],
     'pageMethods' => [
         'isVisible' => fn () => Visibility::isVisible($this),
         // Resolved SEO and social sharing values of this page
@@ -94,6 +113,8 @@ return [
     ],
     // Site-wide SEO defaults, where no page context exists
     'siteMethods' => [
+        // All images of the Mediathek (empty when it does not exist yet)
+        'mediathekImages' => fn () => Mediathek::images(),
         'seo' => fn (): SeoMetadata => new SeoMetadata(null),
     ],
     // Panel labels of the block types (blueprints/blocks/<type>.yml)

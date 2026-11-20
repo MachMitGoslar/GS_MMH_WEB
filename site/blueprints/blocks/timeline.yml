@@ -30,8 +30,7 @@ fields:
         required: true
         placeholder: Kurze Beschreibung des Ereignisses
       image:
+        extends: fields/mediathek-image
         label: Bild
-        type: files
-        query: page.images
-        uploads: true
+        query: page.images.add(site.mediathekImages)
         required: false

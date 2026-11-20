@@ -20,7 +20,11 @@ $cover = $page ? $page->cover() : null;
     'class' => $class ?? 'grid-item',
     'attrs' => ['data-span' => $dataSpan],
     'image' => $cover && $cover->isNotEmpty() ? $cover : null,
-    'imageOptions' => ['sizes' => '(min-width: 768px) 33vw, 100vw', 'alt' => $cover ? (string) $cover->alt() : ''],
+    'imageOptions' => [
+        'sizes' => '(min-width: 768px) 33vw, 100vw',
+        'alt' => $cover ? (string) $cover->alt() : '',
+        'focus' => method_exists($page, 'coverFocus') ? $page->coverFocus() : null,
+    ],
     'meta' => $page->date()->isNotEmpty() ? function () use ($page) {
         ?>
         <?php snippet('utilities/meta-line', slots: true) ?>

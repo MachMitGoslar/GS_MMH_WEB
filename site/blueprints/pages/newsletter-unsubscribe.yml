@@ -15,6 +15,7 @@ columns:
         extends: fields/cover
         label: Hero-Bild
         help: Titelbild für die Abmelde-Seite
+      cover_focus: fields/cover-focus
       headline:
         type: text
         label: Headline

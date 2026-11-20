@@ -157,14 +157,10 @@ tabs:
                 help: Wird verwendet, wenn eine Seite keine eigene Beschreibung hat und auch aus dem Inhalt keine erzeugt werden kann.
               social_image:
                 label: Standard-Bild für Link-Vorschau
-                type: files
-                max: 1
-                layout: cards
+                extends: fields/mediathek-image
                 image:
                   ratio: 1200/630
                   cover: true
-                uploads:
-                  template: image
                 help: Wird verwendet, wenn eine Seite weder ein eigenes Social-Bild noch ein Titelbild hat. Ohne Angabe greift das gebrandete Standardbild.
               twitter_handle:
                 label: X / Twitter Handle

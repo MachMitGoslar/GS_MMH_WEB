@@ -1,0 +1,17 @@
+# Bildfeld, das die Mediathek anbietet. Neue Uploads landen im „Eingang“
+# der Mediathek. Verwendung: `extends: fields/mediathek-image` (+ label, max …).
+type: files
+query: site.mediathekImages
+multiple: false
+search: true
+layout: cards
+size: small
+text: "{{ file.alt.or(file.filename) }}"
+info: "{{ file.parent.title }} · {{ file.tags }}"
+image:
+  cover: true
+uploads:
+  # Ohne Mediathek (z. B. vor der Einrichtung) landen Uploads an der Seite
+  parent: kirby.page('mediathek/eingang') ?? model
+  template: mediathek-image
+empty: Kein Bild gewählt – aus der Mediathek wählen oder neu hochladen.

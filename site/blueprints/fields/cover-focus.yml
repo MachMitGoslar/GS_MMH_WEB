@@ -1,0 +1,5 @@
+# Bildausschnitt des Titelbilds für diese Seite (leer = Fokus der Mediathek)
+label: Bildausschnitt Titelbild
+type: image-focus
+image: cover
+help: Leer = Fokuspunkt aus der Mediathek. Ins Bild klicken, um für diese Seite einen eigenen Ausschnitt zu setzen.

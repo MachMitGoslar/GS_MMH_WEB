@@ -21,6 +21,7 @@ tabs:
             type: fields
             fields:
               cover: fields/cover
+              cover_focus: fields/cover-focus
               headline:
                 type: text
                 placeholder: site.title

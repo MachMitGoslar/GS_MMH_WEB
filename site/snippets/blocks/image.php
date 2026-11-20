@@ -31,6 +31,7 @@ if ($block->location() == 'web') {
           'role' => 'content',
           'sizes' => '(min-width: 1200px) 1200px, 100vw',
           'alt' => $alt->value(),
+          'focus' => $block->image_focus()->value() ?: null,
       ]) ?>
     <?php else : ?>
       <img src="<?= $src ?>" alt="<?= $alt->esc() ?>" loading="lazy" decoding="async">

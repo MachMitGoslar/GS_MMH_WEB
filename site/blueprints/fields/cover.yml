@@ -1,9 +1,6 @@
-# Fields can be defined in their own field blueprints
-# and reused across multiple blueprints
-# This field is used in the album.yml and note.yml blueprints
-# See http://getkirby.com/docs/guide/blueprints/extending-blueprints#reusing-and-extending-single-fields
-type: files
-multiple: false
-query: page.images.template('image')
-uploads:
-  template: image
+# Titelbild einer Seite: Bilder der Seite und der Mediathek. Neue Uploads
+# landen im „Eingang" der Mediathek. Den Ausschnitt für diese Seite setzt
+# das Feld `cover_focus` (fields/cover-focus).
+extends: fields/mediathek-image
+label: Titelbild
+query: page.images.add(site.mediathekImages)

@@ -34,6 +34,7 @@ tabs:
           cover:
             extends: fields/cover
             required: true
+          cover_focus: fields/cover-focus
           headline:
             type: text
             label: Titel

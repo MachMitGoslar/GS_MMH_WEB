@@ -1,0 +1,294 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mmh\Site;
+
+use Kirby\Cms\File;
+use Kirby\Cms\Page;
+use Kirby\Cms\Pages;
+use Kirby\Exception\DuplicateException;
+use Kirby\Exception\PermissionException;
+use Kirby\Filesystem\F;
+
+/**
+ * Central image library ("Mediathek").
+ *
+ * Images live in albums below the page `mediathek`; fields everywhere pick
+ * them through `fields/mediathek-image` and reference them by UUID, so an
+ * image can be moved between albums without breaking anything.
+ *
+ * This class guards the library:
+ * - duplicates: an image upload that already exists in the library is
+ *   rejected with a hint where to find it (hash of the original upload,
+ *   stored as `source_hash`, because large uploads get resized on create)
+ * - usage: which pages reference an image (`file://<uuid>` in their content)
+ * - deletion: an image that is still in use cannot be deleted
+ */
+final class Mediathek
+{
+    public const ROOT = 'mediathek';
+    public const INBOX = 'mediathek/eingang';
+    public const FILE_TEMPLATE = 'mediathek-image';
+
+    /**
+     * Parents whose uploads are never checked (form uploads of visitors).
+     */
+    private const IGNORED_ROOTS = ['forms'];
+
+    /**
+     * Hashes of uploads between the `before` and `after` create hook.
+     *
+     * @var array<string, string>
+     */
+    private static array $pendingHashes = [];
+
+    /**
+     * Usage index per request: file uuid => page ids.
+     *
+     * @var array<string, string[]>|null
+     */
+    private static ?array $usageIndex = null;
+
+    public static function root(): ?Page
+    {
+        return \kirby()->page(self::ROOT);
+    }
+
+    /**
+     * All images of the library.
+     *
+     * @return \Kirby\Cms\Files<File>
+     */
+    public static function images(): \Kirby\Cms\Files
+    {
+        $root = self::root();
+
+        return $root
+            ? $root->index(true)->files()->add($root->files())->filterBy('type', 'image')
+            : new \Kirby\Cms\Files([]);
+    }
+
+    public static function isInLibrary(File $file): bool
+    {
+        $parent = $file->parent();
+
+        return $parent instanceof Page
+            && ($parent->id() === self::ROOT || str_starts_with($parent->id(), self::ROOT . '/'));
+    }
+
+    /**
+     * Hash of the original image: the stored `source_hash`, else the file
+     * itself (images that were never resized).
+     */
+    public static function hashOf(File $file): ?string
+    {
+        $stored = trim((string) $file->content()->get('source_hash')->value());
+        if ($stored !== '') {
+            return $stored;
+        }
+
+        return F::exists($file->root()) ? sha1_file($file->root()) ?: null : null;
+    }
+
+    /**
+     * The library image with the given hash, if any.
+     */
+    public static function findByHash(string $hash, ?File $except = null): ?File
+    {
+        foreach (self::images() as $image) {
+            if ($except !== null && $image->id() === $except->id()) {
+                continue;
+            }
+
+            if (self::hashOf($image) === $hash) {
+                return $image;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * `file.create:before`: rejects image uploads that already exist in the
+     * library and remembers the hash of the original upload.
+     *
+     * @param object $upload Kirby's upload asset (has sha1() and type())
+     */
+    public static function beforeCreate(File $file, object $upload): void
+    {
+        if (!method_exists($upload, 'type') || $upload->type() !== 'image') {
+            return;
+        }
+
+        $parent = $file->parent();
+        foreach (self::IGNORED_ROOTS as $ignored) {
+            if ($parent instanceof Page && ($parent->id() === $ignored || str_starts_with($parent->id(), $ignored . '/'))) {
+                return;
+            }
+        }
+
+        $hash = $upload->sha1();
+        $existing = self::findByHash($hash);
+
+        // Re-uploading the very same file under the same name replaces it;
+        // Kirby handles that itself.
+        if ($existing !== null && $existing->id() !== $file->id()) {
+            throw new DuplicateException(
+                'Dieses Bild liegt schon in der Mediathek: ' . self::describe($existing)
+                . ' – bitte dort auswählen statt erneut hochzuladen.',
+            );
+        }
+
+        self::$pendingHashes[$file->id()] = $hash;
+    }
+
+    /**
+     * `file.create:after`: stores the hash of the original upload with the
+     * file (library images only), so resized images are still recognised.
+     */
+    public static function afterCreate(File $file): void
+    {
+        $hash = self::$pendingHashes[$file->id()] ?? null;
+        unset(self::$pendingHashes[$file->id()]);
+
+        if ($hash === null || !self::isInLibrary($file)) {
+            return;
+        }
+
+        \kirby()->impersonate('kirby', fn () => $file->save(['source_hash' => $hash]));
+    }
+
+    /**
+     * `file.delete:before`: an image that is still referenced stays.
+     */
+    public static function guardDelete(File $file): void
+    {
+        if (!self::isInLibrary($file)) {
+            return;
+        }
+
+        $labels = self::usageLabels($file);
+        if ($labels === []) {
+            return;
+        }
+
+        throw new PermissionException(
+            'Das Bild wird noch verwendet in: ' . implode(', ', $labels)
+            . '. Bitte zuerst dort entfernen.',
+        );
+    }
+
+    /**
+     * Pages whose content references the file by UUID.
+     */
+    public static function usage(File $file): Pages
+    {
+        $uuid = $file->content()->get('uuid')->value();
+        if (!$uuid) {
+            return new Pages([]);
+        }
+
+        $ids = self::usageIndex()['file://' . $uuid] ?? [];
+        $pages = [];
+
+        foreach ($ids as $id) {
+            if ($id !== 'site' && ($page = \kirby()->page($id))) {
+                $pages[] = $page;
+            }
+        }
+
+        return new Pages($pages);
+    }
+
+    /**
+     * Whether the site settings (e.g. the default social image) use the file.
+     */
+    public static function usedBySite(File $file): bool
+    {
+        $uuid = $file->content()->get('uuid')->value();
+
+        return $uuid && in_array('site', self::usageIndex()['file://' . $uuid] ?? [], true);
+    }
+
+    /**
+     * Human readable usage for the panel.
+     */
+    public static function usageInfo(File $file): string
+    {
+        $labels = self::usageLabels($file);
+
+        return match (count($labels)) {
+            0 => 'Noch nicht verwendet.',
+            1 => 'Verwendet in: ' . $labels[0],
+            default => 'Verwendet an ' . count($labels) . ' Stellen: ' . implode(', ', $labels),
+        };
+    }
+
+    /**
+     * Titles of everything that uses the file.
+     *
+     * @return string[]
+     */
+    public static function usageLabels(File $file): array
+    {
+        $labels = array_map(
+            fn (Page $page) => $page->title()->value(),
+            self::usage($file)->values(),
+        );
+
+        if (self::usedBySite($file)) {
+            $labels[] = 'Website-Einstellungen';
+        }
+
+        return $labels;
+    }
+
+    /**
+     * Drops the per-request usage index (after content changes).
+     */
+    public static function flush(): void
+    {
+        self::$usageIndex = null;
+    }
+
+    /**
+     * file uuid => ids of pages whose content contains it.
+     *
+     * @return array<string, string[]>
+     */
+    private static function usageIndex(): array
+    {
+        if (self::$usageIndex !== null) {
+            return self::$usageIndex;
+        }
+
+        $index = [];
+        $site = \kirby()->site();
+
+        foreach ([$site, ...$site->index(true)->values()] as $model) {
+            $raw = implode("\n", array_map(
+                fn ($value) => is_scalar($value) ? (string) $value : (string) json_encode($value),
+                $model->content()->toArray(),
+            ));
+
+            if (preg_match_all('!file://[A-Za-z0-9_-]+!', $raw, $matches)) {
+                foreach (array_unique($matches[0]) as $reference) {
+                    // The site has no page id; '' resolves to the home page
+                    // in Kirby, so it is stored as 'site'.
+                    $index[$reference][] = $model instanceof Page ? $model->id() : 'site';
+                }
+            }
+        }
+
+        return self::$usageIndex = $index;
+    }
+
+    private static function describe(File $file): string
+    {
+        $album = $file->parent() instanceof Page ? $file->parent()->title()->value() : '';
+        $label = $file->content()->get('alt')->value() ?: $file->filename();
+
+        return trim($album . ' / ' . $label, ' /');
+    }
+}
