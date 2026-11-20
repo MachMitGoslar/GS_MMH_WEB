@@ -92,6 +92,15 @@ final class MediathekTest extends TestCase
         Mediathek::beforeCreate($this->newFile('mediathek/eingang', 'gross-neu.jpg'), $this->upload('ORIGINAL-BYTES'));
     }
 
+    public function testReUploadOfTheStoredFileIsRejected(): void
+    {
+        // Kirby re-encodes on create: the stored bytes differ from the
+        // original, but a downloaded copy of the stored file is the same image
+        $this->expectException(DuplicateException::class);
+
+        Mediathek::beforeCreate($this->newFile('projekt', 'download.jpg'), $this->upload('RESIZED-BYTES'));
+    }
+
     public function testNewImageIsAccepted(): void
     {
         Mediathek::beforeCreate($this->newFile('mediathek/eingang', 'neu.jpg'), $this->upload('NEW-BYTES'));

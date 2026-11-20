@@ -21,6 +21,10 @@ use Mmh\Site\SeoMetadata;
 use Mmh\Site\Visibility;
 
 return [
+    // Plugin cache (Mediathek: hashes of library images)
+    'options' => [
+        'cache' => true,
+    ],
     // Routes of the website (version, redirects, events, feed, not-allowed)
     'routes' => require __DIR__ . '/routes.php',
     // Panel area to send a newsletter (uses the recipients of gs-mmh-web-plugin)

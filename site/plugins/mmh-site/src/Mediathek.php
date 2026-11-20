@@ -88,7 +88,22 @@ final class Mediathek
             return $stored;
         }
 
-        return F::exists($file->root()) ? sha1_file($file->root()) ?: null : null;
+        return self::fileHash($file);
+    }
+
+    /**
+     * Every hash under which an image counts as known: the original upload
+     * and the stored file (Kirby re-encodes images on create, so someone
+     * downloading and re-uploading a library image brings the stored bytes).
+     *
+     * @return string[]
+     */
+    public static function hashesOf(File $file): array
+    {
+        return array_values(array_unique(array_filter([
+            trim((string) $file->content()->get('source_hash')->value()),
+            self::fileHash($file),
+        ])));
     }
 
     /**
@@ -101,12 +116,43 @@ final class Mediathek
                 continue;
             }
 
-            if (self::hashOf($image) === $hash) {
+            if (in_array($hash, self::hashesOf($image), true)) {
                 return $image;
             }
         }
 
         return null;
+    }
+
+    /**
+     * sha1 of the stored file, cached per path and modification time (the
+     * library holds hundreds of images; hashing them on every upload would
+     * be slow).
+     */
+    private static function fileHash(File $file): ?string
+    {
+        $root = $file->root();
+        if (!F::exists($root)) {
+            return null;
+        }
+
+        $key = 'hash-' . sha1($root . '|' . F::modified($root));
+
+        try {
+            $cache = \kirby()->cache('gs-mmh.mmh-site');
+        } catch (\Throwable) {
+            $cache = null;
+        }
+
+        $hash = $cache?->get($key);
+        if (!is_string($hash)) {
+            $hash = sha1_file($root) ?: null;
+            if ($hash !== null) {
+                $cache?->set($key, $hash);
+            }
+        }
+
+        return $hash;
     }
 
     /**
