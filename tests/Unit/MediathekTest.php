@@ -148,6 +148,53 @@ final class MediathekTest extends TestCase
         $this->assertSame('Noch nicht verwendet.', Mediathek::usageInfo(kirby()->file('mediathek/raeume/frei.jpg')));
     }
 
+    public function testMoveIntoAnotherAlbumKeepsUuidAndContent(): void
+    {
+        $moved = Mediathek::move($this->foyer(), kirby()->page('mediathek/eingang'));
+
+        $this->assertSame('mediathek/eingang/foyer.jpg', $moved->id());
+        $this->assertFileExists($this->root . '/content/mediathek/eingang/foyer.jpg');
+        $this->assertFileExists($this->root . '/content/mediathek/eingang/foyer.jpg.txt');
+        $this->assertFileDoesNotExist($this->root . '/content/mediathek/raeume/foyer.jpg');
+        $this->assertFileDoesNotExist($this->root . '/content/mediathek/raeume/foyer.jpg.txt');
+        $this->assertSame('foyer1', $moved->content()->get('uuid')->value());
+        $this->assertSame('Das Foyer', $moved->alt()->value());
+        $this->assertSame(['home', 'about'], Mediathek::usage($moved)->pluck('id'));
+
+        // the next request resolves references by UUID to the new place
+        $fresh = kirby()->clone();
+        $this->assertSame('mediathek/eingang/foyer.jpg', $fresh->file('file://foyer1')?->id());
+    }
+
+    public function testMoveAvoidsNameClashes(): void
+    {
+        $this->write($this->root . '/content/mediathek/eingang/foyer.jpg', 'OTHER');
+
+        $moved = Mediathek::move($this->foyer(), kirby()->page('mediathek/eingang'));
+
+        $this->assertSame('foyer-2.jpg', $moved->filename());
+        $this->assertSame('OTHER', file_get_contents($this->root . '/content/mediathek/eingang/foyer.jpg'));
+    }
+
+    public function testOnlyLibraryImagesMoveIntoAlbums(): void
+    {
+        $this->write($this->root . '/content/3_projekt/bild.jpg', 'X');
+
+        $this->expectException(Kirby\Exception\InvalidArgumentException::class);
+        Mediathek::move(kirby()->file('projekt/bild.jpg'), kirby()->page('mediathek/eingang'));
+    }
+
+    public function testTargetMustBeAnAlbum(): void
+    {
+        $this->expectException(Kirby\Exception\InvalidArgumentException::class);
+        Mediathek::move($this->foyer(), kirby()->page('projekt'));
+    }
+
+    public function testAlbumsOfTheLibrary(): void
+    {
+        $this->assertSame(['mediathek/eingang', 'mediathek/raeume'], Mediathek::albums()->pluck('id'));
+    }
+
     private function foyer(): File
     {
         return kirby()->file('mediathek/raeume/foyer.jpg');

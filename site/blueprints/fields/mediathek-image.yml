@@ -7,7 +7,7 @@ search: true
 layout: cards
 size: small
 text: "{{ file.alt.or(file.filename) }}"
-info: "{{ file.parent.title }} · {{ file.tags }}"
+info: "{{ file.mediathekInfo }}"
 image:
   cover: true
 uploads:

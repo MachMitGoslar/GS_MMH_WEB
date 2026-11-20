@@ -1,5 +1,11 @@
 title: Mediathek-Bild
 
+# „In Album verschieben“ kommt aus mmh-site (areas/mediathek.php)
+buttons:
+  - open
+  - mediathek-move
+  - settings
+
 accept:
   type: image
   maxsize: 15000000

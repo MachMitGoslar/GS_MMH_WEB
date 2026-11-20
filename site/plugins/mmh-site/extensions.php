@@ -30,6 +30,8 @@ return [
     // Panel area to send a newsletter (uses the recipients of gs-mmh-web-plugin)
     'areas' => [
         'newsletter-mail' => require __DIR__ . '/areas/newsletter-mail.php',
+        // Mediathek: "In Album verschieben" (view button + dialog)
+        'site' => require __DIR__ . '/areas/mediathek.php',
     ],
     // Hooks of the website: dates, project archive
     'hooks' => [
@@ -105,6 +107,11 @@ return [
     'fileMethods' => [
         // "Verwendet in: …" for the panel (files/mediathek-image.yml)
         'mediathekUsage' => fn (): string => Mediathek::usageInfo($this),
+        // "Album · Schlagworte" in the image pickers (fields/mediathek-image.yml)
+        'mediathekInfo' => fn (): string => implode(' · ', array_filter([
+            $this->parent()?->title()->value(),
+            $this->content()->get('tags')->value(),
+        ])),
     ],
     // Panel field: focus point of an image for one usage (index.js)
     'fields' => [

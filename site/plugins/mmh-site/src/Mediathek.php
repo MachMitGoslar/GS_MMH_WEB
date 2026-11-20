@@ -7,7 +7,9 @@ namespace Mmh\Site;
 use Kirby\Cms\File;
 use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
+use Kirby\Content\VersionId;
 use Kirby\Exception\DuplicateException;
+use Kirby\Exception\InvalidArgumentException;
 use Kirby\Exception\PermissionException;
 use Kirby\Filesystem\F;
 
@@ -24,12 +26,15 @@ use Kirby\Filesystem\F;
  *   stored as `source_hash`, because large uploads get resized on create)
  * - usage: which pages reference an image (`file://<uuid>` in their content)
  * - deletion: an image that is still in use cannot be deleted
+ * - moving: Kirby cannot move files between pages; move() does it for
+ *   library images (file + content, UUID stays, so references keep working)
  */
 final class Mediathek
 {
     public const ROOT = 'mediathek';
     public const INBOX = 'mediathek/eingang';
     public const FILE_TEMPLATE = 'mediathek-image';
+    public const ALBUM_TEMPLATE = 'mediathek-album';
 
     /**
      * Parents whose uploads are never checked (form uploads of visitors).
@@ -223,6 +228,85 @@ final class Mediathek
             'Das Bild wird noch verwendet in: ' . implode(', ', $labels)
             . '. Bitte zuerst dort entfernen.',
         );
+    }
+
+    /**
+     * Albums of the library (for the move dialog).
+     */
+    public static function albums(): Pages
+    {
+        $root = self::root();
+
+        return $root
+            ? $root->childrenAndDrafts()->filterBy('intendedTemplate', self::ALBUM_TEMPLATE)
+            : new Pages([]);
+    }
+
+    /**
+     * Moves a library image into another album. File, content (all
+     * versions) and UUID move along; references by UUID keep working.
+     * A name that is taken in the target album gets a number appended.
+     */
+    public static function move(File $file, Page $album): File
+    {
+        if (!self::isInLibrary($file)) {
+            throw new InvalidArgumentException('Nur Bilder der Mediathek lassen sich verschieben.');
+        }
+
+        if ($album->intendedTemplate()->name() !== self::ALBUM_TEMPLATE || !self::isInLibrary(new File(['filename' => 'x', 'parent' => $album]))) {
+            throw new InvalidArgumentException('Das Ziel ist kein Album der Mediathek.');
+        }
+
+        if ($file->parent()->id() === $album->id()) {
+            return $file;
+        }
+
+        $filename = self::freeFilename($album, $file->filename());
+        $target = new File(['filename' => $filename, 'parent' => $album]);
+
+        // media versions and the UUID cache point to the old place
+        $file->unpublish();
+        $file->uuid()?->clear();
+
+        foreach ([VersionId::latest(), VersionId::changes()] as $version) {
+            $from = $file->storage()->contentFiles($version);
+            $to = $target->storage()->contentFiles($version);
+
+            foreach ($from as $i => $path) {
+                if (F::exists($path) && isset($to[$i])) {
+                    F::move($path, $to[$i]);
+                }
+            }
+        }
+
+        if (!F::move($file->root(), $target->root())) {
+            throw new InvalidArgumentException('Das Bild konnte nicht verschoben werden.');
+        }
+
+        $moved = new File(['filename' => $filename, 'parent' => $album]);
+        $moved->uuid()?->populate();
+        self::flush();
+
+        // let git-content commit both folders (it listens to these hooks)
+        \kirby()->trigger('file.changeName:after', ['newFile' => $moved, 'oldFile' => $file]);
+        \kirby()->trigger('file.changeName:after', ['newFile' => $file, 'oldFile' => $file]);
+
+        return $moved;
+    }
+
+    private static function freeFilename(Page $album, string $filename): string
+    {
+        $name = F::name($filename);
+        $extension = F::extension($filename);
+        $candidate = $filename;
+        $n = 2;
+
+        while (F::exists($album->root() . '/' . $candidate)) {
+            $candidate = $name . '-' . $n . '.' . $extension;
+            $n++;
+        }
+
+        return $candidate;
     }
 
     /**
