@@ -1,6 +1,5 @@
 <?php
 
-use Kirby\Cms\App;
 use Kirby\Cms\File;
 use Kirby\Exception\NotFoundException;
 use Mmh\Site\Mediathek;
@@ -10,9 +9,9 @@ use Mmh\Site\Mediathek;
  * images (files/mediathek-image.yml → buttons) and its dialog. Kirby itself
  * cannot move files between pages; Mediathek::move() does.
  */
-return function (App $kirby) {
+return function () {
     $find = function (string $uuid): File {
-        $file = $kirby->file('file://' . $uuid);
+        $file = kirby()->file('file://' . $uuid);
 
         if (!$file instanceof File || !Mediathek::isInLibrary($file)) {
             throw new NotFoundException('Bild nicht gefunden');
@@ -70,7 +69,8 @@ return function (App $kirby) {
                         ],
                     ];
                 },
-                'submit' => function (string $uuid) use ($find, $kirby) {
+                'submit' => function (string $uuid) use ($find) {
+                    $kirby = kirby();
                     $file = $find($uuid);
                     $album = $kirby->page((string) $kirby->request()->get('album'));
 
