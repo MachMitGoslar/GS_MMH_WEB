@@ -19,6 +19,7 @@ tabs:
         fields:
           cover:
             extends: fields/cover
+          cover_focus: fields/cover-focus
       - width: 1/2
         fields:
           headline:

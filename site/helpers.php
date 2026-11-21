@@ -48,9 +48,10 @@ if (!function_exists('mmhAvatarImage')) {
      *
      * @param \Kirby\Cms\File $image
      * @param int $size Target square box size in pixels
+     * @param string|null $focus Focus point of this usage ("x% y%"), else the file's
      * @return array{url: string, fit: string}
      */
-    function mmhAvatarImage($image, int $size): array
+    function mmhAvatarImage($image, int $size, ?string $focus = null): array
     {
         $width = $image->width();
         $height = $image->height();
@@ -58,7 +59,7 @@ if (!function_exists('mmhAvatarImage')) {
 
         if ($isPortraitOrSquare) {
             return [
-                'url' => $image->crop($size, $size)->url(),
+                'url' => ($focus ? $image->crop($size, $size, $focus) : $image->crop($size, $size))->url(),
                 'fit' => 'cover',
             ];
         }
@@ -67,6 +68,31 @@ if (!function_exists('mmhAvatarImage')) {
             'url' => $image->resize($size, $size)->url(),
             'fit' => 'contain',
         ];
+    }
+}
+
+if (!function_exists('mmhImageFocus')) {
+    /**
+     * Focus point of an image for one usage: the usage's own focus (field
+     * `image-focus`, "x% y%") wins, otherwise the focus set on the file in
+     * the Mediathek. Null when neither is set.
+     *
+     * @param \Kirby\Cms\File $file
+     * @param string|\Kirby\Content\Field|null $override
+     */
+    function mmhImageFocus($file, $override = null): ?string
+    {
+        $pattern = '/^(\d{1,3}(?:\.\d+)?)% (\d{1,3}(?:\.\d+)?)%$/';
+
+        foreach ([$override, $file?->focus()] as $candidate) {
+            $value = trim((string) (is_object($candidate) && method_exists($candidate, 'value') ? $candidate->value() : $candidate));
+
+            if ($value !== '' && preg_match($pattern, $value)) {
+                return $value;
+            }
+        }
+
+        return null;
     }
 }
 

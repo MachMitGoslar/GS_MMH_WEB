@@ -55,12 +55,10 @@ tabs:
               - abgeschlossen
             width: 1/2
           image:
+            extends: fields/mediathek-image
             label: Bild
-            type: files
-            query: page.images
-            multiple: false
-            uploads:
-              template: image
+            query: page.images.add(site.mediathekImages)
+          image_focus: fields/image-focus
           headline:
             label: Anriss
             placeholder: "{{ page.title }}"

@@ -16,11 +16,9 @@ tabs:
     icon: text
     fields:
       cover:
+        extends: fields/cover
         label: Titelbild
-        type: files
-        extends: fields/blocks/image
         help: Das Bild wird als Vorschaubild für den Newsletter verwendet
-        max: 1
         width: 1/2
       published:
         label: Veröffentlichungsdatum
@@ -59,9 +57,9 @@ tabs:
             type: textarea
             required: true
           image:
+            extends: fields/mediathek-image
             label: Bild
-            type: files
-            query: page.images
+            query: page.images.add(site.mediathekImages)
             required: true
 
       # Blog Einträge

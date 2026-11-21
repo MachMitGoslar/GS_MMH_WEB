@@ -163,6 +163,20 @@ return [
     ],
 
     /**
+     * The Mediathek is a panel-only image library: its pages never render
+     * on the website (the images themselves stay reachable via /media).
+     */
+    [
+        'pattern' => ['mediathek', 'mediathek/(:all)'],
+        'action' => function () {
+            $error = site()->errorPage();
+            kirby()->response()->code(404);
+
+            return $error;
+        },
+    ],
+
+    /**
      * Block catalog: every block type in every variant, for editors only
      * (guests get the normal 404). Not linked anywhere and not indexed.
      */

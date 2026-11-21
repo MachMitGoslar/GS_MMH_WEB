@@ -11,6 +11,7 @@ $countAll = $theme->projects()->count();
 <?php snippet('utilities/card', [
     'variant' => 'theme',
     'image' => $theme->cover(),
+    'imageOptions' => ['focus' => $theme->coverFocus()],
     'title' => $theme->headline()->or($theme->title()),
     'subtitle' => $theme->subheadline()->isNotEmpty() ? $theme->subheadline() : null,
     'body' => function () use ($countActive, $countAll) {

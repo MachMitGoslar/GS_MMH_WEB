@@ -17,8 +17,8 @@ $tags = $note->tags()->split();
     'size' => $featured ? 'featured' : 'regular',
     'image' => $note->cover(),
     'imageOptions' => $featured
-        ? ['role' => 'content', 'ratio' => '12:5', 'sizes' => '(min-width: 1200px) 1200px, 100vw', 'alt' => $note->title()->value()]
-        : ['ratio' => '3:2', 'alt' => $note->title()->value()],
+        ? ['role' => 'content', 'ratio' => '12:5', 'sizes' => '(min-width: 1200px) 1200px, 100vw', 'alt' => $note->title()->value(), 'focus' => $note->coverFocus()]
+        : ['ratio' => '3:2', 'alt' => $note->title()->value(), 'focus' => $note->coverFocus()],
     'overlay' => $authors->count() > 0 ? function () use ($authors, $featured) {
         snippet('utilities/avatar-stack', ['persons' => $authors, 'size' => $featured ? 96 : 80]);
     } : null,

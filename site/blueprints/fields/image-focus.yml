@@ -1,0 +1,5 @@
+# Bildausschnitt für das Feld `image` (Blöcke). Leer = Fokus der Mediathek.
+label: Bildausschnitt
+type: image-focus
+image: image
+help: Leer = Fokuspunkt aus der Mediathek.

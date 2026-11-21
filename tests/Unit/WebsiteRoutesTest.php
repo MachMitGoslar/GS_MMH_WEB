@@ -27,6 +27,7 @@ final class WebsiteRoutesTest extends TestCase
             '"newsletter.xml"',
             '"sitemap.xml"',
             '"robots.txt"',
+            '["mediathek","mediathek\/(:all)"]',
             '"catalog"',
             '"\/not-allowed"',
         ], $patterns);

@@ -34,11 +34,13 @@ fields:
     when:
       source: member
   image:
+    extends: fields/mediathek-image
     label: Portrait
-    type: files
-    layout: list
-    max: 1
-    uploads: image
+    query: page.images.add(site.mediathekImages)
+    when:
+      source: free
+  image_focus:
+    extends: fields/image-focus
     when:
       source: free
   name:

@@ -13,7 +13,7 @@ $role = $member
     : implode(', ', array_filter([$block->jobPosition()->value(), $block->company()->value()]));
 $color = in_array($block->color()->value(), ['project', 'gold'], true) ? $block->color()->value() : 'default';
 $hasPerson = $name !== '' || $role !== '';
-$avatarData = $member ? ['person' => $member] : ['name' => $name, 'image' => $block->image()->toFile()];
+$avatarData = $member ? ['person' => $member] : ['name' => $name, 'image' => $block->image()->toFile(), 'focus' => $block->image_focus()->value() ?: null];
 ?>
 <figure class="c-testimonial" data-color="<?= esc($color) ?>">
   <blockquote class="c-testimonial__quote">

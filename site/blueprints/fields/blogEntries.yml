@@ -20,9 +20,9 @@ fields:
     type: textarea
     required: true
   image:
+    extends: fields/mediathek-image
     label: Bild
-    type: files
-    query: page.images
+    query: page.images.add(site.mediathekImages)
     required: true
   link:
     label: Link

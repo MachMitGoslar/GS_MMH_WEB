@@ -75,6 +75,21 @@ class CardBlock extends Block
         return $image ?? $page->image();
     }
 
+    /**
+     * Focus point of the card image for this card: the block's own focus
+     * for manual cards, the page's cover focus for page cards.
+     */
+    public function imageFocus(): ?string
+    {
+        $page = $this->cardPage();
+
+        if ($page === null) {
+            return $this->content()->get('image_focus')->value() ?: null;
+        }
+
+        return method_exists($page, 'coverFocus') ? $page->coverFocus() : null;
+    }
+
     public function headline(): Field
     {
         $page = $this->cardPage();

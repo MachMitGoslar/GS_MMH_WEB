@@ -61,16 +61,10 @@ module.exports = [
   { name: 'about', label: 'Über uns', path: '/uber-uns' },
   { name: 'contact', path: '/contact', visual: false },
   { name: 'informations', label: 'Mehr Informationen', path: '/informations' },
-  {
-    name: 'rooms',
-    path: '/rooms',
-    known: 'Rooms feature unfinished: HTTP 500 in bookingForm.php:80',
-  },
-  {
-    name: 'room',
-    path: '/rooms/empfangsraum',
-    known: 'Rooms feature unfinished: HTTP 500',
-  },
+  // Rendern sauber, seit das Rooms-Plugin fertig ist; Buchungsformulare mit
+  // Datumsangaben bleiben aus dem visuellen Vergleich.
+  { name: 'rooms', path: '/rooms', visual: false },
+  { name: 'room', path: '/rooms/empfangsraum', visual: false },
   { name: 'impressum', label: 'Impressum', path: '/impressum' },
   {
     name: 'not-allowed',
