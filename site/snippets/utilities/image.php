@@ -9,6 +9,8 @@
  * @var string|null $alt  Alt-Text überschreiben ('' = dekorativ)
  * @var bool $lazy  lazy loading (Standard: true; false für Hero/LCP)
  * @var string|null $ratio  Zuschnitt, z. B. '2:1' (Standard: kein Zuschnitt)
+ * @var string|\Kirby\Content\Field|null $focus  Fokuspunkt dieser Verwendung ("x% y%");
+ *      leer = Fokus der Datei (Mediathek)
  */
 
 use Kirby\Toolkit\Html;
@@ -31,10 +33,10 @@ $widths = [
     'thumb' => [200, 400],
 ][$role] ?? [400, 800, 1200];
 
-$focus = $file->focus()->isNotEmpty() ? $file->focus() : null;
+$focus = mmhImageFocus($file, $focus ?? null);
 $style = null;
 if ($focus) {
-    [$fx, $fy] = array_pad(explode(' ', trim($focus->value())), 2, '50%');
+    [$fx, $fy] = array_pad(explode(' ', $focus), 2, '50%');
     $style = 'object-position: ' . $fx . ' ' . $fy;
 }
 
@@ -56,7 +58,7 @@ if ($ratio && preg_match('/^(\d+):(\d+)$/', $ratio, $m)) {
     $height = fn (int $w) => (int) round($w * $m[2] / $m[1]);
 }
 
-$build = function (?string $format) use ($file, $widths, $height): array {
+$build = function (?string $format) use ($file, $widths, $height, $focus): array {
     $set = [];
     $last = null;
     $widths[] = min((int) $file->width(), max($widths));
@@ -73,7 +75,8 @@ $build = function (?string $format) use ($file, $widths, $height): array {
         $options = ['width' => $w, 'format' => $format];
         if ($height) {
             $options['height'] = $height($w);
-            $options['crop'] = true;
+            // Kirby crops around a focal point given as "x% y%"
+            $options['crop'] = $focus ?? true;
         }
         $thumb = $file->thumb(array_filter($options, fn ($v) => $v !== null));
         $set[] = $thumb->url() . ' ' . $w . 'w';

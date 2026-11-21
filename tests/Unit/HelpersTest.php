@@ -180,4 +180,25 @@ final class HelpersTest extends TestCase
         $this->assertMatchesRegularExpression('/^\d+\.\d+\.\d+/', mmhVersion());
         $this->assertSame($package['version'], mmhVersion());
     }
+
+    public function testImageFocusOfTheUsageWinsOverTheFile(): void
+    {
+        $file = new Kirby\Cms\File([
+            'filename' => 'bild.jpg',
+            'parent' => new Kirby\Cms\Page(['slug' => 'seite']),
+            'content' => ['focus' => '30.5% 70%'],
+        ]);
+
+        $this->assertSame('10% 20%', mmhImageFocus($file, '10% 20%'));
+        $this->assertSame('30.5% 70%', mmhImageFocus($file, ''));
+        $this->assertSame('30.5% 70%', mmhImageFocus($file, null));
+        $this->assertSame('30.5% 70%', mmhImageFocus($file, 'oben links'));
+    }
+
+    public function testImageFocusIsNullWithoutAnyFocus(): void
+    {
+        $file = new Kirby\Cms\File(['filename' => 'bild.jpg', 'parent' => new Kirby\Cms\Page(['slug' => 'seite'])]);
+
+        $this->assertNull(mmhImageFocus($file));
+    }
 }

@@ -22,15 +22,11 @@ columns:
             help: Wird in Suchergebnissen und in der Link-Vorschau angezeigt. Leer lassen, um automatisch aus dem Seiteninhalt zu erzeugen.
           social_image:
             label: Bild für Link-Vorschau
-            type: files
-            max: 1
-            layout: cards
-            query: page.images
+            extends: fields/mediathek-image
+            query: page.images.add(site.mediathekImages)
             image:
               ratio: 1200/630
               cover: true
-            uploads:
-              template: image
             help: Wird auf 1200 × 630 px zugeschnitten. Leer lassen, um das Titelbild der Seite zu verwenden.
 
   sidebar:

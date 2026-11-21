@@ -2,13 +2,10 @@ name: Hero-Bild
 icon: image
 fields:
   image:
+    extends: fields/mediathek-image
     label: Bild
-    type: files
-    layout: list
-    max: 1
     required: true
-    uploads:
-      template: image
+  image_focus: fields/image-focus
   variant:
     label: Format
     type: select

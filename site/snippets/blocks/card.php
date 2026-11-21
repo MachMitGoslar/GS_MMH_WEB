@@ -29,7 +29,7 @@ snippet('utilities/card', [
     'tag' => 'div',
     'orientation' => $block->variant()->value() === 'vertical' ? 'vertical' : 'horizontal',
     'image' => $image,
-    'imageOptions' => ['ratio' => '1:1', 'alt' => $image ? $image->alt()->value() : ''],
+    'imageOptions' => ['ratio' => '1:1', 'alt' => $image ? $image->alt()->value() : '', 'focus' => $block->imageFocus()],
     'placeholder' => false,
     'imageHref' => $hasHeaderLink ? $link : null,
     'imageLabel' => $hasHeaderLink ? ($headline->value() ?: ($image ? $image->alt()->value() : '')) : null,

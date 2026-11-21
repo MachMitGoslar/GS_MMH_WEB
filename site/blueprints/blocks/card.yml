@@ -16,9 +16,13 @@ fields:
       cardType: page
 
   image:
-    label: Image
-    type: files
-    uploads: image
+    extends: fields/mediathek-image
+    label: Bild
+    query: page.images.add(site.mediathekImages)
+    when:
+      cardType: manual
+  image_focus:
+    extends: fields/image-focus
     when:
       cardType: manual
   headline:

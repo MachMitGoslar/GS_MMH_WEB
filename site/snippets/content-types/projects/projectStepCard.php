@@ -44,9 +44,11 @@ if ($isTimeline) {
     ];
 } else {
     // Prefer the step's own image, fall back to the project's cover
-    $cover = $project_step->content()->get('image')->toFile() ?? $project->cover();
+    $stepImage = $project_step->content()->get('image')->toFile();
+    $cover = $stepImage ?? $project->cover();
     $card += [
         'image' => $cover,
+        'imageOptions' => ['focus' => $stepImage ? $project_step->content()->get('image_focus')->value() : $project->coverFocus()],
         'imageHref' => $url,
         'imageLabel' => $project->title()->value(),
         'overlay' => $showOutlook ? function () {

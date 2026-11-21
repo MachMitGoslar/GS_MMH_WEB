@@ -17,4 +17,17 @@ trait HasCover
     {
         return $this->content()->get('cover')->toFile() ?? $this->image();
     }
+
+    /**
+     * Focus point of the chosen cover for this page (field `cover_focus`,
+     * "x% y%"). Null = the focus of the file applies.
+     */
+    public function coverFocus(): ?string
+    {
+        if ($this->content()->get('cover')->toFile() === null) {
+            return null;
+        }
+
+        return $this->content()->get('cover_focus')->value() ?: null;
+    }
 }

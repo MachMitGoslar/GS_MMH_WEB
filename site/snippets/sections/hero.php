@@ -5,11 +5,14 @@
  * @var bool $placeholder Show the brand placeholder when there is no image (default: random photo)
  * @var \Kirby\Cms\File|null $image Image to show instead of the page's cover (hero block)
  * @var string|null $variant wide (default) or standard (16:9)
+ * @var string|null $focus Focus point of the image for this usage ("x% y%")
  */
 
 $placeholder ??= false;
 $image ??= null;
 $variant ??= 'wide';
+// The page's cover brings the page's own focus, a given image the caller's
+$focus ??= $image === null && method_exists($page, 'coverFocus') ? $page->coverFocus() : null;
 
 $heroImages = $image ?? $page->cover(); // check if cover() exists and then run the toFiles() method
 ?>
@@ -24,6 +27,7 @@ $heroImages = $image ?? $page->cover(); // check if cover() exists and then run 
                 'role' => 'hero',
                 'ratio' => '2:1',
                 'lazy' => false,
+                'focus' => $focus,
             ]) ?>
 
     <?php elseif ($placeholder) : ?>

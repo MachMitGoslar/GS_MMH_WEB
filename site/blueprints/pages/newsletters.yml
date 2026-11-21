@@ -12,6 +12,7 @@ tabs:
             extends: fields/cover
             label: Hero-Bild
             help: Hauptbild für die Newsletter-Seite
+          cover_focus: fields/cover-focus
           
           title:
             label: Titel

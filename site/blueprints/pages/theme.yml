@@ -15,6 +15,7 @@ tabs:
         fields:
           cover:
             extends: fields/cover
+          cover_focus: fields/cover-focus
           topic:
             type: select
             label: Themen-Slug

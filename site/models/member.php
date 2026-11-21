@@ -17,6 +17,18 @@ class MemberPage extends Page
         return $this->image();
     }
 
+    /**
+     * Focus point of the cover for this person (field `cover_focus`).
+     */
+    public function coverFocus(): ?string
+    {
+        if ($this->content()->get('cover')->toFile() === null) {
+            return null;
+        }
+
+        return $this->content()->get('cover_focus')->value() ?: null;
+    }
+
     public function hasAnyContactInfo()
     {
         return $this->email()->isNotEmpty() || $this->phone()->isNotEmpty();

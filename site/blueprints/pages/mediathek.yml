@@ -1,0 +1,46 @@
+title: Mediathek
+icon: images
+options:
+  changeSlug: false
+  changeTemplate: false
+  delete: false
+  duplicate: false
+status:
+  unlisted:
+    label: Aktiv
+    text: Die Mediathek ist nur im Panel sichtbar.
+
+columns:
+  - width: 2/3
+    sections:
+      albums:
+        label: Alben
+        type: pages
+        template: mediathek-album
+        layout: cards
+        size: small
+        image:
+          query: page.images.first
+          cover: true
+        info: "{{ page.images.count }} Bilder"
+        empty: Noch keine Alben.
+        help: Jedes Bild liegt in genau einem Album. Neue Uploads landen im „Eingang“ – von dort ins passende Album verschieben.
+
+  - width: 1/3
+    sections:
+      about:
+        type: fields
+        fields:
+          info_mediathek:
+            type: info
+            label: So funktioniert die Mediathek
+            theme: info
+            text: |
+              Bildfelder auf der Website und im Signage bieten die Bilder der Mediathek an. Hochgeladene Bilder landen automatisch im **Eingang**.
+
+              **Ordnung halten:**
+              - Alt-Text ist Pflicht
+              - Schlagworte vergeben (z. B. *Außenansicht*, *Team*, *Logo*)
+              - Bilder aus dem Eingang ins passende Album verschieben (Bild öffnen → „In Album verschieben“)
+
+              Doppelte Uploads werden erkannt. Bilder, die noch verwendet werden, lassen sich nicht löschen.

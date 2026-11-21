@@ -36,6 +36,7 @@ tabs:
                 extends: fields/cover
                 label: Titelbild
                 help: Optionales Bild für den Tagebucheintrag
+              cover_focus: fields/cover-focus
                 
               # Main title field
               title:

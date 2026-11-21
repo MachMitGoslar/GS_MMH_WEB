@@ -1,0 +1,69 @@
+title: Mediathek-Bild
+
+# „In Album verschieben“ kommt aus mmh-site (areas/mediathek.php)
+buttons:
+  - open
+  - mediathek-move
+  - settings
+
+accept:
+  type: image
+  maxsize: 15000000
+
+# Große Originale werden beim Upload auf max. 2560px verkleinert
+create:
+  width: 2560
+  height: 2560
+
+columns:
+  - width: 1/2
+    sections:
+      content:
+        type: fields
+        fields:
+          alt:
+            label: Alternativtext
+            type: text
+            required: true
+            help: Ein Satz, der das Bild beschreibt (Barrierefreiheit, SEO und Suche in der Mediathek).
+          tags:
+            label: Schlagworte
+            type: tags
+            options:
+              type: query
+              query: site.mediathekImages.pluck('tags', ',', true)
+            help: Helfen beim Wiederfinden, z. B. Außenansicht, Team, Logo, Veranstaltung.
+          caption:
+            label: Beschreibung
+            type: textarea
+            size: small
+            buttons: false
+  - width: 1/2
+    sections:
+      meta:
+        type: fields
+        fields:
+          usage_info:
+            label: Verwendung
+            type: info
+            theme: notice
+            text: "{{ file.mediathekUsage }}"
+          photographer:
+            label: Fotograf/in
+            type: text
+            width: 2/3
+          license:
+            label: Lizenz
+            type: select
+            width: 1/3
+            options:
+              - Unsplash
+              - CC BY 4.0
+              - CC BY-SA 4.0
+              - CC BY-NC 4.0
+              - CC BY-ND 4.0
+          link:
+            label: Link
+            type: url
+          source_hash:
+            type: hidden
