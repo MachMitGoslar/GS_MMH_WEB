@@ -200,6 +200,9 @@
     const teamMembersList = Array.from(teamStrip.querySelectorAll('.project-team-member'));
     const teamCount = teamMembersList.length;
     const primaryTriggerMember = teamStrip.querySelector('.project-team-member');
+    // Abstand zum unteren Rand. Ist der Neurabot aktiv, sitzt seine Chat-Blase
+    // unten rechts (16px Rand + ~64px Höhe), also den Streifen darüber setzen.
+    const bottomOffset = <?= $kirby->option('neuraflow.active') ? 104 : 24 ?>;
     let ticking = false;
     let isFloating = false;
     let collapseTimer = null;
@@ -265,7 +268,7 @@
       teamStrip.classList.add('is-floating');
       teamStrip.style.position = 'fixed';
       teamStrip.style.right = '1.5rem';
-      teamStrip.style.bottom = '1.5rem';
+      teamStrip.style.bottom = `${bottomOffset}px`;
       teamStrip.style.left = 'auto';
       teamStrip.style.top = 'auto';
       teamStrip.style.zIndex = '999';
@@ -309,8 +312,7 @@
           const footerRect = footer.getBoundingClientRect();
           const footerOverlap = window.innerHeight - footerRect.top;
           const footerGap = 16;
-          const viewportBottomOffset = 24;
-          const stopOffset = footerOverlap - viewportBottomOffset + footerGap;
+          const stopOffset = footerOverlap - bottomOffset + footerGap;
 
           if (stopOffset > 0) {
             teamStrip.style.transform = `translateY(-${stopOffset}px)`;
